@@ -2,7 +2,9 @@
   "name": "@profio-app/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "prepare": "nx g @nx-dotnet/core:restore"
+  },
   "private": true,
   "dependencies": {
     "@nx/next": "16.7.4",
@@ -12,6 +14,8 @@
     "tslib": "^2.3.0"
   },
   "devDependencies": {
+    "@nrwl/js": "16.7.4",
+    "@nx-dotnet/core": "^1.22.0",
     "@nx/cypress": "16.7.4",
     "@nx/eslint-plugin": "16.7.4",
     "@nx/jest": "16.7.4",
