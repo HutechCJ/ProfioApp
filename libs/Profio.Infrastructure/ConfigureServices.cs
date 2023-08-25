@@ -1,5 +1,4 @@
 using System.IO.Compression;
-using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -10,7 +9,7 @@ namespace Profio.Infrastructure;
 
 public static class ConfigureServices
 {
-  public static void AddInfrastructureService(this IServiceCollection services, WebApplicationBuilder builder)
+  public static void AddInfrastructureServices(this IServiceCollection services, WebApplicationBuilder builder)
   {
     services.AddControllers(options =>
       {
