@@ -1,13 +1,11 @@
 using Profio.Api.Extensions;
+using Spectre.Console;
+
+AnsiConsole.Write(new FigletText("Profio APIs").Centered().Color(Color.BlueViolet));
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
 
 var app = await builder
   .ConfigureServices()
