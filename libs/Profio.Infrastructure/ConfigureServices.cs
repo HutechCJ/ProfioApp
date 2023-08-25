@@ -1,4 +1,5 @@
 using System.IO.Compression;
+using System.Reflection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -43,6 +44,10 @@ public static class ConfigureServices
         .AllowAnyHeader()));
 
     services.AddOpenApi();
+
+    services.AddMediatR(config =>
+      config.RegisterServicesFromAssembly(AssemblyReference.ExecuteAssembly)
+    );
 
     services
       .AddProblemDetails()
