@@ -10,6 +10,8 @@
           "test",
           "e2e",
           "codegen",
+          "swagger",
+          "codegen",
           "swagger"
         ],
         "accessToken": "YmU4NWEyN2MtMDkwNC00MjRiLWJjYWUtZDNhM2ZjZTg2MTQ0fHJlYWQtd3JpdGU="
@@ -18,7 +20,7 @@
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build", "codegen", "^codegen"],
+      "dependsOn": ["^build", "codegen", "^codegen", "codegen", "^codegen"],
       "inputs": ["production", "^production"]
     },
     "test": {
@@ -59,6 +61,12 @@
         "style": "styled-jsx",
         "linter": "eslint"
       }
+    },
+    "@nx-dotnet/core:application": {
+      "solutionFile": true
+    },
+    "@nx-dotnet/core:library": {
+      "solutionFile": "Profio.sln"
     }
   },
   "plugins": ["@nx-dotnet/core"]

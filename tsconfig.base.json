@@ -17,6 +17,9 @@
     "paths": {
       "@profio-app/generated/api-types": [
         "libs/generated/api-types/src/index.ts"
+      ],
+      "@profio-app/generated/profio.api-types": [
+        "libs/generated/profio.api-types/src/index.ts"
       ]
     }
   },
