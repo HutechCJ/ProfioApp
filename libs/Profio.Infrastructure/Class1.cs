@@ -1,4 +1,4 @@
-﻿namespace ProfioInfrastructure;
+namespace ProfioInfrastructure;
 
 public class Class1
 {
