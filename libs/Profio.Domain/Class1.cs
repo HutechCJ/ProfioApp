@@ -1,4 +1,4 @@
-﻿namespace ProfioDomain;
+namespace ProfioDomain;
 
 public class Class1
 {
