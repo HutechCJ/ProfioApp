@@ -1,4 +1,4 @@
-﻿namespace ProfioApplication;
+namespace ProfioApplication;
 
 public class Class1
 {
