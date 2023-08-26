@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Profio.Infrastructure.HealthCheck;
 using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.OpenTelemetry;
-using Profio.Infrastructure.Persistence.Neo4j;
+using Profio.Infrastructure.Persistence.Graph;
 using Profio.Infrastructure.Swagger;
 
 namespace Profio.Infrastructure;

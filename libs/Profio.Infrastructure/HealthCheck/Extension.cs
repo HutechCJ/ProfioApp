@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Profio.Infrastructure.Persistence;
+using Profio.Infrastructure.Persistence.Relational;
 
 namespace Profio.Infrastructure.HealthCheck;
 
@@ -16,7 +16,7 @@ public static class Extension
       .AddCheck<HealthCheck>(nameof(HealthCheck), tags: new[] { "api" })
       .AddDbContextCheck<ApplicationDbContext>(tags: new[] { "db context" })
       .AddRedis(builder.Configuration.GetConnectionString("Redis")
-                ?? "localhost:6379", tags: new[] { "redis" })
+                ?? throw new InvalidOperationException(), tags: new[] { "redis" })
       .AddSqlServer(builder.Configuration.GetConnectionString("Postgres")
                     ?? throw new InvalidOperationException(), tags: new[] { "database" });
 
