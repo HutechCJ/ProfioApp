@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
+using Profio.Infrastructure.HealthCheck;
 using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Swagger;
@@ -54,9 +55,10 @@ public static class ConfigureServices
       .AddProblemDetails()
       .AddEndpointsApiExplorer();
 
-    //services.AddRedisCache(builder, builder.Configuration
+    //services.AddRedisCache(builder, builder.Configuration);
     builder.AddSerilog();
     builder.AddOpenTelemetry();
+    builder.AddHealthCheck();
   }
 
   public static void UseWebInfrastructure(this WebApplication app)
@@ -70,7 +72,7 @@ public static class ConfigureServices
       .UseResponseCompression()
       .UseStatusCodePages()
       .UseStaticFiles();
-
+    app.MapHealthCheck();
     app.Map("/", () => Results.Redirect("/swagger"));
     app.Map("/error", () => Results.Problem("An unexpected error occurred.", statusCode: 500))
       .ExcludeFromDescription();
