@@ -38,7 +38,7 @@ public static class ConfigureServices
 
     services.AddCors(options => options
       .AddDefaultPolicy(policy => policy
-        .WithOrigins("https://localhost:8080")
+        .AllowAnyOrigin()
         .AllowAnyMethod()
         .AllowAnyHeader()));
 
