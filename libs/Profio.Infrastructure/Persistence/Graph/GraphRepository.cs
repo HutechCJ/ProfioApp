@@ -8,7 +8,7 @@ public class GraphRepository<T> : IGraphRepository<T> where T : class
 {
   private readonly IGraphClient _graphClient;
 
-  public GraphRepository(IGraphClient graphClient)
+  protected GraphRepository(IGraphClient graphClient)
     => _graphClient = graphClient;
 
   public async Task<List<T>> GetAsync(string query)

@@ -24,6 +24,7 @@
   <ItemGroup>
     <PackageReference Include="Neo4j.Driver" Version="5.11.0" />
     <PackageReference Include="Neo4jClient" Version="5.1.11" />
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.0-preview.3.23174.8" />
   </ItemGroup>
 
   <ItemGroup>

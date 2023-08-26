@@ -1,8 +1,10 @@
 using System.IO.Compression;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
+using Profio.Infrastructure.Filters;
 using Profio.Infrastructure.HealthCheck;
 using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.OpenTelemetry;
@@ -19,6 +21,7 @@ public static class ConfigureServices
       {
         options.RespectBrowserAcceptHeader = true;
         options.ReturnHttpNotAcceptable = true;
+        options.Filters.Add<LoggingFilter>();
       })
       .AddNewtonsoftJson()
       .AddApplicationPart(AssemblyReference.Assembly);
@@ -62,6 +65,8 @@ public static class ConfigureServices
     builder.AddSerilog();
     builder.AddOpenTelemetry();
     builder.AddHealthCheck();
+
+    services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
   }
 
   public static void UseWebInfrastructure(this WebApplication app)

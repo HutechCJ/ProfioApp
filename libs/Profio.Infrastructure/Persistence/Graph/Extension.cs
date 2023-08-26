@@ -17,7 +17,7 @@ public static class Extension
       settings.Username,
       settings.Password
       );
-    neo4JClient.ConnectAsync().GetAwaiter().GetResult();
+    neo4JClient.ConnectAsync();
     services.AddSingleton<IGraphClient>(neo4JClient);
     services.AddScoped<IGraphOfWork, GraphOfWork>();
   }
