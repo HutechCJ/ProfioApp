@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
+using Profio.Infrastructure.Logging;
+using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Swagger;
 
 namespace Profio.Infrastructure;
@@ -51,6 +53,10 @@ public static class ConfigureServices
     services
       .AddProblemDetails()
       .AddEndpointsApiExplorer();
+
+    //services.AddRedisCache(builder, builder.Configuration
+    builder.AddSerilog();
+    builder.AddOpenTelemetry();
   }
 
   public static void UseWebInfrastructure(this WebApplication app)
