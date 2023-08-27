@@ -3,11 +3,9 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Profio.Infrastructure.Cache;
-using Profio.Infrastructure.CQRS;
 using Profio.Infrastructure.Filters;
 using Profio.Infrastructure.HealthCheck;
 using Profio.Infrastructure.Identity;
@@ -62,37 +60,17 @@ public static class ConfigureServices
       .AddEndpointsApiExplorer()
       .AddOpenApi();
 
-    services.AddMediator();
 
-    services.AddAutoMapper(AssemblyReference.AppDomainAssembly);
     services.AddRedisCache(builder, builder.Configuration);
+
     builder.AddSerilog();
     builder.AddOpenTelemetry();
     builder.AddHealthCheck();
+
     services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
 
-    services.AddDbContext<DbContext, ApplicationDbContext>(options =>
-      options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres"))
-    );
-
-    services.AddIdentityCore<ApplicationUser>(options =>
-    {
-      options.Password.RequireDigit = true;
-      options.Password.RequireLowercase = true;
-      options.Password.RequireNonAlphanumeric = true;
-      options.Password.RequireUppercase = true;
-      options.Password.RequiredLength = 6;
-      options.Password.RequiredUniqueChars = 1;
-
-      options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-      options.Lockout.MaxFailedAccessAttempts = 5;
-      options.Lockout.AllowedForNewUsers = true;
-
-      options.User.RequireUniqueEmail = true;
-    })
-      .AddEntityFrameworkStores<ApplicationDbContext>();
-
-    services.AddScoped<ApplicationDbContextInitializer>();
+    services.AddPostgres(builder.Configuration);
+    services.AddIdentity();
   }
 
   public static async Task UseWebInfrastructureAsync(this WebApplication app)

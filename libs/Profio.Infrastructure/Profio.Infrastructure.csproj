@@ -11,6 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="EntityFrameworkCore.Data.Repository" Version="7.0.10" />
+    <PackageReference Include="EntityFrameworkCore.Data.Repository.Abstractions" Version="7.0.10" />
+    <PackageReference Include="EntityFrameworkCore.Data.UnitOfWork" Version="7.0.10" />
+    <PackageReference Include="EntityFrameworkCore.Data.UnitOfWork.Abstractions" Version="7.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.10" />
     <PackageReference Include="MicroElements.Swashbuckle.FluentValidation" Version="6.0.0-beta.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
@@ -76,10 +80,6 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.7.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="CQRS\Handlers\Command\" />
   </ItemGroup>
 
 </Project>
