@@ -10,4 +10,8 @@
     <ProjectReference Include="..\Profio.Infrastructure\Profio.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Users\Queries\" />
+  </ItemGroup>
+
 </Project>
