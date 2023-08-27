@@ -11,4 +11,6 @@ var app = await builder
   .ConfigureServices()
   .ConfigurePipelineAsync();
 
+app.MapPrometheusScrapingEndpoint();
+
 app.Run();

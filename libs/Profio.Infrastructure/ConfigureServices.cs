@@ -3,6 +3,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
+using Profio.Infrastructure.HealthCheck;
+using Profio.Infrastructure.Logging;
+using Profio.Infrastructure.OpenTelemetry;
+using Profio.Infrastructure.Persistence.Neo4j;
 using Profio.Infrastructure.Swagger;
 
 namespace Profio.Infrastructure;
@@ -38,7 +42,7 @@ public static class ConfigureServices
 
     services.AddCors(options => options
       .AddDefaultPolicy(policy => policy
-        .WithOrigins("https://localhost:8080")
+        .AllowAnyOrigin()
         .AllowAnyMethod()
         .AllowAnyHeader()));
 
@@ -48,9 +52,16 @@ public static class ConfigureServices
       config.RegisterServicesFromAssembly(AssemblyReference.ExecuteAssembly)
     );
 
+    services.AddNeo4J(builder.Configuration);
+
     services
       .AddProblemDetails()
       .AddEndpointsApiExplorer();
+
+    //services.AddRedisCache(builder, builder.Configuration);
+    builder.AddSerilog();
+    builder.AddOpenTelemetry();
+    builder.AddHealthCheck();
   }
 
   public static void UseWebInfrastructure(this WebApplication app)
@@ -64,7 +75,7 @@ public static class ConfigureServices
       .UseResponseCompression()
       .UseStatusCodePages()
       .UseStaticFiles();
-
+    app.MapHealthCheck();
     app.Map("/", () => Results.Redirect("/swagger"));
     app.Map("/error", () => Results.Problem("An unexpected error occurred.", statusCode: 500))
       .ExcludeFromDescription();
