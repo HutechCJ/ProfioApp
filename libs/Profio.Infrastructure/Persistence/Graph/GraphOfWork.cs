@@ -11,12 +11,12 @@ public class GraphOfWork : IGraphOfWork, IDisposable
 
   public GraphOfWork(IBoltGraphClient neo4JClient) => _neo4JClient = neo4JClient;
 
+  public IGraphRepository<Owner> Owner 
+    => _owner ??= new GraphRepository<Owner>(_neo4JClient);
+
   public void Dispose()
   {
     _neo4JClient.Dispose();
     GC.SuppressFinalize(this);
   }
-
-  public IGraphRepository<Owner> Owner 
-    => _owner ??= new GraphRepository<Owner>(_neo4JClient);
 }
