@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
+using Profio.Infrastructure.Cache;
 using Profio.Infrastructure.Filters;
 using Profio.Infrastructure.HealthCheck;
 using Profio.Infrastructure.Logging;
@@ -61,7 +62,7 @@ public static class ConfigureServices
       .AddProblemDetails()
       .AddEndpointsApiExplorer();
 
-    //services.AddRedisCache(builder, builder.Configuration);
+    services.AddRedisCache(builder, builder.Configuration);
     builder.AddSerilog();
     builder.AddOpenTelemetry();
     builder.AddHealthCheck();

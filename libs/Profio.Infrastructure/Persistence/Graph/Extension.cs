@@ -12,13 +12,15 @@ public static class Extension
     services.Configure<Neo4JSetting>(configuration.GetSection("ConnectionStrings:Neo4j"));
     var settings = new Neo4JSetting();
     configuration.GetSection("ConnectionStrings:Neo4j").Bind(settings);
-    var neo4JClient = new GraphClient(
+
+    var neo4JClient = new BoltGraphClient(
       new Uri(settings.Uri ?? string.Empty),
       settings.Username,
       settings.Password
       );
-    neo4JClient.ConnectAsync();
-    services.AddSingleton<IGraphClient>(neo4JClient);
+
+    neo4JClient.ConnectAsync().GetAwaiter().GetResult();
+    services.AddSingleton<IBoltGraphClient>(neo4JClient);
     services.AddScoped<IGraphOfWork, GraphOfWork>();
   }
 }

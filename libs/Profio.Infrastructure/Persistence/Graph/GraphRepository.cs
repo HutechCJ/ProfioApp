@@ -6,9 +6,9 @@ namespace Profio.Infrastructure.Persistence.Graph;
 
 public class GraphRepository<T> : IGraphRepository<T> where T : class
 {
-  private readonly IGraphClient _graphClient;
+  private readonly IBoltGraphClient _graphClient;
 
-  protected GraphRepository(IGraphClient graphClient)
+  public GraphRepository(IBoltGraphClient graphClient)
     => _graphClient = graphClient;
 
   public async Task<List<T>> GetAsync(string query)
