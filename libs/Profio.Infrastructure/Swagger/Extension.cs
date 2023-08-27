@@ -12,5 +12,5 @@ public static class Extension
       .AddFluentValidationRulesToSwagger()
       .AddSwaggerGen(options => options.OperationFilter<SwaggerDefaultValues>())
       .AddSwaggerGenNewtonsoftSupport()
-      .Configure<SwaggerGeneratorOptions>(o => o.InferSecuritySchemes = true);
+      .Configure<SwaggerGeneratorOptions>(o => o.InferSecuritySchemes = false);
 }

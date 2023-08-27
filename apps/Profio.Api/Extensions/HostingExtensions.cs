@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Server.Kestrel.Core;
-using Profio.Application;
 using Profio.Infrastructure;
 using Profio.Infrastructure.Swagger;
 
@@ -27,7 +26,7 @@ public static class HostingExtensions
   public static async Task<WebApplication> ConfigurePipelineAsync(this WebApplication app)
   {
     if (app.Environment.IsDevelopment())
-      app.AddOpenApi()
+      app.UseOpenApi()
         .UseDeveloperExceptionPage()
         .UseHsts();
     else

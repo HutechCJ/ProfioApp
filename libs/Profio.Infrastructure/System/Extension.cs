@@ -1,12 +1,12 @@
-using System.Diagnostics;
-using System.Net;
-using System.Net.Sockets;
-using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using System.Diagnostics;
+using System.Net;
+using System.Net.Sockets;
+using System.Runtime.InteropServices;
 
 namespace Profio.Infrastructure.System;
 
@@ -64,7 +64,7 @@ public static class Extension
       => new()
       {
         Name = env.EnvironmentName,
-        Time = DateTime.Now,
+        Time = DateTime.UtcNow,
         UpTime = DateTime.Now - Process.GetCurrentProcess().StartTime,
         CpuUsage = GetCpuUsage(),
         MemoryUsage = GetMemoryUsage(),
