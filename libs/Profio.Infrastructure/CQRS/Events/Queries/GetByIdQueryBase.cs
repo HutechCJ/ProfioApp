@@ -3,5 +3,5 @@ using Profio.Infrastructure.CQRS.Models;
 
 namespace Profio.Infrastructure.CQRS.Events.Queries;
 
-public record GetQueryByFieldBase<T>(string FieldValue) : IRequest<ListResultModel<T>>
+public record GetByIdQueryBase<T>(object Id) : IRequest<ResultModel<T>>
   where T : BaseModel;

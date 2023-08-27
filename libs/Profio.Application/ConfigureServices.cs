@@ -6,6 +6,9 @@ public static class ConfigureServices
 {
   public static void AddApplicationServices(this IServiceCollection services)
   {
-    throw new NotImplementedException();
+    services.AddMediatR(config =>
+    {
+      config.RegisterServicesFromAssembly(AssemblyReference.ExecuteAssembly);
+    });
   }
 }

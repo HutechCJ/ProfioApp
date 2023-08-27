@@ -1,8 +1,5 @@
-using System.Diagnostics;
-using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Profio.Infrastructure.Logging;
-using Profio.Infrastructure.Persistence.Relational;
+using System.Diagnostics;
 
 namespace Profio.Infrastructure.CQRS;
 
@@ -14,14 +11,15 @@ public static class Extension
     Action<IServiceCollection>? action = null)
   {
     services.AddHttpContextAccessor()
-      .AddMediatR(cfg =>
-      {
-        cfg.RegisterServicesFromAssembly(AssemblyReference.Assembly);
-        cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>),
-          ServiceLifetime.Scoped);
-        cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(TxBehavior<,>),
-          ServiceLifetime.Scoped);
-      });
+      //.AddMediatR(cfg =>
+      //{
+      //  cfg.RegisterServicesFromAssembly(AssemblyReference.Assembly);
+      //  cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>),
+      //    ServiceLifetime.Scoped);
+      //  cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(TxBehavior<,>),
+      //    ServiceLifetime.Scoped);
+      //})
+      ;
 
     action?.Invoke(services);
 

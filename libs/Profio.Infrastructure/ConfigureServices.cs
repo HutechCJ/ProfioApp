@@ -71,7 +71,7 @@ public static class ConfigureServices
     builder.AddHealthCheck();
     services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
 
-    services.AddDbContext<DbContext, ApplicationDbContext>(options =>
+    services.AddDbContext<IDatabaseFacade, ApplicationDbContext>(options =>
       options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres"))
     );
 
