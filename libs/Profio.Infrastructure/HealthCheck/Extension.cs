@@ -13,18 +13,26 @@ public static class Extension
   {
     builder.Services.AddSingleton<HealthService>();
     builder.Services.AddHealthChecks()
-      .AddCheck<HealthCheck>(nameof(HealthCheck), tags: new[] { "api" })
+      .AddCheck<HealthCheck>("Health Check", tags: new[] { "health check" })
       .AddDbContextCheck<ApplicationDbContext>(tags: new[] { "db context" })
       .AddRedis(builder.Configuration.GetConnectionString("Redis")
                 ?? throw new InvalidOperationException(), tags: new[] { "redis" })
-      .AddSqlServer(builder.Configuration.GetConnectionString("Postgres")
+      .AddNpgSql(builder.Configuration.GetConnectionString("Postgres")
                     ?? throw new InvalidOperationException(), tags: new[] { "database" });
 
     builder.Services
       .AddHealthChecksUI(options =>
       {
         options.AddHealthCheckEndpoint("Health Check API", "/hc");
-        options.SetEvaluationTimeInSeconds(30);
+        options.SetEvaluationTimeInSeconds(60);
+        options.UseApiEndpointHttpMessageHandler(_ =>
+        {
+          return new()
+          {
+            ClientCertificateOptions = ClientCertificateOption.Manual,
+            ServerCertificateCustomValidationCallback = (_, _, _, _) => true
+          };
+        });
       })
       .AddInMemoryStorage();
 
