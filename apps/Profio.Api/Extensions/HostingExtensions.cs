@@ -37,7 +37,7 @@ public static class HostingExtensions
     app.MapControllers()
       .RequirePerUserRateLimit();
     app.UseRateLimiter();
-    app.UseWebInfrastructure();
+    await app.UseWebInfrastructureAsync();
 
     return app;
   }

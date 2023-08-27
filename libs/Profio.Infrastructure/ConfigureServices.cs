@@ -5,9 +5,11 @@ using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Profio.Infrastructure.Cache;
 using Profio.Infrastructure.Filters;
 using Profio.Infrastructure.HealthCheck;
+using Profio.Infrastructure.Identity;
 using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Persistence.Graph;
@@ -76,10 +78,38 @@ public static class ConfigureServices
     {
       options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres"));
     });
+
+    services.AddIdentityCore<ApplicationUser>(options =>
+    {
+      options.Password.RequireDigit = true;
+      options.Password.RequireLowercase = true;
+      options.Password.RequireNonAlphanumeric = true;
+      options.Password.RequireUppercase = true;
+      options.Password.RequiredLength = 6;
+      options.Password.RequiredUniqueChars = 1;
+
+      options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+      options.Lockout.MaxFailedAccessAttempts = 5;
+      options.Lockout.AllowedForNewUsers = true;
+
+      options.User.RequireUniqueEmail = true;
+    })
+      .AddEntityFrameworkStores<ApplicationDbContext>();
+
+    services.AddScoped<ApplicationDbContextInitializer>();
   }
 
-  public static void UseWebInfrastructure(this WebApplication app)
+  public static async Task UseWebInfrastructureAsync(this WebApplication app)
   {
+
+    if (app.Environment.IsDevelopment())
+    {
+
+      using var scope = app.Services.CreateScope();
+      var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitializer>();
+      await initialiser.InitialiseAsync();
+      await initialiser.SeedAsync();
+    }
 
     app.UseCors()
       .UseExceptionHandler()
