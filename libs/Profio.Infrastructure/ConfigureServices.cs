@@ -1,8 +1,9 @@
-using System.IO.Compression;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Profio.Infrastructure.Cache;
 using Profio.Infrastructure.Filters;
@@ -10,7 +11,9 @@ using Profio.Infrastructure.HealthCheck;
 using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Persistence.Graph;
+using Profio.Infrastructure.Persistence.Relational;
 using Profio.Infrastructure.Swagger;
+using System.IO.Compression;
 
 namespace Profio.Infrastructure;
 
@@ -68,6 +71,11 @@ public static class ConfigureServices
     builder.AddHealthCheck();
 
     services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
+
+    services.AddDbContext<DbContext, ApplicationDbContext>(options =>
+    {
+      options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres"));
+    });
   }
 
   public static void UseWebInfrastructure(this WebApplication app)
