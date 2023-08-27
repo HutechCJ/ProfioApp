@@ -10,7 +10,7 @@ public static class HostingExtensions
   public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
   {
     builder.Services.AddInfrastructureServices(builder);
-    builder.Services.AddApplicationServices();
+    //builder.Services.AddApplicationServices();
     builder.Services.AddRateLimiting();
     //builder.Services.AddWebApiServices(builder.Configuration);
 

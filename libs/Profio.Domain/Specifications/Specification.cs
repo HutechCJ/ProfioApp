@@ -11,7 +11,6 @@ public abstract class Specification<T> : ISpecification<T>
   public Expression<Func<T, object>> OrderByDescending { get; private set; } = default!;
   public Expression<Func<T, object>> GroupBy { get; private set; } = default!;
   public string? Cursor { get; private set; }
-  public string? Fields { get; private set; }
   public int Take { get; private set; }
   public int Skip { get; private set; }
   public bool IsAscending { get; private set; }
@@ -56,9 +55,6 @@ public abstract class Specification<T> : ISpecification<T>
 
   public void ApplyCursor(string cursor)
     => Cursor = cursor;
-
-  public void ApplyFields(string fields)
-    => Fields = fields;
 
   public void ApplyAscending(bool isAscending)
     => IsAscending = isAscending;

@@ -60,8 +60,9 @@ public static class ConfigureServices
     services
       .AddProblemDetails()
       .AddEndpointsApiExplorer()
-      .AddOpenApi()
-      .AddMediator();
+      .AddOpenApi();
+
+    services.AddMediator();
 
     services.AddAutoMapper(AssemblyReference.AppDomainAssembly);
     services.AddRedisCache(builder, builder.Configuration);
@@ -71,9 +72,8 @@ public static class ConfigureServices
     services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
 
     services.AddDbContext<DbContext, ApplicationDbContext>(options =>
-    {
-      options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres"));
-    });
+      options.UseNpgsql(builder.Configuration.GetConnectionString("Postgres"))
+    );
 
     services.AddIdentityCore<ApplicationUser>(options =>
     {

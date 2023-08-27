@@ -2,6 +2,7 @@ using System.Diagnostics;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Profio.Infrastructure.Logging;
+using Profio.Infrastructure.Persistence.Relational;
 
 namespace Profio.Infrastructure.CQRS;
 
@@ -17,6 +18,8 @@ public static class Extension
       {
         cfg.RegisterServicesFromAssembly(AssemblyReference.Assembly);
         cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>),
+          ServiceLifetime.Scoped);
+        cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(TxBehavior<,>),
           ServiceLifetime.Scoped);
       });
 

@@ -11,7 +11,6 @@ public interface ISpecification<T> : IRootSpecification
   public Expression<Func<T, object>>? OrderByDescending { get; }
   public Expression<Func<T, object>>? GroupBy { get; }
   public string? Cursor { get; }
-  public string? Fields { get; }
   public int Take { get; }
   public int Skip { get; }
   public bool IsAscending { get; }
