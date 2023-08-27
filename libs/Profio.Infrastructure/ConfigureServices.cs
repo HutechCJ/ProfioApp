@@ -55,7 +55,7 @@ public static class ConfigureServices
         .AllowAnyOrigin()
         .AllowAnyMethod()
         .AllowAnyHeader()));
-    services.AddOpenApi();
+
     services.AddNeo4J(builder.Configuration);
     services
       .AddProblemDetails()
