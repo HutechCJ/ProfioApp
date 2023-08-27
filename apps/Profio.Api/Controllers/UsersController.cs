@@ -1,31 +1,22 @@
-using Microsoft.AspNetCore.Identity;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Profio.Infrastructure.Identity;
+using Profio.Application.Users.Commands.Login;
 
 namespace Profio.Api.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 public class UsersController : ControllerBase
 {
-  private readonly UserManager<ApplicationUser> _userManager;
+  private readonly IMediator _mediator;
 
-  public UsersController(UserManager<ApplicationUser> userManager)
+  public UsersController(IMediator mediator)
   {
-    _userManager = userManager;
+    _mediator = mediator;
   }
   [HttpPost("login")]
   public async Task<IActionResult> Login(string userName, string password)
   {
-    var user = await _userManager.FindByNameAsync(userName);
-    if (user == null)
-    {
-      return Unauthorized();
-    }
-    var isPasswordCorrect = await _userManager.CheckPasswordAsync(user, password);
-    if (!isPasswordCorrect)
-    {
-      return Unauthorized();
-    }
+    await _mediator.Send(new LoginCommand(userName, password));
     return Ok();
   }
 }

@@ -57,9 +57,7 @@ public static class ConfigureServices
 
     services.AddOpenApi();
 
-    services.AddMediatR(config =>
-      config.RegisterServicesFromAssembly(AssemblyReference.ExecuteAssembly)
-    );
+
 
     services.AddNeo4J(builder.Configuration);
 
@@ -104,7 +102,6 @@ public static class ConfigureServices
 
     if (app.Environment.IsDevelopment())
     {
-
       using var scope = app.Services.CreateScope();
       var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitializer>();
       await initialiser.InitialiseAsync();

@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Profio.Application;
 using Profio.Infrastructure;
 using Profio.Infrastructure.Swagger;
 
@@ -9,9 +10,9 @@ public static class HostingExtensions
   public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
   {
     builder.Services.AddInfrastructureServices(builder);
+    builder.Services.AddApplicationServices();
     builder.Services.AddRateLimiting();
     //builder.Services.AddWebApiServices(builder.Configuration);
-    //builder.Services.AddApplicationServices();
 
     builder.WebHost.ConfigureKestrel(options =>
     {
