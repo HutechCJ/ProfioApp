@@ -1,22 +1,14 @@
 using Neo4jClient;
-using Profio.Domain.Graph.Nodes;
 using Profio.Domain.Interfaces;
 
 namespace Profio.Infrastructure.Persistence.Graph;
 
-public class GraphOfWork : IGraphOfWork, IDisposable
+public class GraphOfWork<T> : IGraphOfWork<T> where T : class
 {
-  private IGraphRepository<Owner>? _owner;
-  private readonly IBoltGraphClient _neo4JClient;
+  private readonly IBoltGraphClient _client;
 
-  public GraphOfWork(IBoltGraphClient neo4JClient) => _neo4JClient = neo4JClient;
+  public GraphOfWork(IBoltGraphClient client)
+    => _client = client;
 
-  public IGraphRepository<Owner> Owner 
-    => _owner ??= new GraphRepository<Owner>(_neo4JClient);
-
-  public void Dispose()
-  {
-    _neo4JClient.Dispose();
-    GC.SuppressFinalize(this);
-  }
+  public IGraphRepository<T> Repository => new GraphRepository<T>(_client);
 }

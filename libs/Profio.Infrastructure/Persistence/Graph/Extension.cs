@@ -21,6 +21,6 @@ public static class Extension
 
     neo4JClient.ConnectAsync().GetAwaiter().GetResult();
     services.AddSingleton<IBoltGraphClient>(neo4JClient);
-    services.AddScoped<IGraphOfWork, GraphOfWork>();
+    services.AddScoped(typeof(IGraphOfWork<>), typeof(GraphOfWork<>));
   }
 }

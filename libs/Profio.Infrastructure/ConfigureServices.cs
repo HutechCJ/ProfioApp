@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Profio.Infrastructure.Cache;
+using Profio.Infrastructure.CQRS;
 using Profio.Infrastructure.Filters;
 using Profio.Infrastructure.HealthCheck;
 using Profio.Infrastructure.Logging;
@@ -50,18 +51,15 @@ public static class ConfigureServices
         .AllowAnyMethod()
         .AllowAnyHeader()));
 
-    services.AddOpenApi();
-
-    services.AddMediatR(config =>
-      config.RegisterServicesFromAssembly(AssemblyReference.ExecuteAssembly)
-    );
-
     services.AddNeo4J(builder.Configuration);
 
     services
       .AddProblemDetails()
-      .AddEndpointsApiExplorer();
+      .AddEndpointsApiExplorer()
+      .AddOpenApi()
+      .AddMediator();
 
+    services.AddAutoMapper(AssemblyReference.AppDomainAssembly);
     services.AddRedisCache(builder, builder.Configuration);
     builder.AddSerilog();
     builder.AddOpenTelemetry();
