@@ -7,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Profio.Infrastructure.Cache;
+using Profio.Infrastructure.CQRS;
 using Profio.Infrastructure.Filters;
 using Profio.Infrastructure.HealthCheck;
 using Profio.Infrastructure.Identity;
@@ -54,22 +55,19 @@ public static class ConfigureServices
         .AllowAnyOrigin()
         .AllowAnyMethod()
         .AllowAnyHeader()));
-
     services.AddOpenApi();
-
-
-
     services.AddNeo4J(builder.Configuration);
-
     services
       .AddProblemDetails()
-      .AddEndpointsApiExplorer();
+      .AddEndpointsApiExplorer()
+      .AddOpenApi()
+      .AddMediator();
 
+    services.AddAutoMapper(AssemblyReference.AppDomainAssembly);
     services.AddRedisCache(builder, builder.Configuration);
     builder.AddSerilog();
     builder.AddOpenTelemetry();
     builder.AddHealthCheck();
-
     services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
 
     services.AddDbContext<DbContext, ApplicationDbContext>(options =>

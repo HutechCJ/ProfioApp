@@ -1,8 +1,6 @@
-using Profio.Domain.Graph.Nodes;
-
 namespace Profio.Domain.Interfaces;
 
-public interface IGraphOfWork
+public interface IGraphOfWork<T> where T : class
 {
-  public IGraphRepository<Owner> Owner { get; }
+  public IGraphRepository<T> Repository { get; }
 }
