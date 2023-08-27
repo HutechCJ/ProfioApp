@@ -4,7 +4,7 @@ using Profio.Infrastructure.System;
 
 namespace Profio.Api.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/v1/[controller]")]
 [ApiController]
 public class SystemController : ControllerBase
 {

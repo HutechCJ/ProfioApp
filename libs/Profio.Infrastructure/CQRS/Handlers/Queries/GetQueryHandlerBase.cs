@@ -15,7 +15,7 @@ public abstract class GetQueryHandlerBase<TQuery, TModel, TEntity> : IRequestHan
   private readonly IMapper _mapper;
 
   protected GetQueryHandlerBase(IUnitOfWork<TEntity> unitOfWork, IMapper mapper)
-      => (_repository, _mapper) = (unitOfWork.Repository, mapper);
+    => (_repository, _mapper) = (unitOfWork.Repository, mapper);
 
   public async Task<ListResultModel<TModel>> Handle(TQuery request, CancellationToken cancellationToken)
   {

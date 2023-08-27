@@ -10,17 +10,16 @@ public class ApplicationDbContextInitializer
   private readonly ApplicationDbContext _context;
   private readonly UserManager<ApplicationUser> _userManager;
 
-  public ApplicationDbContextInitializer(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
-  {
-    _context = context;
-    _userManager = userManager;
-  }
+  public ApplicationDbContextInitializer(
+    ApplicationDbContext context,
+    UserManager<ApplicationUser> userManager)
+    => (_context, _userManager) = (context, userManager);
+
   public async Task InitialiseAsync()
   {
     try
     {
       await _context.Database.MigrateAsync();
-
     }
     catch (Exception ex)
     {
@@ -75,7 +74,7 @@ public class ApplicationDbContextInitializer
       Email = "loi@gmail.com"
     };
 
-    var password = "P@ssw0rd";
+    const string password = "P@ssw0rd";
 
     await _userManager.CreateAsync(thai, password).ConfigureAwait(false);
     await _userManager.CreateAsync(nhon, password).ConfigureAwait(false);
