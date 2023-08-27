@@ -64,7 +64,6 @@ public static class ConfigureServices
     builder.AddSerilog();
     builder.AddOpenTelemetry();
     builder.AddHealthCheck();
-
     services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
   }
 

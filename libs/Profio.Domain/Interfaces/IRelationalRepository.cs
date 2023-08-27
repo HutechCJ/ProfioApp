@@ -9,6 +9,7 @@ public interface IRelationalRepository<T> where T : class
   public Task UpdateAsync(T entity, CancellationToken cancellationToken = default);
   public Task DeleteAsync(T entity, CancellationToken cancellationToken = default);
   public Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default);
+  public Task<T?> GetByIdAsync(object id, CancellationToken cancellationToken = default);
   public Task<IEnumerable<T>> GetByAsync(
     Expression<Func<T, bool>> predicate,
     CancellationToken cancellationToken = default);

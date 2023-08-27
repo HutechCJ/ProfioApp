@@ -32,7 +32,11 @@ public class RelationalRepository<T> : IRelationalRepository<T>
     await Task.CompletedTask;
   }
 
-  public Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default) => throw new NotImplementedException();
+  public async Task<IEnumerable<T>> GetAllAsync(CancellationToken cancellationToken = default)
+    => await _dbSet.ToListAsync(cancellationToken);
+
+  public async Task<T?> GetByIdAsync(object id, CancellationToken cancellationToken = default)
+    => await _dbSet.FindAsync(new[] { id, cancellationToken }, cancellationToken: cancellationToken).AsTask();
 
   public async Task<IEnumerable<T>> GetByAsync(
     Expression<Func<T, bool>> predicate,
