@@ -18,12 +18,14 @@ public record LoginCommandHandler : IRequestHandler<LoginCommand, Unit>
     var user = await _userManager.FindByNameAsync(request.UserName);
     if (user == null)
     {
-      throw new NullReferenceException(nameof(user));
+      // TODO: Add Unauthorize Exception and Handler in Middleware handler
+      throw new NotImplementedException();
     }
     var isPasswordCorrect = await _userManager.CheckPasswordAsync(user, request.Password);
     if (!isPasswordCorrect)
     {
-      throw new NullReferenceException(nameof(isPasswordCorrect));
+      // TODO: Add Unauthorize Exception and Handler in Middleware handler
+      throw new NotImplementedException();
     }
     return Unit.Value;
   }
