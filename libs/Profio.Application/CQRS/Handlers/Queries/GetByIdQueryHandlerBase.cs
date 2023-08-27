@@ -18,22 +18,23 @@ public abstract class GetByIdQueryHandlerBase<TQuery, TModel, TEntity> : IReques
   private readonly IRepository<TEntity> _repository;
   private readonly IMapper _mapper;
 
-  protected GetByIdQueryHandlerBase(IUnitOfWork unitOfWork, IMapper mapper)
+  protected GetByIdQueryHandlerBase(IRepositoryFactory unitOfWork, IMapper mapper)
     => (_repository, _mapper) = (unitOfWork.Repository<TEntity>(), mapper);
 
   public async Task<ResultModel<TModel>> Handle(TQuery request, CancellationToken cancellationToken)
   {
     ArgumentNullException.ThrowIfNull(request);
-    //var result = await _repository.GetByIdAsync(request.Id, cancellationToken);
+
     var query = _repository
       .SingleResultQuery()
       .AndFilter(x => x.Id.Equals(request.Id));
 
-    var user = await _repository
+    var data = await _repository
       .ToQueryable(query)
       .AsSplitQuery()
       .ProjectTo<TModel>(_mapper.ConfigurationProvider)
       .SingleOrDefaultAsync(cancellationToken);
-    return new(user);
+
+    return new(data);
   }
 }

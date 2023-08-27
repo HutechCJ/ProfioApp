@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Profio.Infrastructure.Cache;
@@ -51,15 +50,20 @@ public static class ConfigureServices
     services.AddCors(options => options
       .AddDefaultPolicy(policy => policy
         .AllowAnyOrigin()
-        .AllowAnyMethod()
-        .AllowAnyHeader()));
+        .WithMethods(
+          HttpMethods.Get,
+          HttpMethods.Post,
+          HttpMethods.Put,
+          HttpMethods.Patch,
+          HttpMethods.Delete,
+          HttpMethods.Options
+        ).AllowAnyHeader()));
 
     services.AddNeo4J(builder.Configuration);
     services
       .AddProblemDetails()
       .AddEndpointsApiExplorer()
       .AddOpenApi();
-
 
     services.AddRedisCache(builder, builder.Configuration);
 
@@ -75,13 +79,12 @@ public static class ConfigureServices
 
   public static async Task UseWebInfrastructureAsync(this WebApplication app)
   {
-
     if (app.Environment.IsDevelopment())
     {
       using var scope = app.Services.CreateScope();
-      var initialiser = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitializer>();
-      await initialiser.InitialiseAsync();
-      await initialiser.SeedAsync();
+      var initializer = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitializer>();
+      await initializer.InitialiseAsync();
+      await initializer.SeedAsync();
     }
 
     app.UseCors()
@@ -94,6 +97,7 @@ public static class ConfigureServices
       .UseStaticFiles();
     app.MapHealthCheck();
     app.Map("/", () => Results.Redirect("/swagger"));
+    app.Map("/redoc", () => Results.Redirect("/api-docs"));
     app.Map("/error", () => Results.Problem("An unexpected error occurred.", statusCode: 500))
       .ExcludeFromDescription();
   }

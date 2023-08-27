@@ -7,12 +7,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Tests\**" />
+    <EmbeddedResource Remove="Tests\**" />
+    <None Remove="Tests\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Profio.Infrastructure\Profio.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="CQRS\Handlers\Command\" />
-    <Folder Include="Tests\" />
   </ItemGroup>
 
 </Project>

@@ -15,7 +15,7 @@ public class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOptions>
       {
         Title = "Profio API",
         Version = "v1",
-        Description = "Profio API Documentation.",
+        Description = "Profio Application, a blend of profile and portfolio, is a versatile platform for crafting and overseeing personal portfolios. Users can tailor themes, document educational and career milestones, and incorporate external links. Tech aficionados benefit from a distinct tech stack showcase. Enhanced with drag-and-drop functionality, all user data is anchored in a sophisticated database structure. If you want to know more about Redocly of OpenAPI, please visit at [Here](https://localhost:9023/redoc).",
         License = new()
         {
           Name = "MIT",

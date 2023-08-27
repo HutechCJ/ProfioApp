@@ -1,11 +1,13 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Profio.Infrastructure.System;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Api.Controllers;
 
 [Route("api/v1/[controller]")]
 [ApiController]
+[SwaggerTag("The System Monitor and Status")]
 public class SystemController : ControllerBase
 {
   private readonly IConfiguration _config;
@@ -16,6 +18,7 @@ public class SystemController : ControllerBase
 
   [HttpGet]
   [AllowAnonymous]
+  [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
   public IActionResult GetPlatform()
     => Ok(_config.GetPlatform(_env));
 

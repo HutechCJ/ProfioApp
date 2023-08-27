@@ -1,5 +1,5 @@
 namespace Profio.Domain.Graph.Edges;
 
-public class OwnerEducation
+public class Friends
 {
 }

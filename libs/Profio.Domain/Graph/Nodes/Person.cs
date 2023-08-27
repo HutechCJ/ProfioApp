@@ -1,5 +1,5 @@
 namespace Profio.Domain.Graph.Nodes;
 
-public class Owner
+public class Person
 {
 }

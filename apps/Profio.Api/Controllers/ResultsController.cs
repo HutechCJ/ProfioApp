@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Api.Controllers;
 [Route("api/v1/[controller]")]
 [ApiController]
+[SwaggerTag("Check the results of the HTTP status code")]
 public class ResultsController : ControllerBase
 {
   [HttpGet("not-found")]
