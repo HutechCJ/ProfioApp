@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Profio.Application.Users.Commands.Login;
+using Profio.Application.Users.Queries;
 //using Profio.Application.Users.Queries;
 
 namespace Profio.Api.Controllers;
@@ -19,10 +20,10 @@ public class UsersController : ControllerBase
     await _mediator.Send(new LoginCommand(userName, password));
     return Ok();
   }
-  //[HttpGet("{id}")]
-  //public async Task<IActionResult> GetUserById(string id)
-  //{
-  //  var result = await _mediator.Send(new GetUserByIdQuery(id));
-  //  return Ok(result);
-  //}
+  [HttpGet("{id}")]
+  public async Task<IActionResult> GetUserById(string id)
+  {
+    var result = await _mediator.Send(new GetUserByIdQuery(id));
+    return Ok(result);
+  }
 }

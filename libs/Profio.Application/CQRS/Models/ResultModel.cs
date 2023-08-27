@@ -1,6 +1,6 @@
 using System.Text.Json;
 
-namespace Profio.Infrastructure.CQRS.Models;
+namespace Profio.Application.CQRS.Models;
 
 public record ResultModel<T>(
   T? Data,
