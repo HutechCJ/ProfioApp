@@ -11,8 +11,7 @@ using Profio.Infrastructure.Identity;
 using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.Middleware;
 using Profio.Infrastructure.OpenTelemetry;
-using Profio.Infrastructure.Persistence.Graph;
-using Profio.Infrastructure.Persistence.Relational;
+using Profio.Infrastructure.Persistence;
 using Profio.Infrastructure.Swagger;
 using System.IO.Compression;
 
@@ -60,7 +59,6 @@ public static class ConfigureServices
           HttpMethods.Options
         ).AllowAnyHeader()));
 
-    services.AddNeo4J(builder.Configuration);
     services
       .AddProblemDetails()
       .AddEndpointsApiExplorer()

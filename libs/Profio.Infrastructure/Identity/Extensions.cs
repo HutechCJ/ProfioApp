@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Profio.Infrastructure.Persistence.Relational;
+using Profio.Infrastructure.Persistence;
 
 namespace Profio.Infrastructure.Identity;
 

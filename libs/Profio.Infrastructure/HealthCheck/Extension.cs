@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Profio.Infrastructure.Persistence.Relational;
+using Profio.Infrastructure.Persistence;
 
 namespace Profio.Infrastructure.HealthCheck;
 
