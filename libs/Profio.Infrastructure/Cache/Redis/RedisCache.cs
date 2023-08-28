@@ -9,9 +9,9 @@ public sealed class RedisCache
   public int DeltaBackOff { get; set; } = 1000;
   public int RedisDefaultSlidingExpirationInSecond { get; set; } = 3600;
   public int SyncTimeout { get; set; } = 5000;
-  public string Password { get; set; } = "o2SH3ZR1foAVFacX8PBfgBfCjvYvFoQa";
+  public string Password { get; set; } = string.Empty;
   public string Prefix { get; set; } = string.Empty;
-  public string Url { get; set; } = "singapore-redis.render.com";
+  public string Url { get; set; } = string.Empty;
 
   public string GetConnectionString()
   {
