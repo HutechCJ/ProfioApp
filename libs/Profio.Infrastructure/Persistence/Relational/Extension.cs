@@ -1,3 +1,4 @@
+using EntityFrameworkCore.UnitOfWork.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,5 +28,7 @@ public static class Extension
 
     services.AddScoped<IDatabaseFacade>(p => p.GetRequiredService<ApplicationDbContext>());
 
+    services.AddUnitOfWork();
+    services.AddUnitOfWork<ApplicationDbContext>();
   }
 }

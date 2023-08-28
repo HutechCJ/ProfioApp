@@ -1,4 +1,4 @@
-using EntityFrameworkCore.UnitOfWork.Extensions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Profio.Infrastructure.Persistence.Relational;
 
@@ -25,7 +25,12 @@ public static class Extensions
     })
       .AddEntityFrameworkStores<ApplicationDbContext>();
 
-    services.AddUnitOfWork();
-    services.AddUnitOfWork<ApplicationDbContext>();
+    services.AddAntiforgery(options =>
+    {
+      options.Cookie.Name = "XSRF-TOKEN";
+      options.Cookie.HttpOnly = true;
+      options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
+      options.HeaderName = "X-XSRF-TOKEN";
+    });
   }
 }
