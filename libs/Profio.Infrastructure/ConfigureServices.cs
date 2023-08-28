@@ -9,12 +9,12 @@ using Profio.Infrastructure.Filters;
 using Profio.Infrastructure.HealthCheck;
 using Profio.Infrastructure.Identity;
 using Profio.Infrastructure.Logging;
+using Profio.Infrastructure.Middleware;
 using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Persistence.Graph;
 using Profio.Infrastructure.Persistence.Relational;
 using Profio.Infrastructure.Swagger;
 using System.IO.Compression;
-using Profio.Infrastructure.Middleware;
 
 namespace Profio.Infrastructure;
 
