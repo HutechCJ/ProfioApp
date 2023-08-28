@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Profio.Application.Users.Commands.Login;
+using Profio.Application.Users.Commands.Register;
 using Profio.Application.Users.Queries;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -16,11 +17,21 @@ public class UsersController : ControllerBase
     => _mediator = mediator;
 
   [HttpPost("login")]
-  public async Task<IActionResult> Login(string userName, string password)
+  public async Task<IActionResult> Login(LoginCommand loginCommand)
   {
-    var result = await _mediator.Send(new LoginCommand(userName, password));
+    var result = await _mediator.Send(loginCommand);
     if (result.IsError)
       return Unauthorized(result);
+    return Ok(result);
+  }
+
+
+  [HttpPost("register")]
+  public async Task<IActionResult> Register(RegisterCommand registerCommand)
+  {
+    var result = await _mediator.Send(registerCommand);
+    if (result.IsError)
+      return BadRequest(result);
     return Ok(result);
   }
 
