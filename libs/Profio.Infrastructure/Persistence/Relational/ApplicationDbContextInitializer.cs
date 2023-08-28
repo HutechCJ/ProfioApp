@@ -47,30 +47,35 @@ public class ApplicationDbContextInitializer
     var thai = new ApplicationUser
     {
       UserName = "thai@gmail.com",
+      FullName = "Nguyễn Hồng Thái",
       Email = "thai@gmail.com"
     };
 
     var nhon = new ApplicationUser
     {
       UserName = "nhon@gmail.com",
+      FullName = "Võ Thương Trường Nhơn",
       Email = "nhon@gmail.com"
     };
 
     var nhan = new ApplicationUser
     {
       UserName = "nhan@gmail.com",
+      FullName = "Nguyễn Xuân Nhân",
       Email = "nhan@gmail.com"
     };
 
     var dat = new ApplicationUser
     {
       UserName = "dat@gmail.com",
+      FullName = "Hoàng Tiến Đạt",
       Email = "dat@gmail.com"
     };
 
     var loi = new ApplicationUser
     {
       UserName = "loi@gmail.com",
+      FullName = "Tạ Thạch Lỗi",
       Email = "loi@gmail.com"
     };
 
