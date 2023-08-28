@@ -14,6 +14,7 @@ using Profio.Infrastructure.Persistence.Graph;
 using Profio.Infrastructure.Persistence.Relational;
 using Profio.Infrastructure.Swagger;
 using System.IO.Compression;
+using Profio.Infrastructure.Middleware;
 
 namespace Profio.Infrastructure;
 
@@ -86,6 +87,9 @@ public static class ConfigureServices
       await initializer.InitialiseAsync();
       await initializer.SeedAsync();
     }
+
+    app.UseMiddleware<ExceptionMiddleware>()
+      .UseMiddleware<TimeOutMiddleware>();
 
     app.UseCors()
       .UseExceptionHandler()

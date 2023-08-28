@@ -1,5 +1,5 @@
 using MediatR;
-using Profio.Application.CQRS.Models;
+using Profio.Domain.Models;
 
 namespace Profio.Application.CQRS.Events.Queries;
 
