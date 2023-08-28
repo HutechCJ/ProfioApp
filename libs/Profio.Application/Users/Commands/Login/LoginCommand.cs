@@ -1,7 +1,7 @@
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Profio.Application.CQRS.Models;
+using Profio.Domain.Models;
 using Profio.Infrastructure.Identity;
 
 namespace Profio.Application.Users.Commands.Login;
