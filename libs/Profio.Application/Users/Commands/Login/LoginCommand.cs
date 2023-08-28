@@ -21,9 +21,8 @@ public record LoginCommandHandler : IRequestHandler<LoginCommand, ResultModel<Ac
     if (user == null)
       return ResultModel<AccountDTO>.CreateError(null, errorMessage: "User not found");
     var isPasswordCorrect = await _userManager.CheckPasswordAsync(user, request.Password);
-    if (!isPasswordCorrect)
-      return ResultModel<AccountDTO>.CreateError(null, errorMessage: "Password not correct!");
-    return ResultModel<AccountDTO>.Create(_mapper.Map<AccountDTO>(user));
-
+    return !isPasswordCorrect
+      ? ResultModel<AccountDTO>.CreateError(null, errorMessage: "Password not correct!")
+      : ResultModel<AccountDTO>.Create(_mapper.Map<AccountDTO>(user));
   }
 }

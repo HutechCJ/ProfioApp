@@ -90,8 +90,7 @@ public static class ConfigureServices
 
     app.UseMiddleware<ExceptionMiddleware>()
       .UseMiddleware<TimeOutMiddleware>()
-      .UseMiddleware<XssProtectionMiddleware>()
-      .UseMiddleware<XsrfProtectionMiddleware>();
+      .UseMiddleware<XssProtectionMiddleware>();
 
     app.UseCors()
       .UseExceptionHandler()
