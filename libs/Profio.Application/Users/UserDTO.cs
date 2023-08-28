@@ -1,4 +1,4 @@
-using Profio.Application.CQRS.Models;
+using Profio.Domain.Models;
 
 namespace Profio.Application.Users;
 

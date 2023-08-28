@@ -73,6 +73,7 @@
     <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.0-preview.3.23174.8" />
     <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="Spectre.Console" Version="0.47.0" />
+    <PackageReference Include="Polly" Version="7.2.4" />
     <PackageReference Include="AutoMapper" Version="12.0.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />

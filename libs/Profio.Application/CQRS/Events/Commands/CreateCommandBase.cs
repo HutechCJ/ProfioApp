@@ -1,6 +1,6 @@
 using MediatR;
-using Profio.Application.CQRS.Models;
 using Profio.Domain.Interfaces;
+using Profio.Domain.Models;
 
 namespace Profio.Application.CQRS.Events.Commands;
 

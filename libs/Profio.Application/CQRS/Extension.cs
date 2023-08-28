@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.Persistence.Relational;
 using System.Diagnostics;
+using Profio.Infrastructure.Validator;
 
 namespace Profio.Application.CQRS;
 
@@ -17,6 +18,8 @@ public static class Extension
       .AddMediatR(cfg =>
       {
         cfg.RegisterServicesFromAssembly(AssemblyReference.Assembly);
+        cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>),
+          ServiceLifetime.Scoped);
         cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>),
           ServiceLifetime.Scoped);
         cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(TxBehavior<,>),

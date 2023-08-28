@@ -5,8 +5,8 @@ using EntityFrameworkCore.UnitOfWork.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Profio.Application.CQRS.Events.Queries;
-using Profio.Application.CQRS.Models;
 using Profio.Domain.Interfaces;
+using Profio.Domain.Models;
 
 namespace Profio.Application.CQRS.Handlers.Queries;
 
