@@ -65,7 +65,7 @@ public static class Extension
       {
         Name = env.EnvironmentName,
         Time = DateTime.UtcNow,
-        UpTime = DateTime.Now - Process.GetCurrentProcess().StartTime,
+        UpTime = DateTime.UtcNow - Process.GetCurrentProcess().StartTime,
         CpuUsage = GetCpuUsage(),
         MemoryUsage = GetMemoryUsage(),
         DiskUsage = GetDiskUsage()
