@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Profio.Infrastructure.Bus;
 using Profio.Infrastructure.Cache;
 using Profio.Infrastructure.Filters;
 using Profio.Infrastructure.HealthCheck;
@@ -73,6 +74,7 @@ public static class ConfigureServices
     services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
 
     services.AddPostgres(builder.Configuration);
+    //services.AddEventBus(builder.Configuration);
     services.AddIdentity();
   }
 

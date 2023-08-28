@@ -59,3 +59,14 @@ services:
       - ./prometheus.yaml:/etc/prometheus/prometheus.yml
     ports:
       - '9090:9090'
+
+  # RabbitMQ
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
