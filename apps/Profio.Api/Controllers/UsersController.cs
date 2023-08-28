@@ -18,14 +18,18 @@ public class UsersController : ControllerBase
   [HttpPost("login")]
   public async Task<IActionResult> Login(string userName, string password)
   {
-    await _mediator.Send(new LoginCommand(userName, password));
-    return Ok();
+    var result = await _mediator.Send(new LoginCommand(userName, password));
+    if (result.IsError)
+      return Unauthorized(result);
+    return Ok(result);
   }
 
   [HttpGet("{id}")]
   public async Task<IActionResult> GetUserById(string id)
   {
     var result = await _mediator.Send(new GetUserByIdQuery(id));
+    if (result.IsError)
+      return BadRequest();
     return Ok(result);
   }
 }
