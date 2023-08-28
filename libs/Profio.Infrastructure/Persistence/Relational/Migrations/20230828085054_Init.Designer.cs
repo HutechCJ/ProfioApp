@@ -9,11 +9,11 @@ using Profio.Infrastructure.Persistence.Relational;
 
 #nullable disable
 
-namespace Profio.Infrastructure.Migrations
+namespace Profio.Infrastructure.Persistence.Relational.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230827040806_InitIdentityDb")]
-    partial class InitIdentityDb
+    [Migration("20230828085054_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -175,6 +175,9 @@ namespace Profio.Infrastructure.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("boolean");
+
+                    b.Property<string>("FullName")
+                        .HasColumnType("text");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("boolean");

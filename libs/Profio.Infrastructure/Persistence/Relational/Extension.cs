@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Profio.Infrastructure.Persistence.Relational.Optimization;
 
 namespace Profio.Infrastructure.Persistence.Relational;
 
@@ -10,6 +11,7 @@ public static class Extension
   {
 
     services.AddDbContextPool<DbContext, ApplicationDbContext>(options =>
+    {
       options.UseNpgsql(configuration.GetConnectionString("Postgres"),
         sqlOptions =>
         {
@@ -17,8 +19,9 @@ public static class Extension
           sqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(30), null);
         })
         .EnableSensitiveDataLogging()
-        .EnableDetailedErrors()
-    );
+        .EnableDetailedErrors();
+      options.UseModel(ApplicationDbContextModel.Instance);
+    });
 
     services.AddScoped<ApplicationDbContextInitializer>();
 
