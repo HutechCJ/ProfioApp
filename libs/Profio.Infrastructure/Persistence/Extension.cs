@@ -1,3 +1,4 @@
+using EntityFramework.Exceptions.PostgreSQL;
 using EntityFrameworkCore.UnitOfWork.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,17 +11,17 @@ public static class Extension
 {
   public static void AddPostgres(this IServiceCollection services, IConfiguration configuration)
   {
-
     services.AddDbContextPool<DbContext, ApplicationDbContext>(options =>
     {
       options.UseNpgsql(configuration.GetConnectionString("Postgres"),
-        sqlOptions =>
-        {
-          sqlOptions.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
-          sqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(30), null);
-        })
+          sqlOptions =>
+          {
+            sqlOptions.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
+            sqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(30), null);
+          })
         .EnableSensitiveDataLogging()
-        .EnableDetailedErrors();
+        .EnableDetailedErrors()
+        .UseExceptionProcessor();
       options.UseModel(ApplicationDbContextModel.Instance);
     });
 
