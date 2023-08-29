@@ -74,7 +74,7 @@ public static class ConfigureServices
     services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
 
     services.AddPostgres(builder.Configuration);
-    //services.AddEventBus(builder.Configuration);
+    services.AddEventBus(builder.Configuration);
     services.AddIdentity();
   }
 

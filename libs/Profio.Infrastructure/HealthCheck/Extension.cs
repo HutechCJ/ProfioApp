@@ -18,11 +18,10 @@ public static class Extension
       .AddRedis(builder.Configuration.GetConnectionString("Redis")
                 ?? throw new InvalidOperationException(), tags: new[] { "redis" })
       .AddNpgSql(builder.Configuration.GetConnectionString("Postgres")
-                 ?? throw new InvalidOperationException(), tags: new[] { "database" });
-      //.AddRabbitMQ(builder.Configuration.GetConnectionString("MessageBroker:Host")
-      //             ?? throw new InvalidOperationException(),
-      //  name: "RabbitMq",
-      //  tags: new[] { "message broker" });
+                 ?? throw new InvalidOperationException(), tags: new[] { "database" })
+      .AddRabbitMQ("amqps://hfzbnoni:03X2irdDUlSBV7D4SoQ4NFNZZ2YglnEh@octopus.rmq3.cloudamqp.com/hfzbnoni",
+        name: "RabbitMq",
+        tags: new[] { "message broker" });
 
     builder.Services
       .AddHealthChecksUI(options =>

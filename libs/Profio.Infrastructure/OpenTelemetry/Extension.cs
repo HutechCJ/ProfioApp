@@ -15,6 +15,7 @@ public static class Extension
     builder.Services.AddOpenTelemetry()
       .WithTracing(trace =>
         trace.SetResourceBuilder(resourceBuilder)
+          .AddSource("MassTransit")
           .AddOtlpExporter()
           .AddSource("Microsoft.AspNetCore", "System.Net.Http")
           .AddEntityFrameworkCoreInstrumentation()
