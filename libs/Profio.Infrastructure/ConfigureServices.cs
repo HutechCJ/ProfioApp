@@ -15,6 +15,7 @@ using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Persistence;
 using Profio.Infrastructure.Swagger;
 using System.IO.Compression;
+using Profio.Infrastructure.Jobs;
 
 namespace Profio.Infrastructure;
 
@@ -70,6 +71,7 @@ public static class ConfigureServices
     builder.AddSerilog();
     builder.AddOpenTelemetry();
     builder.AddHealthCheck();
+    builder.AddHangFire();
 
     services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
 
@@ -91,6 +93,8 @@ public static class ConfigureServices
     app.UseMiddleware<ExceptionMiddleware>()
       .UseMiddleware<TimeOutMiddleware>()
       .UseMiddleware<XssProtectionMiddleware>();
+
+    app.UseHangFire();
 
     app.UseCors()
       .UseExceptionHandler()
