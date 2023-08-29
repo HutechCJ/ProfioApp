@@ -1,3 +1,4 @@
+using EntityFramework.Exceptions.PostgreSQL;
 using EntityFrameworkCore.UnitOfWork.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -20,7 +21,9 @@ public static class Extension
           sqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(30), null);
         })
         .EnableSensitiveDataLogging()
-        .EnableDetailedErrors();
+        .EnableDetailedErrors()
+        .UseExceptionProcessor();
+
       options.UseModel(ApplicationDbContextModel.Instance);
     });
 

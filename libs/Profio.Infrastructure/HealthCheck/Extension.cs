@@ -21,13 +21,19 @@ public static class Extension
                  ?? throw new InvalidOperationException(), tags: new[] { "database" })
       .AddRabbitMQ("amqps://hfzbnoni:03X2irdDUlSBV7D4SoQ4NFNZZ2YglnEh@octopus.rmq3.cloudamqp.com/hfzbnoni",
         name: "RabbitMq",
-        tags: new[] { "message broker" });
+        tags: new[] { "message broker" })
+      .AddHangfire(_ => { }, name: "HangFire", tags: new[] { "jobs" })
+      .AddSignalRHub("https://localhost:9023/hub", name: "SignalR", tags: new[] { "hub" });
 
     builder.Services
       .AddHealthChecksUI(options =>
       {
         options.AddHealthCheckEndpoint("Health Check API", "/hc");
         options.SetEvaluationTimeInSeconds(60);
+        options.SetApiMaxActiveRequests(1);
+        options.DisableDatabaseMigrations();
+        options.MaximumHistoryEntriesPerEndpoint(50);
+        options.SetNotifyUnHealthyOneTimeUntilChange();
         options.UseApiEndpointHttpMessageHandler(_ =>
         {
           return new()
