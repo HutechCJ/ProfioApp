@@ -23,7 +23,6 @@
     "@babel/preset-react": "^7.14.5",
     "@nrwl/js": "16.7.4",
     "@nx-dotnet/core": "^1.22.0",
-    "@nx-plus/docusaurus": "^15.0.0-rc.0",
     "@nx/cypress": "16.7.4",
     "@nx/eslint-plugin": "16.7.4",
     "@nx/jest": "16.7.4",

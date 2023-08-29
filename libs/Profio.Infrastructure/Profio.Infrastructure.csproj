@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.10" />
@@ -64,6 +65,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.SignalR" Version="7.0.0" />
     <PackageReference Include="AspNetCore.HealthChecks.Hangfire" Version="7.0.0" />
     <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="7.0.0" />
     <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" Version="7.0.0" />

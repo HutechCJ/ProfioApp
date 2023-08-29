@@ -26,7 +26,8 @@ public static class Extension
     app.UseHangfireDashboard();
     app.UseHangfireDashboard("/jobs", new DashboardOptions
     {
-      Authorization = new[] { new HangFireAuthorizationFilter() }
+      Authorization = new[] { new HangFireAuthorizationFilter() },
+      IgnoreAntiforgeryToken = true
     });
   }
 }

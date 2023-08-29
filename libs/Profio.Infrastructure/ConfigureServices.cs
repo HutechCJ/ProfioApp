@@ -15,6 +15,7 @@ using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Persistence;
 using Profio.Infrastructure.Swagger;
 using System.IO.Compression;
+using Profio.Infrastructure.Hub;
 using Profio.Infrastructure.Jobs;
 
 namespace Profio.Infrastructure;
@@ -72,6 +73,7 @@ public static class ConfigureServices
     builder.AddOpenTelemetry();
     builder.AddHealthCheck();
     builder.AddHangFire();
+    builder.AddSocketHub();
 
     services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
 
