@@ -17,7 +17,7 @@ public static class Extension
       bus.UsingRabbitMq((ctx, cfg) =>
       {
         var messageQueue = ctx.GetRequiredService<MessageQueue>();
-        cfg.Host(new Uri(messageQueue.Host), h =>
+        cfg.Host(new Uri(messageQueue.Host), messageQueue.Username, h =>
         {
           h.Username(messageQueue.Username);
           h.Password(messageQueue.Password);
