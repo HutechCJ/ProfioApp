@@ -1,0 +1,19 @@
+{
+	"root": "docs",
+	"sourceRoot": "docs/docs",
+	"projectType": "application",
+	"architect": {
+		"serve": {
+			"builder": "@nrwl/workspace:run-commands",
+			"options": {
+				"command": "mkdocs serve"
+			}
+		},
+		"build": {
+			"builder": "@nrwl/workspace:run-commands",
+			"options": {
+				"command": "mkdocs build"
+			}
+		}
+	}
+}

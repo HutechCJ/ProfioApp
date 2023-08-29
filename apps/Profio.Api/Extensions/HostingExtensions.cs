@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Profio.Application;
 using Profio.Infrastructure;
 using Profio.Infrastructure.Swagger;
 
@@ -9,9 +10,9 @@ public static class HostingExtensions
   public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
   {
     builder.Services.AddInfrastructureServices(builder);
+    builder.Services.AddApplicationServices();
     builder.Services.AddRateLimiting();
     //builder.Services.AddWebApiServices(builder.Configuration);
-    //builder.Services.AddApplicationServices();
 
     builder.WebHost.ConfigureKestrel(options =>
     {
@@ -26,7 +27,7 @@ public static class HostingExtensions
   public static async Task<WebApplication> ConfigurePipelineAsync(this WebApplication app)
   {
     if (app.Environment.IsDevelopment())
-      app.AddOpenApi()
+      app.UseOpenApi()
         .UseDeveloperExceptionPage()
         .UseHsts();
     else
@@ -37,7 +38,7 @@ public static class HostingExtensions
     app.MapControllers()
       .RequirePerUserRateLimit();
     app.UseRateLimiter();
-    app.UseWebInfrastructure();
+    await app.UseWebInfrastructureAsync();
 
     return app;
   }

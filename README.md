@@ -5,13 +5,13 @@ Profio Application
 </h1>
 
 <p align="center">
-	Profio Application is an innovative GitHub repository focusing on a streamlined application designed for advanced profile management.
+	Profio Application is a monorepo project built with <a href="https://nx.dev/">Nx</a> technology. It is a set of extensible dev tools for monorepos, which helps you develop like Google, Facebook, and Microsoft.
 </p>
 
 # Overview
 
 <p align="justify">
-	Profio Application, a blend of <b>profile</b> and <b>portfolio</b>, is a versatile platform for crafting and overseeing personal portfolios. Users can tailor themes, document educational and career milestones, and incorporate external links. Tech aficionados benefit from a distinct tech stack showcase. Enhanced with drag-and-drop functionality, all user data is anchored in a sophisticated database structure
+	Profio - the symbol of professionalism in transportation management. Whether you need a solution for managing a fleet of vehicles or ships, Profio provides a powerful tool, optimizing and simplifying the process, ensuring every movement is quick, safe, and efficient
 </p>
 
 # Getting Started
@@ -23,14 +23,13 @@ Profio Application
 - **[npm](https://www.npmjs.com/)** - npm is the package manager for the Node JavaScript platform.
 - **[.NET Core](https://dotnet.microsoft.com/)** - .NET is a developer platform with tools and libraries for building any type of app, including web, mobile, desktop, games, IoT, cloud, and microservices.
 - **[Docker (Kubernetes Enabled)](https://www.docker.com/)** - Docker is an open platform for developing, shipping, and running applications.
-- **[Redis](https://redis.io/)** - Redis is an open source (BSD licensed), in-memory data structure store, used as a database, cache, and message broker.
 
 ## 📦 Services
 
 - **[Render](https://render.com/)** - Render is a unified platform to build and run all your apps and websites with free SSL, global CDN, private networks and auto deploys from Git.
-- **[Neo4j aura](https://neo4j.com/)** - Neo4j Aura is the simplest way to run Neo4j in the cloud. It is a fully-managed database as a service with built-in graph analytics to answer questions about how people, processes and systems are interrelated.
+- **[Redis Labs](https://redislabs.com/)** - Redis Labs is the home of Redis, the world’s most popular in-memory database, and commercial provider of Redis Enterprise.
 - **[Azure](https://azure.microsoft.com/)** - Azure is an ever-expanding set of cloud computing services to help your organization meet its business challenges.
-
+- **[CloudAMQP](https://www.cloudamqp.com/)** - CloudAMQP automates every part of setup, running and scaling of RabbitMQ clusters. Available on all major cloud and application platforms.
 
 ## 🛠️ Setup
 
@@ -60,12 +59,6 @@ For the API, navigate to the `apps/Profio.Api` directory and run the following c
 npx nx serve Profio.Api
 ```
 
-For the Application, navigate to the `apps/profio-app` directory and run the following command:
-
-```bash
-npx nx serve profio-app
-```
-
 For running all applications, navigate to the root directory of the project and run the following command:
 
 ```bash
@@ -86,10 +79,12 @@ For the API, navigate to the `apps/Profio.Api` directory and run the following c
 npx nx test Profio.Api
 ```
 
-For the Application, navigate to the `apps/profio-app-e2e` directory and run the following command:
+## 🐳 Running services with Docker
+
+For running all services, navigate to the root directory of the project and run the following command:
 
 ```bash
-npx nx e2e profio-app-e2e
+docker-compose up -d
 ```
 
 # Dependency Graph

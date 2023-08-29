@@ -36,11 +36,15 @@
     },
     "swagger": {
       "executor": "@nx-dotnet/core:update-swagger",
-      "outputs": ["options.output"],
+      "outputs": [
+        "options.output"
+      ],
       "options": {
         "output": "libs/generated/profio.api-swagger/swagger.json"
       },
-      "dependsOn": ["build"]
+      "dependsOn": [
+        "build"
+      ]
     }
   },
   "tags": []

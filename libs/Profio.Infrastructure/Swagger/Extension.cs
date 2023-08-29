@@ -7,10 +7,10 @@ namespace Profio.Infrastructure.Swagger;
 
 public static class Extension
 {
-  public static void AddOpenApi(this IServiceCollection services)
+  public static IServiceCollection AddOpenApi(this IServiceCollection services)
     => services.AddTransient<IConfigureOptions<SwaggerGenOptions>, ConfigureSwaggerGenOptions>()
       .AddFluentValidationRulesToSwagger()
       .AddSwaggerGen(options => options.OperationFilter<SwaggerDefaultValues>())
       .AddSwaggerGenNewtonsoftSupport()
-      .Configure<SwaggerGeneratorOptions>(o => o.InferSecuritySchemes = true);
+      .Configure<SwaggerGeneratorOptions>(o => o.InferSecuritySchemes = false);
 }

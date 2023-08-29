@@ -5,7 +5,7 @@ namespace Profio.Infrastructure.Swagger;
 
 public static class SwaggerConfiguration
 {
-  public static IApplicationBuilder AddOpenApi(this IApplicationBuilder app)
+  public static IApplicationBuilder UseOpenApi(this IApplicationBuilder app)
   {
     app.UseSwagger(c =>
     {

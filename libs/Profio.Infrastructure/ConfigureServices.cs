@@ -1,9 +1,21 @@
-using System.IO.Compression;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Profio.Infrastructure.Bus;
+using Profio.Infrastructure.Cache;
+using Profio.Infrastructure.Filters;
+using Profio.Infrastructure.HealthCheck;
+using Profio.Infrastructure.Identity;
+using Profio.Infrastructure.Logging;
+using Profio.Infrastructure.Middleware;
+using Profio.Infrastructure.OpenTelemetry;
+using Profio.Infrastructure.Persistence;
 using Profio.Infrastructure.Swagger;
+using System.IO.Compression;
+using Profio.Infrastructure.Jobs;
 
 namespace Profio.Infrastructure;
 
@@ -15,6 +27,7 @@ public static class ConfigureServices
       {
         options.RespectBrowserAcceptHeader = true;
         options.ReturnHttpNotAcceptable = true;
+        options.Filters.Add<LoggingFilter>();
       })
       .AddNewtonsoftJson()
       .AddApplicationPart(AssemblyReference.Assembly);
@@ -38,23 +51,50 @@ public static class ConfigureServices
 
     services.AddCors(options => options
       .AddDefaultPolicy(policy => policy
-        .WithOrigins("https://localhost:8080")
-        .AllowAnyMethod()
-        .AllowAnyHeader()));
-
-    services.AddOpenApi();
-
-    services.AddMediatR(config =>
-      config.RegisterServicesFromAssembly(AssemblyReference.ExecuteAssembly)
-    );
+        .AllowAnyOrigin()
+        .WithMethods(
+          HttpMethods.Get,
+          HttpMethods.Post,
+          HttpMethods.Put,
+          HttpMethods.Patch,
+          HttpMethods.Delete,
+          HttpMethods.Options
+        ).AllowAnyHeader()));
 
     services
       .AddProblemDetails()
-      .AddEndpointsApiExplorer();
+      .AddEndpointsApiExplorer()
+      .AddOpenApi();
+
+    services.AddRedisCache(builder, builder.Configuration);
+
+    builder.AddSerilog();
+    builder.AddOpenTelemetry();
+    builder.AddHealthCheck();
+    builder.AddHangFire();
+
+    services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
+
+    services.AddPostgres(builder.Configuration);
+    services.AddEventBus(builder.Configuration);
+    services.AddIdentity();
   }
 
-  public static void UseWebInfrastructure(this WebApplication app)
+  public static async Task UseWebInfrastructureAsync(this WebApplication app)
   {
+    if (app.Environment.IsDevelopment())
+    {
+      using var scope = app.Services.CreateScope();
+      var initializer = scope.ServiceProvider.GetRequiredService<ApplicationDbContextInitializer>();
+      await initializer.InitialiseAsync();
+      await initializer.SeedAsync();
+    }
+
+    app.UseMiddleware<ExceptionMiddleware>()
+      .UseMiddleware<TimeOutMiddleware>()
+      .UseMiddleware<XssProtectionMiddleware>();
+
+    app.UseHangFire();
 
     app.UseCors()
       .UseExceptionHandler()
@@ -64,8 +104,9 @@ public static class ConfigureServices
       .UseResponseCompression()
       .UseStatusCodePages()
       .UseStaticFiles();
-
+    app.MapHealthCheck();
     app.Map("/", () => Results.Redirect("/swagger"));
+    app.Map("/redoc", () => Results.Redirect("/api-docs"));
     app.Map("/error", () => Results.Problem("An unexpected error occurred.", statusCode: 500))
       .ExcludeFromDescription();
   }

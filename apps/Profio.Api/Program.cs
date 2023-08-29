@@ -1,14 +1,29 @@
 using Profio.Api.Extensions;
+using Serilog;
 using Spectre.Console;
 
 AnsiConsole.Write(new FigletText("Profio APIs").Centered().Color(Color.BlueViolet));
 
-var builder = WebApplication.CreateBuilder(args);
+try
+{
+  var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+  builder.Services.AddControllers();
 
-var app = await builder
-  .ConfigureServices()
-  .ConfigurePipelineAsync();
+  var app = await builder
+    .ConfigureServices()
+    .ConfigurePipelineAsync();
 
-app.Run();
+  app.MapPrometheusScrapingEndpoint();
+
+  app.Run();
+}
+catch (Exception ex)
+{
+  Log.Fatal(ex, "Unhandled Exception");
+}
+finally
+{
+  Log.Information("Shut down complete");
+  Log.CloseAndFlush();
+}

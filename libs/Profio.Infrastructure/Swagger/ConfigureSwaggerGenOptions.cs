@@ -15,7 +15,7 @@ public class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOptions>
       {
         Title = "Profio API",
         Version = "v1",
-        Description = "Profio API Documentation.",
+        Description = "Profio - the symbol of professionalism in transportation management. Whether you need a solution for managing a fleet of vehicles or ships, Profio provides a powerful tool, optimizing and simplifying the process, ensuring every movement is quick, safe, and efficient. If you want to know more about Redocly of OpenAPI, please visit at [Here](https://localhost:9023/redoc).",
         License = new()
         {
           Name = "MIT",
