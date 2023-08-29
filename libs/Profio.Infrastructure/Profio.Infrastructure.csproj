@@ -68,19 +68,20 @@
     <PackageReference Include="AspNetCore.HealthChecks.SignalR" Version="7.0.0" />
     <PackageReference Include="AspNetCore.HealthChecks.Hangfire" Version="7.0.0" />
     <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="7.0.0" />
+    <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" Version="7.0.0" />
     <PackageReference Include="AspNetCore.HealthChecks.Redis" Version="7.0.0" />
     <PackageReference Include="AspNetCore.HealthChecks.UI" Version="7.0.2" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="7.1.0" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.InMemory.Storage" Version="7.0.0" />
-    <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.0-preview.3.23174.8" />
-    <PackageReference Include="MediatR" Version="12.1.1" />
-    <PackageReference Include="Spectre.Console" Version="0.47.0" />
-    <PackageReference Include="Polly" Version="7.2.4" />
     <PackageReference Include="HtmlSanitizer" Version="8.0.692" />
+    <PackageReference Include="MediatR" Version="12.1.1" />
+    <PackageReference Include="Polly" Version="7.2.4" />
+    <PackageReference Include="Spectre.Console" Version="0.47.0" />
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.0-preview.3.23174.8" />
+    <PackageReference Include="Ulid" Version="1.3.0" />
   </ItemGroup>
 
   <ItemGroup>
