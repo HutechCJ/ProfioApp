@@ -1,12 +1,17 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Profio.Infrastructure.Persistence;
 
 namespace Profio.Infrastructure.Identity;
 
 public static class Extensions
 {
-  public static void AddIdentity(this IServiceCollection services)
+  public static void AddApplicationIdentity(this IServiceCollection services, WebApplicationBuilder builder)
   {
     services.AddIdentityCore<ApplicationUser>(options =>
     {
@@ -23,7 +28,8 @@ public static class Extensions
 
       options.User.RequireUniqueEmail = true;
     })
-      .AddEntityFrameworkStores<ApplicationDbContext>();
+      .AddEntityFrameworkStores<ApplicationDbContext>()
+      .AddDefaultTokenProviders();
 
     services.AddAntiforgery(options =>
     {
@@ -32,5 +38,21 @@ public static class Extensions
       options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
       options.HeaderName = "X-XSRF-TOKEN";
     });
+
+    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Authentication:TokenKey"] ?? string.Empty));
+
+    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+      .AddJwtBearer(options =>
+      {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+          ValidateIssuerSigningKey = true,
+          IssuerSigningKey = key,
+          ValidateIssuer = false,
+          ValidateAudience = false,
+          ValidateLifetime = true,
+          ClockSkew = TimeSpan.FromSeconds(5)
+        };
+      });
   }
 }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -30,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.10" />
@@ -64,6 +65,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.HealthChecks.SignalR" Version="7.0.0" />
     <PackageReference Include="AspNetCore.HealthChecks.Hangfire" Version="7.0.0" />
     <PackageReference Include="AspNetCore.HealthChecks.NpgSql" Version="7.0.0" />
     <PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" Version="7.0.0" />
@@ -79,7 +81,7 @@
     <PackageReference Include="Polly" Version="7.2.4" />
     <PackageReference Include="Spectre.Console" Version="0.47.0" />
     <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.0-preview.3.23174.8" />
-    <PackageReference Include="Ulid" Version="1.3.0" />
+    <PackageReference Include="Bogus" Version="34.0.2" />
   </ItemGroup>
 
   <ItemGroup>

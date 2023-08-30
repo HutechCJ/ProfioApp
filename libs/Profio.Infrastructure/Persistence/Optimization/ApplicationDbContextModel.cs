@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Profio.Infrastructure.Persistence.Relational.Optimization
 {
-  [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     public partial class ApplicationDbContextModel : RuntimeModel
     {
         static ApplicationDbContextModel()

@@ -8,14 +8,15 @@ using Profio.Infrastructure.Bus;
 using Profio.Infrastructure.Cache;
 using Profio.Infrastructure.Filters;
 using Profio.Infrastructure.HealthCheck;
+using Profio.Infrastructure.Hub;
 using Profio.Infrastructure.Identity;
+using Profio.Infrastructure.Jobs;
 using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.Middleware;
 using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Persistence;
 using Profio.Infrastructure.Swagger;
 using System.IO.Compression;
-using Profio.Infrastructure.Jobs;
 
 namespace Profio.Infrastructure;
 
@@ -66,18 +67,20 @@ public static class ConfigureServices
       .AddEndpointsApiExplorer()
       .AddOpenApi();
 
-    services.AddRedisCache(builder, builder.Configuration);
+    services.AddRedisCache(builder.Configuration);
 
     builder.AddSerilog();
     builder.AddOpenTelemetry();
     builder.AddHealthCheck();
     builder.AddHangFire();
+    builder.AddSocketHub();
 
     services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
+    services.AddScoped<ITokenService, TokenService>();
 
     services.AddPostgres(builder.Configuration);
     services.AddEventBus(builder.Configuration);
-    services.AddIdentity();
+    services.AddApplicationIdentity(builder);
   }
 
   public static async Task UseWebInfrastructureAsync(this WebApplication app)
@@ -90,13 +93,20 @@ public static class ConfigureServices
       await initializer.SeedAsync();
     }
 
-    app.UseMiddleware<ExceptionMiddleware>()
+    app
+      .UseAuthentication()
+      .UseAuthorization();
+
+    app
+      .UseMiddleware<ExceptionMiddleware>()
       .UseMiddleware<TimeOutMiddleware>()
       .UseMiddleware<XssProtectionMiddleware>();
 
-    app.UseHangFire();
+    app
+      .UseHangFire();
 
-    app.UseCors()
+    app
+      .UseCors()
       .UseExceptionHandler()
       .UseHttpsRedirection()
       .UseRateLimiter()
@@ -104,6 +114,7 @@ public static class ConfigureServices
       .UseResponseCompression()
       .UseStatusCodePages()
       .UseStaticFiles();
+
     app.MapHealthCheck();
     app.Map("/", () => Results.Redirect("/swagger"));
     app.Map("/redoc", () => Results.Redirect("/api-docs"));

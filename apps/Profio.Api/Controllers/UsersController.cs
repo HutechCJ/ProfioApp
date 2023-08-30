@@ -1,4 +1,5 @@
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Profio.Application.Users.Commands.Login;
 using Profio.Application.Users.Commands.Register;
@@ -12,9 +13,10 @@ namespace Profio.Api.Controllers;
 public class UsersController : ControllerBase
 {
   private readonly IMediator _mediator;
+  private readonly IConfiguration _configuration;
 
-  public UsersController(IMediator mediator)
-    => _mediator = mediator;
+  public UsersController(IMediator mediator, IConfiguration configuration)
+      => (_mediator, _configuration) = (mediator, configuration);
 
   [HttpPost("login")]
   public async Task<IActionResult> Login(LoginCommand loginCommand)
@@ -25,6 +27,9 @@ public class UsersController : ControllerBase
     return Ok(result);
   }
 
+  [HttpGet("token-key")]
+  public IActionResult GetTokenKey()
+    => Ok(_configuration["Authentication:TokenKey"] ?? string.Empty);
 
   [HttpPost("register")]
   public async Task<IActionResult> Register(RegisterCommand registerCommand)
@@ -43,4 +48,8 @@ public class UsersController : ControllerBase
       return BadRequest();
     return Ok(result);
   }
+
+  [Authorize]
+  [HttpGet("check-authorization")]
+  public IActionResult CheckAuthorization() => Ok();
 }

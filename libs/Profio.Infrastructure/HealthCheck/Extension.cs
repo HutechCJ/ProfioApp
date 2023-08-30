@@ -22,7 +22,8 @@ public static class Extension
       .AddRabbitMQ("amqps://hfzbnoni:03X2irdDUlSBV7D4SoQ4NFNZZ2YglnEh@octopus.rmq3.cloudamqp.com/hfzbnoni",
         name: "RabbitMq",
         tags: new[] { "message broker" })
-      .AddHangfire(_ => { }, name: "HangFire", tags: new[] { "jobs" });
+      .AddHangfire(_ => { }, name: "HangFire", tags: new[] { "jobs" })
+      .AddSignalRHub("https://localhost:9023/hub", name: "SignalR", tags: new[] { "hub" });
 
     builder.Services
       .AddHealthChecksUI(options =>

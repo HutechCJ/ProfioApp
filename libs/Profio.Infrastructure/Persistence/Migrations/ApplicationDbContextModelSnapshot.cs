@@ -4,12 +4,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
+using Profio.Domain.ValueObjects;
+using Profio.Infrastructure.Persistence;
 
 #nullable disable
 
 namespace Profio.Infrastructure.Persistence.Relational.Migrations
 {
-  [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -153,6 +155,262 @@ namespace Profio.Infrastructure.Persistence.Relational.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("Profio.Domain.Entities.Customer", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(26)
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<Address>("Address")
+                        .IsUnicode(true)
+                        .HasColumnType("jsonb");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<int?>("Gender")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(true)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character(10)")
+                        .IsFixedLength();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.DeliveryProgress", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(26)
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<Location>("CurrentLocation")
+                        .IsUnicode(true)
+                        .HasColumnType("jsonb");
+
+                    b.Property<string>("EstimatedTimeRemaining")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime?>("LastUpdated")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("OrderId")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<byte>("PercentComplete")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("DeliveryProgresses");
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.Hub", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(26)
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<Location>("Location")
+                        .IsUnicode(true)
+                        .HasColumnType("jsonb");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character(50)")
+                        .IsFixedLength();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Hubs");
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.Incident", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(26)
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(250)
+                        .IsUnicode(true)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<string>("OrderHistoryId")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<DateTime?>("Time")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderHistoryId");
+
+                    b.ToTable("Incidents");
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.Order", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(26)
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("CustomerId")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("DestinationZipCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<double?>("Distance")
+                        .HasColumnType("double precision");
+
+                    b.Property<DateTime?>("ExpectedDeliveryTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("VehicleId")
+                        .HasColumnType("character varying(26)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.OrderHistory", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(26)
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("HubId")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("OrderId")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<DateTime?>("Timestamp")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("VehicleId")
+                        .HasColumnType("character varying(26)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("HubId");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("OrderHistories");
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.Route", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(26)
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<double?>("Distance")
+                        .HasColumnType("double precision");
+
+                    b.Property<string>("EndHubId")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("StartHubId")
+                        .HasColumnType("character varying(26)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EndHubId");
+
+                    b.HasIndex("StartHubId");
+
+                    b.ToTable("Routes");
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.Staff", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(26)
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .IsUnicode(true)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Phone")
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("character(10)")
+                        .IsFixedLength();
+
+                    b.Property<int>("Position")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Staffs");
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.Vehicle", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(26)
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("LicensePlate")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("StaffId")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<int>("VehicleType")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("ZipCodeCurrent")
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StaffId");
+
+                    b.ToTable("Vehicles");
+                });
+
             modelBuilder.Entity("Profio.Infrastructure.Identity.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
@@ -269,6 +527,132 @@ namespace Profio.Infrastructure.Persistence.Relational.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.DeliveryProgress", b =>
+                {
+                    b.HasOne("Profio.Domain.Entities.Order", "Order")
+                        .WithMany("DeliveryProgresses")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("Order");
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.Incident", b =>
+                {
+                    b.HasOne("Profio.Domain.Entities.OrderHistory", "OrderHistory")
+                        .WithMany("Incidents")
+                        .HasForeignKey("OrderHistoryId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("OrderHistory");
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.Order", b =>
+                {
+                    b.HasOne("Profio.Domain.Entities.Customer", "Customer")
+                        .WithMany("Orders")
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Profio.Domain.Entities.Vehicle", "Vehicle")
+                        .WithMany("Orders")
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Customer");
+
+                    b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.OrderHistory", b =>
+                {
+                    b.HasOne("Profio.Domain.Entities.Hub", "Hub")
+                        .WithMany("OrderHistories")
+                        .HasForeignKey("HubId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.HasOne("Profio.Domain.Entities.Order", "Order")
+                        .WithMany("OrderHistories")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Profio.Domain.Entities.Vehicle", "Vehicle")
+                        .WithMany("OrderHistories")
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Hub");
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Vehicle");
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.Route", b =>
+                {
+                    b.HasOne("Profio.Domain.Entities.Hub", "EndHub")
+                        .WithMany("EndRoutes")
+                        .HasForeignKey("EndHubId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Profio.Domain.Entities.Hub", "StartHub")
+                        .WithMany("StartRoutes")
+                        .HasForeignKey("StartHubId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.Navigation("EndHub");
+
+                    b.Navigation("StartHub");
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.Vehicle", b =>
+                {
+                    b.HasOne("Profio.Domain.Entities.Staff", "Staff")
+                        .WithMany("Vehicles")
+                        .HasForeignKey("StaffId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Staff");
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.Customer", b =>
+                {
+                    b.Navigation("Orders");
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.Hub", b =>
+                {
+                    b.Navigation("EndRoutes");
+
+                    b.Navigation("OrderHistories");
+
+                    b.Navigation("StartRoutes");
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.Order", b =>
+                {
+                    b.Navigation("DeliveryProgresses");
+
+                    b.Navigation("OrderHistories");
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.OrderHistory", b =>
+                {
+                    b.Navigation("Incidents");
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.Staff", b =>
+                {
+                    b.Navigation("Vehicles");
+                });
+
+            modelBuilder.Entity("Profio.Domain.Entities.Vehicle", b =>
+                {
+                    b.Navigation("OrderHistories");
+
+                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }
