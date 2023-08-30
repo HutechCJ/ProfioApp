@@ -47,7 +47,7 @@ public class TokenService : ITokenService
   {
     JwtSecurityToken jwtToken = new(token);
     return token is null
-      ? DateTime.Now
+      ? DateTime.UtcNow
       : jwtToken.ValidTo.ToUniversalTime();
   }
 }
