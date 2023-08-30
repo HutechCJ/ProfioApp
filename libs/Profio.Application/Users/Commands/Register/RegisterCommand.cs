@@ -6,8 +6,8 @@ using Profio.Infrastructure.Identity;
 
 namespace Profio.Application.Users.Commands.Register;
 
-public record RegisterCommand(string Email, string Password, string FullName) : IRequest<ResultModel<AccountDTO>>;
-public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ResultModel<AccountDTO>>
+public record RegisterCommand(string Email, string Password, string FullName) : IRequest<ResultModel<AccountDto>>;
+public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ResultModel<AccountDto>>
 {
   private readonly UserManager<ApplicationUser> _userManager;
   private readonly IMapper _mapper;
@@ -16,12 +16,14 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ResultMod
   public RegisterCommandHandler(UserManager<ApplicationUser> userManager, IMapper mapper, ITokenService tokenService)
     => (_userManager, _mapper, _tokenService) = (userManager, mapper, tokenService);
 
-  public async Task<ResultModel<AccountDTO>> Handle(RegisterCommand request, CancellationToken cancellationToken)
+  public async Task<ResultModel<AccountDto>> Handle(RegisterCommand request, CancellationToken cancellationToken)
   {
     if (_userManager.Users.Any(u => u.UserName == request.Email))
-      return ResultModel<AccountDTO>.CreateError(null, "User name already exists");
+      return ResultModel<AccountDto>.CreateError(null, "User name already exists");
+
     if (_userManager.Users.Any(u => u.Email == request.Email))
-      return ResultModel<AccountDTO>.CreateError(null, "Email already exists");
+      return ResultModel<AccountDto>.CreateError(null, "Email already exists");
+
     var user = new ApplicationUser
     {
       UserName = request.Email,
@@ -32,11 +34,10 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ResultMod
     var result = await _userManager.CreateAsync(user, request.Password);
 
     if (!result.Succeeded)
-    {
-      return ResultModel<AccountDTO>.CreateError(null, "Create user failed");
-    }
-    var dto = _mapper.Map<AccountDTO>(user);
+      return ResultModel<AccountDto>.CreateError(null, "Create user failed");
+    
+    var dto = _mapper.Map<AccountDto>(user);
     dto.Token = _tokenService.CreateToken(user);
-    return ResultModel<AccountDTO>.Create(dto);
+    return ResultModel<AccountDto>.Create(dto);
   }
 }
