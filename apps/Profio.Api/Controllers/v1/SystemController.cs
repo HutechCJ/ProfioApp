@@ -3,12 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Profio.Infrastructure.System;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Profio.Api.Controllers;
+namespace Profio.Api.Controllers.v1;
 
-[Route("api/v1/[controller]")]
-[ApiController]
+[ApiVersion("1.0")]
+[Authorize]
 [SwaggerTag("The System Monitor and Status")]
-public class SystemController : ControllerBase
+public class SystemController : BaseController
 {
   private readonly IConfiguration _config;
   private readonly IWebHostEnvironment _env;
@@ -17,13 +17,13 @@ public class SystemController : ControllerBase
     => (_config, _env) = (config, env);
 
   [HttpGet]
-  [AllowAnonymous]
+  [MapToApiVersion("1.0")]
   [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
   public IActionResult GetPlatform()
     => Ok(_config.GetPlatform(_env));
 
   [HttpGet("status")]
-  [AllowAnonymous]
+  [MapToApiVersion("1.0")]
   public IActionResult GetServerStatus()
     => Ok(Extension.GetPlatformStatus(_env));
 }

@@ -1,4 +1,3 @@
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Profio.Application.Users.Commands.Login;
@@ -6,22 +5,24 @@ using Profio.Application.Users.Commands.Register;
 using Profio.Application.Users.Queries;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Profio.Api.Controllers;
-[Route("api/v1/[controller]")]
-[ApiController]
+namespace Profio.Api.Controllers.v1;
+
+[ApiVersion("1.0")]
+[Authorize]
 [SwaggerTag("An authenticated and authorized user")]
-public class UsersController : ControllerBase
+public class UsersController : BaseController
 {
-  private readonly IMediator _mediator;
   private readonly IConfiguration _configuration;
 
-  public UsersController(IMediator mediator, IConfiguration configuration)
-      => (_mediator, _configuration) = (mediator, configuration);
+  public UsersController(IConfiguration configuration)
+    => _configuration = configuration;
 
   [HttpPost("login")]
+  [AllowAnonymous]
+  [MapToApiVersion("1.0")]
   public async Task<IActionResult> Login(LoginCommand loginCommand)
   {
-    var result = await _mediator.Send(loginCommand);
+    var result = await Mediator.Send(loginCommand);
     if (result.IsError)
       return Unauthorized(result);
     return Ok(result);
@@ -32,24 +33,28 @@ public class UsersController : ControllerBase
     => Ok(_configuration["Authentication:TokenKey"] ?? string.Empty);
 
   [HttpPost("register")]
+  [AllowAnonymous]
+  [MapToApiVersion("1.0")]
   public async Task<IActionResult> Register(RegisterCommand registerCommand)
   {
-    var result = await _mediator.Send(registerCommand);
+    var result = await Mediator.Send(registerCommand);
     if (result.IsError)
       return BadRequest(result);
     return Ok(result);
   }
 
   [HttpGet("{id}")]
+  [MapToApiVersion("1.0")]
   public async Task<IActionResult> GetUserById(string id)
   {
-    var result = await _mediator.Send(new GetUserByIdQuery(id));
+    var result = await Mediator.Send(new GetUserByIdQuery(id));
     if (result.IsError)
       return BadRequest();
     return Ok(result);
   }
 
-  [Authorize]
+
   [HttpGet("check-authorization")]
+  [MapToApiVersion("1.0")]
   public IActionResult CheckAuthorization() => Ok();
 }

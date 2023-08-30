@@ -17,6 +17,7 @@ using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Persistence;
 using Profio.Infrastructure.Swagger;
 using System.IO.Compression;
+using Profio.Infrastructure.Versioning;
 
 namespace Profio.Infrastructure;
 
@@ -60,26 +61,28 @@ public static class ConfigureServices
           HttpMethods.Patch,
           HttpMethods.Delete,
           HttpMethods.Options
-        ).AllowAnyHeader()));
+        )
+        .AllowAnyHeader()));
 
-    services
-      .AddProblemDetails()
-      .AddEndpointsApiExplorer()
-      .AddOpenApi();
-
-    services.AddRedisCache(builder.Configuration);
-
+    builder.AddApiVersioning();
     builder.AddSerilog();
     builder.AddOpenTelemetry();
     builder.AddHealthCheck();
     builder.AddHangFire();
     builder.AddSocketHub();
 
+    services
+      .AddProblemDetails()
+      .AddEndpointsApiExplorer()
+      .AddOpenApi();
+
     services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
     services.AddScoped<ITokenService, TokenService>();
 
-    services.AddPostgres(builder.Configuration);
-    services.AddEventBus(builder.Configuration);
+    services.AddPostgres(builder.Configuration)
+      .AddRedisCache(builder.Configuration)
+      .AddEventBus(builder.Configuration);
+
     services.AddApplicationIdentity(builder);
   }
 

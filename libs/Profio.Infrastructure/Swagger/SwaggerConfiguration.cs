@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
 namespace Profio.Infrastructure.Swagger;
@@ -18,7 +20,8 @@ public static class SwaggerConfiguration
         {
           new()
           {
-            Url = $"{httpReq.Scheme}://{httpReq.Host.Value}"
+            Url = $"{httpReq.Scheme}://{httpReq.Host.Value}",
+            Description = "Staging Environment"
           }
         };
       });
@@ -27,7 +30,11 @@ public static class SwaggerConfiguration
     app.UseSwaggerUI(c =>
     {
       c.DocumentTitle = "Profio API";
-      c.SwaggerEndpoint("/swagger/v1/swagger.json", "Profio API");
+      foreach (var description in app.ApplicationServices
+                 .GetRequiredService<IApiVersionDescriptionProvider>()
+                 .ApiVersionDescriptions)
+        c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
+          description.GroupName.ToUpperInvariant());
       c.DisplayRequestDuration();
       c.EnableValidator();
     });
@@ -35,7 +42,10 @@ public static class SwaggerConfiguration
     app.UseReDoc(options =>
     {
       options.DocumentTitle = "Profio API";
-      options.SpecUrl("/swagger/v1/swagger.json");
+      foreach (var description in app.ApplicationServices
+                 .GetRequiredService<IApiVersionDescriptionProvider>()
+                 .ApiVersionDescriptions)
+        options.SpecUrl($"/swagger/{description.GroupName}/swagger.json");
       options.EnableUntrustedSpec();
     });
 
