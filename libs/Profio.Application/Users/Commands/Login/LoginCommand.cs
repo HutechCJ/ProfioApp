@@ -11,9 +11,10 @@ public record LoginCommandHandler : IRequestHandler<LoginCommand, ResultModel<Ac
 {
   private readonly UserManager<ApplicationUser> _userManager;
   private readonly IMapper _mapper;
+  private readonly ITokenService _tokenService;
 
-  public LoginCommandHandler(UserManager<ApplicationUser> userManager, IMapper mapper)
-    => (_userManager, _mapper) = (userManager, mapper);
+  public LoginCommandHandler(UserManager<ApplicationUser> userManager, IMapper mapper, ITokenService tokenService)
+    => (_userManager, _mapper, _tokenService) = (userManager, mapper, tokenService);
 
   public async Task<ResultModel<AccountDTO>> Handle(LoginCommand request, CancellationToken cancellationToken)
   {
@@ -21,8 +22,12 @@ public record LoginCommandHandler : IRequestHandler<LoginCommand, ResultModel<Ac
     if (user == null)
       return ResultModel<AccountDTO>.CreateError(null, errorMessage: "User not found");
     var isPasswordCorrect = await _userManager.CheckPasswordAsync(user, request.Password);
-    return !isPasswordCorrect
-      ? ResultModel<AccountDTO>.CreateError(null, errorMessage: "Password not correct!")
-      : ResultModel<AccountDTO>.Create(_mapper.Map<AccountDTO>(user));
+    if (!isPasswordCorrect)
+    {
+      return ResultModel<AccountDTO>.CreateError(null, errorMessage: "Password not correct!");
+    }
+    var dto = _mapper.Map<AccountDTO>(user);
+    dto.Token = _tokenService.CreateToken(user);
+    return ResultModel<AccountDTO>.Create(dto);
   }
 }

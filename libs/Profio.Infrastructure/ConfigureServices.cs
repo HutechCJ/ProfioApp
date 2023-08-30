@@ -8,15 +8,15 @@ using Profio.Infrastructure.Bus;
 using Profio.Infrastructure.Cache;
 using Profio.Infrastructure.Filters;
 using Profio.Infrastructure.HealthCheck;
+using Profio.Infrastructure.Hub;
 using Profio.Infrastructure.Identity;
+using Profio.Infrastructure.Jobs;
 using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.Middleware;
 using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Persistence;
 using Profio.Infrastructure.Swagger;
 using System.IO.Compression;
-using Profio.Infrastructure.Hub;
-using Profio.Infrastructure.Jobs;
 
 namespace Profio.Infrastructure;
 
@@ -76,6 +76,7 @@ public static class ConfigureServices
     builder.AddSocketHub();
 
     services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
+    services.AddScoped<ITokenService, TokenService>();
 
     services.AddPostgres(builder.Configuration);
     services.AddEventBus(builder.Configuration);
