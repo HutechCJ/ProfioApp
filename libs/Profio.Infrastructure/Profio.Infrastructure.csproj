@@ -90,6 +90,8 @@
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.7.1" />
     <PackageReference Include="MassTransit" Version="8.1.0" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.1.0" />
+    <PackageReference Include="MQTTnet" Version="4.2.1.781" />
+    <PackageReference Include="MQTTnet.AspNetCore" Version="4.2.1.781" />
   </ItemGroup>
 
   <ItemGroup>
