@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Profio.Infrastructure.Persistence;
 
@@ -23,7 +24,8 @@ public static class Extensions
 
       options.User.RequireUniqueEmail = true;
     })
-      .AddEntityFrameworkStores<ApplicationDbContext>();
+      .AddEntityFrameworkStores<ApplicationDbContext>()
+      .AddDefaultTokenProviders();
 
     services.AddAntiforgery(options =>
     {

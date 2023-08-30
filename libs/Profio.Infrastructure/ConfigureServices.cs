@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using Profio.Infrastructure.Bus;
 using Profio.Infrastructure.Cache;
 using Profio.Infrastructure.Filters;
@@ -17,6 +19,7 @@ using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Persistence;
 using Profio.Infrastructure.Swagger;
 using System.IO.Compression;
+using System.Text;
 
 namespace Profio.Infrastructure;
 
@@ -81,6 +84,22 @@ public static class ConfigureServices
     services.AddPostgres(builder.Configuration);
     services.AddEventBus(builder.Configuration);
     services.AddIdentity();
+
+    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Authentication:TokenKey"] ?? string.Empty));
+
+    services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+          options.TokenValidationParameters = new TokenValidationParameters
+          {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = key,
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.FromSeconds(5)
+          };
+        });
   }
 
   public static async Task UseWebInfrastructureAsync(this WebApplication app)
@@ -93,13 +112,20 @@ public static class ConfigureServices
       await initializer.SeedAsync();
     }
 
-    app.UseMiddleware<ExceptionMiddleware>()
+    app
+      .UseAuthentication()
+      .UseAuthorization();
+
+    app
+      .UseMiddleware<ExceptionMiddleware>()
       .UseMiddleware<TimeOutMiddleware>()
       .UseMiddleware<XssProtectionMiddleware>();
 
-    app.UseHangFire();
+    app
+      .UseHangFire();
 
-    app.UseCors()
+    app
+      .UseCors()
       .UseExceptionHandler()
       .UseHttpsRedirection()
       .UseRateLimiter()
@@ -107,6 +133,7 @@ public static class ConfigureServices
       .UseResponseCompression()
       .UseStatusCodePages()
       .UseStaticFiles();
+
     app.MapHealthCheck();
     app.Map("/", () => Results.Redirect("/swagger"));
     app.Map("/redoc", () => Results.Redirect("/api-docs"));

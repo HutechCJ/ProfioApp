@@ -34,7 +34,7 @@ public static class HostingExtensions
       app.UseExceptionHandler("/error");
 
     app.UseHttpsRedirection();
-    app.UseAuthorization();
+    //app.UseAuthorization();
     app.MapControllers()
       .RequirePerUserRateLimit();
     app.UseRateLimiter();

@@ -26,9 +26,9 @@ public class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOptions>
     options.AddSecurityDefinition("Bearer", new()
     {
       Name = "Authorization",
-      Description = "Enter the Bearer Authorization string as following: `Bearer Generated-JWT-Token`",
+      Description = "Enter the Bearer Authorization string as following: `Generated-JWT-Token`",
       In = ParameterLocation.Header,
-      Type = SecuritySchemeType.ApiKey,
+      Type = SecuritySchemeType.Http,
       Scheme = JwtBearerDefaults.AuthenticationScheme
     });
 

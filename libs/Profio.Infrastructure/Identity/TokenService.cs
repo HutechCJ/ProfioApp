@@ -14,7 +14,7 @@ public class TokenService : ITokenService
 
   public TokenService(IConfiguration configuration)
   {
-    _tokenKey = configuration["Authentication:TokenKey"]!;
+    _tokenKey = configuration["Authentication:TokenKey"] ?? string.Empty;
     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_tokenKey));
     _signingCredentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
     _tokenLifespan = TimeSpan.FromHours(5);
