@@ -11,9 +11,10 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ResultMod
 {
   private readonly UserManager<ApplicationUser> _userManager;
   private readonly IMapper _mapper;
+  private readonly ITokenService _tokenService;
 
-  public RegisterCommandHandler(UserManager<ApplicationUser> userManager, IMapper mapper)
-    => (_userManager, _mapper) = (userManager, mapper);
+  public RegisterCommandHandler(UserManager<ApplicationUser> userManager, IMapper mapper, ITokenService tokenService)
+    => (_userManager, _mapper, _tokenService) = (userManager, mapper, tokenService);
 
   public async Task<ResultModel<AccountDTO>> Handle(RegisterCommand request, CancellationToken cancellationToken)
   {
@@ -31,7 +32,11 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ResultMod
     var result = await _userManager.CreateAsync(user, request.Password);
 
     if (!result.Succeeded)
+    {
       return ResultModel<AccountDTO>.CreateError(null, "Create user failed");
-    return ResultModel<AccountDTO>.Create(_mapper.Map<AccountDTO>(user));
+    }
+    var dto = _mapper.Map<AccountDTO>(user);
+    dto.Token = _tokenService.CreateToken(user);
+    return ResultModel<AccountDTO>.Create(dto);
   }
 }
