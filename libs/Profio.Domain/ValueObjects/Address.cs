@@ -1,7 +1,9 @@
+using Microsoft.EntityFrameworkCore;
 using Profio.Domain.Primitives;
 
 namespace Profio.Domain.ValueObjects;
 
+[Owned]
 public sealed class Address : ValueObject
 {
   public string? Street { get; set; }

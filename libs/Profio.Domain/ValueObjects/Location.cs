@@ -1,7 +1,9 @@
+using Microsoft.EntityFrameworkCore;
 using Profio.Domain.Primitives;
 
 namespace Profio.Domain.ValueObjects;
 
+[Owned]
 public class Location : ValueObject
 {
   public double Latitude { get; set; }

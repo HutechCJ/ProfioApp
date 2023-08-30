@@ -11,4 +11,5 @@ public class Vehicle
   public string? StaffId { get; set; }
   public Staff? Staff { get; set; }
   public ICollection<Order> Orders { get; set; } = new List<Order>();
+  public ICollection<OrderHistory> OrderHistories { get; set; } = new List<OrderHistory>();
 }
