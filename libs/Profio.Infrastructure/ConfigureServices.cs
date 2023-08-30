@@ -70,7 +70,7 @@ public static class ConfigureServices
       .AddEndpointsApiExplorer()
       .AddOpenApi();
 
-    services.AddRedisCache(builder, builder.Configuration);
+    services.AddRedisCache(builder.Configuration);
 
     builder.AddSerilog();
     builder.AddOpenTelemetry();
