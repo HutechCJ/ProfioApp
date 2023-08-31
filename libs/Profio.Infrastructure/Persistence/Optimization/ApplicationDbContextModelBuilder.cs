@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 #pragma warning disable 219, 612, 618
 #nullable enable
 
-namespace Profio.Infrastructure.Persistence.Relational.Optimization
+namespace Profio.Infrastructure.Persistence.Optimization
 {
     public partial class ApplicationDbContextModel
     {

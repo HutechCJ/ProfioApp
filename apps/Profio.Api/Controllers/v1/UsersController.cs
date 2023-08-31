@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Profio.Application.Users.Commands.Login;
 using Profio.Application.Users.Commands.Register;
 using Profio.Application.Users.Queries;
+using Profio.Domain.Specifications;
+using Profio.Infrastructure.Identity;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Api.Controllers.v1;
@@ -57,4 +59,15 @@ public class UsersController : BaseController
   [HttpGet("check-authorization")]
   [MapToApiVersion("1.0")]
   public IActionResult CheckAuthorization() => Ok();
+  [HttpGet("get-users")]
+  [AllowAnonymous]
+  public async Task<IActionResult> GetUsers(int pageIndex, string? filterString)
+  {
+    var criteria = new Criteria<ApplicationUser>
+    {
+      Filter = x => filterString == null || x.UserName!.Contains(filterString),
+      PageNumber = pageIndex,
+    };
+    return Ok(await Mediator.Send(new GetUserWithPagingQuery(criteria)));
+  }
 }

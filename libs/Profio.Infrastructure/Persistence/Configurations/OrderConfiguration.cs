@@ -13,6 +13,8 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
     builder.Property(e => e.Id)
       .HasMaxLength(26);
 
+    builder.Property(e => e.StartedDate);
+
     builder.Property(e => e.ExpectedDeliveryTime);
 
     builder.Property(e => e.Status);
