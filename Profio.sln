@@ -17,6 +17,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Profio.Application", "libs\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Profio.Infrastructure", "libs\Profio.Infrastructure\Profio.Infrastructure.csproj", "{55FD65CD-1352-4198-AD9A-4F90F3EAF0BA}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Profio.Proxy", "apps\Profio.Proxy\Profio.Proxy.csproj", "{B70F475F-4700-44BB-B90D-3BCF24E776B0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{86A871DF-B07E-4BA6-9453-C765F49E9519}"
+	ProjectSection(SolutionItems) = preProject
+		components\docker\docker-compose.yml = components\docker\docker-compose.yml
+	EndProjectSection
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{1531ACF0-E50D-402C-AC49-4DBFC52F314D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +52,14 @@ Global
 		{55FD65CD-1352-4198-AD9A-4F90F3EAF0BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{55FD65CD-1352-4198-AD9A-4F90F3EAF0BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{55FD65CD-1352-4198-AD9A-4F90F3EAF0BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B70F475F-4700-44BB-B90D-3BCF24E776B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B70F475F-4700-44BB-B90D-3BCF24E776B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B70F475F-4700-44BB-B90D-3BCF24E776B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B70F475F-4700-44BB-B90D-3BCF24E776B0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1531ACF0-E50D-402C-AC49-4DBFC52F314D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1531ACF0-E50D-402C-AC49-4DBFC52F314D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1531ACF0-E50D-402C-AC49-4DBFC52F314D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1531ACF0-E50D-402C-AC49-4DBFC52F314D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,6 +70,7 @@ Global
 		{D810B8AB-A32D-47E4-8436-230B2ED9DF39} = {742D8809-4CB8-4049-A634-8270C4CE81D3}
 		{9C875654-1352-4765-AD94-C15DE24257B3} = {742D8809-4CB8-4049-A634-8270C4CE81D3}
 		{55FD65CD-1352-4198-AD9A-4F90F3EAF0BA} = {742D8809-4CB8-4049-A634-8270C4CE81D3}
+		{B70F475F-4700-44BB-B90D-3BCF24E776B0} = {0559CCC8-31C5-4489-A9C4-AC8A198B4D11}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A8E52222-A4A6-4BBE-AD21-7244FF88B00A}

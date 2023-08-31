@@ -12,6 +12,8 @@
           "codegen",
           "swagger",
           "codegen",
+          "swagger",
+          "codegen",
           "swagger"
         ],
         "accessToken": "YmU4NWEyN2MtMDkwNC00MjRiLWJjYWUtZDNhM2ZjZTg2MTQ0fHJlYWQtd3JpdGU="
@@ -20,7 +22,15 @@
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build", "codegen", "^codegen", "codegen", "^codegen"],
+      "dependsOn": [
+        "^build",
+        "codegen",
+        "^codegen",
+        "codegen",
+        "^codegen",
+        "codegen",
+        "^codegen"
+      ],
       "inputs": ["production", "^production"]
     },
     "test": {
