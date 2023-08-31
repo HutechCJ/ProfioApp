@@ -5,6 +5,7 @@ namespace Profio.Domain.Entities;
 public class Order
 {
   public required string? Id { get; set; } = Ulid.NewUlid().ToString();
+  public DateTime StartedDate { get; set; } = DateTime.UtcNow;
   public DateTime? ExpectedDeliveryTime { get; set; }
   public OrderStatus Status { get; set; } = OrderStatus.Pending;
   public required string? DestinationZipCode { get; set; }

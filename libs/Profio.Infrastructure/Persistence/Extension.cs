@@ -3,7 +3,7 @@ using EntityFrameworkCore.UnitOfWork.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Profio.Infrastructure.Persistence.Relational.Optimization;
+using Profio.Infrastructure.Persistence.Optimization;
 
 namespace Profio.Infrastructure.Persistence;
 

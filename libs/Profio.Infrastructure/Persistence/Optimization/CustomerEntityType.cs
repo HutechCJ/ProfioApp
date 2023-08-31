@@ -9,7 +9,7 @@ using Profio.Domain.ValueObjects;
 #pragma warning disable 219, 612, 618
 #nullable enable
 
-namespace Profio.Infrastructure.Persistence.Relational.Optimization
+namespace Profio.Infrastructure.Persistence.Optimization
 {
     internal partial class CustomerEntityType
     {
@@ -66,6 +66,14 @@ namespace Profio.Infrastructure.Persistence.Relational.Optimization
                 fieldInfo: typeof(Customer).GetField("<Phone>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 maxLength: 10);
             phone.AddAnnotation("Relational:IsFixedLength", true);
+
+            var zipCode = runtimeEntityType.AddProperty(
+                "ZipCode",
+                typeof(string),
+                propertyInfo: typeof(Customer).GetProperty("ZipCode", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Customer).GetField("<ZipCode>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                maxLength: 50);
+            zipCode.AddAnnotation("Relational:IsFixedLength", true);
 
             var key = runtimeEntityType.AddKey(
                 new[] { id });

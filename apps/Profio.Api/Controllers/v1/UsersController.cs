@@ -59,7 +59,7 @@ public class UsersController : BaseController
   [HttpGet("check-authorization")]
   [MapToApiVersion("1.0")]
   public IActionResult CheckAuthorization() => Ok();
-  [HttpPost("get-users")]
+  [HttpGet("get-users")]
   [AllowAnonymous]
   public async Task<IActionResult> GetUsers(int pageIndex, string? filterString)
   {

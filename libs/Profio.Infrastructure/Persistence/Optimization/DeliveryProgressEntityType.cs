@@ -11,7 +11,7 @@ using Profio.Infrastructure.Persistence.Converter;
 #pragma warning disable 219, 612, 618
 #nullable enable
 
-namespace Profio.Infrastructure.Persistence.Relational.Optimization
+namespace Profio.Infrastructure.Persistence.Optimization
 {
     internal partial class DeliveryProgressEntityType
     {

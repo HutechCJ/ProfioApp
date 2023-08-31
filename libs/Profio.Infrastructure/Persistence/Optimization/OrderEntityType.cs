@@ -10,7 +10,7 @@ using Profio.Domain.Entities;
 #pragma warning disable 219, 612, 618
 #nullable enable
 
-namespace Profio.Infrastructure.Persistence.Relational.Optimization
+namespace Profio.Infrastructure.Persistence.Optimization
 {
     internal partial class OrderEntityType
     {
@@ -56,6 +56,12 @@ namespace Profio.Infrastructure.Persistence.Relational.Optimization
                 propertyInfo: typeof(Order).GetProperty("ExpectedDeliveryTime", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(Order).GetField("<ExpectedDeliveryTime>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true);
+
+            var startedDate = runtimeEntityType.AddProperty(
+                "StartedDate",
+                typeof(DateTime),
+                propertyInfo: typeof(Order).GetProperty("StartedDate", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Order).GetField("<StartedDate>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             var status = runtimeEntityType.AddProperty(
                 "Status",
