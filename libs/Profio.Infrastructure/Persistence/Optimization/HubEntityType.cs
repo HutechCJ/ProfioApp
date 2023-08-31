@@ -41,7 +41,7 @@ namespace Profio.Infrastructure.Persistence.Relational.Optimization
                 "Status",
                 typeof(HubStatus),
                 propertyInfo: typeof(Domain.Entities.Hub).GetProperty("Status", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Domain.Entities.Hub).GetField("<Status>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                fieldInfo: typeof(Hub).GetField("<Status>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             var zipCode = runtimeEntityType.AddProperty(
                 "ZipCode",
