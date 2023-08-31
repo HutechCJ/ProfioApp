@@ -9,7 +9,7 @@ using Profio.Domain.ValueObjects;
 #pragma warning disable 219, 612, 618
 #nullable enable
 
-namespace Profio.Infrastructure.Persistence.Relational.Optimization
+namespace Profio.Infrastructure.Persistence.Optimization
 {
     internal partial class HubEntityType
     {
@@ -17,7 +17,7 @@ namespace Profio.Infrastructure.Persistence.Relational.Optimization
         {
             var runtimeEntityType = model.AddEntityType(
                 "Profio.Domain.Entities.Hub",
-                typeof(Domain.Entities.Hub),
+                typeof(Profio.Domain.Entities.Hub),
                 baseEntityType);
 
             var id = runtimeEntityType.AddProperty(

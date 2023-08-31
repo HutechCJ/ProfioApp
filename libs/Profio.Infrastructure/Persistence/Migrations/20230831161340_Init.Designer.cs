@@ -10,11 +10,11 @@ using Profio.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace Profio.Infrastructure.Persistence.Relational.Migrations
+namespace Profio.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230830094309_InitBussinessEntities")]
-    partial class InitBussinessEntities
+    [Migration("20230831161340_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -188,6 +188,12 @@ namespace Profio.Infrastructure.Persistence.Relational.Migrations
                         .HasColumnType("character(10)")
                         .IsFixedLength();
 
+                    b.Property<string>("ZipCode")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character(50)")
+                        .IsFixedLength();
+
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
@@ -291,6 +297,9 @@ namespace Profio.Infrastructure.Persistence.Relational.Migrations
                         .HasColumnType("double precision");
 
                     b.Property<DateTime?>("ExpectedDeliveryTime")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("StartedDate")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Status")
