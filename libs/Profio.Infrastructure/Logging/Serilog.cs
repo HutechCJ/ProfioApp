@@ -6,4 +6,6 @@ public class Serilog
 
   public string LogTemplate { get; set; } =
     "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} {Level} - {Message:lj}{NewLine}{Exception}";
+
+  public string SeqUrl { get; set; } = string.Empty;
 }
