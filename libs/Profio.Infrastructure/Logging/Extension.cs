@@ -29,9 +29,6 @@ public static class Extension
       if (serilogOptions.UseConsole)
         config.WriteTo.Async(writeTo =>
           writeTo.Console(outputTemplate: serilogOptions.LogTemplate, theme: AnsiConsoleTheme.Literate));
-
-      if (!string.IsNullOrEmpty(serilogOptions.SeqUrl))
-        config.WriteTo.Async(writeTo => writeTo.Seq(serilogOptions.SeqUrl));
     });
   }
 }

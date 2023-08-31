@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using OpenTelemetry.Logs;
 using OpenTelemetry.Metrics;
 using OpenTelemetry.Resources;
 using OpenTelemetry.Trace;
@@ -11,6 +13,11 @@ public static class Extension
   public static void AddOpenTelemetry(this WebApplicationBuilder builder)
   {
     var resourceBuilder = ResourceBuilder.CreateDefault().AddService(builder.Environment.ApplicationName);
+
+    builder.Logging.AddOpenTelemetry(logging =>
+      logging.SetResourceBuilder(resourceBuilder)
+        .AddOtlpExporter()
+    );
 
     builder.Services.AddOpenTelemetry()
       .WithTracing(trace =>
