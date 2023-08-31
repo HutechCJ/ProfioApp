@@ -30,6 +30,7 @@ Profio Application
 - **[Redis Labs](https://redislabs.com/)** - Redis Labs is the home of Redis, the world’s most popular in-memory database, and commercial provider of Redis Enterprise.
 - **[Azure](https://azure.microsoft.com/)** - Azure is an ever-expanding set of cloud computing services to help your organization meet its business challenges.
 - **[CloudAMQP](https://www.cloudamqp.com/)** - CloudAMQP automates every part of setup, running and scaling of RabbitMQ clusters. Available on all major cloud and application platforms.
+- **[EMQX](https://www.emqx.io/)** - EMQ X Broker is a fully open source, highly scalable, highly available distributed MQTT messaging broker for IoT, M2M and Mobile applications that can handle tens of millions of concurrent clients.
 
 ## 🛠️ Setup
 
