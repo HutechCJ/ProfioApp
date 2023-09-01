@@ -26,9 +26,10 @@ public record LoginCommandHandler : IRequestHandler<LoginCommand, ResultModel<Ac
 
     if (!isPasswordCorrect)
       return ResultModel<AccountDto>.CreateError(null, errorMessage: "Password not correct!");
-    
+
     var dto = _mapper.Map<AccountDto>(user);
     dto.Token = _tokenService.CreateToken(user);
+    dto.TokenExpire = _tokenService.GetExpireDate(dto.Token);
     return ResultModel<AccountDto>.Create(dto);
   }
 }

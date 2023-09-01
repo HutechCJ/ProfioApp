@@ -27,6 +27,13 @@ public class UsersController : BaseController
     var result = await Mediator.Send(loginCommand);
     if (result.IsError)
       return Unauthorized(result);
+
+    Response.Cookies.Append("USER-TOKEN", result.Data!.Token!, new()
+    {
+      HttpOnly = true,
+      Expires = result.Data.TokenExpire,
+    });
+
     return Ok(result);
   }
 
@@ -55,10 +62,10 @@ public class UsersController : BaseController
     return Ok(result);
   }
 
-
   [HttpGet("check-authorization")]
   [MapToApiVersion("1.0")]
   public IActionResult CheckAuthorization() => Ok();
+
   [HttpGet("get-users")]
   [AllowAnonymous]
   public async Task<IActionResult> GetUsers(int pageIndex, string? filterString)
