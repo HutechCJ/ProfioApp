@@ -32,7 +32,7 @@ public class TokenService : ITokenService
     var tokenDescriptor = new SecurityTokenDescriptor
     {
       Subject = new(tokenClaims),
-      Expires = DateTime.Now.Add(_tokenLifespan),
+      Expires = DateTime.UtcNow.Add(_tokenLifespan),
       SigningCredentials = _signingCredentials
     };
 
