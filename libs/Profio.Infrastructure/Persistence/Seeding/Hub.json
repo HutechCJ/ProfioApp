@@ -1,0 +1,36 @@
+[
+	{
+		"Id": "01H980MA0J6P4K2YP2RH1HJ8YV",
+		"Name": "CJ Warehousing - Thủ Đức",
+		"ZipCode": "700000",
+		"Location": {
+			"Latitude": 10.8274,
+			"Longitude": 106.8117
+		},
+		"Address": {
+			"Street": "63 Lò Lu",
+			"Ward": "Trường Thạnh",
+			"City": "Thủ Đức",
+			"Province": "Hồ Chí Minh",
+			"ZipCode": "71354"
+		},
+		"Status": 0
+	},
+	{
+		"Id": "01H980MA0JGWX7H0MGZ3TQVW39",
+		"Name": "Kho Biên Hòa",
+		"ZipCode": "76000",
+		"Location": {
+			"Latitude": 10.9321,
+			"Longitude": 106.9670
+		},
+		"Address": {
+			"Street": "Võ Nguyên Giáp",
+			"Ward": "Bình Minh",
+			"City": "Trảng Bom",
+			"Province": "Đồng Nai",
+			"ZipCode": "76300"
+		},
+		"Status": 0
+	}
+]
