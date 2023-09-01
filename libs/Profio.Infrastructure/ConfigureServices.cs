@@ -105,8 +105,8 @@ public static class ConfigureServices
       .UseMiddleware<TimeOutMiddleware>()
       .UseMiddleware<XssProtectionMiddleware>();
 
-    app
-      .UseHangFire();
+    app.UseHangFire();
+    app.MapLocationHub();
 
     app
       .UseCors()
