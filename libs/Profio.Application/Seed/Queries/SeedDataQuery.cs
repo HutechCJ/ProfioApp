@@ -1,4 +1,3 @@
-using System.Text.Json;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +5,7 @@ using Profio.Domain.Constants;
 using Profio.Domain.Entities;
 using Profio.Infrastructure.Persistence;
 using Serilog;
+using System.Text.Json;
 
 namespace Profio.Application.Seed.Queries
 {
@@ -19,9 +19,9 @@ namespace Profio.Application.Seed.Queries
 
     public async Task<string> Handle(SeedDataQuery request, CancellationToken cancellationToken)
     {
-      await _context.Hubs.ExecuteDeleteAsync(cancellationToken: cancellationToken);
+      //await _context.Hubs.ExecuteDeleteAsync(cancellationToken: cancellationToken);
       await HubSeeding();
-      // await RouteSeeding();
+      await RouteSeeding();
       return "Seeding Success";
     }
 

@@ -65,7 +65,6 @@ namespace Profio.Infrastructure.Persistence.Optimization
                 propertyInfo: typeof(Domain.Entities.Hub).GetProperty("ZipCode", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(Domain.Entities.Hub).GetField("<ZipCode>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 maxLength: 50);
-            zipCode.AddAnnotation("Relational:IsFixedLength", true);
 
             var key = runtimeEntityType.AddKey(
                 new[] { id });

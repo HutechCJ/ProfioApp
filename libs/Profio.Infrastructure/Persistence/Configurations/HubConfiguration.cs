@@ -18,7 +18,6 @@ public class HubConfiguration : IEntityTypeConfiguration<Domain.Entities.Hub>
 
     builder.Property(e => e.ZipCode)
       .HasMaxLength(50)
-      .IsFixedLength()
       .IsRequired();
 
     builder.Property(e => e.Location)
