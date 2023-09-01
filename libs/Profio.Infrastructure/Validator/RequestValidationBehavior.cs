@@ -32,7 +32,7 @@ public class RequestValidationBehavior<TRequest, TResponse> : IPipelineBehavior<
 
         var validator = _serviceProvider.GetService<IValidator<TRequest>>();
         if (validator is { })
-            await validator.HandleValidation(request);
+            await validator.HandleValidationAsync(request);
 
         var response = await next();
 

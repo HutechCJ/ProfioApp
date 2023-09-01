@@ -1,5 +1,4 @@
 using System.Text.Json;
-using AutoMapper;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
@@ -16,14 +15,11 @@ namespace Profio.Application.Seed.Queries
     private readonly IUnitOfWork _unitOfWork;
     private readonly ApplicationDbContext _context;
     public SeedDataHandler(IUnitOfWork unitOfWork, ApplicationDbContext context)
-    {
-      _unitOfWork = unitOfWork;
-      _context = context;
-    }
+      => (_unitOfWork, _context) = (unitOfWork, context);
+
     public async Task<string> Handle(SeedDataQuery request, CancellationToken cancellationToken)
     {
-      await _context.Hubs.ExecuteDeleteAsync();
-
+      await _context.Hubs.ExecuteDeleteAsync(cancellationToken: cancellationToken);
       await HubSeeding();
       // await RouteSeeding();
       return "Seeding Success";
@@ -33,11 +29,10 @@ namespace Profio.Application.Seed.Queries
     {
       if (!await _context.Routes.AnyAsync())
       {
-        string json = File.ReadAllText(PathSeed.RouteData);
-        List<Route> routes = JsonSerializer.Deserialize<List<Route>>(json)!;
+        var json = await File.ReadAllTextAsync(PathSeed.RouteData);
+        var routes = JsonSerializer.Deserialize<List<Route>>(json)!;
         await _context.AddRangeAsync(routes);
         await _context.SaveChangesAsync();
-
         var routeList = await _context.Routes.ToListAsync();
         Log.Information("Added route logging" + JsonSerializer.Serialize(routeList));
       };
@@ -47,11 +42,10 @@ namespace Profio.Application.Seed.Queries
     {
       if (!await _context.Hubs.AnyAsync())
       {
-        string json = File.ReadAllText(PathSeed.HubData);
-        List<Hub> hubs = JsonSerializer.Deserialize<List<Hub>>(json)!;
+        var json = await File.ReadAllTextAsync(PathSeed.HubData);
+        var hubs = JsonSerializer.Deserialize<List<Hub>>(json)!;
         await _context.AddRangeAsync(hubs);
         await _context.SaveChangesAsync();
-
         var hubList = await _context.Hubs.ToListAsync();
         Log.Information("Added hub logging" + JsonSerializer.Serialize(hubList));
       };

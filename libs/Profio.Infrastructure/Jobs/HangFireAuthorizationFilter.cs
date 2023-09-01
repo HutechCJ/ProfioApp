@@ -10,6 +10,6 @@ public class HangFireAuthorizationFilter : IDashboardAuthorizationFilter
       return true;
 
     var httpContext = context.GetHttpContext();
-    return httpContext.User.Identity?.IsAuthenticated ?? false;
+    return httpContext.User.Identity?.IsAuthenticated == true;
   }
 }
