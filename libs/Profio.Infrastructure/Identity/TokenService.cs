@@ -50,4 +50,24 @@ public class TokenService : ITokenService
       ? DateTime.UtcNow
       : jwtToken.ValidTo.ToUniversalTime();
   }
+
+  public bool ValidateToken(string? token)
+  {
+    if (string.IsNullOrEmpty(token))
+      return false;
+
+    var handler = new JwtSecurityTokenHandler();
+
+    handler.ValidateToken(token, new()
+    {
+      ValidateIssuerSigningKey = true,
+      IssuerSigningKey = _signingCredentials.Key,
+      ValidateIssuer = false,
+      ValidateAudience = false,
+      ValidateLifetime = true,
+      ClockSkew = TimeSpan.FromSeconds(5)
+    }, out _);
+
+    return true;
+  }
 }

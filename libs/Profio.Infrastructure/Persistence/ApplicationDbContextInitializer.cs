@@ -81,10 +81,12 @@ public class ApplicationDbContextInitializer
 
     const string password = "P@ssw0rd";
 
-    await _userManager.CreateAsync(thai, password).ConfigureAwait(false);
-    await _userManager.CreateAsync(nhon, password).ConfigureAwait(false);
-    await _userManager.CreateAsync(nhan, password).ConfigureAwait(false);
-    await _userManager.CreateAsync(dat, password).ConfigureAwait(false);
-    await _userManager.CreateAsync(loi, password).ConfigureAwait(false);
+    await Task.WhenAll(
+      _userManager.CreateAsync(thai, password),
+      _userManager.CreateAsync(nhon, password),
+      _userManager.CreateAsync(nhan, password),
+      _userManager.CreateAsync(dat, password),
+      _userManager.CreateAsync(loi, password)
+    ).ConfigureAwait(false);
   }
 }

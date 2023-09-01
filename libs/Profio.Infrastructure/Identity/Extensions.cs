@@ -44,7 +44,7 @@ public static class Extensions
     services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
       .AddJwtBearer(options =>
       {
-        options.TokenValidationParameters = new TokenValidationParameters
+        options.TokenValidationParameters = new()
         {
           ValidateIssuerSigningKey = true,
           IssuerSigningKey = key,
