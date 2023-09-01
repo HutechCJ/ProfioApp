@@ -1,11 +1,12 @@
 using Profio.Domain.Constants;
+using Profio.Domain.Interfaces;
 using Profio.Domain.ValueObjects;
 
 namespace Profio.Domain.Entities;
 
-public class Hub
+public class Hub : IEntity<string>
 {
-  public required string? Id { get; set; } = Ulid.NewUlid().ToString();
+  public required string Id { get; set; } = Ulid.NewUlid().ToString();
   public required string? Name { get; set; }
   public required string? ZipCode { get; set; }
   public Location? Location { get; set; }

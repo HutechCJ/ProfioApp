@@ -61,13 +61,9 @@ public class UsersController : BaseController
   public IActionResult CheckAuthorization() => Ok();
   [HttpGet("get-users")]
   [AllowAnonymous]
-  public async Task<IActionResult> GetUsers(int pageIndex, string? filterString)
+  [MapToApiVersion("1.0")]
+  public async Task<IActionResult> GetUsers([FromQuery] Criteria<ApplicationUser> criteria)
   {
-    var criteria = new Criteria<ApplicationUser>
-    {
-      Filter = x => filterString == null || x.UserName!.Contains(filterString),
-      PageNumber = pageIndex,
-    };
     return Ok(await Mediator.Send(new GetUserWithPagingQuery(criteria)));
   }
 }
