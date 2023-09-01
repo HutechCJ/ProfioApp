@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Profio.Application.CQRS.Events.Commands;
 using Profio.Domain.Interfaces;
 using Profio.Domain.Models;
-using Profio.Infrastructure.Excepitions;
+using Profio.Infrastructure.Exceptions;
 
 namespace Profio.Application.CQRS.Handlers.Command;
 
@@ -20,11 +20,9 @@ public class DeleteCommandHandlerBase<TCommand, TModel, TEntity> : IRequestHandl
   private readonly IRepository<TEntity> _repository;
   private readonly IMapper _mapper;
 
-  public DeleteCommandHandlerBase(IUnitOfWork unitOfWork, IMapper mapper)
-  {
-    _repository = unitOfWork.Repository<TEntity>();
-    _mapper = mapper;
-  }
+  public DeleteCommandHandlerBase(IRepositoryFactory unitOfWork, IMapper mapper)
+    => (_repository, _mapper) = (unitOfWork.Repository<TEntity>(), mapper);
+
   public async Task<ResultModel<TModel>> Handle(TCommand request, CancellationToken cancellationToken)
   {
     var query = _repository.SingleResultQuery()

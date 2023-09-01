@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Profio.Application.CQRS.Events.Commands;
 using Profio.Domain.Interfaces;
 using Profio.Domain.Models;
-using Profio.Infrastructure.Excepitions;
+using Profio.Infrastructure.Exceptions;
 
 namespace Profio.Application.CQRS.Handlers.Command;
 
@@ -24,6 +24,7 @@ public class UpdateCommandHandlerBase<TCommand, TEntity> : IRequestHandler<TComm
     _repository = _unitOfWork.Repository<TEntity>();
     _mapper = mapper;
   }
+
   public async Task<ResultModel<object>> Handle(TCommand request, CancellationToken cancellationToken)
   {
     var query = _repository.SingleResultQuery()
