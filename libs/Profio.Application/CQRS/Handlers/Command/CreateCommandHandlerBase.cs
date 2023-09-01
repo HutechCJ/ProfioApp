@@ -9,7 +9,7 @@ using Profio.Domain.Models;
 
 namespace Profio.Application.CQRS.Handlers.Command;
 
-public class CreateCommandHandlerBase<TCommand, TModel, TEntity> : IRequestHandler<TCommand, TModel>
+public class CreateCommandHandlerBase<TCommand, TModel, TEntity> : IRequestHandler<TCommand, ResultModel<TModel>>
   where TCommand : CreateCommandBase<TModel>
   where TModel : BaseModel
   where TEntity : class, IEntity<object>
@@ -19,7 +19,7 @@ public class CreateCommandHandlerBase<TCommand, TModel, TEntity> : IRequestHandl
   private readonly IMapper _mapper;
 
   public CreateCommandHandlerBase(IUnitOfWork unitOfWork, IMapper mapper) => (_unitOfWork, _mapper, _repository) = (unitOfWork, mapper, unitOfWork.Repository<TEntity>());
-  public async Task<TModel> Handle(TCommand request, CancellationToken cancellationToken)
+  public async Task<ResultModel<TModel>> Handle(TCommand request, CancellationToken cancellationToken)
   {
     var entity = _mapper.Map<TEntity>(request);
 
@@ -29,6 +29,6 @@ public class CreateCommandHandlerBase<TCommand, TModel, TEntity> : IRequestHandl
 
     _repository.RemoveTracking(entity);
 
-    return _mapper.Map<TModel>(entity);
+    return ResultModel<TModel>.Create(_mapper.Map<TModel>(entity));
   }
 }

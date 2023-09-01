@@ -1,8 +1,9 @@
-using System.Net;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Profio.Domain.Models;
+using Profio.Infrastructure.Excepitions;
 using Profio.Infrastructure.Validator;
+using System.Net;
 
 namespace Profio.Infrastructure.Middleware;
 
@@ -41,6 +42,12 @@ public class ExceptionMiddleware
         .ToString();
 
       await context.Response.WriteAsync(validationErrorModel);
+    }
+    else if (exception is NotFoundException notFoundException)
+    {
+      var notFoundErrorModel = ResultModel<string>.CreateError(notFoundException.Message, "Not Found Error.")
+        .ToString();
+      await context.Response.WriteAsync(notFoundErrorModel);
     }
     else
       await context.Response.WriteAsync(
