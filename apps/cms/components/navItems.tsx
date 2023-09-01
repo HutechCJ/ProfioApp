@@ -4,6 +4,7 @@ import HubIcon from '@mui/icons-material/Hub'
 import InventoryIcon from '@mui/icons-material/Inventory'
 import ErrorIcon from '@mui/icons-material/Error'
 
+// Hard navigation routes
 const categories = [
     {
         id: 'Quản Lý',

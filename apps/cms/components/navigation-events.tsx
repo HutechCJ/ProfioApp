@@ -3,6 +3,7 @@
 import { useEffect } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 
+// Catch on route change
 export function NavigationEvents() {
     const pathname = usePathname()
     const searchParams = useSearchParams()

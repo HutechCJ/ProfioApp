@@ -25,6 +25,7 @@ export default function Paperbase({ children }: React.PropsWithChildren) {
         setMobileOpen(!mobileOpen)
     }
 
+    // Get title of each route if it has one
     const headerTitle = categories
         .map((cate) => cate.children.map((v) => ({ ...v, category: cate.id })))
         .flat()
