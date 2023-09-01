@@ -13,7 +13,7 @@ using Profio.Domain.Models;
 
 namespace Profio.Application.CQRS.Handlers.Queries;
 
-public abstract class GetWithPagingQueryHandler<TQuery, TModel, TEntity> : IRequestHandler<TQuery, IPagedList<TModel>>
+public abstract class GetWithPagingQueryHandler<TQuery, TModel, TEntity> : IRequestHandler<TQuery, ResultModel<IPagedList<TModel>>>
   where TQuery : GetWithPagingQueryBase<TEntity, TModel>
   where TModel : BaseModel
   where TEntity : class, IEntity<object>
@@ -24,15 +24,15 @@ public abstract class GetWithPagingQueryHandler<TQuery, TModel, TEntity> : IRequ
   protected GetWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper)
     => (_repository, _mapper) = (unitOfWork.Repository<TEntity>(), mapper);
 
-  public async Task<IPagedList<TModel>> Handle(TQuery request, CancellationToken cancellationToken)
+  public async Task<ResultModel<IPagedList<TModel>>> Handle(TQuery request, CancellationToken cancellationToken)
   {
     var query = _repository
       .MultipleResultQuery()
       .Page(request.Criteria.PageNumber, request.Criteria.PageSize);
 
-    if (request.Criteria.Filter is { })
-      query = (IMultipleResultQuery<TEntity>)query
-        .AndFilter(request.Criteria.Filter);
+    //if (request.Criteria.Filter is { })
+    //  query = (IMultipleResultQuery<TEntity>)query
+    //    .AndFilter(request.Criteria.Filter);
 
     if (request.Criteria.OrderBy is { })
       query = (IMultipleResultQuery<TEntity>)query
@@ -58,7 +58,7 @@ public abstract class GetWithPagingQueryHandler<TQuery, TModel, TEntity> : IRequ
                           query.Paging.TotalCount,
                           cancellationToken);
 
-    return pagedList;
+    return ResultModel<IPagedList<TModel>>.Create(pagedList);
 
   }
 }

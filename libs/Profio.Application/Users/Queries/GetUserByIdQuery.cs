@@ -6,8 +6,8 @@ using Profio.Infrastructure.Identity;
 
 namespace Profio.Application.Users.Queries;
 
-public record GetUserByIdQuery(object Id) : GetByIdQueryBase<UserDto>(Id);
-public class GetUserByIdQueryHandler : GetByIdQueryHandlerBase<GetUserByIdQuery, UserDto, ApplicationUser>
+public record GetUserByIdQuery(object Id) : GetByIdQueryBase<UserDTO>(Id);
+public class GetUserByIdQueryHandler : GetByIdQueryHandlerBase<GetUserByIdQuery, UserDTO, ApplicationUser>
 {
   public GetUserByIdQueryHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
