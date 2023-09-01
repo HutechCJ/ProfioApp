@@ -50,7 +50,8 @@ public static class Extensions
           options.DefaultScheme = IdentityConstants.ApplicationScheme;
           options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
         })
-      .AddJwtBearer(options =>
+      .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
+        options =>
         options.TokenValidationParameters = new()
         {
           ValidateIssuerSigningKey = true,
@@ -61,7 +62,8 @@ public static class Extensions
           ClockSkew = TimeSpan.FromSeconds(5)
         }
       )
-      .AddCookie(options =>
+      .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
+        options =>
       {
         options.Cookie.Name = "USER-TOKEN";
         options.Cookie.HttpOnly = true;
@@ -78,9 +80,9 @@ public static class Extensions
         options.ForwardDefaultSelector = context =>
         {
           var authHeader = context.Request.Headers[HeaderNames.Authorization].FirstOrDefault();
-          if (authHeader?.StartsWith("Bearer ") ?? false)
-            return JwtBearerDefaults.AuthenticationScheme;
-          return CookieAuthenticationDefaults.AuthenticationScheme;
+          return authHeader?.StartsWith("Bearer ") == true
+            ? JwtBearerDefaults.AuthenticationScheme
+            : CookieAuthenticationDefaults.AuthenticationScheme;
         };
       });
   }
