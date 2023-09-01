@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Profio.Domain.Constants;
 using Profio.Domain.Entities;
+using Profio.Domain.ValueObjects;
 
 #pragma warning disable 219, 612, 618
 #nullable enable
@@ -36,6 +37,15 @@ namespace Profio.Infrastructure.Persistence.Optimization
                 fieldInfo: typeof(Order).GetField("<CustomerId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true);
 
+            var destinationAddress = runtimeEntityType.AddProperty(
+                "DestinationAddress",
+                typeof(Address),
+                propertyInfo: typeof(Order).GetProperty("DestinationAddress", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Order).GetField("<DestinationAddress>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true,
+                unicode: true);
+            destinationAddress.AddAnnotation("Relational:ColumnType", "jsonb");
+
             var destinationZipCode = runtimeEntityType.AddProperty(
                 "DestinationZipCode",
                 typeof(string),
@@ -57,6 +67,15 @@ namespace Profio.Infrastructure.Persistence.Optimization
                 fieldInfo: typeof(Order).GetField("<ExpectedDeliveryTime>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true);
 
+            var note = runtimeEntityType.AddProperty(
+                "Note",
+                typeof(string),
+                propertyInfo: typeof(Order).GetProperty("Note", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Order).GetField("<Note>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true,
+                maxLength: 250,
+                unicode: true);
+
             var startedDate = runtimeEntityType.AddProperty(
                 "StartedDate",
                 typeof(DateTime),
@@ -69,22 +88,12 @@ namespace Profio.Infrastructure.Persistence.Optimization
                 propertyInfo: typeof(Order).GetProperty("Status", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(Order).GetField("<Status>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
-            var vehicleId = runtimeEntityType.AddProperty(
-                "VehicleId",
-                typeof(string),
-                propertyInfo: typeof(Order).GetProperty("VehicleId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Order).GetField("<VehicleId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                nullable: true);
-
             var key = runtimeEntityType.AddKey(
                 new[] { id });
             runtimeEntityType.SetPrimaryKey(key);
 
             var index = runtimeEntityType.AddIndex(
                 new[] { customerId });
-
-            var index0 = runtimeEntityType.AddIndex(
-                new[] { vehicleId });
 
             return runtimeEntityType;
         }
@@ -109,30 +118,6 @@ namespace Profio.Infrastructure.Persistence.Optimization
                 typeof(ICollection<Order>),
                 propertyInfo: typeof(Customer).GetProperty("Orders", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(Customer).GetField("<Orders>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-
-            return runtimeForeignKey;
-        }
-
-        public static RuntimeForeignKey CreateForeignKey2(RuntimeEntityType declaringEntityType, RuntimeEntityType principalEntityType)
-        {
-            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("VehicleId")! },
-                principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id")! })!,
-                principalEntityType,
-                deleteBehavior: DeleteBehavior.SetNull);
-
-            var vehicle = declaringEntityType.AddNavigation("Vehicle",
-                runtimeForeignKey,
-                onDependent: true,
-                typeof(Vehicle),
-                propertyInfo: typeof(Order).GetProperty("Vehicle", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Order).GetField("<Vehicle>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-
-            var orders = principalEntityType.AddNavigation("Orders",
-                runtimeForeignKey,
-                onDependent: false,
-                typeof(ICollection<Order>),
-                propertyInfo: typeof(Vehicle).GetProperty("Orders", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Vehicle).GetField("<Orders>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             return runtimeForeignKey;
         }

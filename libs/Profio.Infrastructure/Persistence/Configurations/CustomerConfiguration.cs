@@ -27,11 +27,6 @@ public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
       .HasMaxLength(50)
       .IsRequired();
 
-    builder.Property(e => e.ZipCode)
-      .HasMaxLength(50)
-      .IsFixedLength()
-      .IsRequired();
-
     builder.Property(e => e.Gender);
 
     builder.Property(e => e.Address)

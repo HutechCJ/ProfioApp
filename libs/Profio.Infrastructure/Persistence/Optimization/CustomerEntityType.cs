@@ -67,14 +67,6 @@ namespace Profio.Infrastructure.Persistence.Optimization
                 maxLength: 10);
             phone.AddAnnotation("Relational:IsFixedLength", true);
 
-            var zipCode = runtimeEntityType.AddProperty(
-                "ZipCode",
-                typeof(string),
-                propertyInfo: typeof(Customer).GetProperty("ZipCode", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Customer).GetField("<ZipCode>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                maxLength: 50);
-            zipCode.AddAnnotation("Relational:IsFixedLength", true);
-
             var key = runtimeEntityType.AddKey(
                 new[] { id });
             runtimeEntityType.SetPrimaryKey(key);

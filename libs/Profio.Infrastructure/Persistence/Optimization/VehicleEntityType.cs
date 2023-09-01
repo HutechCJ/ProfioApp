@@ -44,11 +44,17 @@ namespace Profio.Infrastructure.Persistence.Optimization
                 fieldInfo: typeof(Vehicle).GetField("<StaffId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true);
 
-            var vehicleType = runtimeEntityType.AddProperty(
-                "VehicleType",
+            var status = runtimeEntityType.AddProperty(
+                "Status",
+                typeof(VehicleStatus),
+                propertyInfo: typeof(Vehicle).GetProperty("Status", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Vehicle).GetField("<Status>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+
+            var type = runtimeEntityType.AddProperty(
+                "Type",
                 typeof(VehicleType),
-                propertyInfo: typeof(Vehicle).GetProperty("VehicleType", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Vehicle).GetField("<VehicleType>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                propertyInfo: typeof(Vehicle).GetProperty("Type", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Vehicle).GetField("<Type>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             var zipCodeCurrent = runtimeEntityType.AddProperty(
                 "ZipCodeCurrent",
