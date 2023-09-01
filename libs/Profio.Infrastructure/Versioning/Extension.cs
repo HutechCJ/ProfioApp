@@ -12,7 +12,6 @@ public static class Extension
       options.ReportApiVersions = true;
       options.AssumeDefaultVersionWhenUnspecified = true;
       options.DefaultApiVersion = new(1, 0);
-      //options.ApiVersionReader = new HeaderApiVersionReader("api-version");
     });
 
     builder.Services.AddVersionedApiExplorer(options =>

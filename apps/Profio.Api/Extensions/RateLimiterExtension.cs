@@ -17,7 +17,7 @@ public static class RateLimiterExtension
       {
         var username = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-        return RateLimitPartition.GetTokenBucketLimiter(username, _ => new TokenBucketRateLimiterOptions
+        return RateLimitPartition.GetTokenBucketLimiter(username, _ => new()
         {
           ReplenishmentPeriod = TimeSpan.FromSeconds(10),
           AutoReplenishment = true,

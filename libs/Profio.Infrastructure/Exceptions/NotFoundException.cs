@@ -1,4 +1,4 @@
-namespace Profio.Infrastructure.Excepitions;
+namespace Profio.Infrastructure.Exceptions;
 
 public class NotFoundException : Exception
 {
