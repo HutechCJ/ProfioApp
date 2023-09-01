@@ -17,7 +17,7 @@ namespace Profio.Infrastructure.Persistence.Optimization
         {
             var runtimeEntityType = model.AddEntityType(
                 "Profio.Domain.Entities.Hub",
-                typeof(Profio.Domain.Entities.Hub),
+                typeof(Domain.Entities.Hub),
                 baseEntityType);
 
             var id = runtimeEntityType.AddProperty(
@@ -28,6 +28,15 @@ namespace Profio.Infrastructure.Persistence.Optimization
                 afterSaveBehavior: PropertySaveBehavior.Throw,
                 maxLength: 26);
 
+            var address = runtimeEntityType.AddProperty(
+                "Address",
+                typeof(Address),
+                propertyInfo: typeof(Domain.Entities.Hub).GetProperty("Address", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Domain.Entities.Hub).GetField("<Address>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true,
+                unicode: true);
+            address.AddAnnotation("Relational:ColumnType", "jsonb");
+
             var location = runtimeEntityType.AddProperty(
                 "Location",
                 typeof(Location),
@@ -36,6 +45,13 @@ namespace Profio.Infrastructure.Persistence.Optimization
                 nullable: true,
                 unicode: true);
             location.AddAnnotation("Relational:ColumnType", "jsonb");
+
+            var name = runtimeEntityType.AddProperty(
+                "Name",
+                typeof(string),
+                propertyInfo: typeof(Domain.Entities.Hub).GetProperty("Name", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Domain.Entities.Hub).GetField("<Name>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                maxLength: 50);
 
             var status = runtimeEntityType.AddProperty(
                 "Status",

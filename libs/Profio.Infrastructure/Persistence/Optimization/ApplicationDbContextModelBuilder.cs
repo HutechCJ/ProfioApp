@@ -20,6 +20,7 @@ namespace Profio.Infrastructure.Persistence.Optimization
             var identityUserRole = IdentityUserRoleEntityType.Create(this);
             var identityUserToken = IdentityUserTokenEntityType.Create(this);
             var customer = CustomerEntityType.Create(this);
+            var delivery = DeliveryEntityType.Create(this);
             var deliveryProgress = DeliveryProgressEntityType.Create(this);
             var hub = HubEntityType.Create(this);
             var incident = IncidentEntityType.Create(this);
@@ -36,13 +37,13 @@ namespace Profio.Infrastructure.Persistence.Optimization
             IdentityUserRoleEntityType.CreateForeignKey1(identityUserRole, identityRole);
             IdentityUserRoleEntityType.CreateForeignKey2(identityUserRole, applicationUser);
             IdentityUserTokenEntityType.CreateForeignKey1(identityUserToken, applicationUser);
+            DeliveryEntityType.CreateForeignKey1(delivery, order);
+            DeliveryEntityType.CreateForeignKey2(delivery, vehicle);
             DeliveryProgressEntityType.CreateForeignKey1(deliveryProgress, order);
             IncidentEntityType.CreateForeignKey1(incident, orderHistory);
             OrderEntityType.CreateForeignKey1(order, customer);
-            OrderEntityType.CreateForeignKey2(order, vehicle);
-            OrderHistoryEntityType.CreateForeignKey1(orderHistory, hub);
-            OrderHistoryEntityType.CreateForeignKey2(orderHistory, order);
-            OrderHistoryEntityType.CreateForeignKey3(orderHistory, vehicle);
+            OrderHistoryEntityType.CreateForeignKey1(orderHistory, delivery);
+            OrderHistoryEntityType.CreateForeignKey2(orderHistory, hub);
             RouteEntityType.CreateForeignKey1(route, hub);
             RouteEntityType.CreateForeignKey2(route, hub);
             VehicleEntityType.CreateForeignKey1(vehicle, staff);
@@ -54,6 +55,7 @@ namespace Profio.Infrastructure.Persistence.Optimization
             IdentityUserRoleEntityType.CreateAnnotations(identityUserRole);
             IdentityUserTokenEntityType.CreateAnnotations(identityUserToken);
             CustomerEntityType.CreateAnnotations(customer);
+            DeliveryEntityType.CreateAnnotations(delivery);
             DeliveryProgressEntityType.CreateAnnotations(deliveryProgress);
             HubEntityType.CreateAnnotations(hub);
             IncidentEntityType.CreateAnnotations(incident);
