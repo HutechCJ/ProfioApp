@@ -7,6 +7,6 @@ public class HubProfile : Profile
 {
   public HubProfile()
   {
-    CreateMap<Hub, HubDTO>().ReverseMap();
+    CreateMap<Hub, HubDto>().ReverseMap();
   }
 }
