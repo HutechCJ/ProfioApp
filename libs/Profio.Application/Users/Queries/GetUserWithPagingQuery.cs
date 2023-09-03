@@ -7,8 +7,8 @@ using Profio.Infrastructure.Identity;
 
 namespace Profio.Application.Users.Queries;
 
-public record GetUserWithPagingQuery(Criteria<ApplicationUser> Criteria) : GetWithPagingQueryBase<ApplicationUser, UserDTO>(Criteria);
-public class GetUserWithPagingQueryHandler : GetWithPagingQueryHandler<GetUserWithPagingQuery, UserDTO, ApplicationUser>
+public record GetUserWithPagingQuery(Criteria<ApplicationUser> Criteria) : GetWithPagingQueryBase<ApplicationUser, UserDto>(Criteria);
+public class GetUserWithPagingQueryHandler : GetWithPagingQueryHandler<GetUserWithPagingQuery, UserDto, ApplicationUser>
 {
   public GetUserWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {

@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,10 +16,10 @@ using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.Middleware;
 using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Persistence;
-using Profio.Infrastructure.Swagger;
-using System.IO.Compression;
 using Profio.Infrastructure.Searching;
+using Profio.Infrastructure.Swagger;
 using Profio.Infrastructure.Versioning;
+using System.IO.Compression;
 
 namespace Profio.Infrastructure;
 
@@ -31,6 +32,7 @@ public static class ConfigureServices
         options.RespectBrowserAcceptHeader = true;
         options.ReturnHttpNotAcceptable = true;
         options.Filters.Add<LoggingFilter>();
+        options.Filters.Add(new ProducesAttribute("application/json"));
       })
       .AddNewtonsoftJson()
       .AddApplicationPart(AssemblyReference.Assembly);

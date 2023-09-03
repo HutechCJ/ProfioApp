@@ -1,17 +1,22 @@
+using EntityFrameworkCore.Repository.Collections;
 using Microsoft.AspNetCore.Mvc;
+using Profio.Application.Routes;
 using Profio.Application.Routes.Queries;
+using Profio.Domain.Models;
 using Profio.Domain.Specifications;
 using RouteEntity = Profio.Domain.Entities.Route;
 
 namespace Profio.Api.Controllers.v1;
-[Route("api/[controller]")]
-[ApiController]
-public class RoutesController : BaseController
+
+[ApiVersion("1.0")]
+public class RoutesController : BaseEntityController<RouteEntity, RouteDto>
 {
   [HttpGet]
-  public async Task<IActionResult> Get([FromQuery] Criteria<RouteEntity> criteria)
-    => Ok(await Mediator.Send(new GetRouteWithPagingQuery(criteria)));
+  [MapToApiVersion("1.0")]
+  public Task<ActionResult<ResultModel<IPagedList<RouteDto>>>> Get([FromQuery] Criteria<RouteEntity> criteria)
+    => HandlePaginationQuery(new GetRouteWithPagingQuery(criteria));
   [HttpGet("{id}")]
-  public async Task<IActionResult> GetById(string id)
-    => Ok(await Mediator.Send(new GetRouteByIdQuery(id)));
+  [MapToApiVersion("1.0")]
+  public Task<ActionResult<ResultModel<RouteDto>>> GetById(string id)
+    => HandleGetByIdQuery(new GetRouteByIdQuery(id));
 }
