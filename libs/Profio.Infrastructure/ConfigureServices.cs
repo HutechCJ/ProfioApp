@@ -87,6 +87,8 @@ public static class ConfigureServices
       .AddRedisCache(builder.Configuration)
       .AddEventBus(builder.Configuration);
 
+    services.AddMqttBus(builder.Configuration);
+
     services.AddApplicationIdentity(builder);
   }
 
