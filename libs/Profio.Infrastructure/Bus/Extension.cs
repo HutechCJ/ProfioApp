@@ -38,11 +38,11 @@ public static class Extension
 
     services.AddSingleton(sp =>
     {
-      var messageTransportSettings = sp.GetRequiredService<IOptions<MessageTransport>>().Value;
+      var transport = sp.GetRequiredService<IOptions<MessageTransport>>().Value;
       var options = new MqttClientOptionsBuilder()
-        .WithTcpServer(messageTransportSettings.Host, messageTransportSettings.Mqtt)
-        .WithCredentials(messageTransportSettings.UserName, messageTransportSettings.Password)
-        .WithClientId($"Profio-{Ulid.NewUlid()}")
+        .WithTcpServer(transport.Host, transport.Mqtt)
+        .WithCredentials(transport.UserName, transport.Password)
+        .WithClientId($"Profio-{new Random().Next(1, 1000)}")
         .WithTls(new MqttClientOptionsBuilderTlsParameters
         {
           UseTls = true,
@@ -65,5 +65,7 @@ public static class Extension
       var mqttClientServiceProvider = new MqttClientServiceProvider(mqttClientService ?? throw new InvalidOperationException());
       return mqttClientServiceProvider;
     });
+
+    services.AddSingleton<ExternalService>();
   }
 }

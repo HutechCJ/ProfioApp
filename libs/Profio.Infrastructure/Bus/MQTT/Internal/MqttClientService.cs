@@ -1,11 +1,10 @@
 using Microsoft.Extensions.Logging;
 using MQTTnet;
 using MQTTnet.Client;
-using MQTTnet.Protocol;
 
 namespace Profio.Infrastructure.Bus.MQTT.Internal;
 
-internal class MqttClientService : IMqttClientService
+public class MqttClientService : IMqttClientService
 {
   private readonly IMqttClient _mqttClient;
   private readonly MqttClientOptions _options;
@@ -34,7 +33,8 @@ internal class MqttClientService : IMqttClientService
     // Calculate the shortest path after 15 minutes, save result to redis cache
     // If vehicle is not moving, send notification to the driver, do not calculate the shortest path
     // If vehicle has incident, send notification to the driver, do not calculate the shortest path
-    throw new NotImplementedException();
+    Console.WriteLine(arg.ApplicationMessage.ConvertPayloadToString());
+    return Task.CompletedTask;
   }
 
   private async Task HandleDisconnectedAsync(MqttClientDisconnectedEventArgs arg)
@@ -45,8 +45,8 @@ internal class MqttClientService : IMqttClientService
 
   private async Task HandleConnectedAsync(MqttClientConnectedEventArgs arg)
   {
-    _logger.LogInformation("The MQTT client is connected.");
-    await _mqttClient.SubscribeAsync("/location", MqttQualityOfServiceLevel.AtLeastOnce);
+    _logger.LogInformation("The MQTT client subscribed to topic: /location");
+    await _mqttClient.SubscribeAsync("/location", cancellationToken: CancellationToken.None);
   }
 
   public async Task StartAsync(CancellationToken cancellationToken)
@@ -66,9 +66,9 @@ internal class MqttClientService : IMqttClientService
             await _mqttClient.ConnectAsync(_mqttClient.Options, CancellationToken.None);
             _logger.LogInformation("The MQTT client is connected.");
           }
-          catch (Exception)
+          catch (Exception ex)
           {
-            _logger.LogError("The MQTT client is not connected.");
+            _logger.LogError(ex, "The MQTT client is disconnected.");
           }
           finally
           {
