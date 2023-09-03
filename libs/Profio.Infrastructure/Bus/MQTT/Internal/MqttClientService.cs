@@ -1,6 +1,8 @@
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using MQTTnet;
 using MQTTnet.Client;
+using Profio.Infrastructure.Hub;
 
 namespace Profio.Infrastructure.Bus.MQTT.Internal;
 
@@ -8,13 +10,18 @@ public class MqttClientService : IMqttClientService
 {
   private readonly IMqttClient _mqttClient;
   private readonly MqttClientOptions _options;
+  private readonly IHubContext<LocationHub, ILocationClient> _context;
   private readonly ILogger<MqttClientService> _logger;
 
-  public MqttClientService(MqttClientOptions options, ILogger<MqttClientService> logger)
+  public MqttClientService(
+    MqttClientOptions options,
+    ILogger<MqttClientService> logger,
+    IHubContext<LocationHub, ILocationClient> context)
   {
     _options = options;
     _mqttClient = new MqttFactory().CreateMqttClient();
     _logger = logger;
+    _context = context;
     ConfigureMqttClient();
   }
 
@@ -25,16 +32,10 @@ public class MqttClientService : IMqttClientService
     _mqttClient.ApplicationMessageReceivedAsync += HandleApplicationMessageReceivedAsync;
   }
 
-  private Task HandleApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
+  private async Task HandleApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
   {
-    /* TODO:
-    - Deserialize message to Contracts VehicleLocation
-    - Serialize to json and send to socket to update the map
-    - Calculate the shortest path after 15 minutes, save result to redis cache
-    - If vehicle is not moving, send notification to the driver, do not calculate the shortest path
-    - If vehicle has incident, send notification to the driver, do not calculate the shortest path */
-    Console.WriteLine(arg.ApplicationMessage.ConvertPayloadToString());
-    return Task.CompletedTask;
+    _logger.LogInformation("The MQTT client received a message: {Message}", arg.ApplicationMessage.ConvertPayloadToString());
+    await _context.Clients.All.SendLocation(arg.ApplicationMessage.ConvertPayloadToString());
   }
 
   private async Task HandleDisconnectedAsync(MqttClientDisconnectedEventArgs arg)

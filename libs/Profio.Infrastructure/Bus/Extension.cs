@@ -46,7 +46,7 @@ public static class Extension
         .WithTls(new MqttClientOptionsBuilderTlsParameters
         {
           UseTls = true,
-          SslProtocol = SslProtocols.Tls12,
+          SslProtocol = SslProtocols.Tls13,
           CertificateValidationHandler = delegate { return true; },
         })
         .Build();
