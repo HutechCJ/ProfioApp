@@ -5,7 +5,7 @@ namespace Profio.Domain.Entities;
 
 public class Vehicle : IEntity<string>
 {
-  public required string Id { get; set; } = Ulid.NewUlid().ToString();
+  public string Id { get; set; } = Ulid.NewUlid().ToString();
   public string? ZipCodeCurrent { get; set; }
   public string? LicensePlate { get; set; }
   public VehicleType Type { get; set; } = VehicleType.Truck;
