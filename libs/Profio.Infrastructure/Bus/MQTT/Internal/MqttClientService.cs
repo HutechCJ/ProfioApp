@@ -28,8 +28,12 @@ internal class MqttClientService : IMqttClientService
 
   private Task HandleApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
   {
-    // send to socket
-    // calculate the shortest path after 15 minutes
+    // TODO:
+    // Deserialize message to Contracts VehicleLocation
+    // Serialize to json and send to socket to update the map
+    // Calculate the shortest path after 15 minutes, save result to redis cache
+    // If vehicle is not moving, send notification to the driver, do not calculate the shortest path
+    // If vehicle has incident, send notification to the driver, do not calculate the shortest path
     throw new NotImplementedException();
   }
 
