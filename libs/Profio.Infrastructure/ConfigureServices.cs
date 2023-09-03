@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -30,6 +31,7 @@ public static class ConfigureServices
         options.RespectBrowserAcceptHeader = true;
         options.ReturnHttpNotAcceptable = true;
         options.Filters.Add<LoggingFilter>();
+        options.Filters.Add(new ProducesAttribute("application/json"));
       })
       .AddNewtonsoftJson()
       .AddApplicationPart(AssemblyReference.Assembly);
