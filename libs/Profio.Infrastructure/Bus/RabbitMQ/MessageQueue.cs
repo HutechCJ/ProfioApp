@@ -1,4 +1,4 @@
-namespace Profio.Infrastructure.Bus;
+namespace Profio.Infrastructure.Bus.RabbitMQ;
 
 public class MessageQueue
 {

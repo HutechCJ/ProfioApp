@@ -1,10 +1,13 @@
+using System.Security.Authentication;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
-using MQTTnet;
 using MQTTnet.Client;
-using System.Security.Authentication;
+using Profio.Infrastructure.Bus.MQTT;
+using Profio.Infrastructure.Bus.MQTT.Internal;
+using Profio.Infrastructure.Bus.RabbitMQ;
 
 namespace Profio.Infrastructure.Bus;
 
@@ -27,28 +30,40 @@ public static class Extension
         });
       });
     });
+  }
 
+  public static void AddMqttBus(this IServiceCollection services, IConfiguration configuration)
+  {
     services.Configure<MessageTransport>(configuration.GetSection(nameof(MessageTransport)));
-    services.AddSingleton<IMqttClient>(sp =>
+
+    services.AddSingleton(sp =>
     {
       var messageTransportSettings = sp.GetRequiredService<IOptions<MessageTransport>>().Value;
-      var factory = new MqttFactory();
-      var mqttClient = factory.CreateMqttClient();
       var options = new MqttClientOptionsBuilder()
-          .WithTcpServer(messageTransportSettings.Host, messageTransportSettings.MQTT)
-          .WithCredentials(messageTransportSettings.UserName, messageTransportSettings.Password)
-          .WithClientId($"Profio-{new Random().Next(1, 1000)}")
-          .WithTls(new MqttClientOptionsBuilderTlsParameters
-          {
-            UseTls = true,
-            SslProtocol = SslProtocols.Tls12,
-            CertificateValidationHandler = delegate { return true; },
-          })
-          .Build();
-      mqttClient.ConnectAsync(options, CancellationToken.None).Wait();
-      return mqttClient;
+        .WithTcpServer(messageTransportSettings.Host, messageTransportSettings.Mqtt)
+        .WithCredentials(messageTransportSettings.UserName, messageTransportSettings.Password)
+        .WithClientId($"Profio-{Ulid.NewUlid()}")
+        .WithTls(new MqttClientOptionsBuilderTlsParameters
+        {
+          UseTls = true,
+          SslProtocol = SslProtocols.Tls12,
+          CertificateValidationHandler = delegate { return true; },
+        })
+        .Build();
+
+      return options;
     });
-    // Test MqttClient
-    //services.AddHostedService<MQTTPublisher>();
+
+    services.AddSingleton<MqttClientService>();
+
+    services.AddSingleton<IHostedService>(provider => provider.GetService<MqttClientService>()
+                                                      ?? throw new InvalidOperationException());
+
+    services.AddSingleton(serviceProvider =>
+    {
+      var mqttClientService = serviceProvider.GetService<MqttClientService>();
+      var mqttClientServiceProvider = new MqttClientServiceProvider(mqttClientService ?? throw new InvalidOperationException());
+      return mqttClientServiceProvider;
+    });
   }
 }
