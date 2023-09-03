@@ -72,6 +72,7 @@ public static class ConfigureServices
     builder.AddHealthCheck();
     builder.AddHangFire();
     builder.AddSocketHub();
+    builder.AddLuceneSearch();
 
     services
       .AddProblemDetails()

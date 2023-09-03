@@ -7,8 +7,8 @@ using Profio.Domain.Specifications;
 
 namespace Profio.Application.Routes.Queries;
 
-public record GetRouteWithPagingQuery(Criteria<Route> Criteria) : GetWithPagingQueryBase<Route, RouteDTO>(Criteria);
-public class GetRouteWithPagingQueryHandler : GetWithPagingQueryHandler<GetRouteWithPagingQuery, RouteDTO, Route>
+public record GetRouteWithPagingQuery(Criteria<Route> Criteria) : GetWithPagingQueryBase<Route, RouteDto>(Criteria);
+public class GetRouteWithPagingQueryHandler : GetWithPagingQueryHandler<GetRouteWithPagingQuery, RouteDto, Route>
 {
   public GetRouteWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {

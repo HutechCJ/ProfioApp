@@ -7,6 +7,6 @@ public class RouteProfile : Profile
 {
   public RouteProfile()
   {
-    CreateMap<Route, RouteDTO>().ReverseMap();
+    CreateMap<Route, RouteDto>().ReverseMap();
   }
 }
