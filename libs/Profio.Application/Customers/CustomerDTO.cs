@@ -3,7 +3,7 @@ using Profio.Domain.Models;
 
 namespace Profio.Application.Customers;
 
-public record CustomerDTO : BaseModel
+public record CustomerDto : BaseModel
 {
   public required string Id { get; init; }
   public required string? Name { get; init; }

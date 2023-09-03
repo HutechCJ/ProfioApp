@@ -16,6 +16,7 @@ using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.Middleware;
 using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Persistence;
+using Profio.Infrastructure.Searching;
 using Profio.Infrastructure.Swagger;
 using Profio.Infrastructure.Versioning;
 using System.IO.Compression;

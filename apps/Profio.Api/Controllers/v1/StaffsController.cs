@@ -6,7 +6,7 @@ using Profio.Domain.Models;
 
 namespace Profio.Api.Controllers.v1;
 [ApiVersion("1.0")]
-public class StaffsController : BaseEntityController<Staff, StaffDTO>
+public class StaffsController : BaseEntityController<Staff, StaffDto>
 {
   [HttpPost]
   [MapToApiVersion("1.0")]

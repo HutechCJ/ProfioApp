@@ -9,14 +9,14 @@ using RouteEntity = Profio.Domain.Entities.Route;
 namespace Profio.Api.Controllers.v1;
 
 [ApiVersion("1.0")]
-public class RoutesController : BaseEntityController<RouteEntity, RouteDTO>
+public class RoutesController : BaseEntityController<RouteEntity, RouteDto>
 {
   [HttpGet]
   [MapToApiVersion("1.0")]
-  public Task<ActionResult<ResultModel<IPagedList<RouteDTO>>>> Get([FromQuery] Criteria<RouteEntity> criteria)
+  public Task<ActionResult<ResultModel<IPagedList<RouteDto>>>> Get([FromQuery] Criteria<RouteEntity> criteria)
     => HandlePaginationQuery(new GetRouteWithPagingQuery(criteria));
   [HttpGet("{id}")]
   [MapToApiVersion("1.0")]
-  public Task<ActionResult<ResultModel<RouteDTO>>> GetById(string id)
+  public Task<ActionResult<ResultModel<RouteDto>>> GetById(string id)
     => HandleGetByIdQuery(new GetRouteByIdQuery(id));
 }
