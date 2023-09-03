@@ -714,57 +714,6 @@
     "Status": 0
   },
   {
-    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZE",
-    "Name": "Kho Sơn La",
-    "ZipCode": "360000",
-    "Location": {
-      "Latitude": 21.102228,
-      "Longitude": 103.728916
-    },
-    "Address": {
-      "Street": "Phố Chiềng Sinh",
-      "Ward": "Phường Chiềng Lề",
-      "City": "Sơn La",
-      "Province": "Sơn La",
-      "ZipCode": "36000"
-    },
-    "Status": 0
-  },
-  {
-    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZF",
-    "Name": "Kho Hòa Bình",
-    "ZipCode": "350000",
-    "Location": {
-      "Latitude": 20.813502,
-      "Longitude": 105.338386
-    },
-    "Address": {
-      "Street": "Phố Thống Nhất",
-      "Ward": "Phường Đồng Tiến",
-      "City": "Hòa Bình",
-      "Province": "Hòa Bình",
-      "ZipCode": "35000"
-    },
-    "Status": 0
-  },
-  {
-    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZG",
-    "Name": "Kho Thái Nguyên",
-    "ZipCode": "250000",
-    "Location": {
-      "Latitude": 21.592759,
-      "Longitude": 105.844181
-    },
-    "Address": {
-      "Street": "Phố Lương Ngọc Quyến",
-      "Ward": "Phường Phan Đình Phùng",
-      "City": "Thái Nguyên",
-      "Province": "Thái Nguyên",
-      "ZipCode": "25000"
-    },
-    "Status": 0
-  },
-  {
     "Id": "01H980MA0J6P4K2YP2RH1HJ8ZK",
     "Name": "Kho Tuyên Quang",
     "ZipCode": "270000",

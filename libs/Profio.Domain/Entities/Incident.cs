@@ -5,7 +5,7 @@ namespace Profio.Domain.Entities;
 
 public class Incident : IEntity<string>
 {
-  public required string Id { get; set; } = Ulid.NewUlid().ToString();
+  public string Id { get; set; } = Ulid.NewUlid().ToString();
   public string? Description { get; set; }
   public IncidentStatus Status { get; set; } = IncidentStatus.InProgress;
   public DateTime? Time { get; set; }

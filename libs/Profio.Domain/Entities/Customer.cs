@@ -6,7 +6,7 @@ namespace Profio.Domain.Entities;
 
 public class Customer : IEntity<string>
 {
-  public required string Id { get; set; } = Ulid.NewUlid().ToString();
+  public string Id { get; set; } = Ulid.NewUlid().ToString();
   public required string? Name { get; set; }
   public required string? Phone { get; set; }
   public string? Email { get; set; }
