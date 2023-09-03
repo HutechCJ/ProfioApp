@@ -16,8 +16,8 @@ using Profio.Infrastructure.Middleware;
 using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Persistence;
 using Profio.Infrastructure.Swagger;
-using System.IO.Compression;
 using Profio.Infrastructure.Versioning;
+using System.IO.Compression;
 
 namespace Profio.Infrastructure;
 
