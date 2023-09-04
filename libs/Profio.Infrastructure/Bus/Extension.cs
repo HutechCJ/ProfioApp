@@ -43,11 +43,11 @@ public static class Extension
         .WithTcpServer(transport.Host, transport.Mqtt)
         .WithCredentials(transport.UserName, transport.Password)
         .WithClientId($"Profio-{new Random().Next(1, 1000)}")
-        .WithTls(new MqttClientOptionsBuilderTlsParameters
+        .WithTlsOptions(cfg =>
         {
-          UseTls = true,
-          SslProtocol = SslProtocols.Tls13,
-          CertificateValidationHandler = delegate { return true; },
+          cfg.UseTls();
+          cfg.WithSslProtocols(SslProtocols.Tls13);
+          cfg.WithCertificateValidationHandler(delegate { return true; });
         })
         .Build();
 
