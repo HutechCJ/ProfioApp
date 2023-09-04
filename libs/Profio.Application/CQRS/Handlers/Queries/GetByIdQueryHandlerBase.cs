@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Profio.Application.CQRS.Events.Queries;
 using Profio.Domain.Interfaces;
 using Profio.Domain.Models;
+using Profio.Infrastructure.Exceptions;
 
 namespace Profio.Application.CQRS.Handlers.Queries;
 
@@ -33,7 +34,7 @@ public abstract class GetByIdQueryHandlerBase<TQuery, TModel, TEntity> : IReques
       .ToQueryable(query)
       .AsSplitQuery()
       .ProjectTo<TModel>(_mapper.ConfigurationProvider)
-      .SingleOrDefaultAsync(cancellationToken);
+      .SingleOrDefaultAsync(cancellationToken) ?? throw new NotFoundException(typeof(TEntity).Name, request.Id);
 
     return new(data);
   }

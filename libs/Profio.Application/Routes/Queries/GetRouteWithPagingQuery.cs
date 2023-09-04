@@ -2,6 +2,7 @@ using AutoMapper;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
 using Profio.Application.CQRS.Events.Queries;
 using Profio.Application.CQRS.Handlers.Queries;
+using Profio.Application.CQRS.Validators;
 using Profio.Domain.Entities;
 using Profio.Domain.Specifications;
 
@@ -13,4 +14,7 @@ public class GetRouteWithPagingQueryHandler : GetWithPagingQueryHandler<GetRoute
   public GetRouteWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
+}
+public class GetRouteWithPagingQueryValidator : GetWithPagingQueryValidatorBase<Route, GetRouteWithPagingQuery, RouteDto>
+{
 }

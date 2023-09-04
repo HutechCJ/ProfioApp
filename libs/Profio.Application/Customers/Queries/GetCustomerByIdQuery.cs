@@ -2,6 +2,7 @@ using AutoMapper;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
 using Profio.Application.CQRS.Events.Queries;
 using Profio.Application.CQRS.Handlers.Queries;
+using Profio.Application.CQRS.Validators;
 using Profio.Domain.Entities;
 
 namespace Profio.Application.Customers.Queries;
@@ -14,3 +15,4 @@ public class GetCustomerByIdQueryHandler : GetByIdQueryHandlerBase<GetCustomerBy
   {
   }
 }
+public class GetCustomerByIdQueryValidator : GetByIdQueryValidatorBase<GetCustomerByIdQuery, CustomerDto> { }
