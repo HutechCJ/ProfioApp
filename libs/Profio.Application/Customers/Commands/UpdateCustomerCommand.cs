@@ -7,36 +7,30 @@ using Profio.Application.CQRS.Validators;
 using Profio.Domain.Constants;
 using Profio.Domain.Entities;
 using Profio.Domain.ValueObjects;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Customers.Commands;
 
-[SwaggerSchema(
-  Title = "Customer Request",
-  Description = "A Representation of list of Customer")]
-public record CreateCustomerCommand : CreateCommandBase
+public record UpdateCustomerCommand(object Id) : UpdateCommandBase(Id)
 {
   public required string? Name { get; set; }
   public required string? Phone { get; set; }
   public string? Email { get; set; }
   public Gender? Gender { get; set; } = Domain.Constants.Gender.Male;
   public required Address? Address { get; set; }
-}
-
-public class CreateCustomerCommandHandler : CreateCommandHandlerBase<CreateCustomerCommand, Customer>
+};
+public class UpdateCustomerCommandHandler : UpdateCommandHandlerBase<UpdateCustomerCommand, Customer>
 {
-  public CreateCustomerCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+  public UpdateCustomerCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
-
-public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCommand>
+public class UpdateCustomerCommandValidator : UpdateCommandValidatorBase<UpdateCustomerCommand>
 {
-  public CreateCustomerCommandValidator()
+  public UpdateCustomerCommandValidator()
   {
     RuleFor(c => c.Name)
-      .NotEmpty()
-      .NotNull();
+    .NotEmpty()
+    .NotNull();
 
     RuleFor(c => c.Phone)
       .Length(10)
