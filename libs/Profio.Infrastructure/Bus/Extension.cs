@@ -40,6 +40,11 @@ public static class Extension
     {
       var transport = sp.GetRequiredService<IOptions<MessageTransport>>().Value;
       var options = new MqttClientOptionsBuilder()
+        .WithWebSocketServer(cfg =>
+        {
+          cfg.WithUri($"wss://{transport.Host}:{transport.Socket}");
+          cfg.WithKeepAliveInterval(TimeSpan.FromSeconds(5));
+        })
         .WithTcpServer(transport.Host, transport.Mqtt)
         .WithCredentials(transport.UserName, transport.Password)
         .WithClientId($"Profio-{new Random().Next(1, 1000)}")
