@@ -1,4 +1,3 @@
-using EntityFrameworkCore.UnitOfWork.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Profio.Domain.Constants;
@@ -12,14 +11,12 @@ namespace Profio.Application.Seed.Queries
   public record SeedDataQuery : IRequest<string>;
   public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
   {
-    private readonly IUnitOfWork _unitOfWork;
     private readonly ApplicationDbContext _context;
-    public SeedDataHandler(IUnitOfWork unitOfWork, ApplicationDbContext context)
-      => (_unitOfWork, _context) = (unitOfWork, context);
+    public SeedDataHandler(ApplicationDbContext context)
+      => _context = context;
 
     public async Task<string> Handle(SeedDataQuery request, CancellationToken cancellationToken)
     {
-      //await _context.Hubs.ExecuteDeleteAsync(cancellationToken: cancellationToken);
       await HubSeeding();
       await RouteSeeding();
       return "Seeding Success";

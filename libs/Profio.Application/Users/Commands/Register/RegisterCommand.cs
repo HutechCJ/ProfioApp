@@ -3,9 +3,13 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Profio.Domain.Models;
 using Profio.Infrastructure.Identity;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Users.Commands.Register;
 
+[SwaggerSchema(
+  Title = "Register Request",
+  Description = "A Representation of Register Account")]
 public record RegisterCommand(string Email, string Password, string FullName) : IRequest<ResultModel<AccountDto>>;
 public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ResultModel<AccountDto>>
 {

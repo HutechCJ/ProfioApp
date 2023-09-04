@@ -4,9 +4,13 @@ using Profio.Application.CQRS.Events.Commands;
 using Profio.Application.CQRS.Handlers.Command;
 using Profio.Domain.Constants;
 using Profio.Domain.Entities;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Staffs.Commands;
 
+[SwaggerSchema(
+  Title = "Staff Request",
+  Description = "A Representation of Staff")]
 public record CreateStaffCommand : CreateCommandBase
 {
   public required string? Name { get; set; }

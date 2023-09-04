@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Profio.Infrastructure.System;
 using Swashbuckle.AspNetCore.Annotations;
+using Extension = Profio.Infrastructure.System.Extension;
 
 namespace Profio.Api.Controllers.v1;
 

@@ -8,7 +8,7 @@ public class CustomerProfile : Profile
 {
   public CustomerProfile()
   {
-    CreateMap<CreateCustomerCommand, Customer>();
-    CreateMap<Customer, CustomerDto>();
+    CreateMap<CreateCustomerCommand, Customer>().ReverseMap();
+    CreateMap<Customer, CustomerDto>().ReverseMap();
   }
 }
