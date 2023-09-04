@@ -12,7 +12,6 @@ public static class HostingExtensions
     builder.Services.AddInfrastructureServices(builder);
     builder.Services.AddApplicationServices();
     builder.Services.AddRateLimiting();
-    //builder.Services.AddWebApiServices(builder.Configuration);
 
     builder.WebHost.ConfigureKestrel(options =>
     {
