@@ -10,7 +10,6 @@ namespace Profio.Infrastructure.Middleware;
 
 public class ExceptionMiddleware : ExceptionFilterAttribute
 {
-
   public override void OnException(ExceptionContext context)
   {
     HandleException(context);

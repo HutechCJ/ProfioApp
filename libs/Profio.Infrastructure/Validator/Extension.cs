@@ -6,7 +6,6 @@ namespace Profio.Infrastructure.Validator;
 
 public static class Extension
 {
-
   public static async Task HandleValidationAsync<TRequest>(this IValidator<TRequest> validator, TRequest request)
   {
     var validationResult = await validator.ValidateAsync(request);

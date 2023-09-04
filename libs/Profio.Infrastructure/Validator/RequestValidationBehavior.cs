@@ -30,7 +30,9 @@ public class RequestValidationBehavior<TRequest, TResponse> : IPipelineBehavior<
         "Handled {Request} with content {X-RequestData}",
         typeof(TRequest).FullName, JsonSerializer.Serialize(request));
 
-    var validators = _serviceProvider.GetService<IEnumerable<IValidator<TRequest>>>() ?? throw new InvalidOperationException();
+    var validators = _serviceProvider
+      .GetService<IEnumerable<IValidator<TRequest>>>()?.ToList()
+                     ?? throw new InvalidOperationException();
 
     if (validators.Any())
       await Task.WhenAll(
