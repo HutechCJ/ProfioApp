@@ -37,10 +37,6 @@ public class UsersController : BaseController
     return Ok(result);
   }
 
-  [HttpGet("token-key")]
-  public IActionResult GetTokenKey()
-    => Ok(_configuration["Authentication:TokenKey"] ?? string.Empty);
-
   [HttpPost("register")]
   [AllowAnonymous]
   [MapToApiVersion("1.0")]

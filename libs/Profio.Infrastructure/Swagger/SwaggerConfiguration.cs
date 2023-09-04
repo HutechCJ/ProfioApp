@@ -39,6 +39,11 @@ public static class SwaggerConfiguration
       c.EnableValidator();
     });
 
+    return app;
+  }
+
+  public static IApplicationBuilder UseRedocly(this IApplicationBuilder app)
+  {
     app.UseReDoc(options =>
     {
       options.DocumentTitle = "Profio API";

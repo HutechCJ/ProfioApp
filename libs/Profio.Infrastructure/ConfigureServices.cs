@@ -125,8 +125,7 @@ public static class ConfigureServices
       .UseStaticFiles();
 
     app.MapHealthCheck();
-    app.Map("/", () => Results.Redirect("/swagger"));
-    app.Map("/redoc", () => Results.Redirect("/api-docs"));
+    app.Map("/", () => Results.Redirect("/api-docs"));
     app.Map("/error", () => Results.Problem("An unexpected error occurred.", statusCode: 500))
       .ExcludeFromDescription();
   }
