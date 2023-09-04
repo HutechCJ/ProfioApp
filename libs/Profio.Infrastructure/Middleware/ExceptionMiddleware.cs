@@ -1,62 +1,59 @@
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Profio.Domain.Models;
+using Profio.Infrastructure.Exceptions;
 using Profio.Infrastructure.Validator;
 using System.Net;
-using Profio.Infrastructure.Exceptions;
 
 namespace Profio.Infrastructure.Middleware;
 
-public class ExceptionMiddleware
+public class ExceptionMiddleware : ExceptionFilterAttribute
 {
-  private readonly RequestDelegate _next;
-  private readonly ILogger<ExceptionMiddleware> _logger;
 
-  public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
-    => (_next, _logger) = (next, logger);
-
-  public async Task InvokeAsync(HttpContext httpContext)
+  public override void OnException(ExceptionContext context)
   {
-    try
-    {
-      await _next(httpContext);
-    }
-    catch (Exception ex)
-    {
-      _logger.LogError(ex, "Something went wrong");
-      await HandleExceptionAsync(httpContext, ex);
-    }
+    HandleException(context);
+    base.OnException(context);
   }
 
-  private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
+  private static void HandleException(ExceptionContext context)
   {
-    context.Response.ContentType = "application/json";
-    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+    context.HttpContext.Response.ContentType = "application/json";
+    context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
-    switch (exception)
+    switch (context.Exception)
     {
       case ValidationException { ValidationResultModel.Errors: { } } validationException:
-      {
-        var validationErrorModel = ResultModel<string>.CreateError(validationException.ValidationResultModel
-            .Errors
-            .Aggregate("", (a, b) =>
-              a + $"{b.Field}-{b.Message}\n"), "Validation Error.")
-          .ToString();
+        {
+          var validationErrorModel = ResultModel<string>.CreateError(validationException.ValidationResultModel
+              .Errors
+              .Aggregate("", (a, b) =>
+                a + $"{b.Field}-{b.Message}\n"), "Validation Error.");
 
-        await context.Response.WriteAsync(validationErrorModel);
-        break;
-      }
+          context.Result = new BadRequestObjectResult(validationErrorModel);
+          break;
+        }
       case NotFoundException notFoundException:
-      {
-        var notFoundErrorModel = ResultModel<string>.CreateError(notFoundException.Message, "Not Found Error.")
-          .ToString();
-        await context.Response.WriteAsync(notFoundErrorModel);
-        break;
-      }
+        {
+          var notFoundErrorModel = ResultModel<string>.CreateError(notFoundException.Message, "Not Found Error.");
+          context.Result = new NotFoundObjectResult(notFoundErrorModel);
+
+          break;
+        }
       default:
-        await context.Response.WriteAsync(
-          ResultModel<string>.CreateError("", "Internal Server Error.").ToString());
+        var details = new ProblemDetails
+        {
+          Status = StatusCodes.Status500InternalServerError,
+          Type = "https://tools.ietf.org/html/rfc7235#section-3.1"
+        };
+        context.Result = new ObjectResult(details)
+        {
+          Value = ResultModel<string>.CreateError("", "Internal Server Error.").ToString()
+        };
         break;
     }
+    context.ExceptionHandled = true;
   }
+
 }

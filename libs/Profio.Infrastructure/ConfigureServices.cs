@@ -32,6 +32,7 @@ public static class ConfigureServices
         options.RespectBrowserAcceptHeader = true;
         options.ReturnHttpNotAcceptable = true;
         options.Filters.Add<LoggingFilter>();
+        options.Filters.Add<ExceptionMiddleware>();
         options.Filters.Add(new ProducesAttribute("application/json"));
       })
       .AddNewtonsoftJson()
@@ -107,7 +108,6 @@ public static class ConfigureServices
       .UseAuthorization();
 
     app
-      .UseMiddleware<ExceptionMiddleware>()
       .UseMiddleware<TimeOutMiddleware>()
       .UseMiddleware<XssProtectionMiddleware>();
 

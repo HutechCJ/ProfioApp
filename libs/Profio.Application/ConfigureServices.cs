@@ -1,3 +1,4 @@
+using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Profio.Application.CQRS;
 
@@ -9,5 +10,6 @@ public static class ConfigureServices
   {
     services.AddMediator();
     services.AddAutoMapper(AssemblyReference.AppDomainAssembly);
+    services.AddValidatorsFromAssemblies(AssemblyReference.AppDomainAssembly);
   }
 }
