@@ -1,5 +1,4 @@
 using FluentValidation;
-using FluentValidation.Results;
 using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 
@@ -7,14 +6,16 @@ namespace Profio.Infrastructure.Validator;
 
 public static class Extension
 {
-  private static ValidationResultModel ToValidationResultModel(this ValidationResult validationResult)
-      => new(validationResult);
 
   public static async Task HandleValidationAsync<TRequest>(this IValidator<TRequest> validator, TRequest request)
   {
     var validationResult = await validator.ValidateAsync(request);
-    if (!validationResult.IsValid)
-      throw new ValidationException(validationResult.ToValidationResultModel());
+
+    var failures = validationResult
+          .Errors;
+
+    if (failures.Any())
+      throw new ValidationException(failures);
   }
 
   [DebuggerStepThrough]

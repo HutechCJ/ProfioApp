@@ -1,9 +1,9 @@
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Profio.Domain.Models;
 using Profio.Infrastructure.Exceptions;
-using Profio.Infrastructure.Validator;
 using System.Net;
 
 namespace Profio.Infrastructure.Middleware;
@@ -24,12 +24,12 @@ public class ExceptionMiddleware : ExceptionFilterAttribute
 
     switch (context.Exception)
     {
-      case ValidationException { ValidationResultModel.Errors: { } } validationException:
+      case ValidationException { Errors: { } } validationException:
         {
-          var validationErrorModel = ResultModel<string>.CreateError(validationException.ValidationResultModel
+          var validationErrorModel = ResultModel<Dictionary<string, string[]>>.CreateError(validationException
               .Errors
-              .Aggregate("", (a, b) =>
-                a + $"{b.Field}-{b.Message}\n"), "Validation Error.");
+              .GroupBy(e => e.PropertyName, e => e.ErrorMessage)
+              .ToDictionary(failureGroup => failureGroup.Key, failureGroup => failureGroup.ToArray()));
 
           context.Result = new BadRequestObjectResult(validationErrorModel);
           break;
