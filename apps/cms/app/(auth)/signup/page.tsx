@@ -12,19 +12,34 @@ import {
     Typography,
 } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from '@/components/Link'
 import Copyright from '@/components/Copyright'
+import useRegister from '@/features/user/useRegister'
+import { useSnackbar } from 'notistack'
+import LoadingButton from '@/components/LoadingButton'
 
 function SignUp() {
+    const { enqueueSnackbar } = useSnackbar()
+    const { mutate: register, data: result, isLoading, isError, isSuccess } = useRegister()
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const data = new FormData(event.currentTarget)
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
+        register({
+            userName: data.get('email') as string,
+            email: data.get('email') as string,
+            password: data.get('password') as string,
+            fullName: data.get('firstName') as string,
+            confirmPassword: data.get('password') as string,
         })
     }
+
+    useEffect(() => {
+        if (isSuccess) {
+            enqueueSnackbar('This is a success message!')
+        }
+    }, [isSuccess])
 
     return (
         <Container component="main" maxWidth="xs">
@@ -103,14 +118,15 @@ function SignUp() {
                             />
                         </Grid>
                     </Grid>
-                    <Button
+                    <LoadingButton
                         type="submit"
                         fullWidth
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
+                        loading={isLoading}
                     >
                         Sign Up
-                    </Button>
+                    </LoadingButton>
                     <Grid container justifyContent="flex-end">
                         <Grid item>
                             <Link href="/signin" variant="body2">

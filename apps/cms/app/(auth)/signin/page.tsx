@@ -15,16 +15,22 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import React from 'react'
 import Link from '@/components/Link'
 import Copyright from '@/components/Copyright'
+import useLogin from '@/features/user/useLogin'
+import LoadingButton from '@/components/LoadingButton'
 
 function SignIn() {
+    const { mutate: login, data: result, isLoading, isSuccess } = useLogin()
+
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const data = new FormData(event.currentTarget)
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
+        login({
+            userName: data.get('email') as string,
+            password: data.get('password') as string,
         })
     }
+
+    console.log(result)
 
     return (
         <Container component="main" maxWidth="xs">
@@ -72,14 +78,15 @@ function SignIn() {
                         control={<Checkbox value="remember" color="primary" />}
                         label="Remember me"
                     />
-                    <Button
+                    <LoadingButton
                         type="submit"
                         fullWidth
                         variant="contained"
                         sx={{ mt: 3, mb: 2 }}
+                        loading={isLoading}
                     >
                         Sign In
-                    </Button>
+                    </LoadingButton>
                     <Grid container>
                         <Grid item xs>
                             <Link href="#" variant="body2">
