@@ -3,10 +3,12 @@ using Profio.Application.Customers;
 using Profio.Application.Customers.Commands;
 using Profio.Domain.Entities;
 using Profio.Domain.Models;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Api.Controllers.v1;
 
 [ApiVersion("1.0")]
+[SwaggerTag("Manage customers")]
 public class CustomersController : BaseEntityController<Customer, CustomerDto>
 {
   [HttpPost]
