@@ -18,19 +18,23 @@ public class CustomersController : BaseEntityController<Customer, CustomerDto>
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<IPagedList<CustomerDto>>>> Get([FromQuery] Criteria<Customer> criteria)
     => HandlePaginationQuery(new GetCustomerWithPagingQuery(criteria));
-  [HttpGet("{id}")]
+
+  [HttpGet("{id:length(26)}")]
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<CustomerDto>>> GetById(string id)
     => HandleGetByIdQuery(new GetCustomerByIdQuery(id));
+
   [HttpPost]
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<object>>> Post(CreateCustomerCommand command)
     => HandleCreateCommand(command, id => new GetCustomerByIdQuery(id));
-  [HttpPut("{id}")]
+
+  [HttpPut("{id:length(26)}")]
   [MapToApiVersion("1.0")]
   public Task<IActionResult> Put([FromRoute] string id, [FromBody] UpdateCustomerCommand command)
     => HandleUpdateCommand(id, command);
-  [HttpDelete("{id}")]
+
+  [HttpDelete("{id:length(26)}")]
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<CustomerDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteCustomerCommand(id));

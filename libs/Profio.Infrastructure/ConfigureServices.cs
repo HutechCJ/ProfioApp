@@ -128,5 +128,19 @@ public static class ConfigureServices
     app.Map("/", () => Results.Redirect("/api-docs"));
     app.Map("/error", () => Results.Problem("An unexpected error occurred.", statusCode: 500))
       .ExcludeFromDescription();
+    app.MapWhen(context => context.Response.StatusCode == StatusCodes.Status401Unauthorized, appBuilder =>
+    {
+      appBuilder.Run(async context =>
+      {
+        var problemDetails = new ProblemDetails
+        {
+          Title = "Unauthorized",
+          Detail = "You are not authorized to access this resource.",
+          Status = StatusCodes.Status401Unauthorized,
+          Type = "https://httpstatuses.com/401"
+        };
+        await context.Response.WriteAsJsonAsync(problemDetails);
+      });
+    });
   }
 }

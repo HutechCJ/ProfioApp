@@ -26,14 +26,12 @@ public static class HostingExtensions
   public static async Task<WebApplication> ConfigurePipelineAsync(this WebApplication app)
   {
     app.UseOpenApi()
-      .UseDeveloperExceptionPage();
-
-    app.UseRedocly();
+      .UseDeveloperExceptionPage()
+      .UseRedocly()
+      .UseHsts();
 
     if (app.Environment.IsProduction())
       app.UseExceptionHandler("/error");
-
-    app.UseHsts();
 
     app.UseHttpsRedirection();
     app.MapControllers()

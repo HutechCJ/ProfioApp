@@ -11,8 +11,6 @@ public static class Extension
 {
   public static WebApplicationBuilder AddHealthCheck(this WebApplicationBuilder builder)
   {
-    var domain = Environment.GetEnvironmentVariable("WEBSITE_HOSTNAME");
-    Console.WriteLine(domain);
     builder.Services.AddSingleton<HealthService>();
     builder.Services.AddHealthChecks()
       .AddCheck<HealthCheck>("Health Check", tags: new[] { "health check" })
@@ -25,7 +23,11 @@ public static class Extension
         name: "RabbitMq",
         tags: new[] { "message broker" })
       .AddHangfire(_ => { }, name: "HangFire", tags: new[] { "jobs" })
-      .AddSignalRHub(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development" ? "https://localhost:9023/current-location" : "https://profio.azurewebsites.net/current-location", name: "SignalR", tags: new[] { "hub" });
+      .AddSignalRHub(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
+        ? "https://localhost:9023/current-location"
+        : "https://profio.azurewebsites.net/current-location",
+        name: "SignalR",
+        tags: new[] { "hub" });
 
     builder.Services
       .AddHealthChecksUI(options =>

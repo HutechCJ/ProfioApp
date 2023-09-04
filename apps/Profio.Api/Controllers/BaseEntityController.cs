@@ -43,6 +43,7 @@ public class BaseEntityController<TEntity, TModel> : BaseController
     await Mediator.Send(command).ConfigureAwait(false);
     return NoContent();
   }
+
   protected async Task<ActionResult<ResultModel<TModel>>> HandleDeleteCommand<TDeleteCommand>(TDeleteCommand command)
       where TDeleteCommand : DeleteCommandBase<TModel>
       => Ok(await Mediator.Send(command));
