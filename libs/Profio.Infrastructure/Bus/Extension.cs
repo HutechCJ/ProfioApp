@@ -1,4 +1,3 @@
-using System.Security.Authentication;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +8,7 @@ using Profio.Infrastructure.Bus.MQTT;
 using Profio.Infrastructure.Bus.MQTT.Internal;
 using Profio.Infrastructure.Bus.RabbitMQ;
 using Profio.Infrastructure.Bus.RabbitMQ.Internal;
+using System.Security.Authentication;
 
 namespace Profio.Infrastructure.Bus;
 
@@ -54,8 +54,8 @@ public static class Extension
         .WithTlsOptions(cfg =>
         {
           cfg.UseTls();
-          cfg.WithSslProtocols(SslProtocols.Tls13);
-          cfg.WithCertificateValidationHandler(delegate { return true; });
+          cfg.WithSslProtocols(SslProtocols.Tls12);
+          cfg.WithCertificateValidationHandler(_ => true);
         })
         .Build();
 
