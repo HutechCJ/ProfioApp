@@ -10,5 +10,6 @@ public class CustomerProfile : Profile
   {
     CreateMap<CreateCustomerCommand, Customer>().ReverseMap();
     CreateMap<Customer, CustomerDto>().ReverseMap();
+    CreateMap<UpdateCustomerCommand, Customer>().ReverseMap();
   }
 }

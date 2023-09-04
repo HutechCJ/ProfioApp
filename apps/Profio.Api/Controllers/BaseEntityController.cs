@@ -32,7 +32,7 @@ public class BaseEntityController<TEntity, TModel> : BaseController
     return Created($"{domain}/{routeTemplate!.Replace("{version:apiVersion}", apiVersion)}/{result.Data}", model);
   }
 
-  protected async Task<IActionResult> HandleUpdateCommand<TUpdateCommand>(object id, TUpdateCommand command)
+  protected async Task<IActionResult> HandleUpdateCommand<TUpdateCommand>(string id, TUpdateCommand command)
     where TUpdateCommand : UpdateCommandBase
   {
     if (!id.Equals(command.Id))
