@@ -18,7 +18,7 @@
     ],
     "types": ["jest", "node"],
     "paths": {
-        "@/components/*": ["./apps/cms/components/*"]
+        "@/*": ["./apps/cms/*"],
     }
   },
   "include": [

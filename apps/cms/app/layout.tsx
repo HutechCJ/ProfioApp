@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import ThemeRegistry from '../components/ThemeRegistry/ThemeRegistry'
 import { NavigationEvents } from '@/components/navigation-events'
+import Providers from '@/components/providers/Providers'
 
 export const metadata = {
     title: 'Profio CMS',
@@ -16,12 +17,14 @@ export default function RootLayout({
     return (
         <html>
             <body>
-                <ThemeRegistry>
-                    {children}
-                    <Suspense fallback={null}>
-                        <NavigationEvents />
-                    </Suspense>
-                </ThemeRegistry>
+                <Providers>
+                    <ThemeRegistry>
+                        {children}
+                        <Suspense fallback={null}>
+                            <NavigationEvents />
+                        </Suspense>
+                    </ThemeRegistry>
+                </Providers>
             </body>
         </html>
     )
