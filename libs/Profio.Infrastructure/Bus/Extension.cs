@@ -8,6 +8,7 @@ using MQTTnet.Client;
 using Profio.Infrastructure.Bus.MQTT;
 using Profio.Infrastructure.Bus.MQTT.Internal;
 using Profio.Infrastructure.Bus.RabbitMQ;
+using Profio.Infrastructure.Bus.RabbitMQ.Internal;
 
 namespace Profio.Infrastructure.Bus;
 
@@ -30,6 +31,8 @@ public static class Extension
         });
       });
     });
+
+    services.AddTransient<IEventBus, EventBus>();
   }
 
   public static void AddMqttBus(this IServiceCollection services, IConfiguration configuration)
