@@ -18,16 +18,18 @@ public class BaseEntityController<TEntity, TModel> : BaseController
   protected async Task<ActionResult<ResultModel<TModel>>> HandleGetByIdQuery<TGetQuery>(TGetQuery query)
         where TGetQuery : GetByIdQueryBase<TModel>
         => Ok(await Mediator.Send(query));
-  protected async Task<ActionResult<ResultModel<object>>> HandleCreateCommand<TCreateCommand>(TCreateCommand command)
+  protected async Task<ActionResult<ResultModel<object>>> HandleCreateCommand<TCreateCommand, TQuery>(TCreateCommand command, Func<object, TQuery> getQuery)
         where TCreateCommand : CreateCommandBase
+        where TQuery : GetByIdQueryBase<TModel>
   {
     var result = await Mediator.Send(command);
+    var model = await Mediator.Send(getQuery(result.Data!));
 
     var domain = HttpContext.Request.GetDisplayUrl();
     var routeTemplate = ControllerContext.ActionDescriptor.AttributeRouteInfo!.Template;
     var apiVersion = HttpContext.GetRequestedApiVersion()!.ToString();
 
-    return Created($"{domain}/{routeTemplate!.Replace("{version:apiVersion}", apiVersion)}/{result.Data}", result);
+    return Created($"{domain}/{routeTemplate!.Replace("{version:apiVersion}", apiVersion)}/{result.Data}", model);
   }
 
   protected async Task<IActionResult> HandleUpdateCommand<TUpdateCommand>(object id, TUpdateCommand command)
