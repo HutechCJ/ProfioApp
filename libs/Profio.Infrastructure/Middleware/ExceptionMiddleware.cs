@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Profio.Domain.Models;
 using Profio.Infrastructure.Exceptions;
-using System.Net;
 
 namespace Profio.Infrastructure.Middleware;
 
@@ -19,40 +18,57 @@ public class ExceptionMiddleware : ExceptionFilterAttribute
   private static void HandleException(ExceptionContext context)
   {
     context.HttpContext.Response.ContentType = "application/json";
-    context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
 
     switch (context.Exception)
     {
       case ValidationException { Errors: { } } validationException:
-        {
-          var validationErrorModel = ResultModel<Dictionary<string, string[]>>.CreateError(validationException
-              .Errors
-              .GroupBy(e => e.PropertyName, e => e.ErrorMessage)
-              .ToDictionary(failureGroup => failureGroup.Key, failureGroup => failureGroup.ToArray()));
-
-          context.Result = new BadRequestObjectResult(validationErrorModel);
-          break;
-        }
+        HandleValidationException(context, validationException);
+        break;
       case NotFoundException notFoundException:
-        {
-          var notFoundErrorModel = ResultModel<string>.CreateError(notFoundException.Message, "Not Found Error.");
-          context.Result = new NotFoundObjectResult(notFoundErrorModel);
-
-          break;
-        }
+        HandleNotFoundException(context, notFoundException);
+        break;
+      case UnauthorizedAccessException unauthorizedAccessException:
+        HandleUnauthorizedAccessException(context, unauthorizedAccessException);
+        break;
       default:
-        var details = new ProblemDetails
-        {
-          Status = StatusCodes.Status500InternalServerError,
-          Type = "https://tools.ietf.org/html/rfc7235#section-3.1"
-        };
-        context.Result = new ObjectResult(details)
-        {
-          Value = ResultModel<string>.CreateError("", "Internal Server Error.").ToString()
-        };
+        HandleDefaultException(context);
         break;
     }
     context.ExceptionHandled = true;
   }
 
+  private static void HandleValidationException(ExceptionContext context, ValidationException validationException)
+  {
+    var validationErrorModel = ResultModel<Dictionary<string, string[]>>.CreateError(validationException
+              .Errors
+              .GroupBy(e => e.PropertyName, e => e.ErrorMessage)
+              .ToDictionary(failureGroup => failureGroup.Key, failureGroup => failureGroup.ToArray()));
+
+    context.Result = new BadRequestObjectResult(validationErrorModel);
+  }
+
+  private static void HandleNotFoundException(ExceptionContext context, NotFoundException notFoundException)
+  {
+    var notFoundErrorModel = ResultModel<string>.CreateError(notFoundException.Message, "Not Found Error.");
+    context.Result = new NotFoundObjectResult(notFoundErrorModel);
+  }
+
+  private static void HandleUnauthorizedAccessException(ExceptionContext context, UnauthorizedAccessException unauthorizedAccessException)
+  {
+    var unauthorizedErrorModel = ResultModel<string>.CreateError(unauthorizedAccessException.Message, "Unauthorized Error.");
+    context.Result = new UnauthorizedObjectResult(unauthorizedErrorModel);
+  }
+
+  private static void HandleDefaultException(ExceptionContext context)
+  {
+    var details = new ProblemDetails
+    {
+      Status = StatusCodes.Status500InternalServerError,
+      Type = "https://tools.ietf.org/html/rfc7235#section-3.1"
+    };
+    context.Result = new ObjectResult(details)
+    {
+      Value = ResultModel<string>.CreateError("", "Internal Server Error.").ToString()
+    };
+  }
 }

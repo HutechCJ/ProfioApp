@@ -22,14 +22,12 @@ public record LoginCommandHandler : IRequestHandler<LoginCommand, ResultModel<Ac
 
   public async Task<ResultModel<AccountDto>> Handle(LoginCommand request, CancellationToken cancellationToken)
   {
-    var user = await _userManager.FindByNameAsync(request.UserName);
-    if (user is null)
-      return ResultModel<AccountDto>.CreateError(null, errorMessage: "User not found");
-
+    var user = await _userManager.FindByNameAsync(request.UserName)
+      ?? throw new UnauthorizedAccessException("User not found!");
     var isPasswordCorrect = await _userManager.CheckPasswordAsync(user, request.Password);
 
     if (!isPasswordCorrect)
-      return ResultModel<AccountDto>.CreateError(null, errorMessage: "Password not correct!");
+      throw new UnauthorizedAccessException("Password not correct!");
 
     var dto = _mapper.Map<AccountDto>(user);
     dto.Token = _tokenService.CreateToken(user);
