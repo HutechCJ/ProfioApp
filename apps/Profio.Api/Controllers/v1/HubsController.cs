@@ -13,7 +13,7 @@ namespace Profio.Api.Controllers.v1;
 [Route("api/v1/[controller]")]
 [ApiController]
 [SwaggerTag("A hub endpoints")]
-public class HubController : BaseEntityController<Hub, HubDto>
+public class HubsController : BaseEntityController<Hub, HubDto>
 {
   [HttpGet]
   [MapToApiVersion("1.0")]
