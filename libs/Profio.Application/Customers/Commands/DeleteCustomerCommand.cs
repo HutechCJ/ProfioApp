@@ -15,4 +15,3 @@ public class DeleteCustomerCommandHandler : DeleteCommandHandlerBase<DeleteCusto
   }
 }
 public class DeleteCustomerCommandValidator : DeleteCommandValidatorBase<DeleteCustomerCommand, CustomerDto> { }
-

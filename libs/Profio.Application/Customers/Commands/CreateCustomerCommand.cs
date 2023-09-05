@@ -12,7 +12,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.Customers.Commands;
 
 [SwaggerSchema(
-  Title = "Customer Request",
+  Title = "Customer Create Request",
   Description = "A Representation of list of Customer")]
 public record CreateCustomerCommand : CreateCommandBase
 {
@@ -36,14 +36,16 @@ public class CreateCustomerCommandValidator : AbstractValidator<CreateCustomerCo
   {
     RuleFor(c => c.Name)
       .NotEmpty()
-      .NotNull();
+      .NotNull()
+      .MaximumLength(50);
 
     RuleFor(c => c.Phone)
       .Length(10)
       .Matches("^[0-9]*$");
 
     RuleFor(c => c.Email)
-      .EmailAddress();
+      .EmailAddress()
+      .MaximumLength(50);
 
     RuleFor(c => c.Gender)
       .IsInEnum();
