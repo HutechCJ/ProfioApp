@@ -1,12 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using AutoMapper;
+using Profio.Application.Vehicles.Commands;
+using Profio.Domain.Entities;
 
-namespace Profio.Application.Vehicles
+namespace Profio.Application.Vehicles;
+
+public class VehicleProfile : Profile
 {
-    public class VehicleProfile
+    public VehicleProfile()
     {
-        
+        CreateMap<CreateVehicleCommand, Vehicle>().ReverseMap();
+        CreateMap<Vehicle, VehicleDto>().ReverseMap();
+        CreateMap<UpdateVehicleCommand, Vehicle>().ReverseMap();
     }
 }
