@@ -17,7 +17,7 @@ public record ResultModel<T>(
   public static ResultModel<T> CreateError(
     T? data,
     string? errorMessage = default)
-    => new(data, true, errorMessage);
+    => new(default, true, errorMessage);
 
   public override string ToString() => JsonSerializer.Serialize(this);
 }

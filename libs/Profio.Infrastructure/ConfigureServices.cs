@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -16,9 +15,7 @@ using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.Middleware;
 using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Persistence;
-using Profio.Infrastructure.Searching;
 using Profio.Infrastructure.Swagger;
-using Profio.Infrastructure.Versioning;
 using System.IO.Compression;
 
 namespace Profio.Infrastructure;
@@ -32,8 +29,6 @@ public static class ConfigureServices
         options.RespectBrowserAcceptHeader = true;
         options.ReturnHttpNotAcceptable = true;
         options.Filters.Add<LoggingFilter>();
-        options.Filters.Add<ExceptionMiddleware>();
-        options.Filters.Add(new ProducesAttribute("application/json"));
       })
       .AddNewtonsoftJson()
       .AddApplicationPart(AssemblyReference.Assembly);
@@ -65,31 +60,26 @@ public static class ConfigureServices
           HttpMethods.Patch,
           HttpMethods.Delete,
           HttpMethods.Options
-        )
-        .AllowAnyHeader()));
-
-    builder.AddApiVersioning();
-    builder.AddSerilog();
-    builder.AddOpenTelemetry();
-    builder.AddHealthCheck();
-    builder.AddHangFire();
-    builder.AddSocketHub();
-    builder.AddLuceneSearch();
+        ).AllowAnyHeader()));
 
     services
       .AddProblemDetails()
       .AddEndpointsApiExplorer()
       .AddOpenApi();
 
+    services.AddRedisCache(builder.Configuration);
+
+    builder.AddSerilog();
+    builder.AddOpenTelemetry();
+    builder.AddHealthCheck();
+    builder.AddHangFire();
+    builder.AddSocketHub();
+
     services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
     services.AddScoped<ITokenService, TokenService>();
 
-    services.AddPostgres(builder.Configuration)
-      .AddRedisCache(builder.Configuration)
-      .AddEventBus(builder.Configuration);
-
-    services.AddMqttBus(builder.Configuration);
-
+    services.AddPostgres(builder.Configuration);
+    services.AddEventBus(builder.Configuration);
     services.AddApplicationIdentity(builder);
   }
 
@@ -108,11 +98,12 @@ public static class ConfigureServices
       .UseAuthorization();
 
     app
+      .UseMiddleware<ExceptionMiddleware>()
       .UseMiddleware<TimeOutMiddleware>()
       .UseMiddleware<XssProtectionMiddleware>();
 
-    app.UseHangFire();
-    app.MapLocationHub();
+    app
+      .UseHangFire();
 
     app
       .UseCors()

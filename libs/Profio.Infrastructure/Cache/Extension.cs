@@ -8,15 +8,14 @@ namespace Profio.Infrastructure.Cache;
 
 public static class Extension
 {
-  public static IServiceCollection AddRedisCache(
+  public static void AddRedisCache(
       this IServiceCollection services,
       IConfiguration config,
       Action<RedisCache>? setupAction = null)
   {
     ArgumentNullException.ThrowIfNull(services, nameof(services));
 
-    if (services.Contains(ServiceDescriptor.Singleton<IRedisCacheService, RedisCacheService>()))
-      return services;
+    if (services.Contains(ServiceDescriptor.Singleton<IRedisCacheService, RedisCacheService>())) return;
 
     var redisCacheOption = new RedisCache();
     var redisCacheSection = config.GetSection(nameof(RedisCache));
@@ -32,8 +31,6 @@ public static class Extension
     });
 
     services.AddSingleton<IRedisCacheService, RedisCacheService>();
-
-    return services;
   }
 
   private static ConfigurationOptions GetRedisConfigurationOptions(

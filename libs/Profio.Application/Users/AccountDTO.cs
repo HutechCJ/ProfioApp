@@ -9,5 +9,4 @@ public record AccountDto : BaseModel
   public string? Email { get; set; }
   public string? FullName { get; set; }
   public string? Token { get; set; }
-  public DateTime? TokenExpire { get; set; }
 }

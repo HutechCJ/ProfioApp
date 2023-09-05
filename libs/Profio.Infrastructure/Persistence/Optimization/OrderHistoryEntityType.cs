@@ -9,7 +9,7 @@ using Profio.Domain.Entities;
 #pragma warning disable 219, 612, 618
 #nullable enable
 
-namespace Profio.Infrastructure.Persistence.Optimization
+namespace Profio.Infrastructure.Persistence.Relational.Optimization
 {
     internal partial class OrderHistoryEntityType
     {
@@ -28,18 +28,18 @@ namespace Profio.Infrastructure.Persistence.Optimization
                 afterSaveBehavior: PropertySaveBehavior.Throw,
                 maxLength: 26);
 
-            var deliveryId = runtimeEntityType.AddProperty(
-                "DeliveryId",
-                typeof(string),
-                propertyInfo: typeof(OrderHistory).GetProperty("DeliveryId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(OrderHistory).GetField("<DeliveryId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                nullable: true);
-
             var hubId = runtimeEntityType.AddProperty(
                 "HubId",
                 typeof(string),
                 propertyInfo: typeof(OrderHistory).GetProperty("HubId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(OrderHistory).GetField("<HubId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true);
+
+            var orderId = runtimeEntityType.AddProperty(
+                "OrderId",
+                typeof(string),
+                propertyInfo: typeof(OrderHistory).GetProperty("OrderId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(OrderHistory).GetField("<OrderId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true);
 
             var timestamp = runtimeEntityType.AddProperty(
@@ -49,44 +49,30 @@ namespace Profio.Infrastructure.Persistence.Optimization
                 fieldInfo: typeof(OrderHistory).GetField("<Timestamp>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true);
 
+            var vehicleId = runtimeEntityType.AddProperty(
+                "VehicleId",
+                typeof(string),
+                propertyInfo: typeof(OrderHistory).GetProperty("VehicleId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(OrderHistory).GetField("<VehicleId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true);
+
             var key = runtimeEntityType.AddKey(
                 new[] { id });
             runtimeEntityType.SetPrimaryKey(key);
 
             var index = runtimeEntityType.AddIndex(
-                new[] { deliveryId });
+                new[] { hubId });
 
             var index0 = runtimeEntityType.AddIndex(
-                new[] { hubId });
+                new[] { orderId });
+
+            var index1 = runtimeEntityType.AddIndex(
+                new[] { vehicleId });
 
             return runtimeEntityType;
         }
 
         public static RuntimeForeignKey CreateForeignKey1(RuntimeEntityType declaringEntityType, RuntimeEntityType principalEntityType)
-        {
-            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("DeliveryId")! },
-                principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id")! })!,
-                principalEntityType,
-                deleteBehavior: DeleteBehavior.SetNull);
-
-            var delivery = declaringEntityType.AddNavigation("Delivery",
-                runtimeForeignKey,
-                onDependent: true,
-                typeof(Delivery),
-                propertyInfo: typeof(OrderHistory).GetProperty("Delivery", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(OrderHistory).GetField("<Delivery>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-
-            var orderHistories = principalEntityType.AddNavigation("OrderHistories",
-                runtimeForeignKey,
-                onDependent: false,
-                typeof(ICollection<OrderHistory>),
-                propertyInfo: typeof(Delivery).GetProperty("OrderHistories", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Delivery).GetField("<OrderHistories>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-
-            return runtimeForeignKey;
-        }
-
-        public static RuntimeForeignKey CreateForeignKey2(RuntimeEntityType declaringEntityType, RuntimeEntityType principalEntityType)
         {
             var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("HubId")! },
                 principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id")! })!,
@@ -106,6 +92,54 @@ namespace Profio.Infrastructure.Persistence.Optimization
                 typeof(ICollection<OrderHistory>),
                 propertyInfo: typeof(Domain.Entities.Hub).GetProperty("OrderHistories", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(Domain.Entities.Hub).GetField("<OrderHistories>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+
+            return runtimeForeignKey;
+        }
+
+        public static RuntimeForeignKey CreateForeignKey2(RuntimeEntityType declaringEntityType, RuntimeEntityType principalEntityType)
+        {
+            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("OrderId")! },
+                principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id")! })!,
+                principalEntityType,
+                deleteBehavior: DeleteBehavior.Cascade);
+
+            var order = declaringEntityType.AddNavigation("Order",
+                runtimeForeignKey,
+                onDependent: true,
+                typeof(Order),
+                propertyInfo: typeof(OrderHistory).GetProperty("Order", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(OrderHistory).GetField("<Order>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+
+            var orderHistories = principalEntityType.AddNavigation("OrderHistories",
+                runtimeForeignKey,
+                onDependent: false,
+                typeof(ICollection<OrderHistory>),
+                propertyInfo: typeof(Order).GetProperty("OrderHistories", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Order).GetField("<OrderHistories>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+
+            return runtimeForeignKey;
+        }
+
+        public static RuntimeForeignKey CreateForeignKey3(RuntimeEntityType declaringEntityType, RuntimeEntityType principalEntityType)
+        {
+            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("VehicleId")! },
+                principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id")! })!,
+                principalEntityType,
+                deleteBehavior: DeleteBehavior.SetNull);
+
+            var vehicle = declaringEntityType.AddNavigation("Vehicle",
+                runtimeForeignKey,
+                onDependent: true,
+                typeof(Vehicle),
+                propertyInfo: typeof(OrderHistory).GetProperty("Vehicle", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(OrderHistory).GetField("<Vehicle>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+
+            var orderHistories = principalEntityType.AddNavigation("OrderHistories",
+                runtimeForeignKey,
+                onDependent: false,
+                typeof(ICollection<OrderHistory>),
+                propertyInfo: typeof(Vehicle).GetProperty("OrderHistories", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Vehicle).GetField("<OrderHistories>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             return runtimeForeignKey;
         }

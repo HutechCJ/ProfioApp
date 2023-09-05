@@ -6,14 +6,9 @@ namespace Profio.Infrastructure.Swagger;
 
 public class SwaggerDefaultValues : IOperationFilter
 {
-  public const string VersionPattern = "v{version:apiVersion}";
-
   public void Apply(OpenApiOperation operation, OperationFilterContext context)
   {
     var apiDescription = context.ApiDescription;
-
-    context.ApiDescription.RelativePath = context.ApiDescription.RelativePath?
-      .Replace(VersionPattern, context.ApiDescription.GroupName);
 
     foreach (var responseType in context.ApiDescription.SupportedResponseTypes)
     {
@@ -27,7 +22,6 @@ public class SwaggerDefaultValues : IOperationFilter
         if (responseType.ApiResponseFormats.All(x => x.MediaType != contentType))
           response.Content.Remove(contentType);
     }
-
 
     if (operation.Parameters is null) return;
 

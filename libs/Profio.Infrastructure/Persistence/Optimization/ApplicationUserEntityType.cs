@@ -8,7 +8,7 @@ using Profio.Infrastructure.Identity;
 #pragma warning disable 219, 612, 618
 #nullable enable
 
-namespace Profio.Infrastructure.Persistence.Optimization
+namespace Profio.Infrastructure.Persistence.Relational.Optimization
 {
     internal partial class ApplicationUserEntityType
     {

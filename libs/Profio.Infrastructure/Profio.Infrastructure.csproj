@@ -32,8 +32,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="7.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="7.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning" Version="5.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="5.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="7.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.10" />
     <PackageReference Include="Microsoft.Extensions.Caching.StackExchangeRedis" Version="7.0.10" />
@@ -83,6 +81,7 @@
     <PackageReference Include="Polly" Version="7.2.4" />
     <PackageReference Include="Spectre.Console" Version="0.47.0" />
     <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="8.0.0-preview.3.23174.8" />
+    <PackageReference Include="Bogus" Version="34.0.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -92,8 +91,6 @@
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.7.1" />
     <PackageReference Include="MassTransit" Version="8.1.0" />
     <PackageReference Include="MassTransit.RabbitMQ" Version="8.1.0" />
-    <PackageReference Include="MQTTnet" Version="4.3.0.858" />
-    <PackageReference Include="MQTTnet.AspNetCore" Version="4.3.0.858" />
   </ItemGroup>
 
   <ItemGroup>
@@ -102,9 +99,4 @@
     <PackageReference Include="Hangfire.Redis.StackExchange" Version="1.9.4-beta" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Lucene.Net" Version="4.8.0-beta00016" />
-    <PackageReference Include="Lucene.Net.Analysis.Common" Version="4.8.0-beta00016" />
-    <PackageReference Include="Lucene.Net.QueryParser" Version="4.8.0-beta00016" />
-  </ItemGroup>
 </Project>

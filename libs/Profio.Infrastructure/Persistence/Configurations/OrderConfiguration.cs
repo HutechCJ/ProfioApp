@@ -13,8 +13,6 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
     builder.Property(e => e.Id)
       .HasMaxLength(26);
 
-    builder.Property(e => e.StartedDate);
-
     builder.Property(e => e.ExpectedDeliveryTime);
 
     builder.Property(e => e.Status);
@@ -23,15 +21,12 @@ public class OrderConfiguration : IEntityTypeConfiguration<Order>
       .HasMaxLength(50)
       .IsRequired();
 
-    builder.Property(e => e.DestinationAddress)
-      .HasColumnType("jsonb")
-      .IsUnicode();
-
     builder.Property(e => e.Distance);
 
-    builder.Property(e => e.Note)
-      .HasMaxLength(250)
-      .IsUnicode();
+    builder.HasOne(e => e.Vehicle)
+      .WithMany(e => e.Orders)
+      .HasForeignKey(e => e.VehicleId)
+      .OnDelete(DeleteBehavior.SetNull);
 
     builder.HasOne(e => e.Customer)
       .WithMany(e => e.Orders)

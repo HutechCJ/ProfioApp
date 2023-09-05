@@ -1,9 +1,31 @@
 version: '2'
 services:
+  # Grafana
+  grafana:
+    image: grafana/grafana
+    restart: always
+    ports:
+      - '3000:3000'
+
+  # Jaeger
+  jaeger-all-in-one:
+    image: jaegertracing/all-in-one:latest
+    restart: always
+    ports:
+      - '16686:16686'
+      - '14268'
+      - '14250'
+
+  # Zipkin
+  zipkin-all-in-one:
+    image: openzipkin/zipkin:latest
+    restart: always
+    ports:
+      - '9411:9411'
+
   # Collector
   otel-collector:
-    image: otel/opentelemetry-collector-contrib-dev:latest
-    container_name: opentelemetry-collector
+    image: otel/opentelemetry-collector:0.67.0
     restart: always
     command: ['--config=/etc/otel-collector-config.yaml']
     volumes:
@@ -18,62 +40,33 @@ services:
       - jaeger-all-in-one
       - zipkin-all-in-one
 
-  # Grafana
-  grafana:
-    image: grafana/grafana
-    container_name: grafana
-    restart: always
+  # seq
+  seq:
+    image: datalust/seq:latest
+    container_name: seq
+    restart: on-failure
     ports:
-      - '3000:3000'
-    networks:
-      - profio-bridge
-
-  # Jaeger
-  jaeger-all-in-one:
-    image: jaegertracing/all-in-one:latest
-    container_name: jaeger-all-in-one
-    restart: always
-    ports:
-      - '16686:16686'
-      - '14268'
-      - '14250'
-    networks:
-      - profio-bridge
-
-  # Zipkin
-  zipkin-all-in-one:
-    image: openzipkin/zipkin:latest
-    container_name: zipkin-all-in-one
-    restart: always
-    ports:
-      - '9411:9411'
-    networks:
-      - profio-bridge
+      - '5341:80'
+    environment:
+      - ACCEPT_EULA=Y
 
   # Prometheus
   prometheus:
-    image: prom/prometheus:latest
     container_name: prometheus
+    image: prom/prometheus:latest
     restart: always
     volumes:
       - ./prometheus.yaml:/etc/prometheus/prometheus.yml
-    environment:
-      - TZ=Asia/Ho_Chi_Minh
     ports:
       - '9090:9090'
-    networks:
-      - profio-bridge
 
-  # ELK
-  elk:
-    image: sebp/elk:latest
+  # RabbitMQ
+  rabbitmq:
+    image: rabbitmq:3-management
+    restart: always
     ports:
-      - "5601:5601"
-      - "9200:9200"
-      - "5044:5044"
-    networks:
-      - profio-bridge
-
-networks:
-  profio-bridge:
-    driver: bridge
+      - '5672:5672'
+      - '15672:15672'
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest

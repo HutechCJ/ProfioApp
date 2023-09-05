@@ -4,4 +4,4 @@ using Profio.Domain.Models;
 
 namespace Profio.Application.CQRS.Events.Commands;
 
-public record CreateCommandBase : IRequest<ResultModel<object>>, ITxRequest;
+public record CreateCommandBase<T> : IRequest<T>, ITxRequest where T : BaseModel;

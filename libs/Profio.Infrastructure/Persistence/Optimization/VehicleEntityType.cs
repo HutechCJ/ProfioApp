@@ -10,7 +10,7 @@ using Profio.Domain.Entities;
 #pragma warning disable 219, 612, 618
 #nullable enable
 
-namespace Profio.Infrastructure.Persistence.Optimization
+namespace Profio.Infrastructure.Persistence.Relational.Optimization
 {
     internal partial class VehicleEntityType
     {
@@ -44,17 +44,11 @@ namespace Profio.Infrastructure.Persistence.Optimization
                 fieldInfo: typeof(Vehicle).GetField("<StaffId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 nullable: true);
 
-            var status = runtimeEntityType.AddProperty(
-                "Status",
-                typeof(VehicleStatus),
-                propertyInfo: typeof(Vehicle).GetProperty("Status", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Vehicle).GetField("<Status>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
-
-            var type = runtimeEntityType.AddProperty(
-                "Type",
+            var vehicleType = runtimeEntityType.AddProperty(
+                "VehicleType",
                 typeof(VehicleType),
-                propertyInfo: typeof(Vehicle).GetProperty("Type", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Vehicle).GetField("<Type>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                propertyInfo: typeof(Vehicle).GetProperty("VehicleType", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Vehicle).GetField("<VehicleType>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             var zipCodeCurrent = runtimeEntityType.AddProperty(
                 "ZipCodeCurrent",

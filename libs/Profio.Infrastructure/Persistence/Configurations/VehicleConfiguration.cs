@@ -19,9 +19,7 @@ public class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
     builder.Property(e => e.LicensePlate)
       .HasMaxLength(50);
 
-    builder.Property(e => e.Type);
-
-    builder.Property(e => e.Status);
+    builder.Property(e => e.VehicleType);
 
     builder.HasOne(e => e.Staff)
       .WithMany(e => e.Vehicles)

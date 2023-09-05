@@ -1,58 +1,49 @@
-using FluentValidation;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using Profio.Domain.Models;
-using Profio.Infrastructure.Exceptions;
 using System.Net;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
+using Profio.Domain.Models;
+using Profio.Infrastructure.Validator;
 
 namespace Profio.Infrastructure.Middleware;
 
-public class ExceptionMiddleware : ExceptionFilterAttribute
+public class ExceptionMiddleware
 {
-  public override void OnException(ExceptionContext context)
-  {
-    HandleException(context);
-    base.OnException(context);
-  }
+  private readonly RequestDelegate _next;
+  private readonly ILogger<ExceptionMiddleware> _logger;
 
-  private static void HandleException(ExceptionContext context)
-  {
-    context.HttpContext.Response.ContentType = "application/json";
-    context.HttpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+  public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
+    => (_next, _logger) = (next, logger);
 
-    switch (context.Exception)
+  public async Task InvokeAsync(HttpContext httpContext)
+  {
+    try
     {
-      case ValidationException { Errors: { } } validationException:
-        {
-          var validationErrorModel = ResultModel<Dictionary<string, string[]>>.CreateError(validationException
-              .Errors
-              .GroupBy(e => e.PropertyName, e => e.ErrorMessage)
-              .ToDictionary(failureGroup => failureGroup.Key, failureGroup => failureGroup.ToArray()));
-
-          context.Result = new BadRequestObjectResult(validationErrorModel);
-          break;
-        }
-      case NotFoundException notFoundException:
-        {
-          var notFoundErrorModel = ResultModel<string>.CreateError(notFoundException.Message, "Not Found Error.");
-          context.Result = new NotFoundObjectResult(notFoundErrorModel);
-
-          break;
-        }
-      default:
-        var details = new ProblemDetails
-        {
-          Status = StatusCodes.Status500InternalServerError,
-          Type = "https://tools.ietf.org/html/rfc7235#section-3.1"
-        };
-        context.Result = new ObjectResult(details)
-        {
-          Value = ResultModel<string>.CreateError("", "Internal Server Error.").ToString()
-        };
-        break;
+      await _next(httpContext);
     }
-    context.ExceptionHandled = true;
+    catch (Exception ex)
+    {
+      _logger.LogError(ex, "Something went wrong");
+      await HandleExceptionAsync(httpContext, ex);
+    }
   }
 
+  private static async Task HandleExceptionAsync(HttpContext context, Exception exception)
+  {
+    context.Response.ContentType = "application/json";
+    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+    if (exception is ValidationException { ValidationResultModel.Errors: { } } validationException)
+    {
+      var validationErrorModel = ResultModel<string>.CreateError(validationException.ValidationResultModel
+          .Errors
+          .Aggregate("", (a, b) =>
+            a + $"{b.Field}-{b.Message}\n"), "Validation Error.")
+        .ToString();
+
+      await context.Response.WriteAsync(validationErrorModel);
+    }
+    else
+      await context.Response.WriteAsync(
+        ResultModel<string>.CreateError("", "Internal Server Error.").ToString());
+  }
 }

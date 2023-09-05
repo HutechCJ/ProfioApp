@@ -20,9 +20,6 @@
       ],
       "@profio-app/generated/profio.api-types": [
         "libs/generated/profio.api-types/src/index.ts"
-      ],
-      "@profio-app/generated/profio.proxy-types": [
-        "libs/generated/profio.proxy-types/src/index.ts"
       ]
     }
   },

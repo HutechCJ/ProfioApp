@@ -1,11 +1,10 @@
 using Profio.Domain.Constants;
-using Profio.Domain.Interfaces;
 
 namespace Profio.Domain.Entities;
 
-public class Staff : IEntity<string>
+public class Staff
 {
-  public string Id { get; set; } = Ulid.NewUlid().ToString();
+  public required string? Id { get; set; } = Ulid.NewUlid().ToString();
   public required string? Name { get; set; }
   public string? Phone { get; set; }
   public Position Position { get; set; } = Position.Driver;

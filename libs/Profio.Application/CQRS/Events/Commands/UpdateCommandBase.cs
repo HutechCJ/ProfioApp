@@ -4,4 +4,5 @@ using Profio.Domain.Models;
 
 namespace Profio.Application.CQRS.Events.Commands;
 
-public record UpdateCommandBase(object Id) : IRequest<ResultModel<object>>, ITxRequest;
+public record UpdateCommandBase<T>(object Id) : IRequest<T>, ITxRequest
+  where T : BaseModel;

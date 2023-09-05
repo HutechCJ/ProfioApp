@@ -2,17 +2,10 @@ receivers:
   otlp:
     protocols:
       grpc:
-      http:
-        cors:
-          allowed_origins:
-            - "http://*"
-            - "https://*"
 
 exporters:
   prometheus:
     endpoint: "0.0.0.0:8889"
-    const_labels:
-      label1: value1
 
   logging:
 
@@ -24,10 +17,6 @@ exporters:
     endpoint: jaeger-all-in-one:14250
     tls:
       insecure: true
-
-  elasticsearch:
-    endpoints:
-      - "http://elk:9200"
 
 processors:
   batch:
@@ -50,7 +39,3 @@ service:
       receivers: [otlp]
       processors: [batch]
       exporters: [logging, prometheus]
-    logs:
-      receivers: [otlp]
-      processors: [batch]
-      exporters: [logging, elasticsearch]

@@ -1,21 +1,18 @@
 using Profio.Domain.Constants;
-using Profio.Domain.Interfaces;
-using Profio.Domain.ValueObjects;
 
 namespace Profio.Domain.Entities;
 
-public class Order : IEntity<string>
+public class Order
 {
-  public string Id { get; set; } = Ulid.NewUlid().ToString();
-  public DateTime StartedDate { get; set; } = DateTime.UtcNow;
+  public required string? Id { get; set; } = Ulid.NewUlid().ToString();
   public DateTime? ExpectedDeliveryTime { get; set; }
   public OrderStatus Status { get; set; } = OrderStatus.Pending;
-  public Address? DestinationAddress { get; set; }
   public required string? DestinationZipCode { get; set; }
-  public string? Note { get; set; }
   public double? Distance { get; set; }
+  public string? VehicleId { get; set; }
   public string? CustomerId { get; set; }
+  public Vehicle? Vehicle { get; set; }
   public Customer? Customer { get; set; }
-  public ICollection<Delivery>? Deliveries { get; set; } = new List<Delivery>();
   public ICollection<DeliveryProgress> DeliveryProgresses { get; set; } = new List<DeliveryProgress>();
+  public ICollection<OrderHistory> OrderHistories { get; set; } = new List<OrderHistory>();
 }

@@ -3,13 +3,9 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Profio.Domain.Models;
 using Profio.Infrastructure.Identity;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Users.Commands.Login;
 
-[SwaggerSchema(
-  Title = "Account Request",
-  Description = "A Representation of Account")]
 public record LoginCommand(string UserName, string Password) : IRequest<ResultModel<AccountDto>>;
 public record LoginCommandHandler : IRequestHandler<LoginCommand, ResultModel<AccountDto>>
 {
@@ -30,10 +26,9 @@ public record LoginCommandHandler : IRequestHandler<LoginCommand, ResultModel<Ac
 
     if (!isPasswordCorrect)
       return ResultModel<AccountDto>.CreateError(null, errorMessage: "Password not correct!");
-
+    
     var dto = _mapper.Map<AccountDto>(user);
     dto.Token = _tokenService.CreateToken(user);
-    dto.TokenExpire = _tokenService.GetExpireDate(dto.Token);
     return ResultModel<AccountDto>.Create(dto);
   }
 }
