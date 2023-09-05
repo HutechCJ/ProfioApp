@@ -1,5 +1,5 @@
 <h1 align="center">
-	<p><img loading="lazy" width=200px src="./static/img/logo.png" alt="Logo CJ"></p>
+	<p><img loading="lazy" width=200px src="./assets/img/logo.png" alt="Logo CJ"></p>
 Profio Application
 </h1>
 
@@ -129,7 +129,7 @@ npx nx dep-graph
 Here is the dependency graph of the project:
 
 <p align="center">
-	<img loading="lazy"  src="./static/img/graph.png" width="100%" alt="Dependency Graph">
+	<img loading="lazy"  src="./assets/img/graph.png" width="100%" alt="Dependency Graph">
 </p>
 
 # License
