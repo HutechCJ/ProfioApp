@@ -1,17 +1,17 @@
 using Profio.Domain.Constants;
+using Profio.Domain.Entities;
+using Profio.Domain.Models;
 using Profio.Domain.ValueObjects;
-using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Hubs;
 
-[SwaggerSchema(
-  Title = "Hub",
-  Description = "A Representation of Hub")]
-public class HubDto
+public record HubDto : BaseModel
 {
-  public required string? Name { get; set; }
+  public required string Id { get; set; }
   public required string? ZipCode { get; set; }
   public Location? Location { get; set; }
-  public Address? Address { get; set; }
   public HubStatus Status { get; set; } = HubStatus.Active;
+  public ICollection<OrderHistory>? OrderHistories { get; set; } = new List<OrderHistory>();
+  public ICollection<Route>? StartRoutes { get; set; } = new List<Route>();
+  public ICollection<Route>? EndRoutes { get; set; } = new List<Route>();
 }
