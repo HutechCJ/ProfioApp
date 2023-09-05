@@ -6,7 +6,6 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Profio.Domain.Models;
 using Profio.Infrastructure.Identity;
-//using Profio.Infrastructure.Validator;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Users.Commands.Register;
@@ -28,10 +27,13 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ResultMod
   {
     var failures = new List<ValidationFailure>();
     if (_userManager.Users.Any(u => u.UserName == request.Email))
-      failures.Add(new ValidationFailure("UserName", "UserName has already exists"));
+      failures.Add(new("UserName", "UserName has already exists"));
 
     if (_userManager.Users.Any(u => u.Email == request.Email))
-      failures.Add(new ValidationFailure("Email", "Email has already exists"));
+      failures.Add(new("Email", "Email has already exists"));
+
+    if (!request.Password.Equals(request.ConfirmPassword))
+      failures.Add(new("Password", "Confirm password must match the password"));
 
     if (failures.Any())
       throw new ValidationException(failures);
@@ -48,14 +50,22 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ResultMod
     {
       result.Errors.Select(e => e.Description).ForEach(d =>
       {
-        failures.Add(new ValidationFailure("User", d));
+        failures.Add(new("Password", d));
       });
       throw new ValidationException(failures);
     }
-    //return ResultModel<AccountDto>.CreateError(null, "Create user failed");
 
     var dto = _mapper.Map<AccountDto>(user);
     dto.Token = _tokenService.CreateToken(user);
     return ResultModel<AccountDto>.Create(dto);
+  }
+}
+
+public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
+{
+  public RegisterCommandValidator()
+  {
+    RuleFor(r => r.Email)
+      .EmailAddress();
   }
 }

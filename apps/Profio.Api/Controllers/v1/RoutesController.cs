@@ -18,7 +18,7 @@ public class RoutesController : BaseEntityController<RouteEntity, RouteDto>
   public Task<ActionResult<ResultModel<IPagedList<RouteDto>>>> Get([FromQuery] Criteria<RouteEntity> criteria)
     => HandlePaginationQuery(new GetRouteWithPagingQuery(criteria));
 
-  [HttpGet("{id}")]
+  [HttpGet("{id:length(26)}")]
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<RouteDto>>> GetById(string id)
     => HandleGetByIdQuery(new GetRouteByIdQuery(id));

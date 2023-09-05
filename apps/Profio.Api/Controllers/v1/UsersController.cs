@@ -14,11 +14,6 @@ namespace Profio.Api.Controllers.v1;
 [SwaggerTag("An authenticated and authorized user")]
 public class UsersController : BaseController
 {
-  private readonly IConfiguration _configuration;
-
-  public UsersController(IConfiguration configuration)
-    => _configuration = configuration;
-
   [HttpPost("login")]
   [AllowAnonymous]
   [MapToApiVersion("1.0")]
@@ -37,10 +32,6 @@ public class UsersController : BaseController
     return Ok(result);
   }
 
-  [HttpGet("token-key")]
-  public IActionResult GetTokenKey()
-    => Ok(_configuration["Authentication:TokenKey"] ?? string.Empty);
-
   [HttpPost("register")]
   [AllowAnonymous]
   [MapToApiVersion("1.0")]
@@ -52,9 +43,9 @@ public class UsersController : BaseController
     return Ok(result);
   }
 
-  [HttpGet("{id}")]
+  [HttpGet("{id:guid}")]
   [MapToApiVersion("1.0")]
-  public async Task<IActionResult> GetUserById(string id)
+  public async Task<IActionResult> GetUserById(Guid id)
   {
     var result = await Mediator.Send(new GetUserByIdQuery(id));
     if (result.IsError)
@@ -70,7 +61,5 @@ public class UsersController : BaseController
   [AllowAnonymous]
   [MapToApiVersion("1.0")]
   public async Task<IActionResult> GetUsers([FromQuery] Criteria<ApplicationUser> criteria)
-  {
-    return Ok(await Mediator.Send(new GetUserWithPagingQuery(criteria)));
-  }
+    => Ok(await Mediator.Send(new GetUserWithPagingQuery(criteria)));
 }

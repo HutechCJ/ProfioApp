@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Profio.Infrastructure.Exceptions;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Api.Controllers.v1;
@@ -13,7 +14,7 @@ public class ResultsController : BaseController
   [MapToApiVersion("1.0")]
   [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
   public IActionResult GetNotFound()
-        => NotFound();
+        => throw new NotFoundException("Not found Result");
 
   [HttpGet("ok")]
   [MapToApiVersion("1.0")]

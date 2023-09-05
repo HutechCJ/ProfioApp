@@ -9,8 +9,8 @@ public static class HostingExtensions
 {
   public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
   {
-    builder.Services.AddInfrastructureServices(builder);
     builder.Services.AddApplicationServices();
+    builder.Services.AddInfrastructureServices(builder);
     builder.Services.AddRateLimiting();
 
     builder.WebHost.ConfigureKestrel(options =>
@@ -25,15 +25,15 @@ public static class HostingExtensions
 
   public static async Task<WebApplication> ConfigurePipelineAsync(this WebApplication app)
   {
-    if (app.Environment.IsDevelopment())
-      app.UseOpenApi()
-        .UseDeveloperExceptionPage()
-        .UseHsts();
-    else
+    app.UseOpenApi()
+      .UseDeveloperExceptionPage()
+      .UseRedocly()
+      .UseHsts();
+
+    if (app.Environment.IsProduction())
       app.UseExceptionHandler("/error");
 
     app.UseHttpsRedirection();
-    //app.UseAuthorization();
     app.MapControllers()
       .RequirePerUserRateLimit();
     app.UseRateLimiter();

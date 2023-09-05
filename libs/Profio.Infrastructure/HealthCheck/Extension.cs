@@ -23,7 +23,11 @@ public static class Extension
         name: "RabbitMq",
         tags: new[] { "message broker" })
       .AddHangfire(_ => { }, name: "HangFire", tags: new[] { "jobs" })
-      .AddSignalRHub("https://localhost:9023/current-location", name: "SignalR", tags: new[] { "hub" });
+      .AddSignalRHub(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
+        ? "https://localhost:9023/current-location"
+        : "https://profio.azurewebsites.net/current-location",
+        name: "SignalR",
+        tags: new[] { "hub" });
 
     builder.Services
       .AddHealthChecksUI(options =>
