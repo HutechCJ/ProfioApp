@@ -1,6 +1,7 @@
 using EntityFrameworkCore.Repository.Collections;
 using Microsoft.AspNetCore.Mvc;
 using Profio.Application.Hubs;
+using Profio.Application.Hubs.Commands;
 using Profio.Application.Hubs.Queries;
 using Profio.Domain.Entities;
 using Profio.Domain.Models;
@@ -23,10 +24,10 @@ namespace Profio.Api.Controllers
         public Task<ActionResult<ResultModel<HubDto>>> GetById(string id)
             => HandleGetByIdQuery(new GetHubByIdQuery(id));
         
-        // [HttpPost]
-        // [MapToApiVersion("1.0")]
-        // public Task<ActionResult<ResultModel<object>>> Post(CreateHubCommand command)
-        //     => HandleCreateCommand(command, id => new GetHubByIdQuery(id));
+        [HttpPost]
+        [MapToApiVersion("1.0")]
+        public Task<ActionResult<ResultModel<object>>> Post(CreateHubCommand command)
+            => HandleCreateCommand(command, id => new GetHubByIdQuery(id));
         
         // [HttpPut("{id}")]
         // [MapToApiVersion("1.0")]
