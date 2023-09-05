@@ -8,14 +8,19 @@ public class AddressValidator : AbstractValidator<Address>
   public AddressValidator()
   {
     RuleFor(a => a.ZipCode)
-      .Matches("^[0-9]*$");
+      .Matches("^[0-9]*$")
+      .MaximumLength(50);
 
-    RuleFor(a => a.City);
+    RuleFor(a => a.City)
+      .MaximumLength(50);
 
-    RuleFor(a => a.Street);
+    RuleFor(a => a.Street)
+      .MaximumLength(50);
 
-    RuleFor(a => a.Ward);
+    RuleFor(a => a.Ward)
+      .MaximumLength(50);
 
-    RuleFor(a => a.Province);
+    RuleFor(a => a.Province)
+      .MaximumLength(50);
   }
 }
