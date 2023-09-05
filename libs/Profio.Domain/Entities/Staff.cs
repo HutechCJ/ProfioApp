@@ -5,7 +5,7 @@ namespace Profio.Domain.Entities;
 
 public class Staff : IEntity<string>
 {
-  public string Id { get; set; } = Ulid.NewUlid().ToString();
+  public string Id { get; set; } = Ulid.NewUlid().ToString()!;
   public required string? Name { get; set; }
   public string? Phone { get; set; }
   public Position Position { get; set; } = Position.Driver;
