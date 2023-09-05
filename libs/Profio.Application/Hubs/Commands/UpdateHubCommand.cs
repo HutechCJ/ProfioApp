@@ -18,7 +18,7 @@ public record UpdateHubCommand(object Id) : UpdateCommandBase(Id)
     public Location? Location { get; set; }
     public Address? Address { get; set; }
     public HubStatus Status { get; set; } = HubStatus.Active;
-};
+}
 public class UpdateHubCommandHandler : UpdateCommandHandlerBase<UpdateHubCommand, Hub>
 {
     public UpdateHubCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)

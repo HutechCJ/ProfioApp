@@ -21,7 +21,7 @@ public class ExceptionMiddleware : ExceptionFilterAttribute
 
     switch (context.Exception)
     {
-      case ValidationException { Errors: { } } validationException:
+      case ValidationException { Errors: not null } validationException:
         HandleValidationException(context, validationException);
         break;
       case NotFoundException notFoundException:

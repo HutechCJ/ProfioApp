@@ -14,11 +14,6 @@ namespace Profio.Api.Controllers.v1;
 [SwaggerTag("An authenticated and authorized user")]
 public class UsersController : BaseController
 {
-  private readonly IConfiguration _configuration;
-
-  public UsersController(IConfiguration configuration)
-    => _configuration = configuration;
-
   [HttpPost("login")]
   [AllowAnonymous]
   [MapToApiVersion("1.0")]
