@@ -29,10 +29,10 @@ namespace Profio.Api.Controllers
         public Task<ActionResult<ResultModel<object>>> Post(CreateHubCommand command)
             => HandleCreateCommand(command, id => new GetHubByIdQuery(id));
         
-        // [HttpPut("{id}")]
-        // [MapToApiVersion("1.0")]
-        // public Task<IActionResult> Put([FromRoute] string id, [FromBody] UpdateHubCommand command)
-        //     => HandleUpdateCommand(id, command);
+        [HttpPut("{id}")]
+        [MapToApiVersion("1.0")]
+        public Task<IActionResult> Put([FromRoute] string id, [FromBody] UpdateHubCommand command)
+            => HandleUpdateCommand(id, command);
         
         // [HttpDelete("{id}")]
         // [MapToApiVersion("1.0")]

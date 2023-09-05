@@ -9,7 +9,7 @@ public class HubProfile : Profile
   public HubProfile()
   {
     CreateMap<Hub, HubDto>().ReverseMap();
-     CreateMap<CreateHubCommand, Hub>().ReverseMap();
+    CreateMap<CreateHubCommand, Hub>().ReverseMap();
     CreateMap<UpdateHubCommand, Hub>().ReverseMap();
   }
 }
