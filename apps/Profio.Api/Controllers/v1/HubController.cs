@@ -17,5 +17,25 @@ namespace Profio.Api.Controllers
         [MapToApiVersion("1.0")]
         public Task<ActionResult<ResultModel<IPagedList<HubDto>>>> Get([FromQuery] Criteria<Hub> criteria)
             => HandlePaginationQuery(new GetHubWithPagingQuery(criteria));
+
+        [HttpGet("{id}")]
+        [MapToApiVersion("1.0")]
+        public Task<ActionResult<ResultModel<HubDto>>> GetById(string id)
+            => HandleGetByIdQuery(new GetHubByIdQuery(id));
+        
+        // [HttpPost]
+        // [MapToApiVersion("1.0")]
+        // public Task<ActionResult<ResultModel<object>>> Post(CreateHubCommand command)
+        //     => HandleCreateCommand(command, id => new GetHubByIdQuery(id));
+        
+        // [HttpPut("{id}")]
+        // [MapToApiVersion("1.0")]
+        // public Task<IActionResult> Put([FromRoute] string id, [FromBody] UpdateHubCommand command)
+        //     => HandleUpdateCommand(id, command);
+        
+        // [HttpDelete("{id}")]
+        // [MapToApiVersion("1.0")]
+        // public Task<ActionResult<ResultModel<HubDto>>> Delete(string id)
+        //     => HandleDeleteCommand(new DeleteHubCommand(id));
     }
 }
