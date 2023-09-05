@@ -8,11 +8,19 @@ using Profio.Domain.Specifications;
 
 namespace Profio.Application.Customers.Queries;
 
-public record GetCustomerWithPagingQuery(Criteria<Customer> Criteria) : GetWithPagingQueryBase<Customer, CustomerDto>(Criteria);
-public class GetCustomerWithPagingQueryHandler : GetWithPagingQueryHandler<GetCustomerWithPagingQuery, CustomerDto, Customer>
+public record GetCustomerWithPagingQuery
+  (Criteria<Customer> Criteria) : GetWithPagingQueryBase<Customer, CustomerDto>(Criteria);
+
+public class
+  GetCustomerWithPagingQueryHandler : GetWithPagingQueryHandler<GetCustomerWithPagingQuery, CustomerDto, Customer>
 {
   public GetCustomerWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
-public class GetCustomerWithPagingQueryValidator : GetWithPagingQueryValidatorBase<Customer, GetCustomerWithPagingQuery, CustomerDto> { }
+
+public class
+  GetCustomerWithPagingQueryValidator : GetWithPagingQueryValidatorBase<Customer, GetCustomerWithPagingQuery,
+    CustomerDto>
+{
+}

@@ -13,13 +13,14 @@ using Profio.Domain.Models;
 
 namespace Profio.Application.CQRS.Handlers.Queries;
 
-public abstract class GetWithPagingQueryHandler<TQuery, TModel, TEntity> : IRequestHandler<TQuery, ResultModel<IPagedList<TModel>>>
+public abstract class
+  GetWithPagingQueryHandler<TQuery, TModel, TEntity> : IRequestHandler<TQuery, ResultModel<IPagedList<TModel>>>
   where TQuery : GetWithPagingQueryBase<TEntity, TModel>
   where TModel : BaseModel
   where TEntity : class, IEntity<object>
 {
-  private readonly IRepository<TEntity> _repository;
   private readonly IMapper _mapper;
+  private readonly IRepository<TEntity> _repository;
 
   protected GetWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper)
     => (_repository, _mapper) = (unitOfWork.Repository<TEntity>(), mapper);
@@ -43,22 +44,21 @@ public abstract class GetWithPagingQueryHandler<TQuery, TModel, TEntity> : IRequ
         .OrderByDescending(request.Criteria.OrderByDescending);
 
     var pagedListQueryable = _repository
-            .ToQueryable(query);
+      .ToQueryable(query);
 
     var projectedPagedList = pagedListQueryable
-        .ProjectTo<TModel>(_mapper.ConfigurationProvider)
-        .AsSplitQuery();
+      .ProjectTo<TModel>(_mapper.ConfigurationProvider)
+      .AsSplitQuery();
 
     var asyncPagedList = projectedPagedList.ToListAsync(cancellationToken);
 
     var pagedList = await asyncPagedList
-        .Then<List<TModel>, IList<TModel>>(result => result, cancellationToken)
-        .ToPagedListAsync(query.Paging.PageIndex,
-                          query.Paging.PageSize,
-                          query.Paging.TotalCount,
-                          cancellationToken);
+      .Then<List<TModel>, IList<TModel>>(result => result, cancellationToken)
+      .ToPagedListAsync(query.Paging.PageIndex,
+        query.Paging.PageSize,
+        query.Paging.TotalCount,
+        cancellationToken);
 
     return ResultModel<IPagedList<TModel>>.Create(pagedList);
-
   }
 }

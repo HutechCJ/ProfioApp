@@ -1,4 +1,3 @@
-
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using EntityFrameworkCore.Repository.Interfaces;
@@ -17,8 +16,8 @@ public class DeleteCommandHandlerBase<TCommand, TModel, TEntity> : IRequestHandl
   where TEntity : class, IEntity<object>
   where TModel : BaseModel
 {
-  private readonly IRepository<TEntity> _repository;
   private readonly IMapper _mapper;
+  private readonly IRepository<TEntity> _repository;
 
   public DeleteCommandHandlerBase(IRepositoryFactory unitOfWork, IMapper mapper)
     => (_repository, _mapper) = (unitOfWork.Repository<TEntity>(), mapper);
@@ -26,12 +25,12 @@ public class DeleteCommandHandlerBase<TCommand, TModel, TEntity> : IRequestHandl
   public async Task<ResultModel<TModel>> Handle(TCommand request, CancellationToken cancellationToken)
   {
     var query = _repository.SingleResultQuery()
-            .AndFilter(m => m.Id.Equals(request.Id));
+      .AndFilter(m => m.Id.Equals(request.Id));
 
     var model = await _repository
-        .ToQueryable(query)
-        .ProjectTo<TModel>(_mapper.ConfigurationProvider)
-        .SingleOrDefaultAsync(cancellationToken) ?? throw new NotFoundException(typeof(TEntity).Name, request.Id);
+      .ToQueryable(query)
+      .ProjectTo<TModel>(_mapper.ConfigurationProvider)
+      .SingleOrDefaultAsync(cancellationToken) ?? throw new NotFoundException(typeof(TEntity).Name, request.Id);
 
     await _repository.RemoveAsync(x => x.Id.Equals(request.Id), cancellationToken).ConfigureAwait(false);
 

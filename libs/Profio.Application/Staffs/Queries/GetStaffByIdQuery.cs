@@ -7,6 +7,7 @@ using Profio.Domain.Entities;
 namespace Profio.Application.Staffs.Queries;
 
 public record GetStaffByIdQuery(object Id) : GetByIdQueryBase<StaffDto>(Id);
+
 public class GetStaffByIdQueryHandler : GetByIdQueryHandlerBase<GetStaffByIdQuery, StaffDto, Staff>
 {
   public GetStaffByIdQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)

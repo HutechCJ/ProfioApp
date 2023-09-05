@@ -16,8 +16,8 @@ public abstract class GetByIdQueryHandlerBase<TQuery, TModel, TEntity> : IReques
   where TModel : BaseModel
   where TEntity : class, IEntity<object>
 {
-  private readonly IRepository<TEntity> _repository;
   private readonly IMapper _mapper;
+  private readonly IRepository<TEntity> _repository;
 
   protected GetByIdQueryHandlerBase(IRepositoryFactory unitOfWork, IMapper mapper)
     => (_repository, _mapper) = (unitOfWork.Repository<TEntity>(), mapper);

@@ -35,9 +35,9 @@ public class UpdateCustomerCommandValidator : UpdateCommandValidatorBase<UpdateC
   public UpdateCustomerCommandValidator()
   {
     RuleFor(c => c.Name)
-    .NotEmpty()
-    .NotNull()
-    .MaximumLength(50);
+      .NotEmpty()
+      .NotNull()
+      .MaximumLength(50);
 
     RuleFor(c => c.Phone)
       .Length(10)

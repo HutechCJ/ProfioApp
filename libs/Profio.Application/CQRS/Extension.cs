@@ -1,9 +1,9 @@
+using System.Diagnostics;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.Persistence;
 using Profio.Infrastructure.Validator;
-using System.Diagnostics;
 
 namespace Profio.Application.CQRS;
 

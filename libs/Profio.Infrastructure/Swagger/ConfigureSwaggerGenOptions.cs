@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -38,7 +39,20 @@ public class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOptions>
             Url = new("https://opensource.org/licenses/MIT")
           },
 
-          TermsOfService = new("https://www.cjlogistics.com/en/agreement/privacy-policy")
+          TermsOfService = new("https://www.cjlogistics.com/en/agreement/privacy-policy"),
+
+          Extensions =
+          {
+            {
+              "x-logo", new OpenApiObject
+              {
+                { "url", new OpenApiString("https://i.imgur.com/UAo6IJa.png") },
+                { "altText", new OpenApiString("Profio API") },
+                { "backgroundColor", new OpenApiString("#FFFFFF") },
+                { "href", new OpenApiString("") }
+              }
+            }
+          }
         });
     }
 

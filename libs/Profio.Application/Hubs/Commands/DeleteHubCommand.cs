@@ -8,11 +8,14 @@ using Profio.Domain.Entities;
 namespace Profio.Application.Hubs.Commands;
 
 public record DeleteHubCommand(object Id) : DeleteCommandBase<HubDto>(Id);
+
 public class DeleteHubCommandHandler : DeleteCommandHandlerBase<DeleteHubCommand, HubDto, Hub>
 {
-    public DeleteHubCommandHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
-    {
-    }
+  public DeleteHubCommandHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+  {
+  }
 }
-public class DeleteHubCommandValidator : DeleteCommandValidatorBase<DeleteHubCommand, HubDto> { }
 
+public class DeleteHubCommandValidator : DeleteCommandValidatorBase<DeleteHubCommand, HubDto>
+{
+}

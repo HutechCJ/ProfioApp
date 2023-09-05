@@ -11,8 +11,8 @@ public class GetByIdQueryValidatorBase<TQuery, TModel> : AbstractValidator<TQuer
   public GetByIdQueryValidatorBase()
   {
     RuleFor(x => x.Id)
-    .NotEmpty()
-    .NotNull()
-    .Must(x => x.ToString()!.Length == 26);
+      .NotEmpty()
+      .NotNull()
+      .Must(x => x.ToString()!.Length == 26);
   }
 }

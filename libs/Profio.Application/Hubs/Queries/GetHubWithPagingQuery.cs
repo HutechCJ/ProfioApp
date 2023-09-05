@@ -8,13 +8,15 @@ using Profio.Domain.Specifications;
 
 namespace Profio.Application.Hubs.Queries;
 
-  public record GetHubWithPagingQuery(Criteria<Hub> Criteria) : GetWithPagingQueryBase<Hub, HubDto>(Criteria);
+public record GetHubWithPagingQuery(Criteria<Hub> Criteria) : GetWithPagingQueryBase<Hub, HubDto>(Criteria);
 
-  public class GetHubWithPagingQueryHandler : GetWithPagingQueryHandler<GetHubWithPagingQuery, HubDto, Hub>
+public class GetHubWithPagingQueryHandler : GetWithPagingQueryHandler<GetHubWithPagingQuery, HubDto, Hub>
+{
+  public GetHubWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
-    public GetHubWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
-    {
-    }
   }
-  
-public class GetHubWithPagingQueryValidator : GetWithPagingQueryValidatorBase<Hub, GetHubWithPagingQuery, HubDto> { }
+}
+
+public class GetHubWithPagingQueryValidator : GetWithPagingQueryValidatorBase<Hub, GetHubWithPagingQuery, HubDto>
+{
+}

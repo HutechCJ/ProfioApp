@@ -5,8 +5,8 @@ namespace Profio.Application.Hateoas.Hypermedia;
 
 public sealed class LinkService : ILinkService
 {
-  private readonly LinkGenerator _linkGenerator;
   private readonly IHttpContextAccessor _httpContextAccessor;
+  private readonly LinkGenerator _linkGenerator;
 
   public LinkService(LinkGenerator linkGenerator, IHttpContextAccessor httpContextAccessor)
     => (_linkGenerator, _httpContextAccessor) = (linkGenerator, httpContextAccessor);

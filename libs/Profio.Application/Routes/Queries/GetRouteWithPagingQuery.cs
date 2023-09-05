@@ -9,12 +9,15 @@ using Profio.Domain.Specifications;
 namespace Profio.Application.Routes.Queries;
 
 public record GetRouteWithPagingQuery(Criteria<Route> Criteria) : GetWithPagingQueryBase<Route, RouteDto>(Criteria);
+
 public class GetRouteWithPagingQueryHandler : GetWithPagingQueryHandler<GetRouteWithPagingQuery, RouteDto, Route>
 {
   public GetRouteWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
-public class GetRouteWithPagingQueryValidator : GetWithPagingQueryValidatorBase<Route, GetRouteWithPagingQuery, RouteDto>
+
+public class
+  GetRouteWithPagingQueryValidator : GetWithPagingQueryValidatorBase<Route, GetRouteWithPagingQuery, RouteDto>
 {
 }

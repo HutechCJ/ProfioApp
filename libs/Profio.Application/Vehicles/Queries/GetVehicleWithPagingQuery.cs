@@ -8,11 +8,18 @@ using Profio.Domain.Specifications;
 
 namespace Profio.Application.Vehicles.Queries;
 
-public record GetVehicleWithPagingQuery(Criteria<Vehicle> Criteria) : GetWithPagingQueryBase<Vehicle, VehicleDto>(Criteria);
-public class GetVehicleWithPagingQueryHandler : GetWithPagingQueryHandler<GetVehicleWithPagingQuery, VehicleDto, Vehicle>
+public record GetVehicleWithPagingQuery
+  (Criteria<Vehicle> Criteria) : GetWithPagingQueryBase<Vehicle, VehicleDto>(Criteria);
+
+public class
+  GetVehicleWithPagingQueryHandler : GetWithPagingQueryHandler<GetVehicleWithPagingQuery, VehicleDto, Vehicle>
 {
-    public GetVehicleWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
-    {
-    }
+  public GetVehicleWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+  {
+  }
 }
-public class GetVehicleWithPagingQueryValidator : GetWithPagingQueryValidatorBase<Vehicle, GetVehicleWithPagingQuery, VehicleDto> { }
+
+public class
+  GetVehicleWithPagingQueryValidator : GetWithPagingQueryValidatorBase<Vehicle, GetVehicleWithPagingQuery, VehicleDto>
+{
+}

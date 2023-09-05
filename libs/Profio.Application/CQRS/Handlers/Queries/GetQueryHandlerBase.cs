@@ -15,8 +15,8 @@ public abstract class GetQueryHandlerBase<TQuery, TModel, TEntity> : IRequestHan
   where TModel : BaseModel
   where TEntity : class, IEntity<object>
 {
-  private readonly IRepository<TEntity> _repository;
   private readonly IMapper _mapper;
+  private readonly IRepository<TEntity> _repository;
 
   protected GetQueryHandlerBase(IRepositoryFactory unitOfWork, IMapper mapper)
     => (_repository, _mapper) = (unitOfWork.Repository<TEntity>(), mapper);

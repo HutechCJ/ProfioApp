@@ -15,4 +15,7 @@ public class GetCustomerByIdQueryHandler : GetByIdQueryHandlerBase<GetCustomerBy
   {
   }
 }
-public class GetCustomerByIdQueryValidator : GetByIdQueryValidatorBase<GetCustomerByIdQuery, CustomerDto> { }
+
+public class GetCustomerByIdQueryValidator : GetByIdQueryValidatorBase<GetCustomerByIdQuery, CustomerDto>
+{
+}

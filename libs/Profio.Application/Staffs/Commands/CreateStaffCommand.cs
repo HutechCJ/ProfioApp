@@ -17,6 +17,7 @@ public record CreateStaffCommand : CreateCommandBase
   public string? Phone { get; set; }
   public Position Position { get; set; } = Position.Driver;
 }
+
 public class CreateStaffCommandHandler : CreateCommandHandlerBase<CreateStaffCommand, Staff>
 {
   public CreateStaffCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)

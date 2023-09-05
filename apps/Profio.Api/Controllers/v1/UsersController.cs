@@ -17,6 +17,10 @@ public class UsersController : BaseController
   [HttpPost("login")]
   [AllowAnonymous]
   [MapToApiVersion("1.0")]
+  [SwaggerOperation(
+    summary: "Login",
+    description: "The API will return a token and cookie named `USER-TOKEN` to the user if the credentials are correct"
+    )]
   public async Task<IActionResult> Login(LoginCommand loginCommand)
   {
     var result = await Mediator.Send(loginCommand);

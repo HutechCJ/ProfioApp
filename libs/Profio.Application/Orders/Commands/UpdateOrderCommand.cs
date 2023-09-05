@@ -4,7 +4,7 @@ using FluentValidation;
 using Profio.Application.CQRS.Events.Commands;
 using Profio.Application.CQRS.Handlers.Command;
 using Profio.Application.CQRS.Validators;
-using Profio.Application.Orders.Validator;
+using Profio.Application.Orders.Validators;
 using Profio.Domain.Constants;
 using Profio.Domain.Entities;
 using Profio.Domain.ValueObjects;

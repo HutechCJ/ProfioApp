@@ -13,12 +13,14 @@ namespace Profio.Application.Users.Commands.Register;
 [SwaggerSchema(
   Title = "Register Request",
   Description = "A Representation of Register Account")]
-public record RegisterCommand(string Email, string FullName, string Password, string ConfirmPassword) : IRequest<ResultModel<AccountDto>>;
+public record RegisterCommand
+  (string Email, string FullName, string Password, string ConfirmPassword) : IRequest<ResultModel<AccountDto>>;
+
 public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ResultModel<AccountDto>>
 {
-  private readonly UserManager<ApplicationUser> _userManager;
   private readonly IMapper _mapper;
   private readonly ITokenService _tokenService;
+  private readonly UserManager<ApplicationUser> _userManager;
 
   public RegisterCommandHandler(UserManager<ApplicationUser> userManager, IMapper mapper, ITokenService tokenService)
     => (_userManager, _mapper, _tokenService) = (userManager, mapper, tokenService);
@@ -42,16 +44,13 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ResultMod
     {
       UserName = request.Email,
       Email = request.Email,
-      FullName = request.FullName,
+      FullName = request.FullName
     };
 
     var result = await _userManager.CreateAsync(user, request.Password);
     if (!result.Succeeded)
     {
-      result.Errors.Select(e => e.Description).ForEach(d =>
-      {
-        failures.Add(new("Password", d));
-      });
+      result.Errors.Select(e => e.Description).ForEach(d => { failures.Add(new("Password", d)); });
       throw new ValidationException(failures);
     }
 

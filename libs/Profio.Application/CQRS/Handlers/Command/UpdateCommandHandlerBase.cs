@@ -14,9 +14,9 @@ public class UpdateCommandHandlerBase<TCommand, TEntity> : IRequestHandler<TComm
   where TEntity : class, IEntity<object>
   where TCommand : UpdateCommandBase
 {
-  private readonly IUnitOfWork _unitOfWork;
-  private readonly IRepository<TEntity> _repository;
   private readonly IMapper _mapper;
+  private readonly IRepository<TEntity> _repository;
+  private readonly IUnitOfWork _unitOfWork;
 
   public UpdateCommandHandlerBase(IUnitOfWork unitOfWork, IMapper mapper)
   {
@@ -28,8 +28,8 @@ public class UpdateCommandHandlerBase<TCommand, TEntity> : IRequestHandler<TComm
   public async Task<ResultModel<object>> Handle(TCommand request, CancellationToken cancellationToken)
   {
     var query = _repository.SingleResultQuery()
-                               .UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll)
-                               .AndFilter(m => m.Id.Equals(request.Id));
+      .UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll)
+      .AndFilter(m => m.Id.Equals(request.Id));
 
     var entity = await _repository.FirstOrDefaultAsync(query, cancellationToken)
                  ?? throw new NotFoundException(typeof(TEntity).Name, request.Id);
@@ -37,7 +37,7 @@ public class UpdateCommandHandlerBase<TCommand, TEntity> : IRequestHandler<TComm
     _mapper.Map(request, entity);
 
     await _unitOfWork.SaveChangesAsync(cancellationToken: cancellationToken)
-                     .ConfigureAwait(false);
+      .ConfigureAwait(false);
 
     return ResultModel<object>.Create(null);
   }

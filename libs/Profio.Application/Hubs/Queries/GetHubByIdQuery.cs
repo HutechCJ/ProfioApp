@@ -15,4 +15,7 @@ public class GetHubByIdQueryHandler : GetByIdQueryHandlerBase<GetHubByIdQuery, H
   {
   }
 }
-public class GetHubByIdQueryValidator : GetByIdQueryValidatorBase<GetHubByIdQuery, HubDto> { }
+
+public class GetHubByIdQueryValidator : GetByIdQueryValidatorBase<GetHubByIdQuery, HubDto>
+{
+}
