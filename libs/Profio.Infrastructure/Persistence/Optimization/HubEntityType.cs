@@ -9,7 +9,7 @@ using Profio.Domain.ValueObjects;
 #pragma warning disable 219, 612, 618
 #nullable enable
 
-namespace Profio.Infrastructure.Persistence.Relational.Optimization
+namespace Profio.Infrastructure.Persistence.Optimization
 {
     internal partial class HubEntityType
     {
@@ -28,6 +28,15 @@ namespace Profio.Infrastructure.Persistence.Relational.Optimization
                 afterSaveBehavior: PropertySaveBehavior.Throw,
                 maxLength: 26);
 
+            var address = runtimeEntityType.AddProperty(
+                "Address",
+                typeof(Address),
+                propertyInfo: typeof(Domain.Entities.Hub).GetProperty("Address", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Domain.Entities.Hub).GetField("<Address>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true,
+                unicode: true);
+            address.AddAnnotation("Relational:ColumnType", "jsonb");
+
             var location = runtimeEntityType.AddProperty(
                 "Location",
                 typeof(Location),
@@ -36,6 +45,13 @@ namespace Profio.Infrastructure.Persistence.Relational.Optimization
                 nullable: true,
                 unicode: true);
             location.AddAnnotation("Relational:ColumnType", "jsonb");
+
+            var name = runtimeEntityType.AddProperty(
+                "Name",
+                typeof(string),
+                propertyInfo: typeof(Domain.Entities.Hub).GetProperty("Name", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Domain.Entities.Hub).GetField("<Name>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                maxLength: 50);
 
             var status = runtimeEntityType.AddProperty(
                 "Status",
@@ -49,7 +65,6 @@ namespace Profio.Infrastructure.Persistence.Relational.Optimization
                 propertyInfo: typeof(Domain.Entities.Hub).GetProperty("ZipCode", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(Domain.Entities.Hub).GetField("<ZipCode>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 maxLength: 50);
-            zipCode.AddAnnotation("Relational:IsFixedLength", true);
 
             var key = runtimeEntityType.AddKey(
                 new[] { id });

@@ -1,11 +1,10 @@
-using System.Security.Claims;
 using System.Threading.RateLimiting;
 
 namespace Profio.Api.Extensions;
 
 public static class RateLimiterExtension
 {
-  private const string Policy = "PerUser";
+  private const string Policy = "PerIp";
 
   public static void AddRateLimiting(this IServiceCollection services)
   {
@@ -13,21 +12,16 @@ public static class RateLimiterExtension
     {
       options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
 
-      options.AddPolicy(Policy, context =>
-      {
-        var username = context.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        return RateLimitPartition.GetTokenBucketLimiter(username, _ => new TokenBucketRateLimiterOptions
-        {
-          ReplenishmentPeriod = TimeSpan.FromSeconds(10),
-          AutoReplenishment = true,
-          TokenLimit = 100,
-          TokensPerPeriod = 100,
-          QueueLimit = 100,
-          QueueProcessingOrder = QueueProcessingOrder.OldestFirst
-        });
+      options.AddPolicy(Policy, httpContext =>
+        RateLimitPartition.GetFixedWindowLimiter(
+          partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? string.Empty,
+          factory: _ => new()
+          {
+            PermitLimit = 60,
+            Window = TimeSpan.FromMinutes(1)
+          }
+        ));
       });
-    });
   }
 
   public static void RequirePerUserRateLimit(this IEndpointConventionBuilder builder)

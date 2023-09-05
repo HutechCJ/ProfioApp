@@ -1,0 +1,1073 @@
+[
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8Y1",
+    "Name": "Kho Hà Nội",
+    "ZipCode": "100000",
+    "Location": {
+      "Latitude": 21.028511,
+      "Longitude": 105.804817
+    },
+    "Address": {
+      "Street": "Phố Hàng Bài",
+      "Ward": "Phường Tràng Tiền",
+      "City": "Hà Nội",
+      "Province": "Hà Nội",
+      "ZipCode": "10000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8Y2",
+    "Name": "Kho Hồ Chí Minh",
+    "ZipCode": "700000",
+    "Location": {
+      "Latitude": 10.776089,
+      "Longitude": 106.700905
+    },
+    "Address": {
+      "Street": "Phố Đồng Khởi",
+      "Ward": "Phường Bến Thành",
+      "City": "Hồ Chí Minh",
+      "Province": "Hồ Chí Minh",
+      "ZipCode": "70000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8Y3",
+    "Name": "Kho Đà Nẵng",
+    "ZipCode": "550000",
+    "Location": {
+      "Latitude": 16.054407,
+      "Longitude": 108.202167
+    },
+    "Address": {
+      "Street": "Phố Bạch Đằng",
+      "Ward": "Phường Hải Châu I",
+      "City": "Đà Nẵng",
+      "Province": "Đà Nẵng",
+      "ZipCode": "55000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8Y4",
+    "Name": "Kho Hải Phòng",
+    "ZipCode": "350000",
+    "Location": {
+      "Latitude": 20.844912,
+      "Longitude": 106.688084
+    },
+    "Address": {
+      "Street": "Phố Lê Thánh Tông",
+      "Ward": "Phường Đông Khê",
+      "City": "Hải Phòng",
+      "Province": "Hải Phòng",
+      "ZipCode": "35000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8Y5",
+    "Name": "Kho Cần Thơ",
+    "ZipCode": "900000",
+    "Location": {
+      "Latitude": 10.045162,
+      "Longitude": 105.746856
+    },
+    "Address": {
+      "Street": "Phố Nguyễn Trãi",
+      "Ward": "Phường Tân An",
+      "City": "Cần Thơ",
+      "Province": "Cần Thơ",
+      "ZipCode": "90000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8Y6",
+    "Name": "Kho Bình Dương",
+    "ZipCode": "750000",
+    "Location": {
+      "Latitude": 11.293579,
+      "Longitude": 106.711508
+    },
+    "Address": {
+      "Street": "Đại lộ Bình Dương",
+      "Ward": "Phường Phú Cường",
+      "City": "Thủ Dầu Một",
+      "Province": "Bình Dương",
+      "ZipCode": "75000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8Y7",
+    "Name": "Kho Nghệ An",
+    "ZipCode": "430000",
+    "Location": {
+      "Latitude": 18.665695,
+      "Longitude": 105.692199
+    },
+    "Address": {
+      "Street": "Phố Quang Trung",
+      "Ward": "Phường Trường Thi",
+      "City": "Vinh",
+      "Province": "Nghệ An",
+      "ZipCode": "43000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8Y8",
+    "Name": "Kho Thanh Hóa",
+    "ZipCode": "440000",
+    "Location": {
+      "Latitude": 19.806692,
+      "Longitude": 105.785181
+    },
+    "Address": {
+      "Street": "Phố Nguyễn Trãi",
+      "Ward": "Phường Ba Đình",
+      "City": "Thanh Hóa",
+      "Province": "Thanh Hóa",
+      "ZipCode": "44000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8Y9",
+    "Name": "Kho Khánh Hòa",
+    "ZipCode": "650000",
+    "Location": {
+      "Latitude": 12.245079,
+      "Longitude": 109.194181
+    },
+    "Address": {
+      "Street": "Phố Lê Thánh Tôn",
+      "Ward": "Phường Vĩnh Hòa",
+      "City": "Nha Trang",
+      "Province": "Khánh Hòa",
+      "ZipCode": "65000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YA",
+    "Name": "Kho Đắk Lắk",
+    "ZipCode": "630000",
+    "Location": {
+      "Latitude": 12.710012,
+      "Longitude": 108.237748
+    },
+    "Address": {
+      "Street": "Phố Nguyễn Tất Thành",
+      "Ward": "Phường Tự An",
+      "City": "Buôn Ma Thuột",
+      "Province": "Đắk Lắk",
+      "ZipCode": "63000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YB",
+    "Name": "Kho Lâm Đồng",
+    "ZipCode": "670000",
+    "Location": {
+      "Latitude": 11.940419,
+      "Longitude": 108.458313
+    },
+    "Address": {
+      "Street": "Phố Phan Bội Châu",
+      "Ward": "Phường 1",
+      "City": "Đà Lạt",
+      "Province": "Lâm Đồng",
+      "ZipCode": "67000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YC",
+    "Name": "Kho Bình Phước",
+    "ZipCode": "770000",
+    "Location": {
+      "Latitude": 11.534979,
+      "Longitude": 106.883241
+    },
+    "Address": {
+      "Street": "Phố Hùng Vương",
+      "Ward": "Phường Tân Bình",
+      "City": "Đồng Xoài",
+      "Province": "Bình Phước",
+      "ZipCode": "77000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YD",
+    "Name": "Kho Bình Định",
+    "ZipCode": "590000",
+    "Location": {
+      "Latitude": 13.782486,
+      "Longitude": 109.219663
+    },
+    "Address": {
+      "Street": "Phố Nguyễn Thái Học",
+      "Ward": "Phường Lê Hồng Phong",
+      "City": "Quy Nhơn",
+      "Province": "Bình Định",
+      "ZipCode": "59000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YE",
+    "Name": "Kho Phú Yên",
+    "ZipCode": "620000",
+    "Location": {
+      "Latitude": 13.088186,
+      "Longitude": 109.092876
+    },
+    "Address": {
+      "Street": "Phố Lê Duẩn",
+      "Ward": "Phường 1",
+      "City": "Tuy Hòa",
+      "Province": "Phú Yên",
+      "ZipCode": "62000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YF",
+    "Name": "Kho Gia Lai",
+    "ZipCode": "600000",
+    "Location": {
+      "Latitude": 13.983333,
+      "Longitude": 108.000000
+    },
+    "Address": {
+      "Street": "Phố Nguyễn Văn Linh",
+      "Ward": "Phường Thống Nhất",
+      "City": "Pleiku",
+      "Province": "Gia Lai",
+      "ZipCode": "60000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YG",
+    "Name": "Kho Kon Tum",
+    "ZipCode": "580000",
+    "Location": {
+      "Latitude": 14.354036,
+      "Longitude": 108.00762
+    },
+    "Address": {
+      "Street": "Phố Nguyễn Trãi",
+      "Ward": "Phường Quyết Thắng",
+      "City": "Kon Tum",
+      "Province": "Kon Tum",
+      "ZipCode": "58000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YH",
+    "Name": "Kho Quảng Nam",
+    "ZipCode": "560000",
+    "Location": {
+      "Latitude": 15.536467,
+      "Longitude": 108.01973
+    },
+    "Address": {
+      "Street": "Phố Trần Phú",
+      "Ward": "Phường Tân An",
+      "City": "Tam Kỳ",
+      "Province": "Quảng Nam",
+      "ZipCode": "56000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YI",
+    "Name": "Kho Quảng Ngãi",
+    "ZipCode": "510000",
+    "Location": {
+      "Latitude": 15.121467,
+      "Longitude": 108.804414
+    },
+    "Address": {
+      "Street": "Phố Hùng Vương",
+      "Ward": "Phường Nghĩa Lộ",
+      "City": "Quảng Ngãi",
+      "Province": "Quảng Ngãi",
+      "ZipCode": "51000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YJ",
+    "Name": "Kho Bình Thuận",
+    "ZipCode": "800000",
+    "Location": {
+      "Latitude": 11.056692,
+      "Longitude": 108.44193
+    },
+    "Address": {
+      "Street": "Phố Thủ Khoa Huân",
+      "Ward": "Phường Phú Thủy",
+      "City": "Phan Thiết",
+      "Province": "Bình Thuận",
+      "ZipCode": "80000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YK",
+    "Name": "Kho Tây Ninh",
+    "ZipCode": "790000",
+    "Location": {
+      "Latitude": 11.323776,
+      "Longitude": 106.147305
+    },
+    "Address": {
+      "Street": "Phố Trần Phú",
+      "Ward": "Phường 3",
+      "City": "Tây Ninh",
+      "Province": "Tây Ninh",
+      "ZipCode": "79000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YL",
+    "Name": "Kho Ninh Thuận",
+    "ZipCode": "850000",
+    "Location": {
+      "Latitude": 11.673876,
+      "Longitude": 108.862957
+    },
+    "Address": {
+      "Street": "Phố 21 Tháng 8",
+      "Ward": "Phường Đài Sơn",
+      "City": "Phan Rang-Tháp Chàm",
+      "Province": "Ninh Thuận",
+      "ZipCode": "85000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YM",
+    "Name": "Kho Đồng Nai",
+    "ZipCode": "810000",
+    "Location": {
+      "Latitude": 10.944139,
+      "Longitude": 106.824961
+    },
+    "Address": {
+      "Street": "Phố Võ Thị Sáu",
+      "Ward": "Phường Tân Phong",
+      "City": "Biên Hòa",
+      "Province": "Đồng Nai",
+      "ZipCode": "81000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YN",
+    "Name": "Kho Bà Rịa - Vũng Tàu",
+    "ZipCode": "780000",
+    "Location": {
+      "Latitude": 10.354984,
+      "Longitude": 107.084259
+    },
+    "Address": {
+      "Street": "Phố Thống Nhất",
+      "Ward": "Phường Thắng Nhất",
+      "City": "Vũng Tàu",
+      "Province": "Bà Rịa - Vũng Tàu",
+      "ZipCode": "78000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YO",
+    "Name": "Kho Long An",
+    "ZipCode": "850000",
+    "Location": {
+      "Latitude": 10.535031,
+      "Longitude": 106.413489
+    },
+    "Address": {
+      "Street": "Phố Trần Hưng Đạo",
+      "Ward": "Phường 5",
+      "City": "Tân An",
+      "Province": "Long An",
+      "ZipCode": "85000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YP",
+    "Name": "Kho Tiền Giang",
+    "ZipCode": "860000",
+    "Location": {
+      "Latitude": 10.450000,
+      "Longitude": 106.345000
+    },
+    "Address": {
+      "Street": "Phố 30/4",
+      "Ward": "Phường 1",
+      "City": "Mỹ Tho",
+      "Province": "Tiền Giang",
+      "ZipCode": "86000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YQ",
+    "Name": "Kho Bến Tre",
+    "ZipCode": "820000",
+    "Location": {
+      "Latitude": 10.230000,
+      "Longitude": 106.375000
+    },
+    "Address": {
+      "Street": "Phố Đồng Khởi",
+      "Ward": "Phường 2",
+      "City": "Bến Tre",
+      "Province": "Bến Tre",
+      "ZipCode": "82000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YR",
+    "Name": "Kho Trà Vinh",
+    "ZipCode": "940000",
+    "Location": {
+      "Latitude": 9.930000,
+      "Longitude": 106.345000
+    },
+    "Address": {
+      "Street": "Phố Nguyễn Thái Học",
+      "Ward": "Phường 5",
+      "City": "Trà Vinh",
+      "Province": "Trà Vinh",
+      "ZipCode": "94000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YS",
+    "Name": "Kho Đồng Tháp",
+    "ZipCode": "870000",
+    "Location": {
+      "Latitude": 10.695520,
+      "Longitude": 105.691246
+    },
+    "Address": {
+      "Street": "Phố Nguyễn Huệ",
+      "Ward": "Phường 1",
+      "City": "Cao Lãnh",
+      "Province": "Đồng Tháp",
+      "ZipCode": "87000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YT",
+    "Name": "Kho Vĩnh Long",
+    "ZipCode": "890000",
+    "Location": {
+      "Latitude": 10.256035,
+      "Longitude": 105.964471
+    },
+    "Address": {
+      "Street": "Phố Trương Vĩnh Ký",
+      "Ward": "Phường 1",
+      "City": "Vĩnh Long",
+      "Province": "Vĩnh Long",
+      "ZipCode": "89000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YU",
+    "Name": "Kho An Giang",
+    "ZipCode": "880000",
+    "Location": {
+      "Latitude": 10.375942,
+      "Longitude": 105.418541
+    },
+    "Address": {
+      "Street": "Phố Lê Lợi",
+      "Ward": "Phường Mỹ Bình",
+      "City": "Long Xuyên",
+      "Province": "An Giang",
+      "ZipCode": "88000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YV",
+    "Name": "Kho Kiên Giang",
+    "ZipCode": "920000",
+    "Location": {
+      "Latitude": 10.289875,
+      "Longitude": 103.984020
+    },
+    "Address": {
+      "Street": "Phố Lê Thánh Tôn",
+      "Ward": "Phường Vĩnh Bảo",
+      "City": "Rạch Giá",
+      "Province": "Kiên Giang",
+      "ZipCode": "92000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YW",
+    "Name": "Kho Cần Thơ",
+    "ZipCode": "900000",
+    "Location": {
+      "Latitude": 10.045162,
+      "Longitude": 105.746856
+    },
+    "Address": {
+      "Street": "Phố Đại lộ Hòa Bình",
+      "Ward": "Phường Tân An",
+      "City": "Cần Thơ",
+      "Province": "Cần Thơ",
+      "ZipCode": "90000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YX",
+    "Name": "Kho Sóc Trăng",
+    "ZipCode": "950000",
+    "Location": {
+      "Latitude": 9.603527,
+      "Longitude": 105.980919
+    },
+    "Address": {
+      "Street": "Phố Lê Hồng Phong",
+      "Ward": "Phường 5",
+      "City": "Sóc Trăng",
+      "Province": "Sóc Trăng",
+      "ZipCode": "95000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YY",
+    "Name": "Kho Bạc Liêu",
+    "ZipCode": "970000",
+    "Location": {
+      "Latitude": 9.294002,
+      "Longitude": 105.721566
+    },
+    "Address": {
+      "Street": "Phố Hùng Vương",
+      "Ward": "Phường 3",
+      "City": "Bạc Liêu",
+      "Province": "Bạc Liêu",
+      "ZipCode": "97000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8YZ",
+    "Name": "Kho Cà Mau",
+    "ZipCode": "980000",
+    "Location": {
+      "Latitude": 9.176024,
+      "Longitude": 105.150271
+    },
+    "Address": {
+      "Street": "Phố Lý Thường Kiệt",
+      "Ward": "Phường 5",
+      "City": "Cà Mau",
+      "Province": "Cà Mau",
+      "ZipCode": "98000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZA",
+    "Name": "Kho Hậu Giang",
+    "ZipCode": "910000",
+    "Location": {
+      "Latitude": 9.757897,
+      "Longitude": 105.641252
+    },
+    "Address": {
+      "Street": "Phố Nguyễn Huệ",
+      "Ward": "Phường 5",
+      "City": "Vị Thanh",
+      "Province": "Hậu Giang",
+      "ZipCode": "91000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZB",
+    "Name": "Kho Đắk Nông",
+    "ZipCode": "640000",
+    "Location": {
+      "Latitude": 12.004204,
+      "Longitude": 107.677224
+    },
+    "Address": {
+      "Street": "Phố Nguyễn Tất Thành",
+      "Ward": "Phường Nghĩa Tân",
+      "City": "Gia Nghĩa",
+      "Province": "Đắk Nông",
+      "ZipCode": "64000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZC",
+    "Name": "Kho Điện Biên",
+    "ZipCode": "380000",
+    "Location": {
+      "Latitude": 21.383791,
+      "Longitude": 103.023011
+    },
+    "Address": {
+      "Street": "Phố A1",
+      "Ward": "Phường Him Lam",
+      "City": "Điện Biên Phủ",
+      "Province": "Điện Biên",
+      "ZipCode": "38000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZD",
+    "Name": "Kho Lai Châu",
+    "ZipCode": "390000",
+    "Location": {
+      "Latitude": 22.396706,
+      "Longitude": 103.468634
+    },
+    "Address": {
+      "Street": "Phố 26 Tháng 3",
+      "Ward": "Phường Đoàn Kết",
+      "City": "Lai Châu",
+      "Province": "Lai Châu",
+      "ZipCode": "39000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZE",
+    "Name": "Kho Sơn La",
+    "ZipCode": "360000",
+    "Location": {
+      "Latitude": 21.102228,
+      "Longitude": 103.728916
+    },
+    "Address": {
+      "Street": "Phố Chiềng Sinh",
+      "Ward": "Phường Chiềng Lề",
+      "City": "Sơn La",
+      "Province": "Sơn La",
+      "ZipCode": "36000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZF",
+    "Name": "Kho Hòa Bình",
+    "ZipCode": "350000",
+    "Location": {
+      "Latitude": 20.813502,
+      "Longitude": 105.338386
+    },
+    "Address": {
+      "Street": "Phố Thống Nhất",
+      "Ward": "Phường Đồng Tiến",
+      "City": "Hòa Bình",
+      "Province": "Hòa Bình",
+      "ZipCode": "35000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZG",
+    "Name": "Kho Thái Nguyên",
+    "ZipCode": "250000",
+    "Location": {
+      "Latitude": 21.592759,
+      "Longitude": 105.844181
+    },
+    "Address": {
+      "Street": "Phố Lương Ngọc Quyến",
+      "Ward": "Phường Phan Đình Phùng",
+      "City": "Thái Nguyên",
+      "Province": "Thái Nguyên",
+      "ZipCode": "25000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZK",
+    "Name": "Kho Tuyên Quang",
+    "ZipCode": "270000",
+    "Location": {
+      "Latitude": 21.823412,
+      "Longitude": 105.218037
+    },
+    "Address": {
+      "Street": "Phố 17/8",
+      "Ward": "Phường Tân Quang",
+      "City": "Tuyên Quang",
+      "Province": "Tuyên Quang",
+      "ZipCode": "27000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZL",
+    "Name": "Kho Thái Bình",
+    "ZipCode": "410000",
+    "Location": {
+      "Latitude": 20.446348,
+      "Longitude": 106.336647
+    },
+    "Address": {
+      "Street": "Phố Lý Bôn",
+      "Ward": "Phường Tiền Phong",
+      "City": "Thái Bình",
+      "Province": "Thái Bình",
+      "ZipCode": "41000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZM",
+    "Name": "Kho Hà Nam",
+    "ZipCode": "400000",
+    "Location": {
+      "Latitude": 20.545316,
+      "Longitude": 105.912210
+    },
+    "Address": {
+      "Street": "Phố Trần Hưng Đạo",
+      "Ward": "Phường Châu Sơn",
+      "City": "Phủ Lý",
+      "Province": "Hà Nam",
+      "ZipCode": "40000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZN",
+    "Name": "Kho Ninh Bình",
+    "ZipCode": "430000",
+    "Location": {
+      "Latitude": 20.253888,
+      "Longitude": 105.975571
+    },
+    "Address": {
+      "Street": "Phố Trần Hưng Đạo",
+      "Ward": "Phường Đông Thành",
+      "City": "Ninh Bình",
+      "Province": "Ninh Bình",
+      "ZipCode": "43000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZO",
+    "Name": "Kho Nam Định",
+    "ZipCode": "420000",
+    "Location": {
+      "Latitude": 20.438823,
+      "Longitude": 106.162105
+    },
+    "Address": {
+      "Street": "Phố Trần Đăng Ninh",
+      "Ward": "Phường Lộc Hạ",
+      "City": "Nam Định",
+      "Province": "Nam Định",
+      "ZipCode": "42000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZP",
+    "Name": "Kho Phú Thọ",
+    "ZipCode": "290000",
+    "Location": {
+      "Latitude": 21.322742,
+      "Longitude": 105.401984
+    },
+    "Address": {
+      "Street": "Phố Hùng Vương",
+      "Ward": "Phường 2",
+      "City": "Việt Trì",
+      "Province": "Phú Thọ",
+      "ZipCode": "29000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZQ",
+    "Name": "Kho Vĩnh Phúc",
+    "ZipCode": "330000",
+    "Location": {
+      "Latitude": 21.300443,
+      "Longitude": 105.596077
+    },
+    "Address": {
+      "Street": "Phố Lê Nin",
+      "Ward": "Phường Đống Đa",
+      "City": "Vĩnh Yên",
+      "Province": "Vĩnh Phúc",
+      "ZipCode": "33000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZR",
+    "Name": "Kho Quảng Ninh",
+    "ZipCode": "200000",
+    "Location": {
+      "Latitude": 20.956340,
+      "Longitude": 107.048434
+    },
+    "Address": {
+      "Street": "Phố Hạ Long",
+      "Ward": "Phường Bãi Cháy",
+      "City": "Hạ Long",
+      "Province": "Quảng Ninh",
+      "ZipCode": "20000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZS",
+    "Name": "Kho Lào Cai",
+    "ZipCode": "330000",
+    "Location": {
+      "Latitude": 22.485304,
+      "Longitude": 103.975109
+    },
+    "Address": {
+      "Street": "Phố Hoàng Liên",
+      "Ward": "Phường Cốc Lếu",
+      "City": "Lào Cai",
+      "Province": "Lào Cai",
+      "ZipCode": "33000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZT",
+    "Name": "Kho Yên Bái",
+    "ZipCode": "320000",
+    "Location": {
+      "Latitude": 21.726001,
+      "Longitude": 104.907120
+    },
+    "Address": {
+      "Street": "Phố Yên Ninh",
+      "Ward": "Phường Yên Thịnh",
+      "City": "Yên Bái",
+      "Province": "Yên Bái",
+      "ZipCode": "32000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZU",
+    "Name": "Kho Hải Dương",
+    "ZipCode": "170000",
+    "Location": {
+      "Latitude": 20.937341,
+      "Longitude": 106.314554
+    },
+    "Address": {
+      "Street": "Phố Nguyễn Lương Bằng",
+      "Ward": "Phường Tân Bình",
+      "City": "Hải Dương",
+      "Province": "Hải Dương",
+      "ZipCode": "17000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZV",
+    "Name": "Kho Hưng Yên",
+    "ZipCode": "160000",
+    "Location": {
+      "Latitude": 20.650889,
+      "Longitude": 106.057498
+    },
+    "Address": {
+      "Street": "Phố Lê Lợi",
+      "Ward": "Phường Hiến Nam",
+      "City": "Hưng Yên",
+      "Province": "Hưng Yên",
+      "ZipCode": "16000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZW",
+    "Name": "Kho Bắc Ninh",
+    "ZipCode": "790000",
+    "Location": {
+      "Latitude": 21.186461,
+      "Longitude": 106.051736
+    },
+    "Address": {
+      "Street": "Phố Đại Phúc",
+      "Ward": "Phường Võ Cường",
+      "City": "Bắc Ninh",
+      "Province": "Bắc Ninh",
+      "ZipCode": "79000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZX",
+    "Name": "Kho Hà Giang",
+    "ZipCode": "310000",
+    "Location": {
+      "Latitude": 22.802561,
+      "Longitude": 104.978449
+    },
+    "Address": {
+      "Street": "Phố Minh Khai",
+      "Ward": "Phường Minh Khai",
+      "City": "Hà Giang",
+      "Province": "Hà Giang",
+      "ZipCode": "31000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ8ZY",
+    "Name": "Kho Cao Bằng",
+    "ZipCode": "270000",
+    "Location": {
+      "Latitude": 22.665679,
+      "Longitude": 106.257593
+    },
+    "Address": {
+      "Street": "Phố Bế Văn Đàn",
+      "Ward": "Phường Hợp Giang",
+      "City": "Cao Bằng",
+      "Province": "Cao Bằng",
+      "ZipCode": "27000"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ902",
+    "Name": "Cửa khẩu Lào Cai",
+    "ZipCode": "330010",
+    "Location": {
+      "Latitude": 22.485304,
+      "Longitude": 103.975109
+    },
+    "Address": {
+      "Street": "Phố Kim Tân",
+      "Ward": "Phường Duyên Hải",
+      "City": "Lào Cai",
+      "Province": "Lào Cai",
+      "ZipCode": "33001"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ903",
+    "Name": "Cửa khẩu Móng Cái",
+    "ZipCode": "200010",
+    "Location": {
+      "Latitude": 21.570020,
+      "Longitude": 107.966293
+    },
+    "Address": {
+      "Street": "Phố Trần Phú",
+      "Ward": "Phường Trần Phú",
+      "City": "Móng Cái",
+      "Province": "Quảng Ninh",
+      "ZipCode": "20001"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ904",
+    "Name": "Cửa khẩu Hữu Nghị",
+    "ZipCode": "480010",
+    "Location": {
+      "Latitude": 20.763441,
+      "Longitude": 106.688083
+    },
+    "Address": {
+      "Street": "QL1A",
+      "Ward": "Xã Bình Trung",
+      "City": "Đồng Đăng",
+      "Province": "Lạng Sơn",
+      "ZipCode": "48001"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ905",
+    "Name": "Cửa khẩu Tân Thanh",
+    "ZipCode": "290020",
+    "Location": {
+      "Latitude": 22.136489,
+      "Longitude": 106.723463
+    },
+    "Address": {
+      "Street": "QL4A",
+      "Ward": "Xã Tân Thanh",
+      "City": "Lạng Sơn",
+      "Province": "Lạng Sơn",
+      "ZipCode": "29002"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ906",
+    "Name": "Cửa khẩu Cầu Treo",
+    "ZipCode": "410030",
+    "Location": {
+      "Latitude": 18.343348,
+      "Longitude": 105.409336
+    },
+    "Address": {
+      "Street": "QL8",
+      "Ward": "Xã Sơn Kim 1",
+      "City": "Hương Sơn",
+      "Province": "Hà Tĩnh",
+      "ZipCode": "41003"
+    },
+    "Status": 0
+  },
+  {
+    "Id": "01H980MA0J6P4K2YP2RH1HJ907",
+    "Name": "Cửa khẩu Mộc Bài",
+    "ZipCode": "700020",
+    "Location": {
+      "Latitude": 11.166667,
+      "Longitude": 106.000000
+    },
+    "Address": {
+      "Street": "QL22",
+      "Ward": "Xã Lợi Thuận",
+      "City": "Bến Cầu",
+      "Province": "Tây Ninh",
+      "ZipCode": "70002"
+    },
+    "Status": 0
+  }
+]

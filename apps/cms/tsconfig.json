@@ -16,7 +16,10 @@
         "name": "next"
       }
     ],
-    "types": ["jest", "node"]
+    "types": ["jest", "node"],
+    "paths": {
+        "@/*": ["./apps/cms/*"],
+    }
   },
   "include": [
     "**/*.ts",

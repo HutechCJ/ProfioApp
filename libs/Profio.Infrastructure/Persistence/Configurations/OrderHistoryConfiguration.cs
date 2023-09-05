@@ -15,19 +15,14 @@ public class OrderHistoryConfiguration : IEntityTypeConfiguration<OrderHistory>
 
     builder.Property(e => e.Timestamp);
 
-    builder.HasOne(e => e.Order)
-      .WithMany(e => e.OrderHistories)
-      .HasForeignKey(e => e.OrderId)
-      .OnDelete(DeleteBehavior.Cascade);
-
-    builder.HasOne(e => e.Vehicle)
-      .WithMany(e => e.OrderHistories)
-      .HasForeignKey(e => e.VehicleId)
-      .OnDelete(DeleteBehavior.SetNull);
-
     builder.HasOne(e => e.Hub)
       .WithMany(e => e.OrderHistories)
       .HasForeignKey(e => e.HubId)
+      .OnDelete(DeleteBehavior.SetNull);
+
+    builder.HasOne(e => e.Delivery)
+      .WithMany(e => e.OrderHistories)
+      .HasForeignKey(e => e.DeliveryId)
       .OnDelete(DeleteBehavior.SetNull);
   }
 }

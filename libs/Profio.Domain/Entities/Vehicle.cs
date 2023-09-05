@@ -1,15 +1,16 @@
 using Profio.Domain.Constants;
+using Profio.Domain.Interfaces;
 
 namespace Profio.Domain.Entities;
 
-public class Vehicle
+public class Vehicle : IEntity<string>
 {
-  public required string? Id { get; set; } = Ulid.NewUlid().ToString();
+  public string Id { get; set; } = Ulid.NewUlid().ToString();
   public string? ZipCodeCurrent { get; set; }
   public string? LicensePlate { get; set; }
-  public VehicleType VehicleType { get; set; } = VehicleType.Truck;
+  public VehicleType Type { get; set; } = VehicleType.Truck;
+  public VehicleStatus Status { get; set; } = VehicleStatus.Idle;
   public string? StaffId { get; set; }
   public Staff? Staff { get; set; }
-  public ICollection<Order> Orders { get; set; } = new List<Order>();
-  public ICollection<OrderHistory> OrderHistories { get; set; } = new List<OrderHistory>();
+  public ICollection<Delivery>? Deliveries { get; set; } = new List<Delivery>();
 }

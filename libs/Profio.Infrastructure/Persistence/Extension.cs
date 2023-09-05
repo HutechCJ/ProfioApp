@@ -3,13 +3,13 @@ using EntityFrameworkCore.UnitOfWork.Extensions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Profio.Infrastructure.Persistence.Relational.Optimization;
+using Profio.Infrastructure.Persistence.Optimization;
 
 namespace Profio.Infrastructure.Persistence;
 
 public static class Extension
 {
-  public static void AddPostgres(this IServiceCollection services, IConfiguration configuration)
+  public static IServiceCollection AddPostgres(this IServiceCollection services, IConfiguration configuration)
   {
     services.AddDbContextPool<DbContext, ApplicationDbContext>(options =>
     {
@@ -31,5 +31,7 @@ public static class Extension
 
     services.AddUnitOfWork();
     services.AddUnitOfWork<ApplicationDbContext>();
+
+    return services;
   }
 }

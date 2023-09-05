@@ -32,7 +32,7 @@ public class TokenService : ITokenService
     var tokenDescriptor = new SecurityTokenDescriptor
     {
       Subject = new(tokenClaims),
-      Expires = DateTime.Now.Add(_tokenLifespan),
+      Expires = DateTime.UtcNow.Add(_tokenLifespan),
       SigningCredentials = _signingCredentials
     };
 
@@ -47,7 +47,27 @@ public class TokenService : ITokenService
   {
     JwtSecurityToken jwtToken = new(token);
     return token is null
-      ? DateTime.Now
+      ? DateTime.UtcNow
       : jwtToken.ValidTo.ToUniversalTime();
+  }
+
+  public bool ValidateToken(string? token)
+  {
+    if (string.IsNullOrEmpty(token))
+      return false;
+
+    var handler = new JwtSecurityTokenHandler();
+
+    handler.ValidateToken(token, new()
+    {
+      ValidateIssuerSigningKey = true,
+      IssuerSigningKey = _signingCredentials.Key,
+      ValidateIssuer = false,
+      ValidateAudience = false,
+      ValidateLifetime = true,
+      ClockSkew = TimeSpan.FromSeconds(5)
+    }, out _);
+
+    return true;
   }
 }

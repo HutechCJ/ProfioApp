@@ -9,7 +9,7 @@ using Profio.Infrastructure.Persistence;
 
 #nullable disable
 
-namespace Profio.Infrastructure.Persistence.Relational.Migrations
+namespace Profio.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
@@ -190,6 +190,30 @@ namespace Profio.Infrastructure.Persistence.Relational.Migrations
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("Profio.Domain.Entities.Delivery", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasMaxLength(26)
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<DateTime?>("DeliveryDate")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("OrderId")
+                        .HasColumnType("character varying(26)");
+
+                    b.Property<string>("VehicleId")
+                        .HasColumnType("character varying(26)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.HasIndex("VehicleId");
+
+                    b.ToTable("Delivery");
+                });
+
             modelBuilder.Entity("Profio.Domain.Entities.DeliveryProgress", b =>
                 {
                     b.Property<string>("Id")
@@ -225,9 +249,18 @@ namespace Profio.Infrastructure.Persistence.Relational.Migrations
                         .HasMaxLength(26)
                         .HasColumnType("character varying(26)");
 
+                    b.Property<Address>("Address")
+                        .IsUnicode(true)
+                        .HasColumnType("jsonb");
+
                     b.Property<Location>("Location")
                         .IsUnicode(true)
                         .HasColumnType("jsonb");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
 
                     b.Property<int>("Status")
                         .HasColumnType("integer");
@@ -235,8 +268,7 @@ namespace Profio.Infrastructure.Persistence.Relational.Migrations
                     b.Property<string>("ZipCode")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character(50)")
-                        .IsFixedLength();
+                        .HasColumnType("character varying(50)");
 
                     b.HasKey("Id");
 
@@ -279,6 +311,10 @@ namespace Profio.Infrastructure.Persistence.Relational.Migrations
                     b.Property<string>("CustomerId")
                         .HasColumnType("character varying(26)");
 
+                    b.Property<Address>("DestinationAddress")
+                        .IsUnicode(true)
+                        .HasColumnType("jsonb");
+
                     b.Property<string>("DestinationZipCode")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -290,17 +326,20 @@ namespace Profio.Infrastructure.Persistence.Relational.Migrations
                     b.Property<DateTime?>("ExpectedDeliveryTime")
                         .HasColumnType("timestamp with time zone");
 
+                    b.Property<string>("Note")
+                        .HasMaxLength(250)
+                        .IsUnicode(true)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<DateTime>("StartedDate")
+                        .HasColumnType("timestamp with time zone");
+
                     b.Property<int>("Status")
                         .HasColumnType("integer");
-
-                    b.Property<string>("VehicleId")
-                        .HasColumnType("character varying(26)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
-
-                    b.HasIndex("VehicleId");
 
                     b.ToTable("Orders");
                 });
@@ -311,25 +350,20 @@ namespace Profio.Infrastructure.Persistence.Relational.Migrations
                         .HasMaxLength(26)
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("HubId")
+                    b.Property<string>("DeliveryId")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<string>("OrderId")
+                    b.Property<string>("HubId")
                         .HasColumnType("character varying(26)");
 
                     b.Property<DateTime?>("Timestamp")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("VehicleId")
-                        .HasColumnType("character varying(26)");
-
                     b.HasKey("Id");
 
+                    b.HasIndex("DeliveryId");
+
                     b.HasIndex("HubId");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("VehicleId");
 
                     b.ToTable("OrderHistories");
                 });
@@ -397,7 +431,10 @@ namespace Profio.Infrastructure.Persistence.Relational.Migrations
                     b.Property<string>("StaffId")
                         .HasColumnType("character varying(26)");
 
-                    b.Property<int>("VehicleType")
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Type")
                         .HasColumnType("integer");
 
                     b.Property<string>("ZipCodeCurrent")
@@ -529,6 +566,23 @@ namespace Profio.Infrastructure.Persistence.Relational.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("Profio.Domain.Entities.Delivery", b =>
+                {
+                    b.HasOne("Profio.Domain.Entities.Order", "Order")
+                        .WithMany("Deliveries")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Profio.Domain.Entities.Vehicle", "Vehicle")
+                        .WithMany("Deliveries")
+                        .HasForeignKey("VehicleId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Vehicle");
+                });
+
             modelBuilder.Entity("Profio.Domain.Entities.DeliveryProgress", b =>
                 {
                     b.HasOne("Profio.Domain.Entities.Order", "Order")
@@ -556,38 +610,24 @@ namespace Profio.Infrastructure.Persistence.Relational.Migrations
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("Profio.Domain.Entities.Vehicle", "Vehicle")
-                        .WithMany("Orders")
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.SetNull);
-
                     b.Navigation("Customer");
-
-                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.OrderHistory", b =>
                 {
+                    b.HasOne("Profio.Domain.Entities.Delivery", "Delivery")
+                        .WithMany("OrderHistories")
+                        .HasForeignKey("DeliveryId")
+                        .OnDelete(DeleteBehavior.SetNull);
+
                     b.HasOne("Profio.Domain.Entities.Hub", "Hub")
                         .WithMany("OrderHistories")
                         .HasForeignKey("HubId")
                         .OnDelete(DeleteBehavior.SetNull);
 
-                    b.HasOne("Profio.Domain.Entities.Order", "Order")
-                        .WithMany("OrderHistories")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Profio.Domain.Entities.Vehicle", "Vehicle")
-                        .WithMany("OrderHistories")
-                        .HasForeignKey("VehicleId")
-                        .OnDelete(DeleteBehavior.SetNull);
+                    b.Navigation("Delivery");
 
                     b.Navigation("Hub");
-
-                    b.Navigation("Order");
-
-                    b.Navigation("Vehicle");
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.Route", b =>
@@ -622,6 +662,11 @@ namespace Profio.Infrastructure.Persistence.Relational.Migrations
                     b.Navigation("Orders");
                 });
 
+            modelBuilder.Entity("Profio.Domain.Entities.Delivery", b =>
+                {
+                    b.Navigation("OrderHistories");
+                });
+
             modelBuilder.Entity("Profio.Domain.Entities.Hub", b =>
                 {
                     b.Navigation("EndRoutes");
@@ -633,9 +678,9 @@ namespace Profio.Infrastructure.Persistence.Relational.Migrations
 
             modelBuilder.Entity("Profio.Domain.Entities.Order", b =>
                 {
-                    b.Navigation("DeliveryProgresses");
+                    b.Navigation("Deliveries");
 
-                    b.Navigation("OrderHistories");
+                    b.Navigation("DeliveryProgresses");
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.OrderHistory", b =>
@@ -650,9 +695,7 @@ namespace Profio.Infrastructure.Persistence.Relational.Migrations
 
             modelBuilder.Entity("Profio.Domain.Entities.Vehicle", b =>
                 {
-                    b.Navigation("OrderHistories");
-
-                    b.Navigation("Orders");
+                    b.Navigation("Deliveries");
                 });
 #pragma warning restore 612, 618
         }
