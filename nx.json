@@ -103,7 +103,6 @@
     }
   },
   "plugins": [
-    "@nx-dotnet/core",
-    "@nxrocks/nx-flutter"
+    "@nx-dotnet/core"
   ]
 }
