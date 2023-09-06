@@ -31,10 +31,19 @@ Profio Application
 		<b><a href="https://dotnet.microsoft.com/" target="_blank">.NET Core</a></b> - .NET is a developer platform with tools and libraries for building 	any type of app, including web, mobile, desktop, games, IoT, cloud, and 	microservices.
 	</li>
 	<li align="justify">
+		<b><a href="https://https://www.python.org/" target="_blank">Python</a></b> - Python is a programming language that lets 	you work quickly and integrate systems more effectively.
+	</li>
+	<li align="justify">
+		<b><a href="https://flutter.dev/" target="_blank">Flutter</a></b> - Flutter is Google’s UI toolkit for building beautiful, natively 	compiled applications for mobile, web, and desktop from a single codebase.
+	</li>
+	<li align="justify">
 		<b><a href="https://www.docker.com/" target="_blank">Docker (Kubernetes 	Enabled)</a></b> - Docker is an open platform for developing, shipping, 	and running applications.
 	</li>
 	<li align="justify">
 		<b><a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10" 	target="_blank">WSL 2 - Ubuntu OS</a></b> - WSL 2 is a new version of the architecture 	that powers the Windows Subsystem for Linux to run ELF64 Linux binaries on 	Windows.
+	</li>
+	<li align="justify">
+		<b><a href="https://duendesoftware.com/" target="_blank">Duende IdentityServer</a></b> - Duende IdentityServer is a framework and 	middleware for ASP.NET Core that implements the spec-compliant OpenID 	Connect and OAuth 2.0 protocols.
 	</li>
 </ul>
 
@@ -55,6 +64,12 @@ Profio Application
 	</li>
 	<li align="justify">
 		<b><a href="https://www.emqx.io/" target="_blank">EMQX</a></b> - EMQ X 	Broker is a fully open source, highly scalable, highly available 	distributed MQTT messaging broker for IoT, M2M and Mobile applications 	that can handle tens of millions of concurrent clients.
+	</li>
+	<li align="justify">
+		<b><a href="https://vercel.com/" target="_blank">Vercel</a></b> - Vercel 	is a cloud platform for static sites and Serverless Functions that fits 	perfectly with your workflow. It enables developers to host Jamstack 	websites and web services that deploy instantly, scale automatically, and 	require no supervision, all with no configuration.
+	</li>
+	<li align="justify">
+		<b><a href="https://cloud.google.com/" target="_blank">Google Cloud 	Platform</a></b> - Google Cloud Platform, offered by Google, is a suite of 	cloud computing services that runs on the same infrastructure that Google 	uses internally for its end-user products, such as Google Search, Gmail, 	file storage, and YouTube.
 	</li>
 </ul>
 
