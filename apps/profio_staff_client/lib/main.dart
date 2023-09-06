@@ -7,6 +7,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
+import 'package:profio_staff_client/generators/random_location_generator.dart';
 import 'package:profio_staff_client/managers/location_manager.dart';
 import 'package:profio_staff_client/models/vehicle_location.dart';
 import 'package:profio_staff_client/providers/mqtt_provider.dart';
@@ -55,20 +56,26 @@ Future<int> main() async {
   //     latitude: position.latitude,
   //     longitude: position.longitude);
   // builder.addString(jsonEncode(location.toJson()));
+  final Position currentPosition = await LocationManager.getPosition();
 
-  void obtainAndPublishLocation() async {
-    try {
-      final position = await LocationManager.getPosition();
-      await LocationManager.publishLocation(mqttProvider, position);
-    } catch (e) {
-      print('Error obtaining location: $e');
-    }
-  }
+  LocationManager.simulateCarMovement(
+      mqttProvider,
+      currentPosition,
+      RandomLocationGenerator.generatePositionNearby(currentPosition, 1000),
+      20);
 
-  // Start a periodic timer to call the function every 1 second
-  final locationUpdateTimer = Timer.periodic(Duration(seconds: 1), (_) {
-    obtainAndPublishLocation();
-  });
+  // void obtainAndPublishLocation() async {
+  //   try {
+  //     final position = await LocationManager.getPosition();
+  //     await LocationManager.publishLocation(mqttProvider, position);
+  //   } catch (e) {
+  //     print('Error obtaining location: $e');
+  //   }
+  // }
+  // // Start a periodic timer to call the function every 1 second
+  // final locationUpdateTimer = Timer.periodic(Duration(seconds: 1), (_) {
+  //   obtainAndPublishLocation();
+  // });
 
   // print('MqttProvider::Publishing our topic');
   // mqttProvider.publish(pubTopic, MqttQos.exactlyOnce, builder);
