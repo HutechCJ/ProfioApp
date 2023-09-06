@@ -122,7 +122,8 @@ public static class ConfigureServices
       .UseResponseCaching()
       .UseResponseCompression()
       .UseStatusCodePages()
-      .UseStaticFiles();
+      //.UseStaticFiles()
+      ;
 
     app.MapHealthCheck();
     app.Map("/", () => Results.Redirect("/api-docs"));

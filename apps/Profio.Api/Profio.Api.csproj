@@ -17,4 +17,14 @@
     <ProjectReference Include="..\..\libs\Profio.Application\Profio.Application.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Program.cs">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
 </Project>
