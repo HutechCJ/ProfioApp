@@ -31,6 +31,7 @@ public static class Extensions
 
       options.User.RequireUniqueEmail = true;
     })
+      .AddRoles<IdentityRole>()
       .AddEntityFrameworkStores<ApplicationDbContext>()
       .AddDefaultTokenProviders();
 

@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Profio.Domain.Constants;
 using Profio.Infrastructure.System;
 using Swashbuckle.AspNetCore.Annotations;
 using Extension = Profio.Infrastructure.System.Extension;
@@ -7,7 +8,7 @@ using Extension = Profio.Infrastructure.System.Extension;
 namespace Profio.Api.Controllers.v1;
 
 [ApiVersion("1.0")]
-[Authorize]
+[Authorize(Roles = UserRole.ADMINISTRATOR)]
 [SwaggerTag("The System Monitor and Status")]
 public class SystemController : BaseController
 {
