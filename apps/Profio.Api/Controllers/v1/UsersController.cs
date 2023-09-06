@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Profio.Application.Users.Commands.ChangePassword;
 using Profio.Application.Users.Commands.Login;
 using Profio.Application.Users.Commands.Register;
 using Profio.Application.Users.Queries;
@@ -24,8 +25,6 @@ public class UsersController : BaseController
   public async Task<IActionResult> Login(LoginCommand loginCommand)
   {
     var result = await Mediator.Send(loginCommand);
-    if (result.IsError)
-      return Unauthorized(result);
 
     Response.Cookies.Append("USER-TOKEN", result.Data!.Token!, new()
     {
@@ -40,22 +39,16 @@ public class UsersController : BaseController
   [AllowAnonymous]
   [MapToApiVersion("1.0")]
   public async Task<IActionResult> Register(RegisterCommand registerCommand)
-  {
-    var result = await Mediator.Send(registerCommand);
-    if (result.IsError)
-      return BadRequest(result);
-    return Ok(result);
-  }
+    => Ok(await Mediator.Send(registerCommand));
+
+  [HttpPost("change-password")]
+  public async Task<IActionResult> ChangePassword(ChangePasswordCommand changePasswordCommand)
+    => Ok(await Mediator.Send(changePasswordCommand));
 
   [HttpGet("{id:guid}")]
   [MapToApiVersion("1.0")]
   public async Task<IActionResult> GetUserById(Guid id)
-  {
-    var result = await Mediator.Send(new GetUserByIdQuery(id));
-    if (result.IsError)
-      return BadRequest();
-    return Ok(result);
-  }
+    => Ok(await Mediator.Send(new GetUserByIdQuery(id)));
 
   [HttpGet("check-authorization")]
   [MapToApiVersion("1.0")]

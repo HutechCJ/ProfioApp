@@ -68,7 +68,7 @@ public class ExceptionMiddleware : ExceptionFilterAttribute
     };
     context.Result = new ObjectResult(details)
     {
-      Value = ResultModel<string>.CreateError("", "Internal Server Error.").ToString()
+      Value = ResultModel<string>.CreateError("", "Internal Server Error.")
     };
   }
 }
