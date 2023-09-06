@@ -30,6 +30,7 @@ public static class SwaggerConfiguration
     app.UseSwaggerUI(c =>
     {
       c.DocumentTitle = "Profio API";
+      c.InjectStylesheet("/css/swagger-ui.css");
       foreach (var description in app.ApplicationServices
                  .GetRequiredService<IApiVersionDescriptionProvider>()
                  .ApiVersionDescriptions)
