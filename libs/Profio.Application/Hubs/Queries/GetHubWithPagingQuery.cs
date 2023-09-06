@@ -5,6 +5,7 @@ using Profio.Application.CQRS.Handlers.Queries;
 using Profio.Application.CQRS.Validators;
 using Profio.Domain.Entities;
 using Profio.Domain.Specifications;
+using System.Linq.Expressions;
 
 namespace Profio.Application.Hubs.Queries;
 
@@ -15,6 +16,9 @@ public class GetHubWithPagingQueryHandler : GetWithPagingQueryHandler<GetHubWith
   public GetHubWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
+
+  protected override Expression<Func<Hub, bool>> Filter(string filter)
+    => h => h.Name!.ToLower().Contains(filter);
 }
 
 public class GetHubWithPagingQueryValidator : GetWithPagingQueryValidatorBase<Hub, GetHubWithPagingQuery, HubDto>
