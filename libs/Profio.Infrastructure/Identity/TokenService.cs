@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using Profio.Infrastructure.Persistence;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -13,16 +12,14 @@ public class TokenService : ITokenService
   private readonly TimeSpan _tokenLifespan;
   private readonly SigningCredentials _signingCredentials;
   private readonly UserManager<ApplicationUser> _userManager;
-  private readonly RoleManager<IdentityRole> _roleManager;
 
-  public TokenService(IConfiguration configuration, ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+  public TokenService(IConfiguration configuration, UserManager<ApplicationUser> userManager)
   {
     var tokenKey = configuration["Authentication:TokenKey"] ?? string.Empty;
     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey));
     _signingCredentials = new(key, SecurityAlgorithms.HmacSha256Signature);
     _tokenLifespan = TimeSpan.FromHours(5);
     _userManager = userManager;
-    _roleManager = roleManager;
   }
 
   public string CreateToken(ApplicationUser user)
