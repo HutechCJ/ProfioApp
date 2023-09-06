@@ -34,14 +34,6 @@ public static class Extensions
       .AddEntityFrameworkStores<ApplicationDbContext>()
       .AddDefaultTokenProviders();
 
-    services.AddAntiforgery(options =>
-    {
-      options.Cookie.Name = "XSRF-TOKEN";
-      options.Cookie.HttpOnly = true;
-      options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-      options.HeaderName = "X-XSRF-TOKEN";
-    });
-
     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Authentication:TokenKey"] ?? string.Empty));
 
     services.AddAuthentication(
