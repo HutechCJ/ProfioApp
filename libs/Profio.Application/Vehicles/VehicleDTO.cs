@@ -5,6 +5,7 @@ namespace Profio.Application.Vehicles;
 
 public record VehicleDto : BaseModel
 {
+  public required string Id { get; set; }
   public string? ZipCodeCurrent { get; set; }
   public string? LicensePlate { get; set; }
   public VehicleType Type { get; set; } = VehicleType.Truck;
