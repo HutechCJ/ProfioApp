@@ -72,11 +72,11 @@ public class ApplicationDbContextInitializer
       Email = "dat@gmail.com"
     };
 
-    var loi = new ApplicationUser
+    var van = new ApplicationUser
     {
-      UserName = "loi@gmail.com",
-      FullName = "Tạ Thạch Lỗi",
-      Email = "loi@gmail.com"
+      UserName = "van@gmail.com",
+      FullName = "Trương Thục Vân",
+      Email = "van@gmail.com"
     };
 
     const string password = "P@ssw0rd";
@@ -86,7 +86,7 @@ public class ApplicationDbContextInitializer
       _userManager.CreateAsync(nhon, password),
       _userManager.CreateAsync(nhan, password),
       _userManager.CreateAsync(dat, password),
-      _userManager.CreateAsync(loi, password)
+      _userManager.CreateAsync(van, password)
     ).ConfigureAwait(false);
   }
 }

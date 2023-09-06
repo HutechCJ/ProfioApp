@@ -77,5 +77,7 @@ public static class Extensions
             : CookieAuthenticationDefaults.AuthenticationScheme;
         };
       });
+
+    services.AddScoped<IUserAccessor, UserAccessor>();
   }
 }

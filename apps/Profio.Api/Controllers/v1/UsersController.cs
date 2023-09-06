@@ -15,6 +15,10 @@ namespace Profio.Api.Controllers.v1;
 [SwaggerTag("An authenticated and authorized user")]
 public class UsersController : BaseController
 {
+  private readonly IUserAccessor _userAccessor;
+
+  public UsersController(IUserAccessor userAccessor)
+    => _userAccessor = userAccessor;
   [HttpPost("login")]
   [AllowAnonymous]
   [MapToApiVersion("1.0")]
@@ -52,7 +56,8 @@ public class UsersController : BaseController
 
   [HttpGet("check-authorization")]
   [MapToApiVersion("1.0")]
-  public IActionResult CheckAuthorization() => Ok();
+  public async Task<IActionResult> CheckAuthorization()
+    => Ok(await Mediator.Send(new GetUserByIdQuery(_userAccessor.Id)));
 
   [HttpGet("get-users")]
   [AllowAnonymous]
