@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Profio.Application.CQRS.Events.Queries;
 using Profio.Domain.Interfaces;
 using Profio.Domain.Models;
+using System.Linq.Expressions;
 
 namespace Profio.Application.CQRS.Handlers.Queries;
 
@@ -31,9 +32,9 @@ public abstract class
       .MultipleResultQuery()
       .Page(request.Criteria.PageNumber, request.Criteria.PageSize);
 
-    //if (request.Criteria.Filter is { })
-    //  query = (IMultipleResultQuery<TEntity>)query
-    //    .AndFilter(request.Criteria.Filter);
+    if (request.Criteria.Filter is { })
+      query = (IMultipleResultQuery<TEntity>)query
+        .AndFilter(Filter(request.Criteria.Filter.ToLowerInvariant()));
 
     if (request.Criteria.OrderBy is { })
       query = (IMultipleResultQuery<TEntity>)query
@@ -61,4 +62,5 @@ public abstract class
 
     return ResultModel<IPagedList<TModel>>.Create(pagedList);
   }
+  protected virtual Expression<Func<TEntity, bool>> Filter(string filter) => x => x == null;
 }

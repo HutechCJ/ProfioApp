@@ -31,27 +31,27 @@ public class LuceneService<T> : ILuceneService<T> where T : class
       .ScoreDocs
       .Length > 0;
 
-  public Dictionary<string, List<Document>> GetData(List<T> data)
+  public Dictionary<string, List<Document>> GetData(List<T> list)
   {
     var propertyIndex = new Dictionary<string, List<Document>>();
-
-    foreach (var dummy in data.GetType().GetProperties())
-    {
-      foreach (var property in data.GetType().GetProperties())
+    foreach (var data in list)
+      foreach (var dummy in data.GetType().GetProperties())
       {
-        if (!propertyIndex.ContainsKey(property.Name))
-          propertyIndex.Add(property.Name, new List<Document>());
+        foreach (var property in data.GetType().GetProperties())
+        {
+          if (!propertyIndex.ContainsKey(property.Name))
+            propertyIndex.Add(property.Name, new List<Document>());
 
-        var value = property.GetValue(data, null);
+          var value = property.GetValue(data, null);
 
-        if (value is null) continue;
+          if (value is null) continue;
 
-        var document = new Document
+          var document = new Document
           { new StringField(property.Name, value.ToString(), Field.Store.YES) };
 
-        propertyIndex[property.Name].Add(document);
+          propertyIndex[property.Name].Add(document);
+        }
       }
-    }
 
     return propertyIndex;
   }
@@ -71,7 +71,7 @@ public class LuceneService<T> : ILuceneService<T> where T : class
 
   public void ClearAll() => _indexWriter.DeleteAll();
 
-  public void Index(List<T> data, int options)
+  public void Index(List<T> data, Lucene options)
   {
     var document = GetData(data);
     var docs = document.SelectMany(item
@@ -82,22 +82,22 @@ public class LuceneService<T> : ILuceneService<T> where T : class
 
     switch (options)
     {
-      case (int)Lucene.Create:
+      case Lucene.Create:
         _indexWriter.AddDocuments(docs);
         break;
 
-      case (int)Lucene.Update:
+      case Lucene.Update:
         _indexWriter.UpdateDocuments(new("id", data.ToString()), docs);
         break;
 
-      case (int)Lucene.Delete:
+      case Lucene.Delete:
         _indexWriter.DeleteDocuments(new Term("id", "1"));
         break;
 
       default:
         throw new ArgumentOutOfRangeException(nameof(options), options, "Invalid option!");
     }
-
-    _indexWriter.Flush(true, true);
+    _indexWriter.Commit();
+    //_indexWriter.Flush(true, true);
   }
 }
