@@ -1,4 +1,3 @@
-using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -8,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Profio.Infrastructure.Persistence;
+using System.Text;
 using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
 
 namespace Profio.Infrastructure.Identity;
@@ -48,7 +48,7 @@ public static class Extensions
         options =>
         {
           options.DefaultScheme = IdentityConstants.ApplicationScheme;
-          options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+          options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         })
       .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
         options =>
