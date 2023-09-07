@@ -9,7 +9,7 @@ public class AddressValidator : AbstractValidator<Address>
   {
     RuleFor(a => a.ZipCode)
       .Matches("^[0-9]*$")
-      .MaximumLength(50);
+      .MaximumLength(10);
 
     RuleFor(a => a.City)
       .MaximumLength(50);
