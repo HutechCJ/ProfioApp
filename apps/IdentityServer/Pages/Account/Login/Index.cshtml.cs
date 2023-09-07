@@ -1,7 +1,6 @@
-using Duende.IdentityServer.Events;
-using Duende.IdentityServer.Models;
-using Duende.IdentityServer.Services;
-using Duende.IdentityServer.Stores;
+using IdentityServer4.Events;
+using IdentityServer4.Models;
+using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -20,7 +19,6 @@ public class Index : PageModel
   private readonly IIdentityServerInteractionService _interaction;
   private readonly IEventService _events;
   private readonly IAuthenticationSchemeProvider _schemeProvider;
-  private readonly IIdentityProviderStore _identityProviderStore;
 
   public ViewModel View { get; set; } = default!;
 
@@ -30,7 +28,6 @@ public class Index : PageModel
   public Index(
     IIdentityServerInteractionService interaction,
     IAuthenticationSchemeProvider schemeProvider,
-    IIdentityProviderStore identityProviderStore,
     IEventService events,
     UserManager<ApplicationUser> userManager,
     SignInManager<ApplicationUser> signInManager)
@@ -39,7 +36,6 @@ public class Index : PageModel
     _signInManager = signInManager;
     _interaction = interaction;
     _schemeProvider = schemeProvider;
-    _identityProviderStore = identityProviderStore;
     _events = events;
   }
 
@@ -111,7 +107,7 @@ public class Index : PageModel
     var context = await _interaction.GetAuthorizationContextAsync(returnUrl);
     if (context?.IdP != null && await _schemeProvider.GetSchemeAsync(context.IdP) != null)
     {
-      var local = context.IdP == Duende.IdentityServer.IdentityServerConstants.LocalIdentityProvider;
+      var local = context.IdP == IdentityServer4.IdentityServerConstants.LocalIdentityProvider;
       View = new()
       {
         EnableLocalLogin = local,
@@ -136,16 +132,6 @@ public class Index : PageModel
         DisplayName = x.DisplayName ?? x.Name,
         AuthenticationScheme = x.Name
       }).ToList();
-
-    var dynamicSchemes = (await _identityProviderStore.GetAllSchemeNamesAsync())
-      .Where(x => x.Enabled)
-      .Select(x => new ViewModel.ExternalProvider
-      {
-        AuthenticationScheme = x.Scheme,
-        DisplayName = x.DisplayName
-      });
-    providers.AddRange(dynamicSchemes);
-
 
     var allowLocal = true;
     var client = context?.Client;

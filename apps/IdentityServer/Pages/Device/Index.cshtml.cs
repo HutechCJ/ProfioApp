@@ -1,10 +1,10 @@
-using Duende.IdentityServer.Configuration;
-using Duende.IdentityServer.Events;
-using Duende.IdentityServer.Extensions;
-using Duende.IdentityServer.Models;
-using Duende.IdentityServer.Services;
-using Duende.IdentityServer.Validation;
 using IdentityServer.Pages.Consent;
+using IdentityServer4.Configuration;
+using IdentityServer4.Events;
+using IdentityServer4.Extensions;
+using IdentityServer4.Models;
+using IdentityServer4.Services;
+using IdentityServer4.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -87,7 +87,7 @@ public class Index : PageModel
         var scopes = Input.ScopesConsented;
         if (ConsentOptions.EnableOfflineAccess == false)
         {
-          scopes = scopes.Where(x => x != Duende.IdentityServer.IdentityServerConstants.StandardScopes.OfflineAccess);
+          scopes = scopes.Where(x => x != IdentityServer4.IdentityServerConstants.StandardScopes.OfflineAccess);
         }
 
         grantedConsent = new()
@@ -148,7 +148,7 @@ public class Index : PageModel
         model is null || model.ScopesConsented?.Contains(parsedScope.RawValue) == true)).ToList();
 
     if (DeviceOptions.EnableOfflineAccess && request.ValidatedResources.Resources.OfflineAccess)
-      apiScopes.Add(GetOfflineAccessScope(model == null || model.ScopesConsented?.Contains(Duende.IdentityServer.IdentityServerConstants.StandardScopes.OfflineAccess) == true));
+      apiScopes.Add(GetOfflineAccessScope(model == null || model.ScopesConsented?.Contains(IdentityServer4.IdentityServerConstants.StandardScopes.OfflineAccess) == true));
 
     vm.ApiScopes = apiScopes;
 
@@ -185,7 +185,7 @@ public class Index : PageModel
   {
     return new()
     {
-      Value = Duende.IdentityServer.IdentityServerConstants.StandardScopes.OfflineAccess,
+      Value = IdentityServer4.IdentityServerConstants.StandardScopes.OfflineAccess,
       DisplayName = DeviceOptions.OfflineAccessDisplayName,
       Description = DeviceOptions.OfflineAccessDescription,
       Emphasize = true,

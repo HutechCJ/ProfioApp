@@ -1,6 +1,3 @@
-using Duende.IdentityServer;
-using Duende.IdentityServer.Events;
-using Duende.IdentityServer.Services;
 using IdentityModel;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -8,6 +5,9 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using System.Security.Claims;
+using IdentityServer4;
+using IdentityServer4.Events;
+using IdentityServer4.Services;
 using Profio.Infrastructure.Identity;
 
 namespace IdentityServer.Pages.ExternalLogin;

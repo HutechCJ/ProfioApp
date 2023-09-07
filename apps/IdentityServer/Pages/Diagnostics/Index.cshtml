@@ -14,7 +14,7 @@
                 </div>
                 <div class="card-body">
                     <dl>
-                        @foreach (var claim in Model.View.AuthenticateResult.Principal.Claims)
+                        @foreach (var claim in Model.View.AuthenticateResult.Principal?.Claims!)
                         {
                             <dt>@claim.Type</dt>
                             <dd>@claim.Value</dd>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="card-body">
                     <dl>
-                        @foreach (var prop in Model.View.AuthenticateResult.Properties.Items)
+                        @foreach (var prop in Model.View.AuthenticateResult.Properties?.Items!)
                         {
                             <dt>@prop.Key</dt>
                             <dd>@prop.Value</dd>

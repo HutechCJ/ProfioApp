@@ -19,8 +19,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Profio.Infrastructure", "li
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Profio.Proxy", "apps\Profio.Proxy\Profio.Proxy.csproj", "{B70F475F-4700-44BB-B90D-3BCF24E776B0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "apps\IdentityServer\IdentityServer.csproj", "{363C1A09-DB98-4A48-B797-CA48CA5F8D29}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,10 +49,6 @@ Global
 		{B70F475F-4700-44BB-B90D-3BCF24E776B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B70F475F-4700-44BB-B90D-3BCF24E776B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B70F475F-4700-44BB-B90D-3BCF24E776B0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{363C1A09-DB98-4A48-B797-CA48CA5F8D29}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{363C1A09-DB98-4A48-B797-CA48CA5F8D29}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{363C1A09-DB98-4A48-B797-CA48CA5F8D29}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{363C1A09-DB98-4A48-B797-CA48CA5F8D29}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -66,7 +60,6 @@ Global
 		{9C875654-1352-4765-AD94-C15DE24257B3} = {742D8809-4CB8-4049-A634-8270C4CE81D3}
 		{55FD65CD-1352-4198-AD9A-4F90F3EAF0BA} = {742D8809-4CB8-4049-A634-8270C4CE81D3}
 		{B70F475F-4700-44BB-B90D-3BCF24E776B0} = {0559CCC8-31C5-4489-A9C4-AC8A198B4D11}
-		{363C1A09-DB98-4A48-B797-CA48CA5F8D29} = {0559CCC8-31C5-4489-A9C4-AC8A198B4D11}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A8E52222-A4A6-4BBE-AD21-7244FF88B00A}

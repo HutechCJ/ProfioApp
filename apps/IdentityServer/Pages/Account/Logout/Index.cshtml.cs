@@ -1,7 +1,7 @@
-using Duende.IdentityServer.Events;
-using Duende.IdentityServer.Extensions;
-using Duende.IdentityServer.Services;
 using IdentityModel;
+using IdentityServer4.Events;
+using IdentityServer4.Extensions;
+using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -65,7 +65,7 @@ public class Index : PageModel
 
     var idp = User.FindFirst(JwtClaimTypes.IdentityProvider)?.Value;
 
-    if (idp is null or Duende.IdentityServer.IdentityServerConstants.LocalIdentityProvider)
+    if (idp is null or IdentityServer4.IdentityServerConstants.LocalIdentityProvider)
       return RedirectToPage("/Account/Logout/LoggedOut", new { logoutId = LogoutId });
 
     if (!await HttpContext.GetSchemeSupportsSignOutAsync(idp))

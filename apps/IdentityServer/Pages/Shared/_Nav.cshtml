@@ -1,4 +1,4 @@
-@using Duende.IdentityServer.Extensions
+@using IdentityServer4.Extensions
 @{
     string name = null;
     if (!true.Equals(ViewData["signed-out"]))
@@ -11,7 +11,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
 
         <a href="~/" class="navbar-brand">
-            <img src="~/cj-logo.webp" class="icon-banner" alt="duende-logo">
+            <img src="~/icon.png" class="icon-banner" alt="identity-server" />
           Profio Identity Server
         </a>
 
@@ -20,7 +20,6 @@
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">@name <b class="caret"></b></a>
-                    
                     <div class="dropdown-menu">
                         <a class="dropdown-item" asp-page="/Account/Logout/Index">Logout</a>
                     </div>

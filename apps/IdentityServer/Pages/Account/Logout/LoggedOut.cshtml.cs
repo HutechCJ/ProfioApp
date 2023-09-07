@@ -1,4 +1,4 @@
-using Duende.IdentityServer.Services;
+using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -10,7 +10,7 @@ public class LoggedOut : PageModel
 {
   private readonly IIdentityServerInteractionService _interactionService;
 
-  public LoggedOutViewModel View { get; set; }
+  public LoggedOutViewModel View { get; set; } = default!;
 
   public LoggedOut(IIdentityServerInteractionService interactionService)
     => _interactionService = interactionService;
@@ -22,9 +22,9 @@ public class LoggedOut : PageModel
     View = new()
     {
       AutomaticRedirectAfterSignOut = LogoutOptions.AutomaticRedirectAfterSignOut,
-      PostLogoutRedirectUri = logout?.PostLogoutRedirectUri,
-      ClientName = string.IsNullOrEmpty(logout.ClientName) ? logout.ClientId : logout.ClientName,
-      SignOutIframeUrl = logout?.SignOutIFrameUrl
+      PostLogoutRedirectUri = logout?.PostLogoutRedirectUri!,
+      ClientName = string.IsNullOrEmpty(logout?.ClientName) ? logout?.ClientId! : logout.ClientName!,
+      SignOutIframeUrl = logout?.SignOutIFrameUrl!
     };
   }
 }
