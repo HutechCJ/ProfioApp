@@ -22,7 +22,6 @@ public static class Config
   public static IEnumerable<Client> Clients =>
     new Client[]
     {
-      // m2m client credentials flow client
       new()
       {
         ClientId = "m2m.client",
