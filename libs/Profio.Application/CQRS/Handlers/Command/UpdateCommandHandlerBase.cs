@@ -5,12 +5,11 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Profio.Application.CQRS.Events.Commands;
 using Profio.Domain.Interfaces;
-using Profio.Domain.Models;
 using Profio.Infrastructure.Exceptions;
 
 namespace Profio.Application.CQRS.Handlers.Command;
 
-public class UpdateCommandHandlerBase<TCommand, TEntity> : IRequestHandler<TCommand, ResultModel<object>>
+public class UpdateCommandHandlerBase<TCommand, TEntity> : IRequestHandler<TCommand, Unit>
   where TEntity : class, IEntity<object>
   where TCommand : UpdateCommandBase
 {
@@ -25,7 +24,7 @@ public class UpdateCommandHandlerBase<TCommand, TEntity> : IRequestHandler<TComm
     _mapper = mapper;
   }
 
-  public async Task<ResultModel<object>> Handle(TCommand request, CancellationToken cancellationToken)
+  public async Task<Unit> Handle(TCommand request, CancellationToken cancellationToken)
   {
     var query = _repository.SingleResultQuery()
       .UseQueryTrackingBehavior(QueryTrackingBehavior.TrackAll)
@@ -39,6 +38,6 @@ public class UpdateCommandHandlerBase<TCommand, TEntity> : IRequestHandler<TComm
     await _unitOfWork.SaveChangesAsync(cancellationToken: cancellationToken)
       .ConfigureAwait(false);
 
-    return ResultModel<object>.Create(null);
+    return Unit.Value;
   }
 }

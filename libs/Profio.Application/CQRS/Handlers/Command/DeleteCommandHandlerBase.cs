@@ -11,7 +11,7 @@ using Profio.Infrastructure.Exceptions;
 
 namespace Profio.Application.CQRS.Handlers.Command;
 
-public class DeleteCommandHandlerBase<TCommand, TModel, TEntity> : IRequestHandler<TCommand, ResultModel<TModel>>
+public class DeleteCommandHandlerBase<TCommand, TModel, TEntity> : IRequestHandler<TCommand, TModel>
   where TCommand : DeleteCommandBase<TModel>
   where TEntity : class, IEntity<object>
   where TModel : BaseModel
@@ -22,7 +22,7 @@ public class DeleteCommandHandlerBase<TCommand, TModel, TEntity> : IRequestHandl
   public DeleteCommandHandlerBase(IRepositoryFactory unitOfWork, IMapper mapper)
     => (_repository, _mapper) = (unitOfWork.Repository<TEntity>(), mapper);
 
-  public async Task<ResultModel<TModel>> Handle(TCommand request, CancellationToken cancellationToken)
+  public async Task<TModel> Handle(TCommand request, CancellationToken cancellationToken)
   {
     var query = _repository.SingleResultQuery()
       .AndFilter(m => m.Id.Equals(request.Id));
@@ -34,6 +34,6 @@ public class DeleteCommandHandlerBase<TCommand, TModel, TEntity> : IRequestHandl
 
     await _repository.RemoveAsync(x => x.Id.Equals(request.Id), cancellationToken).ConfigureAwait(false);
 
-    return ResultModel<TModel>.Create(model);
+    return model;
   }
 }

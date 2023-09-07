@@ -46,5 +46,5 @@ public class BaseEntityController<TEntity, TModel> : BaseController
 
   protected async Task<ActionResult<ResultModel<TModel>>> HandleDeleteCommand<TDeleteCommand>(TDeleteCommand command)
       where TDeleteCommand : DeleteCommandBase<TModel>
-      => Ok(await Mediator.Send(command));
+      => Ok(ResultModel<TModel>.Create(await Mediator.Send(command)));
 }
