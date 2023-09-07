@@ -8,6 +8,8 @@ import 'package:profio_staff_client/models/vehicle_location.dart';
 import 'package:profio_staff_client/providers/mqtt_provider.dart';
 
 class LocationManager {
+  static const String locationTopic = '/location';
+
   static Future<Position> getPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -36,7 +38,7 @@ class LocationManager {
 
   static Future<void> publishLocation(
       MqttProvider mqttProvider, Position position) async {
-    const pubTopic = '/location';
+    const pubTopic = locationTopic;
     final builder = MqttClientPayloadBuilder();
     final location = VehicleLocation(
         id: "1234567890",
@@ -50,7 +52,7 @@ class LocationManager {
 
   static void simulateCarMovement(MqttProvider mqttProvider,
       Position startLocation, Position endLocation, double vehicleSpeed) {
-    const pubTopic = '/location';
+    const pubTopic = locationTopic;
 
     // Calculate the total distance between start and end locations
     final totalDistance = calculateDistance(startLocation, endLocation);

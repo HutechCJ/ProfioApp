@@ -1,96 +1,33 @@
 import 'dart:async';
-import 'dart:convert';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:mqtt_client/mqtt_client.dart';
-import 'package:mqtt_client/mqtt_server_client.dart';
-import 'package:profio_staff_client/generators/random_location_generator.dart';
-import 'package:profio_staff_client/managers/location_manager.dart';
-import 'package:profio_staff_client/models/vehicle_location.dart';
-import 'package:profio_staff_client/providers/mqtt_provider.dart';
+import 'package:profio_staff_client/pages/app/app.dart';
 
-final client = MqttServerClient('f771154e.ala.us-east-1.emqxsl.com',
-    'Profio-${Random().nextInt(1000) + 1}');
 Future<int> main() async {
-  final mqttProvider = MqttProvider();
-
   WidgetsFlutterBinding.ensureInitialized();
+  // final mqttProvider = MqttProvider();
 
-  await mqttProvider.connect();
+  // await mqttProvider.connect();
 
-  if (mqttProvider.client.connectionStatus!.state ==
-      MqttConnectionState.connected) {
-    print('MqttProvider::Mosquitto client connected');
-  } else {
-    print('MqttProvider::ERROR Mosquitto client connection failed');
-    return -1;
-  }
-
-  const topic = '/location';
-  mqttProvider.subscribe(topic, MqttQos.atMostOnce);
-
-  mqttProvider.client.updates!
-      .listen((List<MqttReceivedMessage<MqttMessage?>>? c) {
-    final recMess = c![0].payload as MqttPublishMessage;
-    final pt =
-        MqttPublishPayload.bytesToStringAsString(recMess.payload.message);
-
-    print(
-        'MqttProvider::Change notification:: topic is <${c[0].topic}>, payload is <-- $pt -->');
-    print('');
-  });
-
-  mqttProvider.client.published!.listen((MqttPublishMessage message) {
-    print(
-        'MqttProvider::Published notification:: topic is ${message.variableHeader!.topicName}, with Qos ${message.header!.qos}');
-  });
-
-  // const pubTopic = '/location';
-  // final builder = MqttClientPayloadBuilder();
-  // final position = await LocationManager.getPosition();
-  // final location = VehicleLocation(
-  //     id: "1234567890",
-  //     latitude: position.latitude,
-  //     longitude: position.longitude);
-  // builder.addString(jsonEncode(location.toJson()));
-  final Position currentPosition = await LocationManager.getPosition();
-
-  LocationManager.simulateCarMovement(
-      mqttProvider,
-      currentPosition,
-      RandomLocationGenerator.generatePositionNearby(currentPosition, 1000),
-      20);
-
-  // void obtainAndPublishLocation() async {
-  //   try {
-  //     final position = await LocationManager.getPosition();
-  //     await LocationManager.publishLocation(mqttProvider, position);
-  //   } catch (e) {
-  //     print('Error obtaining location: $e');
-  //   }
+  // if (mqttProvider.client.connectionStatus!.state ==
+  //     MqttConnectionState.connected) {
+  //   print('MqttProvider::Mosquitto client connected');
+  // } else {
+  //   print('MqttProvider::ERROR Mosquitto client connection failed');
+  //   return -1;
   // }
-  // // Start a periodic timer to call the function every 1 second
-  // final locationUpdateTimer = Timer.periodic(Duration(seconds: 1), (_) {
-  //   obtainAndPublishLocation();
-  // });
 
-  // print('MqttProvider::Publishing our topic');
-  // mqttProvider.publish(pubTopic, MqttQos.exactlyOnce, builder);
+  // final Position currentPosition = await LocationManager.getPosition();
 
-  // print('MqttProvider::Sleeping....');
-  // await MqttUtilities.asyncSleep(60);
+  // LocationManager.simulateCarMovement(
+  //     mqttProvider,
+  //     currentPosition,
+  //     RandomLocationGenerator.generatePositionNearby(currentPosition, 1000),
+  //     20);
 
-  // print('MqttProvider::Unsubscribing');
-  // mqttProvider.unsubscribe(topic);
-
-  // await MqttUtilities.asyncSleep(2);
-  // print('MqttProvider::Disconnecting');
-  // mqttProvider.disconnect();
-
-  // runApp(const MyApp());
+  runApp(const App());
   return 0;
 }
 
