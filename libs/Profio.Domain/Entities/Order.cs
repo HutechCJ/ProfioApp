@@ -1,17 +1,15 @@
 using Profio.Domain.Constants;
-using Profio.Domain.Interfaces;
 using Profio.Domain.ValueObjects;
 
 namespace Profio.Domain.Entities;
 
-public class Order : IEntity<string>
+public class Order : BaseEntity
 {
-  public string Id { get; set; } = Ulid.NewUlid().ToString()!;
   public DateTime StartedDate { get; set; } = DateTime.UtcNow;
   public DateTime? ExpectedDeliveryTime { get; set; }
   public OrderStatus Status { get; set; } = OrderStatus.Pending;
   public Address? DestinationAddress { get; set; }
-  public required string? DestinationZipCode { get; set; }
+  public required string DestinationZipCode { get; set; }
   public string? Note { get; set; }
   public double? Distance { get; set; }
   public string? CustomerId { get; set; }

@@ -1,11 +1,9 @@
-using Profio.Domain.Interfaces;
 using System.Text.Json.Serialization;
 
 namespace Profio.Domain.Entities;
 
-public class Route : IEntity<string>
+public class Route : BaseEntity
 {
-  public string Id { get; set; } = Ulid.NewUlid().ToString()!;
   public double? Distance { get; set; }
   public string? StartHubId { get; set; }
   [JsonIgnore]

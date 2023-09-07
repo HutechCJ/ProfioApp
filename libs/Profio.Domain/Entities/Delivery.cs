@@ -1,10 +1,7 @@
-using Profio.Domain.Interfaces;
-
 namespace Profio.Domain.Entities;
 
-public class Delivery : IEntity<string>
+public class Delivery : BaseEntity
 {
-  public string Id { get; set; } = Ulid.NewUlid().ToString()!;
   public DateTime? DeliveryDate { get; set; } = DateTime.UtcNow;
   public string? OrderId { get; set; }
   public Order? Order { get; set; }
