@@ -1,6 +1,6 @@
-using System.Net.Mime;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Net.Mime;
 
 namespace Profio.Api.Controllers;
 

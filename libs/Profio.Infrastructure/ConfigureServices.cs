@@ -34,7 +34,6 @@ public static class ConfigureServices
         options.ReturnHttpNotAcceptable = true;
         options.Filters.Add<LoggingFilter>();
         options.Filters.Add<ExceptionMiddleware>();
-        options.Filters.Add(new ProducesAttribute("application/json"));
       })
       .AddNewtonsoftJson()
       .AddApplicationPart(AssemblyReference.Assembly);
