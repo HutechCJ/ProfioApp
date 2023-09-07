@@ -15,7 +15,7 @@ using System.Linq.Expressions;
 namespace Profio.Application.CQRS.Handlers.Queries;
 
 public abstract class
-  GetWithPagingQueryHandler<TQuery, TModel, TEntity> : IRequestHandler<TQuery, ResultModel<IPagedList<TModel>>>
+  GetWithPagingQueryHandler<TQuery, TModel, TEntity> : IRequestHandler<TQuery, IPagedList<TModel>>
   where TQuery : GetWithPagingQueryBase<TEntity, TModel>
   where TModel : BaseModel
   where TEntity : class, IEntity<object>
@@ -26,7 +26,7 @@ public abstract class
   protected GetWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper)
     => (_repository, _mapper) = (unitOfWork.Repository<TEntity>(), mapper);
 
-  public async Task<ResultModel<IPagedList<TModel>>> Handle(TQuery request, CancellationToken cancellationToken)
+  public async Task<IPagedList<TModel>> Handle(TQuery request, CancellationToken cancellationToken)
   {
     var query = _repository
       .MultipleResultQuery()
@@ -60,7 +60,7 @@ public abstract class
         query.Paging.TotalCount,
         cancellationToken);
 
-    return ResultModel<IPagedList<TModel>>.Create(pagedList);
+    return pagedList;
   }
   protected virtual Expression<Func<TEntity, bool>> Filter(string filter) => x => x == null;
 }
