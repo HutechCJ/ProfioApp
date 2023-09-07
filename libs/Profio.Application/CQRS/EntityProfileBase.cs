@@ -11,11 +11,11 @@ public abstract class EntityProfileBase<TEntity, TModel, TCreateCommand, TUpdate
   where TCreateCommand : CreateCommandBase
   where TUpdateCommand : UpdateCommandBase
 {
-  public EntityProfileBase()
+  protected EntityProfileBase()
   {
     CreateMap<TEntity, TModel>().ReverseMap();
     CreateMap<TCreateCommand, TEntity>();
     CreateMap<TUpdateCommand, TEntity>()
-      .ForAllMembers(options => options.Condition((src, des, srcValue, desValue) => srcValue != null));
+      .ForAllMembers(options => options.Condition((_, _, srcValue, _) => srcValue != null));
   }
 }
