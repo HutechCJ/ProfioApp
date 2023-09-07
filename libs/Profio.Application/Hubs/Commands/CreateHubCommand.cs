@@ -18,7 +18,7 @@ public record CreateHubCommand : CreateCommandBase
 {
   public required string? Name { get; set; }
   public required string? ZipCode { get; set; }
-  public Location? Location { get; set; }
+  public required Location Location { get; set; }
   public Address? Address { get; set; }
   public HubStatus Status { get; set; } = HubStatus.Active;
 }
@@ -34,9 +34,11 @@ public class CreateHubCommandValidator : AbstractValidator<CreateHubCommand>
 {
   public CreateHubCommandValidator()
   {
+    RuleFor(h => h.ZipCode)
+      .Length(10);
+
     RuleFor(c => c.Location)
-      .NotEmpty()
-      .NotNull();
+      .SetValidator(new LocationValidator());
 
     RuleFor(c => c.Address)
       .SetValidator(new AddressValidator()!);

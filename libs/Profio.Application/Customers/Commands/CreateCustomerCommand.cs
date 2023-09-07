@@ -16,8 +16,8 @@ namespace Profio.Application.Customers.Commands;
   Description = "A Representation of list of Customer")]
 public record CreateCustomerCommand : CreateCommandBase
 {
-  public required string? Name { get; set; }
-  public required string? Phone { get; set; }
+  public required string Name { get; set; }
+  public required string Phone { get; set; }
   public string? Email { get; set; }
   public Gender? Gender { get; set; } = Domain.Constants.Gender.Male;
   public required Address? Address { get; set; }

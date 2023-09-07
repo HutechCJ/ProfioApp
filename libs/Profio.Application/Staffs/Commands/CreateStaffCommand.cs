@@ -1,5 +1,6 @@
 using AutoMapper;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
+using FluentValidation;
 using Profio.Application.CQRS.Events.Commands;
 using Profio.Application.CQRS.Handlers.Command;
 using Profio.Domain.Constants;
@@ -13,8 +14,8 @@ namespace Profio.Application.Staffs.Commands;
   Description = "A Representation of Staff")]
 public record CreateStaffCommand : CreateCommandBase
 {
-  public required string? Name { get; set; }
-  public string? Phone { get; set; }
+  public required string Name { get; set; }
+  public required string Phone { get; set; }
   public Position Position { get; set; } = Position.Driver;
 }
 
@@ -22,5 +23,21 @@ public class CreateStaffCommandHandler : CreateCommandHandlerBase<CreateStaffCom
 {
   public CreateStaffCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
+  }
+}
+
+public class CreateStaffCommandValidator : AbstractValidator<CreateStaffCommand>
+{
+  public CreateStaffCommandValidator()
+  {
+    RuleFor(s => s.Name)
+      .MaximumLength(50);
+
+    RuleFor(s => s.Phone)
+      .Length(10)
+      .Matches("^[0-9]*$");
+
+    RuleFor(s => s.Position)
+      .IsInEnum();
   }
 }
