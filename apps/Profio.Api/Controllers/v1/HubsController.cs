@@ -14,7 +14,7 @@ namespace Profio.Api.Controllers.v1;
 [Route("api/v1/[controller]")]
 [ApiController]
 [SwaggerTag("A hub endpoints")]
-public class HubsController : BaseEntityController<Hub, HubDto>
+public class HubsController : BaseEntityController<Hub, HubDto, GetHubByIdQuery>
 {
   [HttpGet]
   [MapToApiVersion("1.0")]
@@ -29,7 +29,7 @@ public class HubsController : BaseEntityController<Hub, HubDto>
   [HttpPost]
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<HubDto>>> Post(CreateHubCommand command)
-    => HandleCreateCommand(command, id => new GetHubByIdQuery(id));
+    => HandleCreateCommand(command);
 
   [HttpPut("{id:length(26)}")]
   [MapToApiVersion("1.0")]

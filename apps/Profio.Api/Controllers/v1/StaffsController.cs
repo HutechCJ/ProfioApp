@@ -10,10 +10,10 @@ namespace Profio.Api.Controllers.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Manage staffs")]
-public class StaffsController : BaseEntityController<Staff, StaffDto>
+public class StaffsController : BaseEntityController<Staff, StaffDto, GetStaffByIdQuery>
 {
   [HttpPost]
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<StaffDto>>> Post(CreateStaffCommand command)
-    => HandleCreateCommand(command, id => new GetStaffByIdQuery(id));
+    => HandleCreateCommand(command);
 }

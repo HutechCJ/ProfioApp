@@ -12,7 +12,7 @@ namespace Profio.Api.Controllers.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Manage customers")]
-public class CustomersController : BaseEntityController<Customer, CustomerDto>
+public class CustomersController : BaseEntityController<Customer, CustomerDto, GetCustomerByIdQuery>
 {
   [HttpGet]
   [MapToApiVersion("1.0")]
@@ -27,7 +27,7 @@ public class CustomersController : BaseEntityController<Customer, CustomerDto>
   [HttpPost]
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<CustomerDto>>> Post(CreateCustomerCommand command)
-    => HandleCreateCommand(command, id => new GetCustomerByIdQuery(id));
+    => HandleCreateCommand(command);
 
   [HttpPut("{id:length(26)}")]
   [MapToApiVersion("1.0")]

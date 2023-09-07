@@ -11,7 +11,7 @@ namespace Profio.Api.Controllers.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Manage routes between hubs")]
-public class RoutesController : BaseEntityController<RouteEntity, RouteDto>
+public class RoutesController : BaseEntityController<RouteEntity, RouteDto, GetRouteByIdQuery>
 {
   [HttpGet]
   [MapToApiVersion("1.0")]

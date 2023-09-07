@@ -8,22 +8,22 @@ using Profio.Domain.Models;
 
 namespace Profio.Api.Controllers;
 
-public class BaseEntityController<TEntity, TModel> : BaseController
+public class BaseEntityController<TEntity, TModel, TGetByIdQuery> : BaseController
   where TEntity : class, IEntity<object>
   where TModel : BaseModel
+  where TGetByIdQuery : GetByIdQueryBase<TModel>
 {
   protected async Task<ActionResult<ResultModel<IPagedList<TModel>>>> HandlePaginationQuery<TPaginationQuery>(TPaginationQuery query)
         where TPaginationQuery : GetWithPagingQueryBase<TEntity, TModel>
         => Ok(ResultModel<IPagedList<TModel>>.Create(await Mediator.Send(query)));
-  protected async Task<ActionResult<ResultModel<TModel>>> HandleGetByIdQuery<TGetQuery>(TGetQuery query)
-        where TGetQuery : GetByIdQueryBase<TModel>
+  protected async Task<ActionResult<ResultModel<TModel>>> HandleGetByIdQuery(TGetByIdQuery query)
         => Ok(ResultModel<TModel>.Create(await Mediator.Send(query)));
-  protected async Task<ActionResult<ResultModel<TModel>>> HandleCreateCommand<TCreateCommand, TQuery>(TCreateCommand command, Func<object, TQuery> getQuery)
+  protected async Task<ActionResult<ResultModel<TModel>>> HandleCreateCommand<TCreateCommand>(TCreateCommand command)
         where TCreateCommand : CreateCommandBase
-        where TQuery : GetByIdQueryBase<TModel>
   {
     var id = await Mediator.Send(command);
-    var model = await Mediator.Send(getQuery(id));
+    var query = Activator.CreateInstance(typeof(TGetByIdQuery), id) as TGetByIdQuery ?? throw new InvalidOperationException("Cannot create get by Id query!");
+    var model = await Mediator.Send(query);
 
     var domain = HttpContext.Request.GetDisplayUrl();
     var routeTemplate = ControllerContext.ActionDescriptor.AttributeRouteInfo!.Template;

@@ -12,7 +12,7 @@ namespace Profio.Api.Controllers.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Manage orders")]
-public class OrderController : BaseEntityController<Order, OrderDto>
+public class OrderController : BaseEntityController<Order, OrderDto, GetOrderByIdQuery>
 {
   [HttpGet]
   [MapToApiVersion("1.0")]
@@ -27,7 +27,7 @@ public class OrderController : BaseEntityController<Order, OrderDto>
   [HttpPost]
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<OrderDto>>> Post(CreateOrderCommand command)
-    => HandleCreateCommand(command, id => new GetOrderByIdQuery(id));
+    => HandleCreateCommand(command);
 
   [HttpPut("{id:length(26)}")]
   [MapToApiVersion("1.0")]

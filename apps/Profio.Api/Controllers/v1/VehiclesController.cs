@@ -12,7 +12,7 @@ namespace Profio.Api.Controllers.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Manage vehicles")]
-public class VehiclesController : BaseEntityController<Vehicle, VehicleDto>
+public class VehiclesController : BaseEntityController<Vehicle, VehicleDto, GetVehicleByIdQuery>
 {
   [HttpGet]
   [MapToApiVersion("1.0")]
@@ -27,7 +27,7 @@ public class VehiclesController : BaseEntityController<Vehicle, VehicleDto>
   [HttpPost]
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<VehicleDto>>> Post(CreateVehicleCommand command)
-    => HandleCreateCommand(command, id => new GetVehicleByIdQuery(id));
+    => HandleCreateCommand(command);
 
   [HttpPut("{id:length(26)}")]
   [MapToApiVersion("1.0")]
