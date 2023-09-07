@@ -30,7 +30,7 @@ public abstract class
   {
     var query = _repository
       .MultipleResultQuery()
-      .Page(request.Criteria.PageNumber, request.Criteria.PageSize);
+      .Page(request.Criteria.PageIndex, request.Criteria.PageSize);
 
     if (request.Criteria.Filter is { })
       query = (IMultipleResultQuery<TEntity>)query
