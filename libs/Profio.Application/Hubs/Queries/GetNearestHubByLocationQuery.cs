@@ -1,18 +1,14 @@
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using EntityFrameworkCore.Repository.Interfaces;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Profio.Domain.Entities;
-using Profio.Domain.Models;
 using Profio.Domain.ValueObjects;
-using Profio.Infrastructure.Exceptions;
 
 namespace Profio.Application.Hubs.Queries;
 
-public record GetNearestHubByLocationQuery(Location Location) : IRequest<ResultModel<HubDto>>;
-public class GetNearestHubByLocationQueryHandler : IRequestHandler<GetNearestHubByLocationQuery, ResultModel<HubDto>>
+public record GetNearestHubByLocationQuery(Location Location) : IRequest<HubDto>;
+public class GetNearestHubByLocationQueryHandler : IRequestHandler<GetNearestHubByLocationQuery, HubDto>
 {
   private readonly IRepository<Hub> _hubRepository;
   private readonly IMapper _mapper;
@@ -22,21 +18,21 @@ public class GetNearestHubByLocationQueryHandler : IRequestHandler<GetNearestHub
     _hubRepository = unitOfWork.Repository<Hub>();
     _mapper = mapper;
   }
-  public async Task<ResultModel<HubDto>> Handle(GetNearestHubByLocationQuery request, CancellationToken cancellationToken)
+  public async Task<HubDto> Handle(GetNearestHubByLocationQuery request, CancellationToken cancellationToken)
   {
-    var query = _hubRepository
-      .SingleResultQuery()
-      .AndFilter(hub => hub.Location != null)
-      .OrderBy(hub => CalculateDistance(request.Location, hub.Location!));
+    var getAllQuery = _hubRepository
+      .MultipleResultQuery();
 
-    var dto = await _hubRepository
-      .ToQueryable(query)
-      .AsSplitQuery()
-      .ProjectTo<HubDto>(_mapper.ConfigurationProvider)
-      .SingleOrDefaultAsync(cancellationToken) ?? throw new NotFoundException(typeof(Hub).Name);
+    var hubs = await _hubRepository
+      .SearchAsync(getAllQuery, cancellationToken);
 
-    return new(dto);
+    var hubAndDistances = hubs.Select(h => new HubAndDistance(h, CalculateDistance(h.Location!, request.Location)));
+
+    var nearestHubAndDistance = hubAndDistances.OrderBy(had => had.Distance).FirstOrDefault();
+
+    return _mapper.Map<HubDto>(nearestHubAndDistance!.Hub);
   }
+  record HubAndDistance(Hub Hub, double Distance);
   private static double CalculateDistance(Location location1, Location location2)
   {
     // Haversine formula for calculating distance between two points on Earth's surface

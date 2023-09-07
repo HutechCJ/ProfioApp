@@ -1,5 +1,7 @@
-﻿namespace Profio.Application.OrderHistories;
+using Profio.Application.CQRS;
+using Profio.Application.OrderHistories.Commands;
+using Profio.Domain.Entities;
 
-public class OrderHistoryProfile
-{
-}
+namespace Profio.Application.OrderHistories;
+
+public class OrderHistoryProfile : EntityProfileBase<OrderHistory, OrderHistoryDto, CreateOrderHistoryCommand, UpdateOrderHistoryCommand> { }

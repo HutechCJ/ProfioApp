@@ -12,7 +12,7 @@ namespace Profio.Infrastructure.System;
 
 public static class Extension
 {
-  private const string UnsupportedOs = "This OS is not supported";
+  private const string _unsupportedOs = "This OS is not supported";
 
   public static JObject GetPlatform(this IConfiguration config, IWebHostEnvironment env)
       => JObject.Parse(JsonConvert.SerializeObject(config.PlatformModel(env)));
@@ -82,7 +82,7 @@ public static class Extension
     }
 
     if (!RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && !RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-      return UnsupportedOs;
+      return _unsupportedOs;
 
     var cpuUsage = new Process
     {
@@ -112,7 +112,7 @@ public static class Extension
     }
 
     if (!RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && !RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-      return UnsupportedOs;
+      return _unsupportedOs;
     var memoryUsage = new Process
     {
       StartInfo = new ProcessStartInfo
@@ -140,7 +140,7 @@ public static class Extension
     }
 
     if (!RuntimeInformation.IsOSPlatform(OSPlatform.Linux) && !RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-      return UnsupportedOs;
+      return _unsupportedOs;
 
     var diskUsage = new Process
     {
