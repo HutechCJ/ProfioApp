@@ -31,7 +31,7 @@ public class CreateVehicleCommandHandler : CreateCommandHandlerBase<CreateVehicl
 
 public class CreateVehicleCommandValidator : AbstractValidator<CreateVehicleCommand>
 {
-  public CreateVehicleCommandValidator(StaffExistenceByNotNullIdValidator staffIdValidator)
+  public CreateVehicleCommandValidator(StaffExistenceByIdValidator staffIdValidator)
   {
     RuleFor(x => x.ZipCodeCurrent)
       .MaximumLength(10)

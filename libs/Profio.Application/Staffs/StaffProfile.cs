@@ -9,6 +9,6 @@ public class StaffProfile : Profile
   public StaffProfile()
   {
     CreateMap<Staff, StaffDto>().ReverseMap();
-    CreateMap<CreateStaffCommand, Staff>();
+    CreateMap<CreateStaffCommand, Staff>().ReverseMap();
   }
 }

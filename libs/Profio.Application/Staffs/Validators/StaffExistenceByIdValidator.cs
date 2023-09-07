@@ -4,9 +4,9 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Vehicles.Validators;
 
-public class StaffExistenceByNotNullIdValidator : EntityExistenceByIdValidator<Staff>
+public class StaffExistenceByIdValidator : EntityExistenceByIdValidator<Staff>
 {
-  public StaffExistenceByNotNullIdValidator(IRepositoryFactory unitOfWork) : base(unitOfWork)
+  public StaffExistenceByIdValidator(IRepositoryFactory unitOfWork) : base(unitOfWork)
   {
   }
 }

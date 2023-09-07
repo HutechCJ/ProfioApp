@@ -12,7 +12,7 @@ namespace Profio.Api.Controllers.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Manage orders")]
-public class OrderController : BaseEntityController<Order, OrderDto, GetOrderByIdQuery>
+public class OrdersController : BaseEntityController<Order, OrderDto, GetOrderByIdQuery>
 {
   [HttpGet]
   [MapToApiVersion("1.0")]

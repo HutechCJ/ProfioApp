@@ -28,7 +28,7 @@ public class UpdateVehicleCommandHandler : UpdateCommandHandlerBase<UpdateVehicl
 
 public class UpdateVehicleCommandValidator : UpdateCommandValidatorBase<UpdateVehicleCommand>
 {
-  public UpdateVehicleCommandValidator(StaffExistenceByNotNullIdValidator staffIdValidator)
+  public UpdateVehicleCommandValidator(StaffExistenceByIdValidator staffIdValidator)
   {
     RuleFor(x => x.ZipCodeCurrent)
       .MaximumLength(50);

@@ -16,4 +16,9 @@
     <ProjectReference Include="..\Profio.Infrastructure\Profio.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="OrderHistories\Commands\" />
+    <Folder Include="OrderHistories\Queries\" />
+  </ItemGroup>
+
 </Project>

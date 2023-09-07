@@ -4,7 +4,7 @@ using FluentValidation;
 using Profio.Application.CQRS.Events.Commands;
 using Profio.Application.CQRS.Handlers.Command;
 using Profio.Application.CQRS.Validators;
-using Profio.Application.Orders.Validators;
+using Profio.Application.Customers.Validators;
 using Profio.Domain.Constants;
 using Profio.Domain.Entities;
 using Profio.Domain.ValueObjects;
@@ -36,7 +36,7 @@ public class UpdateOrderCommandHandler : UpdateCommandHandlerBase<UpdateOrderCom
 
 public class UpdateOrderCommandValidator : AbstractValidator<UpdateOrderCommand>
 {
-  public UpdateOrderCommandValidator(CustomerExistenceByNotNullIdValidator customerIdValidator)
+  public UpdateOrderCommandValidator(CustomerExistenceByIdValidator customerIdValidator)
   {
     RuleFor(c => c.ExpectedDeliveryTime)
       .GreaterThan(c => c.StartedDate);
