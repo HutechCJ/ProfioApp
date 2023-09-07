@@ -35,7 +35,8 @@ public class CreateHubCommandValidator : AbstractValidator<CreateHubCommand>
   public CreateHubCommandValidator()
   {
     RuleFor(h => h.ZipCode)
-      .Length(10);
+      .Length(10)
+      .Matches("^[0-9]*$");
 
     RuleFor(c => c.Location)
       .SetValidator(new LocationValidator());

@@ -46,7 +46,7 @@ public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
 
     RuleFor(c => c.DestinationZipCode)
       .Matches("^[0-9]*$")
-      .MaximumLength(50);
+      .MaximumLength(10);
 
     RuleFor(c => c.Note)
       .MaximumLength(250);

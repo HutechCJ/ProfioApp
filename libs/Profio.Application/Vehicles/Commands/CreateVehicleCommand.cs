@@ -34,7 +34,8 @@ public class CreateVehicleCommandValidator : AbstractValidator<CreateVehicleComm
   public CreateVehicleCommandValidator(StaffExistenceByNotNullIdValidator staffIdValidator)
   {
     RuleFor(x => x.ZipCodeCurrent)
-      .MaximumLength(50);
+      .MaximumLength(10)
+      .Matches("^[0-9]*$");
 
     RuleFor(x => x.LicensePlate)
       .MaximumLength(50);

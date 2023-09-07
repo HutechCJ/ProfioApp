@@ -19,7 +19,7 @@ public record UpdateCustomerCommand(object Id) : UpdateCommandBase(Id)
   public required string? Name { get; set; }
   public required string? Phone { get; set; }
   public string? Email { get; set; }
-  public Gender? Gender { get; set; } = Domain.Constants.Gender.Male;
+  public Gender? Gender { get; set; }
   public required Address? Address { get; set; }
 }
 
@@ -35,8 +35,6 @@ public class UpdateCustomerCommandValidator : UpdateCommandValidatorBase<UpdateC
   public UpdateCustomerCommandValidator()
   {
     RuleFor(c => c.Name)
-      .NotEmpty()
-      .NotNull()
       .MaximumLength(50);
 
     RuleFor(c => c.Phone)

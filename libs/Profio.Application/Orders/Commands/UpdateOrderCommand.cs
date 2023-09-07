@@ -17,9 +17,9 @@ namespace Profio.Application.Orders.Commands;
   Description = "A Representation of list of Order")]
 public record UpdateOrderCommand(object Id) : UpdateCommandBase(Id)
 {
-  public DateTime StartedDate { get; set; } = DateTime.UtcNow;
+  public DateTime? StartedDate { get; set; }
   public DateTime? ExpectedDeliveryTime { get; set; }
-  public OrderStatus Status { get; set; } = OrderStatus.Pending;
+  public OrderStatus? Status { get; set; }
   public Address? DestinationAddress { get; set; }
   public required string? DestinationZipCode { get; set; }
   public string? Note { get; set; }
