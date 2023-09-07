@@ -1,14 +1,14 @@
 const axiosConfigs = {
     development: {
-        baseURL: 'http://localhost:9023/api/',
+        baseURL: 'http://localhost:4200/api/',
         timeout: 10000,
     },
     production: {
-        baseURL: 'http://localhost:9023/api/',
+        baseURL: 'http://localhost:4200/api/',
         timeout: 10000,
     },
     test: {
-        baseURL: 'http://localhost:9023/api/',
+        baseURL: 'http://localhost:4200/api/',
         timeout: 10000,
     },
 }

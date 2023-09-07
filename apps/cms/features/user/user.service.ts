@@ -1,31 +1,41 @@
 'use client'
+
 import {
     RegisterRequest,
     AuthUserResponse,
     User,
     LoginRequest,
+    AuthCheckResponse,
+    AuthUser,
 } from './user.types'
 import HttpService from '@/common/services/http.service'
 
 class UserApiService extends HttpService {
     constructor() {
-        super({ baseURL: 'https://64f593622b07270f705d628f.mockapi.io/api/' })
+        super({
+            baseURL: '/api/users',
+            withCredentials: true,
+        })
     }
 
     register(data: RegisterRequest) {
-        return this.post<AuthUserResponse>('/users', data)
+        return this.post<AuthUserResponse>('/register', data)
     }
 
     login(data: LoginRequest) {
-        return this.post<AuthUserResponse>('/users/login', data)
+        return this.post<AuthUser>('/login', data)
     }
 
     getUserById(id: string) {
-        return this.get<User>(`/users/${id}`)
+        return this.get<User>(`/${id}`)
     }
 
     getUsers() {
-        return this.get<User[]>(`/users`)
+        return this.get<User[]>(`/get-users`)
+    }
+
+    checkAuthorization() {
+        return this.get<User>(`/check-authorization`)
     }
 }
 

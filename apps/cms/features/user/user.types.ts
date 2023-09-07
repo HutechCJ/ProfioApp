@@ -1,4 +1,4 @@
-export interface User {
+export type User = {
     id: string
     userName: string
     email: string
@@ -14,7 +14,10 @@ export type RegisterRequest = Omit<User, 'id'> & Password
 
 export type LoginRequest = Pick<User, 'userName'> & Pick<Password, 'password'>
 
-export interface AuthUserResponse extends User {
-    token: string
-    tokenExpire: Date
-}
+export type AuthCheckResponse = ApiResponse<User>
+
+export type Tokens = { token: string; tokenExpire: Date }
+
+export type AuthUser = User & Tokens
+
+export type AuthUserResponse = ApiResponse<AuthUser>
