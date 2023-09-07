@@ -5,11 +5,10 @@ using EntityFrameworkCore.UnitOfWork.Interfaces;
 using MediatR;
 using Profio.Application.CQRS.Events.Commands;
 using Profio.Domain.Interfaces;
-using Profio.Domain.Models;
 
 namespace Profio.Application.CQRS.Handlers.Command;
 
-public class CreateCommandHandlerBase<TCommand, TEntity> : IRequestHandler<TCommand, ResultModel<object>>
+public class CreateCommandHandlerBase<TCommand, TEntity> : IRequestHandler<TCommand, object>
   where TCommand : CreateCommandBase
   where TEntity : class, IEntity<object>
 {
@@ -20,7 +19,7 @@ public class CreateCommandHandlerBase<TCommand, TEntity> : IRequestHandler<TComm
   public CreateCommandHandlerBase(IUnitOfWork unitOfWork, IMapper mapper) => (_unitOfWork, _mapper, _repository) =
     (unitOfWork, mapper, unitOfWork.Repository<TEntity>());
 
-  public async Task<ResultModel<object>> Handle(TCommand request, CancellationToken cancellationToken)
+  public async Task<object> Handle(TCommand request, CancellationToken cancellationToken)
   {
     var entity = _mapper.Map<TEntity>(request);
 
@@ -30,6 +29,6 @@ public class CreateCommandHandlerBase<TCommand, TEntity> : IRequestHandler<TComm
 
     _repository.RemoveTracking(entity);
 
-    return ResultModel<object>.Create(entity.Id);
+    return entity.Id;
   }
 }

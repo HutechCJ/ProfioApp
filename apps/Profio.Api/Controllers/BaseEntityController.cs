@@ -22,14 +22,14 @@ public class BaseEntityController<TEntity, TModel> : BaseController
         where TCreateCommand : CreateCommandBase
         where TQuery : GetByIdQueryBase<TModel>
   {
-    var result = await Mediator.Send(command);
-    var model = await Mediator.Send(getQuery(result.Data!));
+    var id = await Mediator.Send(command);
+    var model = await Mediator.Send(getQuery(id));
 
     var domain = HttpContext.Request.GetDisplayUrl();
     var routeTemplate = ControllerContext.ActionDescriptor.AttributeRouteInfo!.Template;
     var apiVersion = HttpContext.GetRequestedApiVersion()!.ToString();
 
-    return Created($"{domain}/{routeTemplate!.Replace("{version:apiVersion}", apiVersion)}/{result.Data}", model);
+    return Created($"{domain}/{routeTemplate!.Replace("{version:apiVersion}", apiVersion)}/{id}", model);
   }
 
   protected async Task<IActionResult> HandleUpdateCommand<TUpdateCommand>(string id, TUpdateCommand command)
