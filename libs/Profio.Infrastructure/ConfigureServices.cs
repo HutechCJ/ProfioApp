@@ -20,6 +20,7 @@ using Profio.Infrastructure.Searching;
 using Profio.Infrastructure.Swagger;
 using Profio.Infrastructure.Versioning;
 using System.IO.Compression;
+using System.Net.Mime;
 
 namespace Profio.Infrastructure;
 
@@ -44,11 +45,9 @@ public static class ConfigureServices
         options.Providers.Add<GzipCompressionProvider>();
         options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[]
         {
-          "application/json",
-          "application/xml",
-          "text/plain",
-          "image/png",
-          "image/jpeg"
+          MediaTypeNames.Application.Json,
+          MediaTypeNames.Text.Plain,
+          MediaTypeNames.Image.Jpeg
         });
       })
       .Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal)

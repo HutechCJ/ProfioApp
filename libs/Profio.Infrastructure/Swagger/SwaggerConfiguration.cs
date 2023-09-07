@@ -24,6 +24,12 @@ public static class SwaggerConfiguration
             Description = "Staging Environment"
           }
         };
+
+        swagger.ExternalDocs = new()
+        {
+          Description = "Github",
+          Url = new("https://github.com/HutechCJ/ProfioApp/")
+        };
       });
     });
 

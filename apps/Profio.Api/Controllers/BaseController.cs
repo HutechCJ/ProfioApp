@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -5,6 +6,7 @@ namespace Profio.Api.Controllers;
 
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]
+[Produces(MediaTypeNames.Application.Json)]
 public class BaseController : ControllerBase
 {
   private IMediator? _mediator;
