@@ -60,8 +60,8 @@ public static class Extensions
       {
         options.Cookie.Name = "USER-TOKEN";
         options.Cookie.HttpOnly = true;
-        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-        options.Cookie.SameSite = SameSiteMode.Strict;
+        options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+        options.Cookie.SameSite = SameSiteMode.Unspecified;
         options.ExpireTimeSpan = TimeSpan.FromDays(3);
         options.SlidingExpiration = true;
       })
