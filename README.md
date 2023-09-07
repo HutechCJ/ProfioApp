@@ -42,9 +42,6 @@ Profio Application
 	<li align="justify">
 		<b><a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10" 	target="_blank">WSL 2 - Ubuntu OS</a></b> - WSL 2 is a new version of the architecture 	that powers the Windows Subsystem for Linux to run ELF64 Linux binaries on 	Windows.
 	</li>
-	<li align="justify">
-		<b><a href="https://duendesoftware.com/" target="_blank">Duende IdentityServer</a></b> - Duende IdentityServer is a framework and 	middleware for ASP.NET Core that implements the spec-compliant OpenID 	Connect and OAuth 2.0 protocols.
-	</li>
 </ul>
 
 ## 📦 Services
