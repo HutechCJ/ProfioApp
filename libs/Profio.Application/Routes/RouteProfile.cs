@@ -1,12 +1,7 @@
-using AutoMapper;
+using Profio.Application.CQRS;
+using Profio.Application.Routes.Commands;
 using Profio.Domain.Entities;
 
 namespace Profio.Application.Routes;
 
-public class RouteProfile : Profile
-{
-  public RouteProfile()
-  {
-    CreateMap<Route, RouteDto>().ReverseMap();
-  }
-}
+public class RouteProfile : EntityProfileBase<Route, RouteDto, CreateRouteCommand, UpdateRouteCommand> { }

@@ -1,6 +1,7 @@
 using EntityFrameworkCore.Repository.Collections;
 using Microsoft.AspNetCore.Mvc;
 using Profio.Application.Routes;
+using Profio.Application.Routes.Commands;
 using Profio.Application.Routes.Queries;
 using Profio.Domain.Models;
 using Profio.Domain.Specifications;
@@ -22,4 +23,19 @@ public class RoutesController : BaseEntityController<RouteEntity, RouteDto, GetR
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<RouteDto>>> GetById(string id)
     => HandleGetByIdQuery(new GetRouteByIdQuery(id));
+
+  [HttpPost]
+  [MapToApiVersion("1.0")]
+  public Task<ActionResult<ResultModel<RouteDto>>> Post(CreateRouteCommand command)
+    => HandleCreateCommand(command);
+
+  [HttpPut("{id:length(26)}")]
+  [MapToApiVersion("1.0")]
+  public Task<IActionResult> Put([FromRoute] string id, [FromBody] UpdateRouteCommand command)
+    => HandleUpdateCommand(id, command);
+
+  [HttpDelete("{id:length(26)}")]
+  [MapToApiVersion("1.0")]
+  public Task<ActionResult<ResultModel<RouteDto>>> Delete(string id)
+    => HandleDeleteCommand(new DeleteRouteCommand(id));
 }
