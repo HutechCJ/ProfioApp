@@ -1,6 +1,8 @@
 'use client'
 
 import {
+    Alert,
+    AlertTitle,
     Avatar,
     Box,
     Button,
@@ -8,29 +10,47 @@ import {
     Container,
     FormControlLabel,
     Grid,
+    Stack,
     TextField,
     Typography,
 } from '@mui/material'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import React from 'react'
+import React, { useEffect } from 'react'
 import Link from '@/components/Link'
 import Copyright from '@/components/Copyright'
 import useLogin from '@/features/user/useLogin'
 import LoadingButton from '@/components/LoadingButton'
+import { useSnackbar } from 'notistack'
+import { redirect } from 'next/navigation'
 
 function SignIn() {
-    const { mutate: login, data: result, isLoading, isSuccess } = useLogin()
+    const { enqueueSnackbar } = useSnackbar()
+    const {
+        mutate: login,
+        data: result,
+        isLoading,
+        isSuccess,
+        error,
+        isError,
+    } = useLogin()
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
         const data = new FormData(event.currentTarget)
         login({
-            userName: data.get('email') as string,
+            userName: data.get('userName') as string,
             password: data.get('password') as string,
         })
     }
 
-    console.log(result)
+    useEffect(() => {
+        if (isSuccess) {
+            enqueueSnackbar(`Logged in!`, { variant: 'success' })
+            window.location.reload()
+        }
+    }, [isSuccess])
+
+    console.log(error)
 
     return (
         <Container component="main" maxWidth="xs">
@@ -58,10 +78,10 @@ function SignIn() {
                         margin="normal"
                         required
                         fullWidth
-                        id="email"
-                        label="Email Address"
-                        name="email"
-                        autoComplete="email"
+                        id="userName"
+                        label="Email"
+                        name="userName"
+                        autoComplete="userName"
                         autoFocus
                     />
                     <TextField
@@ -78,6 +98,12 @@ function SignIn() {
                         control={<Checkbox value="remember" color="primary" />}
                         label="Remember me"
                     />
+                    {isError && (
+                        <Alert severity="error">
+                            <AlertTitle>Error</AlertTitle>
+                            <Stack>{(error as any).response?.data?.data || 'Unknown Error'}</Stack>
+                        </Alert>
+                    )}
                     <LoadingButton
                         type="submit"
                         fullWidth
@@ -94,7 +120,7 @@ function SignIn() {
                             </Link>
                         </Grid>
                         <Grid item>
-                            <Link href="/signup" variant="body2">
+                            <Link href="/auth/sign-up" variant="body2">
                                 {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>

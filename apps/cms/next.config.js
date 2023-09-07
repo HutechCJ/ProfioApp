@@ -29,6 +29,14 @@ const nextConfig = {
             },
         ],
     },
+    async rewrites() {
+        return [
+            {
+                source: '/api/:path*',
+                destination: 'https://profio.azurewebsites.net/api/v1/:path*',
+            },
+        ]
+    },
 }
 
 const plugins = [

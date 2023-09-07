@@ -6,3 +6,11 @@ interface IAuthToken {
     access_token_expires_in?: number
     access_token_expires_at?: number
 }
+
+type Nullable<T> = T | null
+
+type ApiResponse<T> = {
+    data: T
+    isError: boolean
+    errorMessage: any
+}
