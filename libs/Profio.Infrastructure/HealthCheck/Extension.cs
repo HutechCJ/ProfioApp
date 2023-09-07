@@ -11,8 +11,6 @@ public static class Extension
 {
   public static WebApplicationBuilder AddHealthCheck(this WebApplicationBuilder builder)
   {
-
-    var url = Environment.ExpandEnvironmentVariables("%WEBSITE_SITE_NAME%");
     builder.Services.AddSingleton<HealthService>();
     builder.Services.AddHealthChecks()
       .AddCheck<HealthCheck>("Health Check", tags: new[] { "health check" })
@@ -27,7 +25,7 @@ public static class Extension
       .AddHangfire(_ => { }, name: "HangFire", tags: new[] { "jobs" })
       .AddSignalRHub(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
         ? "https://localhost:9023/current-location"
-        : $"{string.Format("https://{0}.azurewebsites.net", Environment.ExpandEnvironmentVariables("%WEBSITE_SITE_NAME%"))}/current-location",
+        : $"https://{Environment.ExpandEnvironmentVariables("%WEBSITE_SITE_NAME%")}.azurewebsites.net/current-location",
         name: "SignalR",
         tags: new[] { "hub" });
 
