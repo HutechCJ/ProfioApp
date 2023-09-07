@@ -9,7 +9,7 @@ public class CriteriaValidator<TEntity> : AbstractValidator<Criteria<TEntity>>
 {
   public CriteriaValidator()
   {
-    RuleFor(x => x.PageNumber)
+    RuleFor(x => x.PageIndex)
       .GreaterThanOrEqualTo(1).WithMessage("PageNumber at least greater than or equal to 1.");
 
     RuleFor(x => x.PageSize)

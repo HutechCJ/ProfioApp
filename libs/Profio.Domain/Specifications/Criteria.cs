@@ -8,6 +8,6 @@ public class Criteria<T> where T : IEntity<object>
   public string? OrderBy { get; set; }
   public string? OrderByDescending { get; set; }
   public List<string> IncludeStrings { get; } = new List<string>();
-  public int PageNumber { get; set; } = 1;
+  public int PageIndex { get; set; } = 1;
   public int PageSize { get; set; } = 10;
 }
