@@ -45,6 +45,12 @@ dependencies:
   # JSON
   json_annotation: ^4.8.1
 
+  # Http
+  dio: ^5.3.2
+
+  # Connection
+  connectivity_plus: ^4.0.2
+
 
 dev_dependencies:
   flutter_test:
