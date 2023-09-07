@@ -28,7 +28,7 @@ public class HubsController : BaseEntityController<Hub, HubDto>
 
   [HttpPost]
   [MapToApiVersion("1.0")]
-  public Task<ActionResult<ResultModel<object>>> Post(CreateHubCommand command)
+  public Task<ActionResult<ResultModel<HubDto>>> Post(CreateHubCommand command)
     => HandleCreateCommand(command, id => new GetHubByIdQuery(id));
 
   [HttpPut("{id:length(26)}")]

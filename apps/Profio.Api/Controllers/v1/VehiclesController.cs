@@ -26,7 +26,7 @@ public class VehiclesController : BaseEntityController<Vehicle, VehicleDto>
 
   [HttpPost]
   [MapToApiVersion("1.0")]
-  public Task<ActionResult<ResultModel<object>>> Post(CreateVehicleCommand command)
+  public Task<ActionResult<ResultModel<VehicleDto>>> Post(CreateVehicleCommand command)
     => HandleCreateCommand(command, id => new GetVehicleByIdQuery(id));
 
   [HttpPut("{id:length(26)}")]

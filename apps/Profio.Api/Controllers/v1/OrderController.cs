@@ -1,7 +1,7 @@
 using EntityFrameworkCore.Repository.Collections;
 using Microsoft.AspNetCore.Mvc;
-using Profio.Application.Orders.Commands;
 using Profio.Application.Orders;
+using Profio.Application.Orders.Commands;
 using Profio.Application.Orders.Queries;
 using Profio.Domain.Entities;
 using Profio.Domain.Models;
@@ -26,7 +26,7 @@ public class OrderController : BaseEntityController<Order, OrderDto>
 
   [HttpPost]
   [MapToApiVersion("1.0")]
-  public Task<ActionResult<ResultModel<object>>> Post(CreateOrderCommand command)
+  public Task<ActionResult<ResultModel<OrderDto>>> Post(CreateOrderCommand command)
     => HandleCreateCommand(command, id => new GetOrderByIdQuery(id));
 
   [HttpPut("{id:length(26)}")]

@@ -11,7 +11,7 @@ using Profio.Infrastructure.Exceptions;
 
 namespace Profio.Application.CQRS.Handlers.Queries;
 
-public abstract class GetByIdQueryHandlerBase<TQuery, TModel, TEntity> : IRequestHandler<TQuery, ResultModel<TModel>>
+public abstract class GetByIdQueryHandlerBase<TQuery, TModel, TEntity> : IRequestHandler<TQuery, TModel>
   where TQuery : GetByIdQueryBase<TModel>
   where TModel : BaseModel
   where TEntity : class, IEntity<object>
@@ -22,7 +22,7 @@ public abstract class GetByIdQueryHandlerBase<TQuery, TModel, TEntity> : IReques
   protected GetByIdQueryHandlerBase(IRepositoryFactory unitOfWork, IMapper mapper)
     => (_repository, _mapper) = (unitOfWork.Repository<TEntity>(), mapper);
 
-  public async Task<ResultModel<TModel>> Handle(TQuery request, CancellationToken cancellationToken)
+  public async Task<TModel> Handle(TQuery request, CancellationToken cancellationToken)
   {
     ArgumentNullException.ThrowIfNull(request);
 
@@ -36,6 +36,6 @@ public abstract class GetByIdQueryHandlerBase<TQuery, TModel, TEntity> : IReques
       .ProjectTo<TModel>(_mapper.ConfigurationProvider)
       .SingleOrDefaultAsync(cancellationToken) ?? throw new NotFoundException(typeof(TEntity).Name, request.Id);
 
-    return new(data);
+    return data;
   }
 }

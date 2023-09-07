@@ -26,7 +26,7 @@ public class CustomersController : BaseEntityController<Customer, CustomerDto>
 
   [HttpPost]
   [MapToApiVersion("1.0")]
-  public Task<ActionResult<ResultModel<object>>> Post(CreateCustomerCommand command)
+  public Task<ActionResult<ResultModel<CustomerDto>>> Post(CreateCustomerCommand command)
     => HandleCreateCommand(command, id => new GetCustomerByIdQuery(id));
 
   [HttpPut("{id:length(26)}")]

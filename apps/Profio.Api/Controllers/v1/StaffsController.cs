@@ -14,6 +14,6 @@ public class StaffsController : BaseEntityController<Staff, StaffDto>
 {
   [HttpPost]
   [MapToApiVersion("1.0")]
-  public Task<ActionResult<ResultModel<object>>> Post(CreateStaffCommand command)
+  public Task<ActionResult<ResultModel<StaffDto>>> Post(CreateStaffCommand command)
     => HandleCreateCommand(command, id => new GetStaffByIdQuery(id));
 }

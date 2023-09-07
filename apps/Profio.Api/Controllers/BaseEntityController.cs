@@ -17,8 +17,8 @@ public class BaseEntityController<TEntity, TModel> : BaseController
         => Ok(await Mediator.Send(query));
   protected async Task<ActionResult<ResultModel<TModel>>> HandleGetByIdQuery<TGetQuery>(TGetQuery query)
         where TGetQuery : GetByIdQueryBase<TModel>
-        => Ok(await Mediator.Send(query));
-  protected async Task<ActionResult<ResultModel<object>>> HandleCreateCommand<TCreateCommand, TQuery>(TCreateCommand command, Func<object, TQuery> getQuery)
+        => Ok(ResultModel<TModel>.Create(await Mediator.Send(query)));
+  protected async Task<ActionResult<ResultModel<TModel>>> HandleCreateCommand<TCreateCommand, TQuery>(TCreateCommand command, Func<object, TQuery> getQuery)
         where TCreateCommand : CreateCommandBase
         where TQuery : GetByIdQueryBase<TModel>
   {
@@ -29,7 +29,7 @@ public class BaseEntityController<TEntity, TModel> : BaseController
     var routeTemplate = ControllerContext.ActionDescriptor.AttributeRouteInfo!.Template;
     var apiVersion = HttpContext.GetRequestedApiVersion()!.ToString();
 
-    return Created($"{domain}/{routeTemplate!.Replace("{version:apiVersion}", apiVersion)}/{id}", model);
+    return Created($"{domain}/{routeTemplate!.Replace("{version:apiVersion}", apiVersion)}/{id}", ResultModel<TModel>.Create(model));
   }
 
   protected async Task<IActionResult> HandleUpdateCommand<TUpdateCommand>(string id, TUpdateCommand command)
