@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Profio.Application.Seed.Queries;
+using Profio.Infrastructure.Key;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Api.Controllers.v1;
@@ -8,6 +9,7 @@ namespace Profio.Api.Controllers.v1;
 [SwaggerTag("Seed Data")]
 public class SeedController : BaseController
 {
+  [ApiKey]
   [HttpGet]
   [MapToApiVersion("1.0")]
   public async Task<IActionResult> GetNotFoundAsync()

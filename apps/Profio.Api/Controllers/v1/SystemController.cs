@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Profio.Domain.Constants;
+using Profio.Infrastructure.Key;
 using Profio.Infrastructure.System;
 using Swashbuckle.AspNetCore.Annotations;
 using Extension = Profio.Infrastructure.System.Extension;
@@ -18,12 +19,14 @@ public class SystemController : BaseController
   public SystemController(IConfiguration config, IWebHostEnvironment env)
     => (_config, _env) = (config, env);
 
+  [ApiKey]
   [HttpGet]
   [MapToApiVersion("1.0")]
   [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
   public IActionResult GetPlatform()
     => Ok(_config.GetPlatform(_env));
 
+  [ApiKey]
   [HttpGet("status")]
   [MapToApiVersion("1.0")]
   public IActionResult GetServerStatus()

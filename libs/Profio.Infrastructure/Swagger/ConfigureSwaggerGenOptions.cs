@@ -57,32 +57,53 @@ public class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOptions>
     }
 
     options.AddSecurityDefinition("Bearer", new()
-      {
-        Name = "Authorization",
-        Description = "Enter the Bearer Authorization string as following: `Generated-JWT-Token`",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.Http,
-        Scheme = JwtBearerDefaults.AuthenticationScheme
-      });
+    {
+      Name = "Authorization",
+      Description = "Enter the Bearer Authorization string as following: `Generated-JWT-Token`",
+      In = ParameterLocation.Header,
+      Type = SecuritySchemeType.Http,
+      Scheme = JwtBearerDefaults.AuthenticationScheme
+    });
 
-      options.AddSecurityRequirement(new()
+    options.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
+    {
+      Description = "ApiKey must appear in header",
+      Type = SecuritySchemeType.ApiKey,
+      Name = "X-API-Key",
+      In = ParameterLocation.Header,
+      Scheme = "ApiKeyScheme"
+    });
+
+    options.AddSecurityRequirement(new()
+    {
       {
+        new()
         {
-          new()
+          Name = JwtBearerDefaults.AuthenticationScheme,
+          In = ParameterLocation.Header,
+          Reference = new()
           {
-            Name = JwtBearerDefaults.AuthenticationScheme,
-            In = ParameterLocation.Header,
-            Reference = new()
-            {
-              Id = JwtBearerDefaults.AuthenticationScheme,
-              Type = ReferenceType.SecurityScheme
-            }
+            Id = JwtBearerDefaults.AuthenticationScheme,
+            Type = ReferenceType.SecurityScheme
+          }
+        },
+        new List<string>()
+      },
+      {
+        new()
+        {
+          Reference = new()
+          {
+            Type = ReferenceType.SecurityScheme,
+            Id = "ApiKey"
           },
-          new List<string>()
-        }
-      });
+          In = ParameterLocation.Header
+        },
+        new List<string>()
+      }
+    });
 
-      options.ResolveConflictingActions(apiDescription => apiDescription.First());
-      options.EnableAnnotations();
+    options.ResolveConflictingActions(apiDescription => apiDescription.First());
+    options.EnableAnnotations();
   }
 }
