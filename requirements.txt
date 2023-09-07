@@ -4,7 +4,9 @@ certifi==2023.7.22
 charset-normalizer==3.2.0
 click==8.1.7
 colorama==0.4.6
-idna==3.4
+cssselect==1.2.0
+diagrams==0.23.3
+ghp-import==2.1.0
 Jinja2==3.1.2
 lxml==4.9.3
 Markdown==3.4.4
@@ -29,7 +31,6 @@ regex==2023.8.8
 requests==2.31.0
 six==1.16.0
 soupsieve==2.5
+typed-ast==1.5.5
 urllib3==2.0.4
 watchdog==3.0.0
-diagrams~=0.23.3
-setuptools~=65.5.1
