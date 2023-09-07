@@ -14,7 +14,6 @@ from diagrams.generic.device import Mobile
 with Diagram("Profio API", show=False, direction="LR"):
   lb = Yarp("Load Balancer")
   otelcollector = Custom("OpenTelemetry Collector", "./resources/otel.png")
-  duende = Custom("IdentityServer", "./resources/duende.png")
   broker = Custom("MQTT Broker", "./resources/emqtt.png")
   hc = Custom("Health Check", "./resources/health-check.png")
 
@@ -28,8 +27,6 @@ with Diagram("Profio API", show=False, direction="LR"):
     api >> cache
 
   lb >> api
-  lb >> duende
-  duende >> db
   api >> otelcollector
   Mobile("Driver App") >> broker >> api
   api >> hc
@@ -46,4 +43,3 @@ with Diagram("Profio API", show=False, direction="LR"):
   otelcollector >> Jaeger
   otelcollector >> ELK
   otelcollector >> Zipkin
-
