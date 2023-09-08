@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
+using Profio.Infrastructure.Exceptions;
 using Profio.Infrastructure.Persistence.Optimization;
 
 namespace Profio.Infrastructure.Persistence;
@@ -76,7 +77,7 @@ public static class Extension
       {
         logger.LogError("Connection String: {conn}",
             dbFacadeResolver.Database.GetConnectionString());
-        throw new("Can not connect to database");
+        throw new ConnectDatabaseException();
       }
 
       var migrations = await dbFacadeResolver.Database.GetPendingMigrationsAsync();
