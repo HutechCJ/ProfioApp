@@ -21,6 +21,7 @@ using Profio.Infrastructure.Swagger;
 using Profio.Infrastructure.Versioning;
 using System.IO.Compression;
 using System.Net.Mime;
+using Profio.Infrastructure.Key;
 
 namespace Profio.Infrastructure;
 
@@ -89,6 +90,8 @@ public static class ConfigureServices
     services.AddMqttBus(builder.Configuration);
 
     services.AddApplicationIdentity(builder);
+
+    services.AddApiKey();
   }
 
   public static async Task UseWebInfrastructureAsync(this WebApplication app)

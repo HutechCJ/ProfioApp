@@ -5,13 +5,12 @@ using LinqKit;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Profio.Domain.Models;
 using Profio.Infrastructure.Identity;
 
 namespace Profio.Application.Users.Commands.ChangePassword;
 
-public record ChangePasswordCommand(string OldPassword, string NewPassword, string ConfirmPassword) : IRequest<ResultModel<AccountDto>>;
-public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand, ResultModel<AccountDto>>
+public record ChangePasswordCommand(string OldPassword, string NewPassword, string ConfirmPassword) : IRequest<AccountDto>;
+public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand, AccountDto>
 {
   private readonly UserManager<ApplicationUser> _userManager;
   private readonly IMapper _mapper;
@@ -25,7 +24,7 @@ public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordComman
     _tokenService = tokenService;
     _httpContextAccessor = httpContextAccessor;
   }
-  public async Task<ResultModel<AccountDto>> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
+  public async Task<AccountDto> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
   {
     var failures = new List<ValidationFailure>();
     if (_httpContextAccessor.HttpContext is null)
@@ -54,6 +53,6 @@ public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordComman
     var dto = _mapper.Map<AccountDto>(user);
     dto.Token = _tokenService.CreateToken(user);
     dto.TokenExpire = _tokenService.GetExpireDate(dto.Token);
-    return new(dto);
+    return dto;
   }
 }

@@ -8,7 +8,6 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Profio.Infrastructure.Persistence;
 using System.Text;
-using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
 
 namespace Profio.Infrastructure.Identity;
 
@@ -45,39 +44,38 @@ public static class Extensions
         })
       .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
         options =>
-        options.TokenValidationParameters = new()
-        {
-          ValidateIssuerSigningKey = true,
-          IssuerSigningKey = key,
-          ValidateIssuer = false,
-          ValidateAudience = false,
-          ValidateLifetime = true,
-          ClockSkew = TimeSpan.FromSeconds(5)
-        }
+          options.TokenValidationParameters = new()
+          {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = key,
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.FromSeconds(5)
+          }
       )
       .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
         options =>
-      {
-        options.Cookie.Name = "USER-TOKEN";
-        options.Cookie.HttpOnly = true;
-        options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
-        options.Cookie.SameSite = SameSiteMode.Unspecified;
-        options.ExpireTimeSpan = TimeSpan.FromDays(3);
-        options.SlidingExpiration = true;
-      })
+        {
+          options.Cookie.Name = "USER-TOKEN";
+          options.Cookie.HttpOnly = true;
+          options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+          options.ExpireTimeSpan = TimeSpan.FromDays(3);
+          options.SlidingExpiration = true;
+        })
       .AddPolicyScheme(
         IdentityConstants.ApplicationScheme,
         IdentityConstants.ApplicationScheme,
         options =>
-      {
-        options.ForwardDefaultSelector = context =>
         {
-          var authHeader = context.Request.Headers[HeaderNames.Authorization].FirstOrDefault();
-          return authHeader?.StartsWith("Bearer ") == true
-            ? JwtBearerDefaults.AuthenticationScheme
-            : CookieAuthenticationDefaults.AuthenticationScheme;
-        };
-      });
+          options.ForwardDefaultSelector = context =>
+          {
+            var authHeader = context.Request.Headers[HeaderNames.Authorization].FirstOrDefault();
+            return authHeader?.StartsWith("Bearer ") == true
+              ? JwtBearerDefaults.AuthenticationScheme
+              : CookieAuthenticationDefaults.AuthenticationScheme;
+          };
+        });
 
     services.AddScoped<IUserAccessor, UserAccessor>();
   }

@@ -4,7 +4,6 @@ using FluentValidation.Results;
 using LinqKit;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Profio.Domain.Models;
 using Profio.Infrastructure.Identity;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -14,9 +13,9 @@ namespace Profio.Application.Users.Commands.Register;
   Title = "Register Request",
   Description = "A Representation of Register Account")]
 public record RegisterCommand
-  (string Email, string FullName, string Password, string ConfirmPassword) : IRequest<ResultModel<AccountDto>>;
+  (string Email, string FullName, string Password, string ConfirmPassword) : IRequest<AccountDto>;
 
-public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ResultModel<AccountDto>>
+public class RegisterCommandHandler : IRequestHandler<RegisterCommand, AccountDto>
 {
   private readonly IMapper _mapper;
   private readonly ITokenService _tokenService;
@@ -25,7 +24,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ResultMod
   public RegisterCommandHandler(UserManager<ApplicationUser> userManager, IMapper mapper, ITokenService tokenService)
     => (_userManager, _mapper, _tokenService) = (userManager, mapper, tokenService);
 
-  public async Task<ResultModel<AccountDto>> Handle(RegisterCommand request, CancellationToken cancellationToken)
+  public async Task<AccountDto> Handle(RegisterCommand request, CancellationToken cancellationToken)
   {
     var failures = new List<ValidationFailure>();
     if (_userManager.Users.Any(u => u.UserName == request.Email))
@@ -56,7 +55,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, ResultMod
 
     var dto = _mapper.Map<AccountDto>(user);
     dto.Token = _tokenService.CreateToken(user);
-    return ResultModel<AccountDto>.Create(dto);
+    return dto;
   }
 }
 

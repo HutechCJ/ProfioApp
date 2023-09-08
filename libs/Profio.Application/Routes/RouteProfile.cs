@@ -1,4 +1,4 @@
-using Profio.Application.CQRS;
+using Profio.Application.Abstractions.CQRS;
 using Profio.Application.Routes.Commands;
 using Profio.Domain.Entities;
 

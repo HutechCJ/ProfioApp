@@ -8,8 +8,6 @@ try
 {
   var builder = WebApplication.CreateBuilder(args);
 
-  builder.Services.AddControllers();
-
   var app = await builder
     .ConfigureServices()
     .ConfigurePipelineAsync();

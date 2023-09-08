@@ -5,7 +5,7 @@ namespace Profio.Domain.Entities;
 
 public class DeliveryProgress : IEntity
 {
-  public string Id { get; set; } = Ulid.NewUlid().ToString();
+  public string Id { get; set; } = Ulid.NewUlid().ToString()!;
   public Location? CurrentLocation { get; set; }
   public byte PercentComplete { get; set; } = 0;
   public TimeSpan? EstimatedTimeRemaining { get; set; }

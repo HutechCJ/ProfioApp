@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Profio.Application;
 using Profio.Infrastructure;
+using Profio.Infrastructure.Persistence;
 using Profio.Infrastructure.Swagger;
 
 namespace Profio.Api.Extensions;
@@ -25,6 +27,9 @@ public static class HostingExtensions
 
   public static async Task<WebApplication> ConfigurePipelineAsync(this WebApplication app)
   {
+    var migration = new MigrationBuilder("Profio.Infrastructure.Persistence.Migrations");
+    migration.MigrateDataFromScript();
+
     app.UseOpenApi()
       .UseDeveloperExceptionPage()
       .UseRedocly()
@@ -37,7 +42,9 @@ public static class HostingExtensions
     app.MapControllers()
       .RequirePerUserRateLimit();
     app.UseRateLimiter();
+
     await app.UseWebInfrastructureAsync();
+    await app.DoDbMigrationAsync(app.Logger);
 
     return app;
   }

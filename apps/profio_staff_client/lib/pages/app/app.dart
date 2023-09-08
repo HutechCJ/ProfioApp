@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:profio_staff_client/managers/provider_manager.dart';
 import 'package:profio_staff_client/managers/router_manager.dart';
+import 'package:provider/provider.dart';
 
 class App extends StatefulWidget {
   const App({super.key});
@@ -29,13 +31,16 @@ class _AppState extends State<App> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
-      themeMode: ThemeMode.light,
-      routes: {...RouteManager.routes},
-      initialRoute: RouteManager.home,
+    return MultiProvider(
+      providers: [...ProviderManager.providers],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
+        themeMode: ThemeMode.light,
+        routes: {...RouteManager.routes},
+        initialRoute: RouteManager.home,
+      ),
     );
   }
 }
