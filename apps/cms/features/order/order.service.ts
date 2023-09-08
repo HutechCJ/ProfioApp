@@ -4,11 +4,11 @@ import { Order } from './order.types'
 import HttpService from '@/common/services/http.service'
 
 class OrderApiService extends HttpService {
-    constructor() {
-        super({
-            withCredentials: true,
-        })
-    }
+    // constructor() {
+    //     super({
+    //         withCredentials: true,
+    //     })
+    // }
 
     getOrders(options?: Partial<PagingOptions>) {
         let query = ''

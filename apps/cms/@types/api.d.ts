@@ -1,4 +1,4 @@
-type ApiResponse<T> = {
+type ApiResponse<T = any> = {
     data: T
     isError: boolean
     errorMessage: any
