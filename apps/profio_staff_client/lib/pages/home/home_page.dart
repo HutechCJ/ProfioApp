@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:profio_staff_client/widgets/mqtt_connection_button.dart';
+import 'package:profio_staff_client/widgets/vehicle_list.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -8,9 +9,12 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Home')),
-      body: const Row(children: [
+      body: const Column(children: [
         Expanded(
           child: MQTTConnectionButton(),
+        ),
+        Expanded(
+          child: VehicleList(),
         ),
       ]),
     );
