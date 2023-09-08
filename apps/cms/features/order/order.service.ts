@@ -1,17 +1,14 @@
 'use client'
 
+import { getPagingQueryString } from '@/common/utils/string'
 import { Order } from './order.types'
 import HttpService from '@/common/services/http.service'
 
 class OrderApiService extends HttpService {
     getOrders(options?: Partial<PagingOptions>) {
-        let query = ''
-        if (options) {
-            query += '?'
-            query += Object.entries(options)
-                .map((value) => `${value[0]}=${value[1]}`)
-                .join('&')
-        }
+        const query = options
+            ? getPagingQueryString(options)
+            : ''
         return this.get<Paging<Order>>(`/orders/${query}`)
     }
 
