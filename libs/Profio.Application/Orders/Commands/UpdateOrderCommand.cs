@@ -3,7 +3,7 @@ using EntityFrameworkCore.UnitOfWork.Interfaces;
 using FluentValidation;
 using Profio.Application.Abstractions.CQRS.Events.Commands;
 using Profio.Application.Abstractions.CQRS.Handlers.Command;
-using Profio.Application.CQRS.Validators;
+using Profio.Application.Abstractions.CQRS.Validators;
 using Profio.Application.Customers.Validators;
 using Profio.Domain.Constants;
 using Profio.Domain.Entities;
