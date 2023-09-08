@@ -8,6 +8,6 @@ const useUser = () => {
         keepPreviousData: true,
     })
 
-    return data ?? null
+    return data?.data ?? null
 }
 export default useUser

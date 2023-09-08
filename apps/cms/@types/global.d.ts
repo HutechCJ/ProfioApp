@@ -8,9 +8,3 @@ interface IAuthToken {
 }
 
 type Nullable<T> = T | null
-
-type ApiResponse<T> = {
-    data: T
-    isError: boolean
-    errorMessage: any
-}

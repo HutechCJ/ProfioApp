@@ -1,14 +1,17 @@
-const axiosConfigs = {
+export const axiosConfigs: {[key: string]: AxiosRequestConfig} = {
     development: {
-        baseURL: 'http://localhost:4200/api/',
+        baseURL: '/api-dev',
+        withCredentials: true,
         timeout: 10000,
     },
     production: {
-        baseURL: 'http://localhost:4200/api/',
+        baseURL: '/api',
+        withCredentials: true,
         timeout: 10000,
     },
     test: {
-        baseURL: 'http://localhost:4200/api/',
+        baseURL: '/api-test',
+        withCredentials: true,
         timeout: 10000,
     },
 }

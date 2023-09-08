@@ -1,27 +1,25 @@
 'use client'
 
+import Copyright from '@/components/Copyright'
+import Link from '@/components/Link'
+import LoadingButton from '@/components/LoadingButton'
+import useLogin from '@/features/user/useLogin'
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import {
     Alert,
     AlertTitle,
     Avatar,
     Box,
-    Button,
     Checkbox,
     Container,
     FormControlLabel,
     Grid,
     Stack,
     TextField,
-    Typography,
+    Typography
 } from '@mui/material'
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import React, { useEffect } from 'react'
-import Link from '@/components/Link'
-import Copyright from '@/components/Copyright'
-import useLogin from '@/features/user/useLogin'
-import LoadingButton from '@/components/LoadingButton'
 import { useSnackbar } from 'notistack'
-import { redirect } from 'next/navigation'
+import React, { useEffect } from 'react'
 
 function SignIn() {
     const { enqueueSnackbar } = useSnackbar()
@@ -46,11 +44,10 @@ function SignIn() {
     useEffect(() => {
         if (isSuccess) {
             enqueueSnackbar(`Logged in!`, { variant: 'success' })
+            alert(`${result.data.toString()}`)
             window.location.reload()
         }
     }, [isSuccess])
-
-    console.log(error)
 
     return (
         <Container component="main" maxWidth="xs">
@@ -82,7 +79,6 @@ function SignIn() {
                         label="Email"
                         name="userName"
                         autoComplete="userName"
-                        autoFocus
                     />
                     <TextField
                         margin="normal"
@@ -101,7 +97,10 @@ function SignIn() {
                     {isError && (
                         <Alert severity="error">
                             <AlertTitle>Error</AlertTitle>
-                            <Stack>{(error as any).response?.data?.data || 'Unknown Error'}</Stack>
+                            <Stack>
+                                {(error as any).response?.data?.data ||
+                                    'Unknown Error'}
+                            </Stack>
                         </Alert>
                     )}
                     <LoadingButton

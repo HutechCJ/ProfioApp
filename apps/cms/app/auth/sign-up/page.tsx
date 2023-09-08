@@ -48,8 +48,10 @@ function SignUp() {
 
     useEffect(() => {
         if (isSuccess) {
-            enqueueSnackbar(`Registered! Redirecting you to signin page...`, { variant: 'success' })
-            redirect("/auth/sign-in")
+            enqueueSnackbar(`Registered! Redirecting you to signin page...`, {
+                variant: 'success',
+            })
+            redirect('/auth/sign-in')
         }
     }, [isSuccess])
 
@@ -84,7 +86,6 @@ function SignUp() {
                                 fullWidth
                                 id="fullName"
                                 label="Full Name"
-                                autoFocus
                             />
                         </Grid>
                         <Grid item xs={12}>
@@ -147,11 +148,11 @@ function SignUp() {
                                     (error as any).response.data.data as {
                                         [key: string]: any
                                     }
-                                ).flat().map((value, i) => (
-                                    <span key={`error_${i}`}>
-                                        {value}
-                                    </span>
-                                ))}
+                                )
+                                    .flat()
+                                    .map((value, i) => (
+                                        <span key={`error_${i}`}>{value}</span>
+                                    ))}
                             </Stack>
                         </Alert>
                     )}

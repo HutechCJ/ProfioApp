@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import {
+import axios, {
     AxiosError,
     AxiosInstance,
     AxiosRequestConfig,
     AxiosResponse,
 } from 'axios'
-import axios from 'axios'
 import localStorageService from './localStorage.service'
 import StoreKeys from '@/common/constants/storekeys'
 import HttpStatusCode from '@/common/constants/httpStatusCode'
@@ -19,7 +18,9 @@ export default class HttpService {
     constructor(config = axiosConfig) {
         const axiosConfigs = config
 
-        const instance = axios.create({ ...axiosConfigs })
+        const instance = axios.create({
+            ...axiosConfigs,
+        })
         Object.assign(instance, this.setupInterceptorsTo(instance))
         this.instance = instance
     }
@@ -37,9 +38,11 @@ export default class HttpService {
 
     private onRequest = async (config: AxiosRequestConfig) => {
         const token = localStorageService.get(StoreKeys.ACCESS_TOKEN, '')
-        config.headers = {
-            ...config.headers,
-            Authorization: `Bearer ${token}`,
+        if (token) {
+            config.headers = {
+                ...config.headers,
+                Authorization: `Bearer ${token}`,
+            }
         }
         return config
     }
@@ -88,24 +91,24 @@ export default class HttpService {
         return axiosInstance
     }
 
-    public async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-        return (await this.instance.get<T>(`${url}`, config)) as T
+    public async get<T>(url: string, config?: AxiosRequestConfig) {
+        return await this.instance.get<T, ApiResponse<T>>(`${url}`, config)
     }
 
     public async post<T>(url: string, data?: any, config?: AxiosRequestConfig) {
-        return await this.instance.post<T>(url, data, config)
+        return await this.instance.post<T, ApiResponse<T>>(url, data, config)
     }
 
     public async put<T>(url: string, data?: any, config?: AxiosRequestConfig) {
-        return await this.instance.put<T>(url, data, config)
+        return await this.instance.put<T, ApiResponse<T>>(url, data, config)
     }
 
     public async patch<T>(url: string, data: any, config?: AxiosRequestConfig) {
-        return await this.instance.patch<T>(url, data, config)
+        return await this.instance.patch<T, ApiResponse<T>>(url, data, config)
     }
 
-    public async delete(url: string, config?: AxiosRequestConfig) {
-        return await this.instance.delete(url, config)
+    public async delete<T>(url: string, config?: AxiosRequestConfig) {
+        return await this.instance.delete<T, ApiResponse<T>>(url, config)
     }
 
     public setHttpConfigs(config?: Partial<AxiosRequestConfig>) {

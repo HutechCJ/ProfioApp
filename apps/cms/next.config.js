@@ -33,7 +33,18 @@ const nextConfig = {
         return [
             {
                 source: '/api/:path*',
-                destination: 'https://profioapp.azurewebsites.net/api/v1/:path*',
+                destination:
+                    'https://profioapp.azurewebsites.net/api/v1/:path*',
+            },
+            {
+                source: '/api-test/:path*',
+                destination:
+                    'https://profio-sv1.azurewebsites.net/api/v1/:path*',
+            },
+            {
+                source: '/api-dev/:path*',
+                destination:
+                    'https://profio-sv1.azurewebsites.net/api/v1/:path*',
             },
         ]
     },
