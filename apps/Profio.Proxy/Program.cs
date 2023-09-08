@@ -1,9 +1,12 @@
 using Profio.Infrastructure.OpenTelemetry;
 using Spectre.Console;
+using Profio.Infrastructure.Logging;
 
 var builder = WebApplication.CreateBuilder(args);
 
 AnsiConsole.Write(new FigletText("Profio Proxy").Centered().Color(Color.BlueViolet));
+
+builder.AddSerilog();
 
 builder.Services.AddHealthChecks();
 

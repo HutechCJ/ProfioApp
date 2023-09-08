@@ -16,7 +16,7 @@ public static class Extension
       options.UseNpgsql(configuration.GetConnectionString("Postgres"),
           sqlOptions =>
           {
-            sqlOptions.MigrationsAssembly(typeof(ApplicationDbContext).Assembly.FullName);
+            sqlOptions.MigrationsAssembly(AssemblyReference.AssemblyName);
             sqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(30), null);
           })
         .EnableSensitiveDataLogging()
