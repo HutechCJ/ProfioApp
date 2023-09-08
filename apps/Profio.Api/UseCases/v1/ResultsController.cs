@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Profio.Infrastructure.Exceptions;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Profio.Api.Controllers.v1;
+namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
 [AllowAnonymous]

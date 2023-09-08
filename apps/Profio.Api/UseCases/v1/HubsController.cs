@@ -9,7 +9,7 @@ using Profio.Domain.Specifications;
 using Profio.Domain.ValueObjects;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Profio.Api.Controllers.v1;
+namespace Profio.Api.UseCases.v1;
 
 [Route("api/v1/[controller]")]
 [ApiController]

@@ -6,7 +6,7 @@ using Profio.Application.Abstractions.CQRS.Events.Queries;
 using Profio.Domain.Interfaces;
 using Profio.Domain.Models;
 
-namespace Profio.Api.Controllers;
+namespace Profio.Api.UseCases;
 
 public class BaseEntityController<TEntity, TModel, TGetByIdQuery> : BaseController
   where TEntity : class, IEntity<object>

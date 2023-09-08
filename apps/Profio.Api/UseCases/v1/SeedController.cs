@@ -3,7 +3,7 @@ using Profio.Application.Seed.Queries;
 using Profio.Infrastructure.Key;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Profio.Api.Controllers.v1;
+namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Seed Data")]

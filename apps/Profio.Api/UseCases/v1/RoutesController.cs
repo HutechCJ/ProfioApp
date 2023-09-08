@@ -8,7 +8,7 @@ using Profio.Domain.Specifications;
 using Swashbuckle.AspNetCore.Annotations;
 using RouteEntity = Profio.Domain.Entities.Route;
 
-namespace Profio.Api.Controllers.v1;
+namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Manage routes between hubs")]

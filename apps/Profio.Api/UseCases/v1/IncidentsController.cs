@@ -8,7 +8,7 @@ using Profio.Domain.Models;
 using Profio.Domain.Specifications;
 using Swashbuckle.AspNetCore.Annotations;
 
-namespace Profio.Api.Controllers.v1;
+namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Manage incidents")]

@@ -1,8 +1,8 @@
+using System.Net.Mime;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Mime;
 
-namespace Profio.Api.Controllers;
+namespace Profio.Api.UseCases;
 
 [Route("api/v{version:apiVersion}/[controller]")]
 [ApiController]

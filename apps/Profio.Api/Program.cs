@@ -1,3 +1,4 @@
+using Carter;
 using Profio.Api.Extensions;
 using Serilog;
 using Spectre.Console;
@@ -8,11 +9,13 @@ try
 {
   var builder = WebApplication.CreateBuilder(args);
 
-  builder.Services.AddControllers();
+  builder.Services.AddCarter();
 
   var app = await builder
     .ConfigureServices()
     .ConfigurePipelineAsync();
+
+  app.MapCarter();
 
   app.MapPrometheusScrapingEndpoint();
 
