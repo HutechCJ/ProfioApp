@@ -1,11 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
-import {
+import axios, {
     AxiosError,
     AxiosInstance,
     AxiosRequestConfig,
     AxiosResponse,
 } from 'axios'
-import axios from 'axios'
 import localStorageService from './localStorage.service'
 import StoreKeys from '@/common/constants/storekeys'
 import HttpStatusCode from '@/common/constants/httpStatusCode'
