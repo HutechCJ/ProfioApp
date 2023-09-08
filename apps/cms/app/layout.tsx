@@ -15,7 +15,7 @@ export default function RootLayout({
     children: React.ReactNode
 }) {
     return (
-        <html>
+        <html lang='vi'>
             <body>
                 <Providers>
                     <ThemeRegistry>

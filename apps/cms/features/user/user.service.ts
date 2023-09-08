@@ -23,11 +23,11 @@ class UserApiService extends HttpService {
     }
 
     getUsers() {
-        return this.get<Paging<User>>(`/users/get-users`)
+        return this.get<Paging<User>>('/users/get-users')
     }
 
     checkAuthorization() {
-        return this.get<User>(`/users/check-authorization`)
+        return this.get<User>('/users/check-authorization')
     }
 }
 

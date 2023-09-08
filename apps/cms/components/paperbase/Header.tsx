@@ -199,8 +199,7 @@ export function HeaderTitle({
                             {title}
                         </Typography>
                     </Grid>
-                    {items &&
-                        items.length &&
+                    {items?.length &&
                         items.map((item, i) => {
                             return (
                                 <Grid key={`header_grid_item_${i}`} item>
