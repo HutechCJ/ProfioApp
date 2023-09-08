@@ -20,8 +20,6 @@ type PagingOptions = {
     OrderBy: string
     OrderByDescending: string
     IncludeStrings: string[]
-    Skip: number
-    Take: number
     PageNumber: number
     PageSize: number
 }

@@ -13,7 +13,7 @@ function Order({ params }: { params: { orderId: string } }) {
     }
 
     if (!orderApiRes) {
-        return "There is an error occurred!"
+        return 'There is an error occurred!'
     }
 
     return (
