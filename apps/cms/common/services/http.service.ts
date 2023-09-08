@@ -19,7 +19,9 @@ export default class HttpService {
     constructor(config = axiosConfig) {
         const axiosConfigs = config
 
-        const instance = axios.create({ ...axiosConfigs })
+        const instance = axios.create({
+            ...axiosConfigs,
+        })
         Object.assign(instance, this.setupInterceptorsTo(instance))
         this.instance = instance
     }
@@ -37,9 +39,11 @@ export default class HttpService {
 
     private onRequest = async (config: AxiosRequestConfig) => {
         const token = localStorageService.get(StoreKeys.ACCESS_TOKEN, '')
-        config.headers = {
-            ...config.headers,
-            Authorization: `Bearer ${token}`,
+        if (token) {
+            config.headers = {
+                ...config.headers,
+                Authorization: `Bearer ${token}`,
+            }
         }
         return config
     }
@@ -116,7 +120,6 @@ export default class HttpService {
         this.instance.defaults = {
             ...this.instance.defaults,
             ..._omitBy(config, 'BaseURL'),
-            withCredentials: true
         }
     }
 }

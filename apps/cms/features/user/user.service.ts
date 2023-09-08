@@ -6,16 +6,10 @@ import {
     AuthUserResponse,
     LoginRequest,
     RegisterRequest,
-    User
+    User,
 } from './user.types'
 
 class UserApiService extends HttpService {
-    // constructor() {
-    //     super({
-    //         withCredentials: true,
-    //     })
-    // }
-
     register(data: RegisterRequest) {
         return this.post<AuthUserResponse>('/users/register', data)
     }
