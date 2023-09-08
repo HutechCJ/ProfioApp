@@ -65,9 +65,9 @@ public class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOptions>
       Scheme = JwtBearerDefaults.AuthenticationScheme
     });
 
-    options.AddSecurityDefinition("ApiKey", new OpenApiSecurityScheme
+    options.AddSecurityDefinition("ApiKey", new()
     {
-      Description = "ApiKey must appear in header",
+      Description = "Enter the `API Key` that you get from the System Administrator",
       Type = SecuritySchemeType.ApiKey,
       Name = "X-API-Key",
       In = ParameterLocation.Header,
