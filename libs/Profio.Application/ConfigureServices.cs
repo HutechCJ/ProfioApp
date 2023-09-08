@@ -1,7 +1,7 @@
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
-using Profio.Application.CQRS;
-using Profio.Application.Hateoas;
+using Profio.Application.Abstractions.CQRS;
+using Profio.Application.Abstractions.Hateoas;
 
 namespace Profio.Application;
 

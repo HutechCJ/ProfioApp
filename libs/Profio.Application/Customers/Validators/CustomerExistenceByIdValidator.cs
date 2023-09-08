@@ -1,5 +1,5 @@
 using EntityFrameworkCore.UnitOfWork.Interfaces;
-using Profio.Application.CQRS.Validators;
+using Profio.Application.Abstractions.CQRS.Validators;
 using Profio.Domain.Entities;
 
 namespace Profio.Application.Customers.Validators;

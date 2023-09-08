@@ -1,8 +1,8 @@
 using EntityFrameworkCore.Repository.Collections;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Profio.Application.CQRS.Events.Commands;
-using Profio.Application.CQRS.Events.Queries;
+using Profio.Application.Abstractions.CQRS.Events.Commands;
+using Profio.Application.Abstractions.CQRS.Events.Queries;
 using Profio.Domain.Interfaces;
 using Profio.Domain.Models;
 

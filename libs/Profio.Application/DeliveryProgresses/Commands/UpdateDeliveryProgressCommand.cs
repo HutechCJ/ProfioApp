@@ -1,8 +1,8 @@
 using AutoMapper;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
-using Profio.Application.CQRS.Events.Commands;
-using Profio.Application.CQRS.Handlers.Command;
-using Profio.Application.CQRS.Validators;
+using Profio.Application.Abstractions.CQRS.Events.Commands;
+using Profio.Application.Abstractions.CQRS.Handlers.Command;
+using Profio.Application.Abstractions.CQRS.Validators;
 using Profio.Application.Orders.Validators;
 using Profio.Domain.Entities;
 using Profio.Domain.ValueObjects;
