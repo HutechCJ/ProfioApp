@@ -1,14 +1,14 @@
 const axiosConfigs = {
     development: {
-        baseURL: 'http://localhost:4200/api/',
+        baseURL: 'https://profio-sv1.azurewebsites.net/api/v1/',
         timeout: 10000,
     },
     production: {
-        baseURL: 'http://localhost:4200/api/',
+        baseURL: 'https://profioapp.azurewebsites.net/api/v1/',
         timeout: 10000,
     },
     test: {
-        baseURL: 'http://localhost:4200/api/',
+        baseURL: 'https://profio-sv1.azurewebsites.net/api/v1/',
         timeout: 10000,
     },
 }

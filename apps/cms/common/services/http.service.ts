@@ -88,24 +88,24 @@ export default class HttpService {
         return axiosInstance
     }
 
-    public async get<T>(url: string, config?: AxiosRequestConfig): Promise<T> {
-        return (await this.instance.get<T>(`${url}`, config)) as T
+    public async get<T>(url: string, config?: AxiosRequestConfig) {
+        return await this.instance.get<ApiResponse<T>>(`${url}`, config)
     }
 
     public async post<T>(url: string, data?: any, config?: AxiosRequestConfig) {
-        return await this.instance.post<T>(url, data, config)
+        return await this.instance.post<ApiResponse<T>>(url, data, config)
     }
 
     public async put<T>(url: string, data?: any, config?: AxiosRequestConfig) {
-        return await this.instance.put<T>(url, data, config)
+        return await this.instance.put<ApiResponse<T>>(url, data, config)
     }
 
     public async patch<T>(url: string, data: any, config?: AxiosRequestConfig) {
-        return await this.instance.patch<T>(url, data, config)
+        return await this.instance.patch<ApiResponse<T>>(url, data, config)
     }
 
-    public async delete(url: string, config?: AxiosRequestConfig) {
-        return await this.instance.delete(url, config)
+    public async delete<T>(url: string, config?: AxiosRequestConfig) {
+        return await this.instance.delete<ApiResponse<T>>(url, config)
     }
 
     public setHttpConfigs(config?: Partial<AxiosRequestConfig>) {
