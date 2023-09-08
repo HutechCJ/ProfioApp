@@ -6,7 +6,6 @@ import HttpService from '@/common/services/http.service'
 class OrderApiService extends HttpService {
     constructor() {
         super({
-            baseURL: '/api/orders',
             withCredentials: true,
         })
     }
@@ -19,11 +18,11 @@ class OrderApiService extends HttpService {
                 .map((value) => `${value[0]}=${value[1]}`)
                 .join('&')
         }
-        return this.get<ApiResponse<Paging<Order>>>(`/${query}`)
+        return this.get<Paging<Order>>(`/orders/${query}`)
     }
 
     getOrderById(id: string) {
-        return this.get<Order>(`/${id}`)
+        return this.get<Order>(`/orders/${id}`)
     }
 }
 
