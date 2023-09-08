@@ -1,0 +1,31 @@
+using AutoMapper;
+using FluentValidation.Results;
+using MediatR;
+using Microsoft.AspNetCore.Identity;
+using Profio.Infrastructure.Identity;
+
+namespace Profio.Application.Users.Queries;
+
+public record CheckAuthorizationQuery : IRequest<AccountDto>;
+public class CheckAuthorizationQueryHandler : IRequestHandler<CheckAuthorizationQuery, AccountDto>
+{
+  private readonly IMapper _mapper;
+  private readonly ITokenService _tokenService;
+  private readonly UserManager<ApplicationUser> _userManager;
+  private readonly IUserAccessor _userAccessor;
+
+  public CheckAuthorizationQueryHandler(UserManager<ApplicationUser> userManager, IMapper mapper, ITokenService tokenService, IUserAccessor userAccessor)
+    => (_userManager, _mapper, _tokenService, _userAccessor) = (userManager, mapper, tokenService, userAccessor);
+  public async Task<AccountDto> Handle(CheckAuthorizationQuery request, CancellationToken cancellationToken)
+  {
+    var failures = new List<ValidationFailure>();
+
+    var user = await _userManager.FindByNameAsync(_userAccessor.UserName)
+      ?? throw new UnauthorizedAccessException(nameof(ApplicationUser));
+
+    var dto = _mapper.Map<AccountDto>(user);
+    dto.Token = _tokenService.CreateToken(user);
+    dto.TokenExpire = _tokenService.GetExpireDate(dto.Token);
+    return dto;
+  }
+}

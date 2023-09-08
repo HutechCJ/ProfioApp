@@ -59,8 +59,8 @@ public class UsersController : BaseEntityController<ApplicationUser, UserDto, Ge
 
   [HttpGet("check-authorization")]
   [MapToApiVersion("1.0")]
-  public async Task<IActionResult> CheckAuthorization()
-    => Ok(await Mediator.Send(new GetUserByIdQuery(_userAccessor.Id)));
+  public async Task<ActionResult<ResultModel<AccountDto>>> CheckAuthorization()
+    => Ok(ResultModel<AccountDto>.Create(await Mediator.Send(new CheckAuthorizationQuery())));
 
   [HttpGet("get-users")]
   [AllowAnonymous]
