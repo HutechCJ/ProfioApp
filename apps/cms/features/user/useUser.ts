@@ -5,6 +5,7 @@ import userApi from './user.service'
 const useUser = () => {
     const { data } = useQuery([`checkAuthorization`], {
         queryFn: () => userApi.checkAuthorization(),
+        keepPreviousData: true,
     })
 
     return data?.data ?? null

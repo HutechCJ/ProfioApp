@@ -2,8 +2,8 @@ export type Order = {
     id: string
     startedDate: string
     expectedDeliveryTime: string
-    status: string
-    destinationAddress: Address
+    status: OrderStatus
+    destinationAddress: Address | null
     destinationZipCode: string
     note: string
     distance: number
@@ -16,4 +16,11 @@ export type Address = {
     city: string
     province: string
     zipCode: string
+}
+
+export enum OrderStatus {
+    Pending,
+    InProgress,
+    Completed,
+    Cancelled,
 }
