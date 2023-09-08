@@ -20,7 +20,7 @@
 
 <hr>
 
-<h1 align="justify"> Profio Application - 🚛 A Logistics Management System ✈️ </h1>
+<h1 align="justify"> Profio Application - 🚛 A Modern Logistics Management System ✈️ </h1>
 
 <p align="center">
 	Profio Application is a monorepo project built with <a href="https://nx.dev/">Nx</a> technology. It is a set of extensible dev tools for monorepos, which helps you develop like Google, Facebook, and Microsoft.
