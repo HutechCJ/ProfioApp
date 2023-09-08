@@ -21,6 +21,7 @@ public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
   {
     await HubSeeding();
     await RouteSeeding();
+    await CustomerSeeding();
     return "Seeding Success";
   }
 
@@ -52,5 +53,15 @@ public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
     }
 
     ;
+  }
+
+  private async Task CustomerSeeding()
+  {
+      var json = await File.ReadAllTextAsync(PathSeed.CustomerData);
+      var customers = JsonSerializer.Deserialize<List<Customer>>(json)!;
+      await _context.AddRangeAsync(customers);
+      await _context.SaveChangesAsync();
+      var customerList = await _context.Customers.ToListAsync();
+      Log.Information("Added customer logging" + JsonSerializer.Serialize(customerList));
   }
 }
