@@ -157,18 +157,9 @@ export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 <MenuItem onClick={handleClose}>
-                    <Avatar /> Profile
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                    <Avatar /> My account
+                    <Avatar /> {user?.fullName}
                 </MenuItem>
                 <Divider />
-                <MenuItem onClick={handleClose}>
-                    <ListItemIcon>
-                        <PersonAdd fontSize="small" />
-                    </ListItemIcon>
-                    Add another account
-                </MenuItem>
                 <MenuItem onClick={handleClose}>
                     <ListItemIcon>
                         <Settings fontSize="small" />

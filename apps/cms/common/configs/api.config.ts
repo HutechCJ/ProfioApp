@@ -1,14 +1,17 @@
-const axiosConfigs = {
+export const axiosConfigs: {[key: string]: AxiosRequestConfig} = {
     development: {
-        baseURL: 'https://profio-sv1.azurewebsites.net/api/v1/',
+        baseURL: '/api-dev',
+        withCredentials: true,
         timeout: 10000,
     },
     production: {
-        baseURL: 'https://profioapp.azurewebsites.net/api/v1/',
+        baseURL: '/api',
+        withCredentials: true,
         timeout: 10000,
     },
     test: {
-        baseURL: 'https://profio-sv1.azurewebsites.net/api/v1/',
+        baseURL: '/api-test',
+        withCredentials: true,
         timeout: 10000,
     },
 }

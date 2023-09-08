@@ -19,7 +19,9 @@ export default class HttpService {
     constructor(config = axiosConfig) {
         const axiosConfigs = config
 
-        const instance = axios.create({ ...axiosConfigs })
+        const instance = axios.create({
+            ...axiosConfigs,
+        })
         Object.assign(instance, this.setupInterceptorsTo(instance))
         this.instance = instance
     }
@@ -37,9 +39,11 @@ export default class HttpService {
 
     private onRequest = async (config: AxiosRequestConfig) => {
         const token = localStorageService.get(StoreKeys.ACCESS_TOKEN, '')
-        config.headers = {
-            ...config.headers,
-            Authorization: `Bearer ${token}`,
+        if (token) {
+            config.headers = {
+                ...config.headers,
+                Authorization: `Bearer ${token}`,
+            }
         }
         return config
     }
@@ -89,23 +93,23 @@ export default class HttpService {
     }
 
     public async get<T>(url: string, config?: AxiosRequestConfig) {
-        return await this.instance.get<ApiResponse<T>>(`${url}`, config)
+        return await this.instance.get<T, ApiResponse<T>>(`${url}`, config)
     }
 
     public async post<T>(url: string, data?: any, config?: AxiosRequestConfig) {
-        return await this.instance.post<ApiResponse<T>>(url, data, config)
+        return await this.instance.post<T, ApiResponse<T>>(url, data, config)
     }
 
     public async put<T>(url: string, data?: any, config?: AxiosRequestConfig) {
-        return await this.instance.put<ApiResponse<T>>(url, data, config)
+        return await this.instance.put<T, ApiResponse<T>>(url, data, config)
     }
 
     public async patch<T>(url: string, data: any, config?: AxiosRequestConfig) {
-        return await this.instance.patch<ApiResponse<T>>(url, data, config)
+        return await this.instance.patch<T, ApiResponse<T>>(url, data, config)
     }
 
     public async delete<T>(url: string, config?: AxiosRequestConfig) {
-        return await this.instance.delete<ApiResponse<T>>(url, config)
+        return await this.instance.delete<T, ApiResponse<T>>(url, config)
     }
 
     public setHttpConfigs(config?: Partial<AxiosRequestConfig>) {
