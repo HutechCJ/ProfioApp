@@ -20,16 +20,19 @@ with Diagram("Profio API", show=False, direction="LR"):
   Client("Client") >> lb
 
   with Cluster("Profio API"):
-    api = AppServiceEnvironments("API")
+    api_1 = AppServiceEnvironments("API Sever 1")
+    api_2 = AppServiceEnvironments("API Sever 2")
     db = PostgreSQL("Database")
     cache = Redis("Cache")
-    api >> db
-    api >> cache
+    api_1 >> [db, cache]
+    api_2 >> [db, cache]
 
-  lb >> api
-  api >> otelcollector
-  Mobile("Driver App") >> broker >> api
-  api >> hc
+  lb >> [api_1, api_2]
+  [api_1, api_2] >> otelcollector
+  Mobile("Driver App") >> broker
+  broker >>  [api_1, api_2]
+  api_1 >> hc
+  api_2 >> hc
 
   with Cluster("External Service"):
     Prometheus = Prometheus("Prometheus")
