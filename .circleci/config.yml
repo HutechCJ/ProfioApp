@@ -32,4 +32,4 @@ workflows:
           matrix:
             parameters:
               ordinal: [1, 2, 3]
-      - stg
+      - main
