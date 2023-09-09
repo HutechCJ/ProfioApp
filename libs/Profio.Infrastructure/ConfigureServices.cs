@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -68,7 +67,7 @@ public static class ConfigureServices
         .AllowAnyHeader()));
 
     builder.AddApiVersioning();
-    builder.AddSerilog();
+    builder.AddSerilog("Profio Api");
     builder.AddOpenTelemetry();
     builder.AddHealthCheck();
     builder.AddHangFire();
@@ -129,19 +128,6 @@ public static class ConfigureServices
     app.Map("/", () => Results.Redirect("/api-docs"));
     app.Map("/error", () => Results.Problem("An unexpected error occurred.", statusCode: 500))
       .ExcludeFromDescription();
-    app.MapWhen(context => context.Response.StatusCode == StatusCodes.Status401Unauthorized, appBuilder =>
-    {
-      appBuilder.Run(async context =>
-      {
-        var problemDetails = new ProblemDetails
-        {
-          Title = "Unauthorized",
-          Detail = "You are not authorized to access this resource.",
-          Status = StatusCodes.Status401Unauthorized,
-          Type = "https://httpstatuses.com/401"
-        };
-        await context.Response.WriteAsJsonAsync(problemDetails);
-      });
-    });
+    app.MapFallback(() => Results.Redirect("/api-docs"));
   }
 }
