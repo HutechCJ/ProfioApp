@@ -4,7 +4,14 @@ import React from 'react';
 
 import Link from '@/components/Link';
 import LoadingButton from '@/components/LoadingButton';
-import { Box, Typography, Stack, Button, ButtonGroup } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Stack,
+  Button,
+  ButtonGroup,
+  Divider,
+} from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 import ReplayIcon from '@mui/icons-material/Replay';
@@ -20,7 +27,7 @@ const columns: GridColDef<Staff>[] = [
     width: 300,
     renderCell(params) {
       return (
-        <Link href={`/staffs/${params.value}`}>
+        <Link href={`/staffs/${params.value}`} underline="none" color="black">
           <Typography variant="button">{params.value}</Typography>
         </Link>
       );
@@ -50,13 +57,21 @@ const columns: GridColDef<Staff>[] = [
     width: 400,
     headerName: 'HÀNH ĐỘNG',
     renderCell: (params) => {
-      //   const staffId = params.row.id;
+      const staffId = params.row.id;
       return (
-        <ButtonGroup variant="outlined">
-          <Button color="primary">Xem Chi Tiết</Button>
+        <Stack
+          direction="row"
+          divider={<Divider orientation="vertical" flexItem />}
+          spacing={2}
+        >
+          <Link href={`/staffs/${staffId}`}>
+            <Button color="primary">Xem Chi Tiết</Button>
+          </Link>
+
           <Button color="success">Chỉnh Sửa</Button>
+
           <Button color="error">Xoá</Button>
-        </ButtonGroup>
+        </Stack>
       );
     },
   },
