@@ -9,7 +9,6 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 import ReplayIcon from '@mui/icons-material/Replay';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import PeopleIcon from '@mui/icons-material/People';
 
 import { Staff, StaffPosition } from '@/features/staff/staff.types';
 import useGetStaffs from '@/features/staff/useGetStaffs';
@@ -46,6 +45,21 @@ const columns: GridColDef<Staff>[] = [
       return `${StaffPosition[position]}`;
     },
   },
+  {
+    field: '',
+    width: 400,
+    headerName: 'HÀNH ĐỘNG',
+    renderCell: (params) => {
+      //   const staffId = params.row.id;
+      return (
+        <ButtonGroup variant="outlined">
+          <Button color="primary">Xem Chi Tiết</Button>
+          <Button color="success">Chỉnh Sửa</Button>
+          <Button color="error">Xoá</Button>
+        </ButtonGroup>
+      );
+    },
+  },
 ];
 
 function StaffList() {
@@ -75,7 +89,7 @@ function StaffList() {
   }, [rowCount, setRowCountState]);
 
   return (
-    <Box>
+    <Box sx={{ paddingY: 4 }}>
       <Stack
         direction="row"
         justifyContent="space-between"
@@ -115,7 +129,8 @@ function StaffList() {
         paginationMode="server"
         onPaginationModelChange={setPaginationModel}
         sx={{
-          boxShadow: '0 4px 8px rgba(22, 22, 22, 0.5)',
+          boxShadow: '0 2px 4px rgba(22, 22, 22, 0.5)',
+          backgroundColor: 'white',
         }}
       />
     </Box>
