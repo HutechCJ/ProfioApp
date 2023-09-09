@@ -60,7 +60,7 @@ public static class Extension
       var command = reader.ReadToEnd();
 
       if (string.IsNullOrWhiteSpace(command))
-          continue;
+        continue;
 
       migrationBuilder.Sql(command);
     }

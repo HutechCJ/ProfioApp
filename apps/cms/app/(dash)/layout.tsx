@@ -1,9 +1,9 @@
-import Paperbase from '../../components/paperbase/Paperbase'
+import Paperbase from '../../components/paperbase/Paperbase';
 
 export default function DashLayout({
-    children,
+  children,
 }: {
-    children: React.ReactNode
+  children: React.ReactNode;
 }) {
-    return <Paperbase>{children}</Paperbase>
+  return <Paperbase>{children}</Paperbase>;
 }

@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 function Hubs() {
-  return (
-    <div>Hubs</div>
-  )
+  return <div>Hubs</div>;
 }
 
-export default Hubs
+export default Hubs;

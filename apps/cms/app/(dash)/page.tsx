@@ -1,8 +1,8 @@
-'use client'
+'use client';
 
-import useUser from "@/features/user/useUser"
+import useUser from '@/features/user/useUser';
 
 export default function Index() {
-    const user = useUser()
-    return <div>Hello {`${user?.fullName}`}!</div>
+  const user = useUser();
+  return <div>Hello {`${user?.fullName}`}!</div>;
 }
