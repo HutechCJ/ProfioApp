@@ -65,7 +65,7 @@
 		This is a product of the CJ Code your Future 2023 contest. The purpose of this project is to help CJ Logistics improve the quality of transportation management. This project is not for commercial purposes 👍
 	</p>
 	<p align="justify">
-		We are a group of students from Ho Chi Minh City University of Technology and Education. We are very happy to be able to participate in this contest. We hope that our project will be useful to CJ Logistics.
+		We are a group of students from Hutech University. We are very happy to be able to participate in this contest. We hope that our project will be useful to CJ Logistics.
 	</p>
 </blockquote>
 
