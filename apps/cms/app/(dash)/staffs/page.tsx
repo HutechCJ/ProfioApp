@@ -1,9 +1,17 @@
-import React from 'react'
+'use client';
 
-function Staffs() {
+import React from 'react';
+
+import { Container } from '@mui/material';
+
+import StaffList from '@/components/staff/StaffList';
+
+const Staffs = () => {
   return (
-    <div>Staffs</div>
-  )
-}
+    <Container maxWidth="xl">
+      <StaffList />
+    </Container>
+  );
+};
 
-export default Staffs
+export default Staffs;
