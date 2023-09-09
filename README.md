@@ -35,22 +35,22 @@
 - [Tentative technologies](#tentative-technologies)
 - [Building blocks](#building-blocks)
 - [Getting Started](#getting-started)
-	- [💻 Infrastructure](#-infrastructure)
-	- [📦 Services](#-services)
-	- [🛠️ Setup](#️-setup)
-	- [🚀 Running the application](#-running-the-application)
-	- [🧪 Testing the application](#-testing-the-application)
-	- [🐳 Running services with Docker](#-running-services-with-docker)
+  - [💻 Infrastructure](#-infrastructure)
+  - [📦 Services](#-services)
+  - [🛠️ Setup](#️-setup)
+  - [🚀 Running the application](#-running-the-application)
+  - [🧪 Testing the application](#-testing-the-application)
+  - [🐳 Running services with Docker](#-running-services-with-docker)
 - [API development](#api-development)
 - [Open API](#open-api)
 - [Dependency Graph](#dependency-graph)
 - [CI/CD](#cicd)
 - [External services](#external-services)
-	- [📦 Container Management](#-container-management)
-	- [🧑‍⚕️ Health Check](#️-health-check)
-	- [📊 Monitoring](#-monitoring)
-	- [📈 Tracing](#-tracing)
-	- [📝 Logging](#-logging)
+  - [📦 Container Management](#-container-management)
+  - [🧑‍⚕️ Health Check](#️-health-check)
+  - [📊 Monitoring](#-monitoring)
+  - [📈 Tracing](#-tracing)
+  - [📝 Logging](#-logging)
 - [Contributing](#contributing)
 - [Contributors](#contributors)
 - [Support and Organization](#support-and-organization)
@@ -335,7 +335,7 @@ For running all applications, navigate to the root directory of the project and 
 npx nx run-many --target=serve --all
 ```
 
-> **Warming**
+> **Warning**
 > All connections strings will be unavailable when this repository is public.
 
 ## 🧪 Testing the application
@@ -372,7 +372,6 @@ We use Clean Architecture for the API development. You can read more about Clean
 
 > **Note**
 > We have implemented Redoc to generate the API documentation.
-
 
 # Dependency Graph
 
