@@ -19,6 +19,8 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 import { Staff, StaffPosition } from '@/features/staff/staff.types';
 import useGetStaffs from '@/features/staff/useGetStaffs';
+import FormDialog from '@/components/FormDialog';
+import StaffForm from './StaffForm';
 
 const columns: GridColDef<Staff>[] = [
   {
@@ -125,13 +127,18 @@ function StaffList() {
           >
             RELOAD
           </LoadingButton>
-          <Button
-            variant="contained"
-            color="success"
-            startIcon={<PersonAddIcon />}
-          >
-            THÊM NHÂN VIÊN
-          </Button>
+          <FormDialog
+            buttonText="THÊM NHÂN VIÊN"
+            buttonVariant="contained"
+            buttonColor="success"
+            buttonIcon={<PersonAddIcon />}
+            dialogTitle="Thêm Nhân Viên"
+            submitButton="Thêm Mới"
+            handleSubmitFn={() => {
+              <></>;
+            }}
+            componentProps={<StaffForm />}
+          />
         </ButtonGroup>
       </Stack>
       <DataGrid
