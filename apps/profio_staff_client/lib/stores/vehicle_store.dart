@@ -16,6 +16,9 @@ abstract class VehicleStoreBase with Store {
   @observable
   Vehicle selectedVehicle = Vehicle();
 
+  @computed
+  bool get hasSelectedVehicle => selectedVehicle.id != '';
+
   @action
   void setVehicle(Vehicle vehicle) {
     selectedVehicle = vehicle;
