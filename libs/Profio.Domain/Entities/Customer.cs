@@ -12,5 +12,5 @@ public class Customer : IEntity
   public string? Email { get; set; }
   public Gender? Gender { get; set; } = Constants.Gender.Male;
   public required Address? Address { get; set; }
-  public ICollection<Order> Orders { get; set; } = new List<Order>();
+public ICollection<Order> Orders { get; set; } = new List<Order>();
 }

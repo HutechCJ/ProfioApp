@@ -1,22 +1,37 @@
 using Profio.Infrastructure.OpenTelemetry;
 using Spectre.Console;
 using Profio.Infrastructure.Logging;
-
-var builder = WebApplication.CreateBuilder(args);
+using Serilog;
 
 AnsiConsole.Write(new FigletText("Profio Proxy").Centered().Color(Color.BlueViolet));
 
-builder.AddSerilog();
+try
+{
+  var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddHealthChecks();
+  builder.AddSerilog("Profio.Proxy");
 
-builder.Services.AddReverseProxy()
-  .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+  builder.Services.AddHealthChecks();
 
-builder.AddOpenTelemetry();
+  builder.Services.AddReverseProxy()
+    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
-var app = builder.Build();
+  builder.AddOpenTelemetry();
 
-app.MapReverseProxy();
-app.MapHealthChecks("/health");
-app.Run();
+  var app = builder.Build();
+
+  app.MapReverseProxy();
+  app.MapHealthChecks("/health");
+  app.Run();
+}
+catch (Exception ex)
+  when (ex.GetType().Name is not "StopTheHostException"
+        && ex.GetType().Name is not "HostAbortedException")
+{
+  Log.Fatal(ex, "Unhandled exception");
+}
+finally
+{
+  Log.Information("Shut down complete");
+  Log.CloseAndFlush();
+}

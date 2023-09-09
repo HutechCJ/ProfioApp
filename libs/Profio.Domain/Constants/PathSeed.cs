@@ -1,4 +1,4 @@
-﻿namespace Profio.Domain.Constants
+namespace Profio.Domain.Constants
 {
   public record PathSeed
   {

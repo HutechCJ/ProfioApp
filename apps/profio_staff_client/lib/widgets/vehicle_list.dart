@@ -33,7 +33,7 @@ class _VehicleListState extends State<VehicleList> {
             }
             return Center(
                 child: DropdownButton<Vehicle>(
-              value: vehicleStore.selectedVehicle.id == ''
+              value: vehicleStore.hasSelectedVehicle
                   ? null
                   : vehicleStore
                       .selectedVehicle, // The currently selected vehicle

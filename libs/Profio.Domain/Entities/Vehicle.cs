@@ -12,5 +12,5 @@ public class Vehicle : IEntity
   public VehicleStatus Status { get; set; } = VehicleStatus.Idle;
   public string? StaffId { get; set; }
   public Staff? Staff { get; set; }
-  public ICollection<Delivery>? Deliveries { get; set; } = new List<Delivery>();
+  public ICollection<Delivery> Deliveries { get; set; } = new List<Delivery>();
 }

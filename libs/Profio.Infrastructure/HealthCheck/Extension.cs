@@ -66,6 +66,6 @@ public static class Extension
         [HealthStatus.Unhealthy] = 503
       }
     });
-    app.MapHealthChecksUI(options => options.UIPath = "/hc-ui").RequireAuthorization();
+    app.MapHealthChecksUI(options => options.UIPath = "/hc-ui");
   }
 }

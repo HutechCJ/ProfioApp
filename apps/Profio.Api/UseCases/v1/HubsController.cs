@@ -11,8 +11,7 @@ using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Api.UseCases.v1;
 
-[Route("api/v1/[controller]")]
-[ApiController]
+[ApiVersion("1.0")]
 [SwaggerTag("A hub endpoints")]
 public class HubsController : BaseEntityController<Hub, HubDto, GetHubByIdQuery>
 {
