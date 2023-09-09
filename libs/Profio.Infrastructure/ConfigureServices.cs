@@ -21,6 +21,7 @@ using Profio.Infrastructure.Versioning;
 using System.IO.Compression;
 using System.Net.Mime;
 using Profio.Infrastructure.Key;
+using Profio.Infrastructure.Persistence.Idempotency;
 
 namespace Profio.Infrastructure;
 
@@ -91,6 +92,8 @@ public static class ConfigureServices
     services.AddApplicationIdentity(builder);
 
     services.AddApiKey();
+
+    services.AddScoped<IIdempotencyService, IdempotencyService>();
   }
 
   public static async Task UseWebInfrastructureAsync(this WebApplication app)
