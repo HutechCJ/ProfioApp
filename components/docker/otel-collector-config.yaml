@@ -22,7 +22,7 @@ exporters:
       insecure: true
 
   otlphttp/seq:
-    endpoint: "http://seq:5341/ingest/otlp"
+    endpoint: 'http://seq:5341/ingest/otlp'
     tls:
       insecure: true
 
