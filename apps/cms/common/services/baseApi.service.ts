@@ -1,11 +1,11 @@
-import Http from '@/common/services/http.service'
+import Http from '@/common/services/http.service';
 class BaseApiService {
-    protected httpClient: Http
+  protected httpClient: Http;
 
-    constructor() {
-        //TODO: APPLY BASE URL
-        this.httpClient = new Http()
-    }
+  constructor() {
+    //TODO: APPLY BASE URL
+    this.httpClient = new Http();
+  }
 }
 
-export default BaseApiService
+export default BaseApiService;

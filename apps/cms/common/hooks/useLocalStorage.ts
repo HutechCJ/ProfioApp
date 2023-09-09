@@ -1,11 +1,11 @@
-'use client'
+'use client';
 
-import { useState } from "react"
-import localStorageService from "../services/localStorage.service"
+import { useState } from 'react';
+import localStorageService from '../services/localStorage.service';
 
 function useLocalStorage() {
-    const [service] = useState(localStorageService)
-    return service
+  const [service] = useState(localStorageService);
+  return service;
 }
 
-export default useLocalStorage
+export default useLocalStorage;

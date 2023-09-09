@@ -21,7 +21,7 @@ public static class RateLimiterExtension
             Window = TimeSpan.FromMinutes(1)
           }
         ));
-      });
+    });
   }
 
   public static void RequirePerUserRateLimit(this IEndpointConventionBuilder builder)

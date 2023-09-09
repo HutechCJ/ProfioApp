@@ -1,6 +1,7 @@
 import json
 from math import radians, sin, cos, sqrt, atan2
 
+
 def calculate_distance(lat1, lon1, lat2, lon2):
     R = 6371.0  # Earth radius in kilometers
 
@@ -15,17 +16,24 @@ def calculate_distance(lat1, lon1, lat2, lon2):
 
     return R * c
 
-with open("../../libs/Profio.Infrastructure/Persistence/Seeding/Hub.json", "r", encoding="utf-8") as file:
+
+with open("../../libs/Profio.Infrastructure/Persistence/Seeding/Hub.json",
+          "r",
+          encoding="utf-8") as file:
     hub_data = json.load(file)
 
 provinces_from_data = set([hub["Address"]["Province"] for hub in hub_data])
 
 neighbors = {
     "Hà Nội": ["Hà Nam", "Hưng Yên", "Bắc Ninh", "Vĩnh Phúc", "Hòa Bình"],
-    "TP Hồ Chí Minh": ["Bình Dương", "Đồng Nai", "Bà Rịa - Vũng Tàu", "Tây Ninh", "Long An"],
+    "TP Hồ Chí Minh":
+    ["Bình Dương", "Đồng Nai", "Bà Rịa - Vũng Tàu", "Tây Ninh", "Long An"],
     "Đà Nẵng": ["Quảng Nam", "Thừa Thiên Huế"],
     "Hải Phòng": ["Quảng Ninh", "Hải Dương", "Thái Bình"],
-    "Cần Thơ": ["Vĩnh Long", "Hậu Giang", "An Giang", "Kiên Giang", "Đồng Tháp", "Sóc Trăng"],
+    "Cần Thơ": [
+        "Vĩnh Long", "Hậu Giang", "An Giang", "Kiên Giang", "Đồng Tháp",
+        "Sóc Trăng"
+    ],
     "Lào Cai": ["Yên Bái", "Phú Thọ", "Hà Giang"],
     "Yên Bái": ["Lào Cai", "Phú Thọ", "Sơn La", "Tuyên Quang"],
     "Bắc Giang": ["Bắc Ninh", "Hà Nội", "Quảng Ninh", "Lạng Sơn"],
@@ -55,10 +63,10 @@ for province, neighbors_list in neighbors.items():
         if province in hubs_by_province and neighbor in hubs_by_province and province != neighbor:
             start_hub = hubs_by_province[province]
             end_hub = hubs_by_province[neighbor]
-            distance = calculate_distance(
-                start_hub["Location"]["Latitude"], start_hub["Location"]["Longitude"],
-                end_hub["Location"]["Latitude"], end_hub["Location"]["Longitude"]
-            )
+            distance = calculate_distance(start_hub["Location"]["Latitude"],
+                                          start_hub["Location"]["Longitude"],
+                                          end_hub["Location"]["Latitude"],
+                                          end_hub["Location"]["Longitude"])
             distances.append({
                 "Distance": round(distance, 2),
                 "StartHubId": start_hub["Id"],
@@ -67,7 +75,9 @@ for province, neighbors_list in neighbors.items():
 
 print(distances)
 
-with open("../../libs/Profio.Infrastructure/Persistence/Seeding/Route.json", "w", encoding="utf-8") as file:
-		json.dump(distances, file, ensure_ascii=False, indent=4)
+with open("../../libs/Profio.Infrastructure/Persistence/Seeding/Route.json",
+          "w",
+          encoding="utf-8") as file:
+    json.dump(distances, file, ensure_ascii=False, indent=4)
 
 print("Done")
