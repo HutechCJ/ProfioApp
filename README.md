@@ -15,6 +15,9 @@
 		<a href="https://github.com/HutechCJ/ProfioApp/blob/main/LICENSE" target="_blank">
 			<img loading="lazy" src="https://img.shields.io/badge/price-0%20₫-0098f7.svg" alt="Price">
 		</a>
+    <a href="https://gitpod.io/new/#https://github.com/HutechCJ/ProfioApp" target="_blank">
+			<img loading="lazy" src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod" alt="Gitpod">
+		</a>
 	</p>
 </div>
 
