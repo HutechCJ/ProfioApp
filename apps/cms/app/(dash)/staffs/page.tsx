@@ -4,8 +4,8 @@ import React from 'react';
 
 import { Container, Divider } from '@mui/material';
 
-import StaffList from '@/components/staff/StaffList';
-import StaffStatisticsCard from '@/components/staff/StaffStatisticsCard';
+import StaffList from '@/app/(dash)/staffs/StaffList';
+import StaffStatisticsCard from '@/app/(dash)/staffs/StaffStatisticsCard';
 
 const Staffs = () => {
   return (

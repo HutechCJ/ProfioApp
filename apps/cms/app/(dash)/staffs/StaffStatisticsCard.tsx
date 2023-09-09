@@ -2,13 +2,21 @@
 
 import React from 'react';
 
-import { Card, CardHeader, CardContent, Divider, Stack } from '@mui/material';
+import {
+  Box,
+  Card,
+  CardHeader,
+  CardContent,
+  Divider,
+  Stack,
+  LinearProgress,
+} from '@mui/material';
 
 import PeopleIcon from '@mui/icons-material/People';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import DriveEtaIcon from '@mui/icons-material/DriveEta';
+import MopedIcon from '@mui/icons-material/Moped';
 
-import Stat from '../Stat';
+import Stat from '../../../components/Stat';
 import useGetStaffs from '@/features/staff/useGetStaffs';
 import { StaffPosition } from '@/features/staff/staff.types';
 
@@ -16,7 +24,11 @@ const StaffStatisticsCard = () => {
   const { data, isLoading, isError } = useGetStaffs();
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return (
+      <Box sx={{ width: '100%' }}>
+        <LinearProgress />
+      </Box>
+    );
   }
 
   if (isError) {
@@ -49,13 +61,13 @@ const StaffStatisticsCard = () => {
             description="Tổng Số Nhân Viên"
           />
           <Stat
-            icon={<DriveEtaIcon />}
+            icon={<LocalShippingIcon />}
             value={totalDrivers}
             description="Driver"
             iconColor="red"
           />
           <Stat
-            icon={<LocalShippingIcon />}
+            icon={<MopedIcon />}
             value={totalShippers}
             description="Shipper"
             iconColor="blue"
