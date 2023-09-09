@@ -47,7 +47,8 @@ public static class Extension
     var files = assembly.GetManifestResourceNames();
     var filePrefix = $"{assembly.GetName().Name}.Data.Scripts.";
 
-    if (!files.Any(f => f.StartsWith(filePrefix) && f.EndsWith(".sql"))) return;
+    if (!files.All(f => f.StartsWith(filePrefix) && f.EndsWith(".sql")))
+      return;
 
     foreach (var file in files
                  .Where(f => f.StartsWith(filePrefix) && f.EndsWith(".sql"))
