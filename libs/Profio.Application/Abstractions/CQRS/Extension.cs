@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using Profio.Application.Abstractions.Idempotency;
 using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.Persistence;
 using Profio.Infrastructure.Validator;
@@ -24,6 +25,7 @@ public static class Extension
           ServiceLifetime.Scoped);
         cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(TxBehavior<,>),
           ServiceLifetime.Scoped);
+        cfg.AddOpenBehavior(typeof(IdempotentCommandBehavior<,>));
       });
 
     action?.Invoke(services);
