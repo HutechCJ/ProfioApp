@@ -34,7 +34,7 @@ public static class ConfigureServices
         options.RespectBrowserAcceptHeader = true;
         options.ReturnHttpNotAcceptable = true;
         options.Filters.Add<LoggingFilter>();
-        options.Filters.Add<ExceptionMiddleware>();
+        options.Filters.Add<ExceptionFilter>();
       })
       .AddNewtonsoftJson()
       .AddApplicationPart(AssemblyReference.Assembly);
@@ -128,9 +128,8 @@ public static class ConfigureServices
       .UseStaticFiles();
 
     app.MapHealthCheck();
-    app.Map("/", () => Results.Redirect("/api-docs"));
+    app.Map("/", () => Results.Redirect("/swagger"));
     app.Map("/error", () => Results.Problem("An unexpected error occurred.", statusCode: 500))
       .ExcludeFromDescription();
-    app.MapFallback(() => Results.Redirect("/api-docs"));
   }
 }

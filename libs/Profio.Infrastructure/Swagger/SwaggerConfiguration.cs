@@ -58,6 +58,7 @@ public static class SwaggerConfiguration
                  .GetRequiredService<IApiVersionDescriptionProvider>()
                  .ApiVersionDescriptions)
         options.SpecUrl($"/swagger/{description.GroupName}/swagger.json");
+
       options.EnableUntrustedSpec();
     });
 
