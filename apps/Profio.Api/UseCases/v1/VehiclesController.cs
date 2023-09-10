@@ -1,5 +1,6 @@
 using EntityFrameworkCore.Repository.Collections;
 using Microsoft.AspNetCore.Mvc;
+using Profio.Application.Deliveries;
 using Profio.Application.Hubs;
 using Profio.Application.Hubs.Queries;
 using Profio.Application.Vehicles;
@@ -40,6 +41,10 @@ public class VehiclesController : BaseEntityController<Vehicle, VehicleDto, GetV
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<VehicleDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteVehicleCommand(id));
+  [HttpGet("{id:length(26)}/deliveries")]
+  [MapToApiVersion("1.0")]
+  public async Task<ActionResult<ResultModel<IPagedList<DeliveryDto>>>> GetDeliveries(string id, [FromQuery] Criteria<Delivery> criteria)
+    => Ok(await Mediator.Send(new GetDeliveriesByVehicleIdQuery(id, criteria)));
 
   [HttpGet("{id:length(26)}/hubs/next")]
   public async Task<ActionResult<ResultModel<HubDto>>> GetNextHub(string id)
