@@ -8,7 +8,7 @@ const useGetStaffs = (options?: Partial<PagingOptions>) => {
     [`staffs/get${options ? `?${getPagingQueryString(options)}` : ''}`],
     {
       queryFn: () => staffApi.getStaffs(options),
-    }
+    },
   );
 
   return queryData;

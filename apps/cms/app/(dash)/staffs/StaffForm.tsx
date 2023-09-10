@@ -105,7 +105,7 @@ const StaffForm: React.FC<StaffFormProps> = ({ onSuccess }) => {
             {Object.values(
               (error as any).response.data.data as {
                 [key: string]: any;
-              }
+              },
             )
               .flat()
               .map((value, i) => (

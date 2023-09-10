@@ -30,9 +30,7 @@ const Stat: React.FC<StatProps> = ({
         {React.cloneElement(icon as React.ReactElement, { sx: iconSx })}
       </Avatar>
       <Stack>
-      <Typography variant="body1">
-          {label}
-        </Typography>
+        <Typography variant="body1">{label}</Typography>
         <Typography variant="h2" fontWeight="bold">
           {value}
         </Typography>

@@ -126,7 +126,7 @@ function StaffList() {
 
   React.useEffect(() => {
     setRowCountState((prevRowCountState) =>
-      rowCount !== undefined ? rowCount : prevRowCountState
+      rowCount !== undefined ? rowCount : prevRowCountState,
     );
   }, [rowCount, setRowCountState]);
 
@@ -160,10 +160,12 @@ function StaffList() {
             dialogTitle="ADD STAFF"
             dialogDescription="Please enter information for the staff"
             componentProps={(handleClose) => (
-              <StaffForm onSuccess={() => {
-                refetch()
-                handleClose()
-              }} />
+              <StaffForm
+                onSuccess={() => {
+                  refetch();
+                  handleClose();
+                }}
+              />
             )}
           />
         </ButtonGroup>
