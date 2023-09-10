@@ -1,4 +1,4 @@
-﻿using MediatR;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Profio.Domain.Entities;
 using Profio.Domain.ValueObjects;
