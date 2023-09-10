@@ -10,14 +10,6 @@ export type Order = {
   customerId: string;
 };
 
-export type Address = {
-  street: string;
-  ward: string;
-  city: string;
-  province: string;
-  zipCode: string;
-};
-
 export enum OrderStatus {
   Pending,
   InProgress,

@@ -2,22 +2,26 @@
 
 import { OrderStatus } from '@/features/order/order.types';
 import useGetOrder from '@/features/order/useGetOrder';
-import { Box } from '@mui/material';
+import { Box, Stack, Button } from '@mui/material';
 import React from 'react';
 
 function Order({ params }: { params: { orderId: string } }) {
-  const { data: orderApiRes, isLoading, error } = useGetOrder(params.orderId);
+  const { data: orderApiRes, isLoading, isError } = useGetOrder(params.orderId);
 
   if (isLoading) {
     return 'Loading...';
   }
 
-  if (!orderApiRes) {
+  if (!orderApiRes || isError) {
     return 'There is an error occurred!';
   }
 
   return (
     <Box>
+      <Stack>
+        <Button>Update</Button>
+        <Button>Delete</Button>
+      </Stack>
       <div>{orderApiRes.data.id}</div>
       <div>Status: {OrderStatus[orderApiRes.data.status]}</div>
     </Box>
