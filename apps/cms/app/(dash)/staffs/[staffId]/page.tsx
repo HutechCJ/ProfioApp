@@ -16,11 +16,15 @@ import {
   Divider,
   Avatar,
 } from '@mui/material';
+import Link from '@/components/Link';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import MopedIcon from '@mui/icons-material/Moped';
-import Link from '@/components/Link';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import FormDialog from '@/components/FormDialog';
+import StaffForm from '../StaffForm';
 
 function Staff({ params }: { params: { staffId: string } }) {
   const { data: staffApiRes, isLoading, isError } = useGetStaff(params.staffId);
@@ -48,8 +52,27 @@ function Staff({ params }: { params: { staffId: string } }) {
           </Button>
         </Link>
         <ButtonGroup variant="contained">
-          <Button color="secondary">Edit</Button>
-          <Button color="error">Delete</Button>
+          <FormDialog
+            buttonText="Edit"
+            buttonColor="secondary"
+            buttonIcon={<EditIcon />}
+            dialogTitle="STAFF INFORMATION"
+            dialogDescription={`ID: ${params.staffId}`}
+            componentProps={(handleClose) => (
+              <StaffForm onSuccess={handleClose} />
+            )}
+          />
+
+          <FormDialog
+            buttonText="Delete"
+            buttonColor="error"
+            buttonIcon={<DeleteIcon />}
+            dialogTitle="Are you sure you want to delete this STAFF?"
+            dialogDescription={`ID: ${params.staffId}`}
+            componentProps={(handleClose) => (
+              <StaffForm onSuccess={handleClose} />
+            )}
+          />
         </ButtonGroup>
       </Stack>
 

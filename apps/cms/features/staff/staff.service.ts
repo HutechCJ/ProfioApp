@@ -23,7 +23,7 @@ class StaffApiService extends HttpService {
   }
 
   updateStaff(id: string) {
-    return this.put<Staff>(`/staffs/${id}`);
+    return this.put(`/staffs/${id}`);
   }
 
   deleteStaff(id: string) {
