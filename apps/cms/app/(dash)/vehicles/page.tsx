@@ -1,7 +1,13 @@
-import React from 'react';
+'use client'
+import React from 'react'
 
 function Vehicles() {
-  return <div>Vehicles</div>;
+    const [paginationModel, setPaginationModel] = React.useState({
+        page: 0,
+        pageSize: 10,
+    })
+    
+    return <div>Vehicles</div>
 }
 
-export default Vehicles;
+export default Vehicles
