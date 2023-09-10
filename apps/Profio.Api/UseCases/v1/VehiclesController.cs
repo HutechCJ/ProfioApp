@@ -8,6 +8,7 @@ using Profio.Application.Vehicles.Queries;
 using Profio.Domain.Entities;
 using Profio.Domain.Models;
 using Profio.Domain.Specifications;
+using Profio.Domain.ValueObjects;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Api.UseCases.v1;
@@ -44,6 +45,9 @@ public class VehiclesController : BaseEntityController<Vehicle, VehicleDto, GetV
   [HttpGet("{id:length(26)}/hubs/next")]
   public async Task<ActionResult<ResultModel<HubDto>>> GetNextHub(string id)
     => ResultModel<HubDto>.Create(await Mediator.Send(new GetNextHubByVehicleIdQuery(id)));
+  [HttpGet("{id:length(26)}/destination-address")]
+  public async Task<ActionResult<ResultModel<Address>>> GetDestinationAddress(string id)
+    => ResultModel<Address>.Create(await Mediator.Send(new GetDestinationAddressByVehicleIdQuery(id)));
 
   [HttpGet("count-by-type")]
   [MapToApiVersion("1.0")]
