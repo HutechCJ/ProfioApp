@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import Link from '@/components/Link';
 import LoadingButton from '@/components/LoadingButton';
@@ -16,6 +16,9 @@ import { DataGrid, GridColDef } from '@mui/x-data-grid';
 
 import ReplayIcon from '@mui/icons-material/Replay';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import InfoIcon from '@mui/icons-material/Info';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 import { Staff, StaffPosition } from '@/features/staff/staff.types';
 import useGetStaffs from '@/features/staff/useGetStaffs';
@@ -38,17 +41,17 @@ const columns: GridColDef<Staff>[] = [
   {
     field: 'name',
     width: 300,
-    headerName: 'HỌ TÊN',
+    headerName: 'FULL NAME',
   },
   {
     field: 'phone',
     width: 250,
-    headerName: 'SỐ ĐIỆN THOẠI',
+    headerName: 'PHONE',
   },
   {
     field: 'position',
     width: 200,
-    headerName: 'CHỨC VỤ',
+    headerName: 'POSITION',
     valueGetter: (params) => {
       const { position } = params.row;
       return `${StaffPosition[position]}`;
@@ -57,7 +60,7 @@ const columns: GridColDef<Staff>[] = [
   {
     field: '',
     width: 400,
-    headerName: 'HÀNH ĐỘNG',
+    headerName: 'ACTIONS',
     renderCell: (params) => {
       const staffId = params.row.id;
       return (
@@ -67,12 +70,34 @@ const columns: GridColDef<Staff>[] = [
           spacing={2}
         >
           <Link href={`/staffs/${staffId}`}>
-            <Button color="primary">Xem Chi Tiết</Button>
+            <Button color="primary" startIcon={<InfoIcon />}>
+              Details
+            </Button>
           </Link>
 
-          <Button color="success">Chỉnh Sửa</Button>
+          <FormDialog
+            buttonText="Edit"
+            buttonVariant="text"
+            buttonColor="secondary"
+            buttonIcon={<EditIcon />}
+            dialogTitle="STAFF INFORMATION"
+            dialogDescription={`ID: ${staffId}`}
+            componentProps={(handleClose) => (
+              <StaffForm onSubmit={() => {<></>}} handleClose={handleClose} />
+            )}
+          />
 
-          <Button color="error">Xoá</Button>
+          <FormDialog
+            buttonText="Delete"
+            buttonVariant="text"
+            buttonColor="error"
+            buttonIcon={<DeleteIcon />}
+            dialogTitle="Are you sure you want to delete this STAFF?"
+            dialogDescription={`ID: ${staffId}`}
+            componentProps={(handleClose) => (
+              <StaffForm onSubmit={() => {<></>}} handleClose={handleClose} />
+            )}
+          />
         </Stack>
       );
     },
@@ -91,11 +116,11 @@ function StaffList() {
     refetch,
     remove,
   } = useGetStaffs({
-    PageNumber: paginationModel.page + 1,
+    PageIndex: paginationModel.page + 1,
     PageSize: paginationModel.pageSize,
   });
 
-  const rowCount = pagingStaffs?.data.totalPages || 0;
+  const rowCount = pagingStaffs?.data.totalCount || 0;
 
   const [rowCountState, setRowCountState] = React.useState(rowCount);
 
@@ -114,7 +139,7 @@ function StaffList() {
         marginBottom={2}
       >
         <Typography variant="h5" fontWeight="bold">
-          DANH SÁCH NHÂN VIÊN
+          STAFF LIST
         </Typography>
         <ButtonGroup variant="text" aria-label="button-group-reload-and-create">
           <LoadingButton
@@ -128,16 +153,15 @@ function StaffList() {
             RELOAD
           </LoadingButton>
           <FormDialog
-            buttonText="THÊM NHÂN VIÊN"
+            buttonText="ADD STAFF"
             buttonVariant="contained"
             buttonColor="success"
             buttonIcon={<PersonAddIcon />}
-            dialogTitle="Thêm Nhân Viên"
-            submitButton="Thêm Mới"
-            handleSubmitFn={() => {
-              <></>;
-            }}
-            componentProps={<StaffForm />}
+            dialogTitle="ADD STAFF"
+            dialogDescription="Please enter information for the staff"
+            componentProps={(handleClose) => (
+              <StaffForm onSubmit={refetch} handleClose={handleClose} />
+            )}
           />
         </ButtonGroup>
       </Stack>

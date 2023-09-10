@@ -1,20 +1,122 @@
 'use client';
 
-import { TextField } from '@mui/material';
+import React, { useEffect } from 'react';
 
-const StaffForm = () => {
+import { StaffPosition } from '@/features/staff/staff.types';
+import {
+  TextField,
+  MenuItem,
+  Box,
+  Alert,
+  AlertTitle,
+  Stack,
+  Button,
+} from '@mui/material';
+import useCreateStaff from '@/features/staff/useCreateStaff';
+import { useSnackbar } from 'notistack';
+
+const positions = [
+  {
+    value: StaffPosition.Driver,
+    label: 'Driver',
+  },
+  {
+    value: StaffPosition.Shipper,
+    label: 'Shipper',
+  },
+];
+
+interface StaffFormProps {
+  onSubmit: () => void;
+  handleClose: () => void;
+}
+
+const StaffForm: React.FC<StaffFormProps> = ({ onSubmit, handleClose }) => {
+  const { enqueueSnackbar } = useSnackbar();
+  const { mutate: createStaff, error, isError, isSuccess } = useCreateStaff();
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const data = new FormData(event.currentTarget);
+    createStaff({
+      name: data.get('name') as string,
+      phone: data.get('phone') as string & { length: 10 },
+      position:
+        StaffPosition[
+          parseInt(data.get('position') as string) as StaffPosition
+        ],
+    });
+  };
+
+  useEffect(() => {
+    if (isSuccess) {
+      enqueueSnackbar('Successfully!', {
+        variant: 'success',
+      });
+      onSubmit();
+      handleClose();
+    }
+  }, [isSuccess, enqueueSnackbar, onSubmit, handleClose]);
+
   return (
-    <>
+    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
       <TextField
-        autoFocus
         margin="dense"
-        id="name"
-        label="Email Address"
-        type="email"
+        required
         fullWidth
-        variant="standard"
+        variant="filled"
+        id="name"
+        name="name"
+        label="Full Name"
+        autoComplete="given-name"
       />
-    </>
+      <TextField
+        margin="dense"
+        required
+        fullWidth
+        variant="filled"
+        id="phone"
+        name="phone"
+        label="Phone"
+        autoComplete="phone"
+      />
+      <TextField
+        margin="dense"
+        required
+        fullWidth
+        select
+        defaultValue={StaffPosition.Driver}
+        variant="filled"
+        id="position"
+        name="position"
+        label="Position"
+      >
+        {positions.map((option) => (
+          <MenuItem key={option.value} value={option.value}>
+            {option.label}
+          </MenuItem>
+        ))}
+      </TextField>
+      {isError && (
+        <Alert severity="error" sx={{ mt: 2 }}>
+          <AlertTitle>Error</AlertTitle>
+          <Stack>
+            {Object.values(
+              (error as any).response.data.data as {
+                [key: string]: any;
+              }
+            )
+              .flat()
+              .map((value, i) => (
+                <span key={`error_${i}`}>{value}</span>
+              ))}
+          </Stack>
+        </Alert>
+      )}
+      <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
+        SUBMIT
+      </Button>
+    </Box>
   );
 };
 

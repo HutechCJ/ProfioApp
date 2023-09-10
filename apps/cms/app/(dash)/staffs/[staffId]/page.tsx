@@ -44,12 +44,12 @@ function Staff({ params }: { params: { staffId: string } }) {
             color="primary"
             startIcon={<ArrowBackIcon />}
           >
-            VỀ DANH SÁCH
+            BACK TO LIST
           </Button>
         </Link>
         <ButtonGroup variant="contained">
-          <Button color="success">Chỉnh Sửa</Button>
-          <Button color="error">Xoá</Button>
+          <Button color="secondary">Edit</Button>
+          <Button color="error">Delete</Button>
         </ButtonGroup>
       </Stack>
 
@@ -57,7 +57,7 @@ function Staff({ params }: { params: { staffId: string } }) {
         <CardHeader
           title={
             <Typography variant="h4" fontWeight="bold">
-              THÔNG TIN NHÂN VIÊN
+              STAFF INFORMATION
             </Typography>
           }
           subheader={`ID: ${id}`}
@@ -87,10 +87,10 @@ function Staff({ params }: { params: { staffId: string } }) {
             </Stack>
             <Stack>
               <Typography variant="h5" gutterBottom>
-                Họ Tên: <strong>{name}</strong>
+                Full Name: <strong>{name}</strong>
               </Typography>
               <Typography variant="h5" gutterBottom>
-                Số Điện Thoại: <strong>{phone}</strong>
+                Phone: <strong>{phone}</strong>
               </Typography>
             </Stack>
           </Stack>

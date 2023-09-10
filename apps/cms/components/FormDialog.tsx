@@ -3,12 +3,15 @@
 import React, { useState } from 'react';
 import {
   Button,
+  IconButton,
+  Stack,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
 } from '@mui/material';
+import CancelIcon from '@mui/icons-material/Cancel';
 
 interface FormDialogProps {
   buttonText: string;
@@ -17,9 +20,7 @@ interface FormDialogProps {
   buttonIcon?: React.ReactNode;
   dialogTitle: string;
   dialogDescription?: string;
-  submitButton: string;
-  handleSubmitFn?: () => void;
-  componentProps?: React.ReactNode;
+  componentProps: (handleClose: () => void) => any;
 }
 
 const FormDialog: React.FC<FormDialogProps> = ({
@@ -29,21 +30,12 @@ const FormDialog: React.FC<FormDialogProps> = ({
   buttonIcon,
   dialogTitle = '',
   dialogDescription = '',
-  submitButton = '',
-  handleSubmitFn,
   componentProps,
 }) => {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  const handleSubmit = () => {
-    if (handleSubmitFn) {
-      handleSubmitFn();
-    }
-    handleClose();
-  };
 
   return (
     <>
@@ -64,19 +56,22 @@ const FormDialog: React.FC<FormDialogProps> = ({
       </Button>
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{dialogTitle}</DialogTitle>
+        <Stack
+          direction="row"
+          justifyContent="space-between"
+          alignItems="center"
+        >
+          <DialogTitle>{dialogTitle}</DialogTitle>
+          <DialogActions sx={{ marginRight: 2, marginBottom: 1 }}>
+            <IconButton onClick={handleClose}>
+              <CancelIcon />
+            </IconButton>
+          </DialogActions>
+        </Stack>
         <DialogContent>
           <DialogContentText>{dialogDescription}</DialogContentText>
-          {componentProps}
+          {componentProps(handleClose)}
         </DialogContent>
-        <DialogActions>
-          <Button variant="contained" color="error" onClick={handleClose}>
-            Đóng
-          </Button>
-          <Button variant="contained" color="success" onClick={handleSubmit}>
-            {submitButton}
-          </Button>
-        </DialogActions>
       </Dialog>
     </>
   );

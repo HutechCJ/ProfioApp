@@ -21,7 +21,7 @@ import useGetStaffs from '@/features/staff/useGetStaffs';
 import { StaffPosition } from '@/features/staff/staff.types';
 
 const StaffStatisticsCard = () => {
-  const { data, isLoading, isError } = useGetStaffs();
+  const { data: pagingStaffs, isLoading, isError, refetch } = useGetStaffs();
 
   if (isLoading) {
     return (
@@ -35,8 +35,8 @@ const StaffStatisticsCard = () => {
     return <p>Error loading staff data.</p>;
   }
 
-  const staffData = data?.data?.items || [];
-  const totalStaff = staffData.length || 0;
+  const staffData = pagingStaffs?.data.items || [];
+  const totalStaff = pagingStaffs?.data.totalCount || 0;
   const totalDrivers =
     staffData.filter((staff) => staff.position === StaffPosition.Driver)
       .length || 0;
@@ -46,7 +46,7 @@ const StaffStatisticsCard = () => {
 
   return (
     <Card sx={{ marginBottom: 4 }}>
-      <CardHeader title="NHÂN VIÊN" subheader="Số liệu thống kê" />
+      <CardHeader title="STAFF" subheader="Statistics" />
       <Divider />
       <CardContent sx={{ marginY: 4 }}>
         <Stack
@@ -58,7 +58,7 @@ const StaffStatisticsCard = () => {
             icon={<PeopleIcon />}
             iconColor="orange"
             value={totalStaff}
-            description="Tổng Số Nhân Viên"
+            description="Total Staff"
           />
           <Stat
             icon={<LocalShippingIcon />}
