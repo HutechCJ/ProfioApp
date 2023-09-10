@@ -60,18 +60,19 @@ export default class HttpService {
     const statusCode = error?.response?.status;
     switch (statusCode) {
       case HttpStatusCode.UNAUTHORIZED: {
-        // if (
-        //     typeof window !== 'undefined' &&
-        //     !window.location.pathname.startsWith('/auth')
-        // )
-        //     window.location.replace('/auth/sign-in')
-        if (error?.config) {
-          error.config.withCredentials = false;
-          error.request.headers = {
-            ...error.request.headers,
-            Cookie: '',
-          };
-        }
+        fetch(`/api/auth/logout`, {
+          method: 'POST',
+        })
+          .then(() => {
+            if (
+              typeof window !== 'undefined' &&
+              !window.location.pathname.startsWith('/auth')
+            ) {
+              window.location.replace('/auth/sign-in');
+              // window.location.reload()
+            }
+          })
+          .catch(console.error);
         break;
       }
     }
