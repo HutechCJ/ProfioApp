@@ -24,6 +24,7 @@ public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
     await CustomerSeeding();
     await OrderSeeding();
     await VehicleSeeding();
+    await StaffSeeding();
     return "Seeding Success";
   }
 
@@ -88,5 +89,15 @@ public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
     await _context.SaveChangesAsync();
     var vehicleList = await _context.Vehicles.ToListAsync();
     Log.Information("Added vehicle logging" + JsonSerializer.Serialize(vehicleList));
+  }
+  
+  private async Task StaffSeeding()
+  {
+    var json = await File.ReadAllTextAsync(PathSeed.StaffData);
+    var staffs = JsonSerializer.Deserialize<List<Staff>>(json)!;
+    await _context.AddRangeAsync(staffs);
+    await _context.SaveChangesAsync();
+    var staffList = await _context.Staffs.ToListAsync();
+    Log.Information("Added staff logging" + JsonSerializer.Serialize(staffList));
   }
 }

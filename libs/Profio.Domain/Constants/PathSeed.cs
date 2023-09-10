@@ -7,5 +7,6 @@ namespace Profio.Domain.Constants
     public static string CustomerData = @"../../libs/Profio.Infrastructure/Persistence/Seeding/Customer.json";
     public static string OrderData = @"../../libs/Profio.Infrastructure/Persistence/Seeding/Order.json";
     public static string VehicleData = @"../../libs/Profio.Infrastructure/Persistence/Seeding/Vehicle.json";
+    public static string StaffData = @"../../libs/Profio.Infrastructure/Persistence/Seeding/Staff.json";
   }
 }
