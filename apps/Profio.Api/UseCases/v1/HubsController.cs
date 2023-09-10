@@ -23,7 +23,7 @@ public class HubsController : BaseEntityController<Hub, HubDto, GetHubByIdQuery>
   [HttpGet("{id:length(26)}")]
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<HubDto>>> GetById(string id)
-    => HandleGetByIdQuery(new GetHubByIdQuery(id));
+    => HandleGetByIdQuery(new(id));
 
   [HttpPost]
   [MapToApiVersion("1.0")]

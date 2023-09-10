@@ -55,7 +55,7 @@ public class UsersController : BaseEntityController<ApplicationUser, UserDto, Ge
   [HttpGet("{id:guid}")]
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<UserDto>>> GetUserById(Guid id)
-    => HandleGetByIdQuery(new GetUserByIdQuery(id));
+    => HandleGetByIdQuery(new(id));
 
   [HttpGet("check-authorization")]
   [MapToApiVersion("1.0")]

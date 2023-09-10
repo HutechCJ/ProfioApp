@@ -1,8 +1,10 @@
 using EntityFrameworkCore.Repository.Collections;
+using FirebaseAdmin.Messaging;
 using Microsoft.AspNetCore.Mvc;
 using Profio.Application.DeliveryProgresses;
 using Profio.Application.DeliveryProgresses.Commands;
 using Profio.Application.DeliveryProgresses.Queries;
+using Profio.Domain.Contracts;
 using Profio.Domain.Entities;
 using Profio.Domain.Models;
 using Profio.Domain.Specifications;
@@ -22,7 +24,7 @@ public class DeliveryProgressesController : BaseEntityController<DeliveryProgres
   [HttpGet("{id:length(26)}")]
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<DeliveryProgressDto>>> GetById(string id)
-    => HandleGetByIdQuery(new GetDeliveryProgressByIdQuery(id));
+    => HandleGetByIdQuery(new(id));
 
   [HttpPost]
   [MapToApiVersion("1.0")]
@@ -38,4 +40,21 @@ public class DeliveryProgressesController : BaseEntityController<DeliveryProgres
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<DeliveryProgressDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteDeliveryProgressCommand(id));
+
+  [HttpPost("notification")]
+  [MapToApiVersion("1.0")]
+  public async Task<IActionResult> SendNotification(MessageRequest body)
+  {
+    await FirebaseMessaging.DefaultInstance.SendAsync(new()
+    {
+      Token = body.DeviceToken,
+      Notification = new()
+      {
+        Title = body.Title,
+        Body = body.Body
+      }
+    });
+
+    return Ok("Notification sent successfully");
+  }
 }

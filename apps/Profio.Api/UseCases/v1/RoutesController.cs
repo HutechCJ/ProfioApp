@@ -22,7 +22,7 @@ public class RoutesController : BaseEntityController<RouteEntity, RouteDto, GetR
   [HttpGet("{id:length(26)}")]
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<RouteDto>>> GetById(string id)
-    => HandleGetByIdQuery(new GetRouteByIdQuery(id));
+    => HandleGetByIdQuery(new(id));
 
   [HttpPost]
   [MapToApiVersion("1.0")]

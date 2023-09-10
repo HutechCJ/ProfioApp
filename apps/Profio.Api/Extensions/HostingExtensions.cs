@@ -1,3 +1,5 @@
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Profio.Application;
@@ -11,6 +13,11 @@ public static class HostingExtensions
 {
   public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
   {
+    FirebaseApp.Create(new AppOptions()
+    {
+      Credential = GoogleCredential.FromFile("firebase.json")
+    });
+
     builder.Services.AddApplicationServices();
     builder.Services.AddInfrastructureServices(builder);
     builder.Services.AddRateLimiting();
