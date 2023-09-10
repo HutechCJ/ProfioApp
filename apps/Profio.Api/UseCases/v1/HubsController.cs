@@ -44,4 +44,5 @@ public class HubsController : BaseEntityController<Hub, HubDto, GetHubByIdQuery>
   [MapToApiVersion("1.0")]
   public async Task<ActionResult<ResultModel<HubDto>>> GetNearestHub([FromQuery] Location location)
     => Ok(ResultModel<HubDto>.Create(await Mediator.Send(new GetNearestHubByLocationQuery(location))));
+
 }

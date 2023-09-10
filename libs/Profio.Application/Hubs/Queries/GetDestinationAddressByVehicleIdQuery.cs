@@ -19,7 +19,7 @@ public class GetDestinationAddressByVehicleIdQueryHandler : IRequestHandler<GetD
     var vehicle = await _applicationDbContext.Vehicles
         .Include(v => v.Deliveries)
         .ThenInclude(d => d.Order)
-        .ThenInclude(o => o.Customer)
+        .ThenInclude(o => o!.Customer)
         .Where(v => v.Id == request.VehicleId)
         .FirstOrDefaultAsync(cancellationToken) ??
       throw new NotFoundException(typeof(Vehicle).Name, request.VehicleId);

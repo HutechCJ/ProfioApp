@@ -10,7 +10,6 @@ using Profio.Domain.Models;
 using Profio.Domain.Specifications;
 using Profio.Domain.ValueObjects;
 using Swashbuckle.AspNetCore.Annotations;
-
 namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
@@ -53,4 +52,11 @@ public class VehiclesController : BaseEntityController<Vehicle, VehicleDto, GetV
   [MapToApiVersion("1.0")]
   public async Task<ActionResult<ResultModel<IEnumerable<int>>>> GetCountByType()
     => Ok(ResultModel<IEnumerable<int>>.Create(await Mediator.Send(new GetVehicleCountByTypeQuery())));
+  [HttpPost("{id:length(26)}/hubs/{hubId:length(26)}/visit")]
+  [MapToApiVersion("1.0")]
+  public async Task<IActionResult> VisitHub([FromRoute] string id, [FromRoute] string hubId)
+  {
+    await Mediator.Send(new VisitHubCommand(id, hubId));
+    return NoContent();
+  }
 }

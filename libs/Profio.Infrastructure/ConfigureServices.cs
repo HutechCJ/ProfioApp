@@ -11,17 +11,18 @@ using Profio.Infrastructure.HealthCheck;
 using Profio.Infrastructure.Hub;
 using Profio.Infrastructure.Identity;
 using Profio.Infrastructure.Jobs;
+using Profio.Infrastructure.Key;
 using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.Middleware;
 using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Persistence;
+using Profio.Infrastructure.Persistence.Idempotency;
 using Profio.Infrastructure.Searching;
 using Profio.Infrastructure.Swagger;
 using Profio.Infrastructure.Versioning;
 using System.IO.Compression;
 using System.Net.Mime;
-using Profio.Infrastructure.Key;
-using Profio.Infrastructure.Persistence.Idempotency;
+using System.Text.Json.Serialization;
 
 namespace Profio.Infrastructure;
 
@@ -37,6 +38,10 @@ public static class ConfigureServices
         options.Filters.Add<ExceptionFilter>();
       })
       .AddNewtonsoftJson()
+      .AddJsonOptions(options =>
+      {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+      })
       .AddApplicationPart(AssemblyReference.Assembly);
 
     services.AddResponseCompression(options =>
