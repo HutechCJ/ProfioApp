@@ -22,6 +22,8 @@ public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
     await HubSeeding();
     await RouteSeeding();
     await CustomerSeeding();
+    await OrderSeeding();
+    await VehicleSeeding();
     return "Seeding Success";
   }
 
@@ -57,11 +59,34 @@ public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
 
   private async Task CustomerSeeding()
   {
+    if (!await _context.Routes.AnyAsync())
+    {
       var json = await File.ReadAllTextAsync(PathSeed.CustomerData);
       var customers = JsonSerializer.Deserialize<List<Customer>>(json)!;
       await _context.AddRangeAsync(customers);
       await _context.SaveChangesAsync();
       var customerList = await _context.Customers.ToListAsync();
       Log.Information("Added customer logging" + JsonSerializer.Serialize(customerList));
+    }
+  }
+
+  private async Task OrderSeeding()
+  {
+    var json = await File.ReadAllTextAsync(PathSeed.OrderData);
+    var orders = JsonSerializer.Deserialize<List<Order>>(json)!;
+    await _context.AddRangeAsync(orders);
+    await _context.SaveChangesAsync();
+    var orderList = await _context.Orders.ToListAsync();
+    Log.Information("Added order logging" + JsonSerializer.Serialize(orderList));
+  }
+ 
+  private async Task VehicleSeeding()
+  {
+    var json = await File.ReadAllTextAsync(PathSeed.VehicleData);
+    var vehicles = JsonSerializer.Deserialize<List<Vehicle>>(json)!;
+    await _context.AddRangeAsync(vehicles);
+    await _context.SaveChangesAsync();
+    var vehicleList = await _context.Vehicles.ToListAsync();
+    Log.Information("Added vehicle logging" + JsonSerializer.Serialize(vehicleList));
   }
 }
