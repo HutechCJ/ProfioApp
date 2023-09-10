@@ -25,7 +25,7 @@ jobs:
         password: ${{ secrets.TOKEN }}
     - name: Build the hello-docker Docker image
       run: |
-       cd /apps/Profio.Api
+       ls
        docker build . --tag ghcr.io/HutechCJ/profio-api:latest
        docker run ghcr.io/HutechCJ/profio-api:latest
        docker push ghcr.io/HutechCJ/profio-api:latest
