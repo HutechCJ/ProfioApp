@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:profio_staff_client/widgets/hub_info.dart';
 import 'package:profio_staff_client/widgets/mqtt_connection_button.dart';
+import 'package:profio_staff_client/widgets/simulate_button.dart';
 import 'package:profio_staff_client/widgets/vehicle_list.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,6 +21,7 @@ class HomePage extends StatelessWidget {
         Expanded(
           child: HubInfo(),
         ),
+        Expanded(child: SimulateButton())
       ]),
     );
   }
