@@ -38,4 +38,10 @@ public class StaffsController : BaseEntityController<Staff, StaffDto, GetStaffBy
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<StaffDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteStaffCommand(id));
+  [HttpGet("count-by-position")]
+  [MapToApiVersion("1.0")]
+  public async Task<ActionResult<ResultModel<IEnumerable<int>>>> GetCountByPosition()
+  {
+    return Ok(ResultModel<IEnumerable<int>>.Create(await Mediator.Send(new GetStaffCountByPositionQuery())));
+  }
 }
