@@ -99,8 +99,8 @@ export default class HttpService {
     return await this.instance.post<T, ApiResponse<T>>(url, data, config);
   }
 
-  public async put<T>(url: string, data?: any, config?: AxiosRequestConfig) {
-    return await this.instance.put<T, ApiResponse<T>>(url, data, config);
+  public async put(url: string, data?: any, config?: AxiosRequestConfig) {
+    return await this.instance.put(url, data, config);
   }
 
   public async patch<T>(url: string, data: any, config?: AxiosRequestConfig) {
