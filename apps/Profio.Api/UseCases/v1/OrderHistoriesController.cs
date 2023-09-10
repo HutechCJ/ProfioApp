@@ -22,7 +22,7 @@ public class OrderHistoriesController : BaseEntityController<OrderHistory, Order
   [HttpGet("{id:length(26)}")]
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<OrderHistoryDto>>> GetById(string id)
-    => HandleGetByIdQuery(new GetOrderHistoryByIdQuery(id));
+    => HandleGetByIdQuery(new(id));
 
   [HttpPost]
   [MapToApiVersion("1.0")]

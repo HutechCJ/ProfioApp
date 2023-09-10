@@ -22,7 +22,7 @@ public class StaffsController : BaseEntityController<Staff, StaffDto, GetStaffBy
   [HttpGet("{id:length(26)}")]
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<StaffDto>>> GetById(string id)
-    => HandleGetByIdQuery(new GetStaffByIdQuery(id));
+    => HandleGetByIdQuery(new(id));
 
   [HttpPost]
   [MapToApiVersion("1.0")]

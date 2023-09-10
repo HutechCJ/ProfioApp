@@ -22,7 +22,7 @@ public class CustomersController : BaseEntityController<Customer, CustomerDto, G
   [HttpGet("{id:length(26)}")]
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<CustomerDto>>> GetById(string id)
-    => HandleGetByIdQuery(new GetCustomerByIdQuery(id));
+    => HandleGetByIdQuery(new(id));
 
   [HttpPost]
   [MapToApiVersion("1.0")]

@@ -24,7 +24,7 @@ public class VehiclesController : BaseEntityController<Vehicle, VehicleDto, GetV
   [HttpGet("{id:length(26)}")]
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<VehicleDto>>> GetById(string id)
-    => HandleGetByIdQuery(new GetVehicleByIdQuery(id));
+    => HandleGetByIdQuery(new(id));
 
   [HttpPost]
   [MapToApiVersion("1.0")]
@@ -40,9 +40,11 @@ public class VehiclesController : BaseEntityController<Vehicle, VehicleDto, GetV
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<VehicleDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteVehicleCommand(id));
+
   [HttpGet("{id:length(26)}/hubs/next")]
   public async Task<ActionResult<ResultModel<HubDto>>> GetNextHub(string id)
     => ResultModel<HubDto>.Create(await Mediator.Send(new GetNextHubByVehicleIdQuery(id)));
+
   [HttpGet("count-by-type")]
   [MapToApiVersion("1.0")]
   public async Task<ActionResult<ResultModel<IEnumerable<int>>>> GetCountByType()

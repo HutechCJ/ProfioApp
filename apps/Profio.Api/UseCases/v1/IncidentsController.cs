@@ -22,7 +22,7 @@ public class IncidentsController : BaseEntityController<Incident, IncidentDto, G
   [HttpGet("{id:length(26)}")]
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<IncidentDto>>> GetById(string id)
-    => HandleGetByIdQuery(new GetIncidentByIdQuery(id));
+    => HandleGetByIdQuery(new(id));
 
   [HttpPost]
   [MapToApiVersion("1.0")]

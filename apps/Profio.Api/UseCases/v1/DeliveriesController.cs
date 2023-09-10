@@ -22,7 +22,7 @@ public class DeliveriesController : BaseEntityController<Delivery, DeliveryDto, 
   [HttpGet("{id:length(26)}")]
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<DeliveryDto>>> GetById(string id)
-    => HandleGetByIdQuery(new GetDeliveryByIdQuery(id));
+    => HandleGetByIdQuery(new(id));
 
   [HttpPost]
   [MapToApiVersion("1.0")]
