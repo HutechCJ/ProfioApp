@@ -38,7 +38,7 @@ public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
       await _context.AddRangeAsync(routes);
       await _context.SaveChangesAsync();
       var routeList = await _context.Routes.ToListAsync();
-      _logger.LogInformation("Added route logging {routeList}",  JsonSerializer.Serialize(routeList));
+      _logger.LogInformation("Added route logging {routeList}", JsonSerializer.Serialize(routeList));
     }
   }
 
