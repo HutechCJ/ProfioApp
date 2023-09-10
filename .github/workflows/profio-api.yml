@@ -23,9 +23,9 @@ jobs:
         registry: ghcr.io
         username: ${{ github.ACTOR }}
         password: ${{ secrets.TOKEN }}
-    - name: Build the hello-docker Docker image
+    - name: Build the profio-api image
       run: |
-       ls
+       cd apps/Profio.Api
        docker build . --tag ghcr.io/HutechCJ/profio-api:latest
        docker run ghcr.io/HutechCJ/profio-api:latest
        docker push ghcr.io/HutechCJ/profio-api:latest
