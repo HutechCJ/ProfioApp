@@ -1,10 +1,10 @@
 using System.Text.Json;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Profio.Domain.Constants;
 using Profio.Domain.Entities;
 using Profio.Infrastructure.Persistence;
-using Serilog;
 
 namespace Profio.Application.Seed.Queries;
 
@@ -13,9 +13,10 @@ public record SeedDataQuery : IRequest<string>;
 public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
 {
   private readonly ApplicationDbContext _context;
+  private readonly ILogger<SeedDataHandler> _logger;
 
-  public SeedDataHandler(ApplicationDbContext context)
-    => _context = context;
+  public SeedDataHandler(ApplicationDbContext context, ILogger<SeedDataHandler> logger)
+    => (_context, _logger) = (context, logger);
 
   public async Task<string> Handle(SeedDataQuery request, CancellationToken cancellationToken)
   {
@@ -37,10 +38,8 @@ public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
       await _context.AddRangeAsync(routes);
       await _context.SaveChangesAsync();
       var routeList = await _context.Routes.ToListAsync();
-      Log.Information("Added route logging" + JsonSerializer.Serialize(routeList));
+      _logger.LogInformation("Added route logging {routeList}",  JsonSerializer.Serialize(routeList));
     }
-
-    ;
   }
 
   private async Task HubSeeding()
@@ -52,10 +51,8 @@ public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
       await _context.AddRangeAsync(hubs);
       await _context.SaveChangesAsync();
       var hubList = await _context.Hubs.ToListAsync();
-      Log.Information("Added hub logging" + JsonSerializer.Serialize(hubList));
+      _logger.LogInformation("Added hub logging {hubList}", JsonSerializer.Serialize(hubList));
     }
-
-    ;
   }
 
   private async Task CustomerSeeding()
@@ -67,7 +64,7 @@ public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
       await _context.AddRangeAsync(customers);
       await _context.SaveChangesAsync();
       var customerList = await _context.Customers.ToListAsync();
-      Log.Information("Added customer logging" + JsonSerializer.Serialize(customerList));
+      _logger.LogInformation("Added customer logging {customerList}", JsonSerializer.Serialize(customerList));
     }
   }
 
@@ -78,9 +75,9 @@ public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
     await _context.AddRangeAsync(orders);
     await _context.SaveChangesAsync();
     var orderList = await _context.Orders.ToListAsync();
-    Log.Information("Added order logging" + JsonSerializer.Serialize(orderList));
+    _logger.LogInformation("Added order logging {orderList}", JsonSerializer.Serialize(orderList));
   }
- 
+
   private async Task VehicleSeeding()
   {
     var json = await File.ReadAllTextAsync(PathSeed.VehicleData);
@@ -88,9 +85,9 @@ public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
     await _context.AddRangeAsync(vehicles);
     await _context.SaveChangesAsync();
     var vehicleList = await _context.Vehicles.ToListAsync();
-    Log.Information("Added vehicle logging" + JsonSerializer.Serialize(vehicleList));
+    _logger.LogInformation("Added vehicle logging {vehicleList}", JsonSerializer.Serialize(vehicleList));
   }
-  
+
   private async Task StaffSeeding()
   {
     var json = await File.ReadAllTextAsync(PathSeed.StaffData);
@@ -98,6 +95,6 @@ public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
     await _context.AddRangeAsync(staffs);
     await _context.SaveChangesAsync();
     var staffList = await _context.Staffs.ToListAsync();
-    Log.Information("Added staff logging" + JsonSerializer.Serialize(staffList));
+    _logger.LogInformation("Added staff logging {staffList}", JsonSerializer.Serialize(staffList));
   }
 }
