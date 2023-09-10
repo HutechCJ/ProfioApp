@@ -46,11 +46,11 @@ mixin _$LocationStore on LocationStoreBase, Store {
       ActionController(name: 'LocationStoreBase', context: context);
 
   @override
-  void simulateVehicleMovement(MqttProvider mqttProvider) {
+  void simulateVehicleMovement() {
     final _$actionInfo = _$LocationStoreBaseActionController.startAction(
         name: 'LocationStoreBase.simulateVehicleMovement');
     try {
-      return super.simulateVehicleMovement(mqttProvider);
+      return super.simulateVehicleMovement();
     } finally {
       _$LocationStoreBaseActionController.endAction(_$actionInfo);
     }
