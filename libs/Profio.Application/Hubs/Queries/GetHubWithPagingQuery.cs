@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 
 namespace Profio.Application.Hubs.Queries;
 
-public record GetHubWithPagingQuery(Criteria<Hub> Criteria) : GetWithPagingQueryBase<Hub, HubDto>(Criteria);
+public record GetHubWithPagingQuery(Criteria Criteria) : GetWithPagingQueryBase<HubDto>(Criteria);
 
 public class GetHubWithPagingQueryHandler : GetWithPagingQueryHandler<GetHubWithPagingQuery, HubDto, Hub>
 {
@@ -21,6 +21,6 @@ public class GetHubWithPagingQueryHandler : GetWithPagingQueryHandler<GetHubWith
     => h => h.Name!.ToLower().Contains(filter);
 }
 
-public class GetHubWithPagingQueryValidator : GetWithPagingQueryValidatorBase<Hub, GetHubWithPagingQuery, HubDto>
+public class GetHubWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetHubWithPagingQuery, HubDto>
 {
 }

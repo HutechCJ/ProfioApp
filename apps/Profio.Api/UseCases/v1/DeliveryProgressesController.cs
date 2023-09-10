@@ -18,7 +18,7 @@ public class DeliveryProgressesController : BaseEntityController<DeliveryProgres
 {
   [HttpGet]
   [MapToApiVersion("1.0")]
-  public Task<ActionResult<ResultModel<IPagedList<DeliveryProgressDto>>>> Get([FromQuery] Criteria<DeliveryProgress> criteria)
+  public Task<ActionResult<ResultModel<IPagedList<DeliveryProgressDto>>>> Get([FromQuery] Criteria criteria)
     => HandlePaginationQuery(new GetDeliveryProgressWithPagingQuery(criteria));
 
   [HttpGet("{id:length(26)}")]

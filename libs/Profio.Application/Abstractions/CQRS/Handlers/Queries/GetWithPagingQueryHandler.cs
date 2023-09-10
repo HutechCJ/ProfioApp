@@ -16,7 +16,7 @@ namespace Profio.Application.Abstractions.CQRS.Handlers.Queries;
 
 public abstract class
   GetWithPagingQueryHandler<TQuery, TModel, TEntity> : IRequestHandler<TQuery, IPagedList<TModel>>
-  where TQuery : GetWithPagingQueryBase<TEntity, TModel>
+  where TQuery : GetWithPagingQueryBase<TModel>
   where TModel : BaseModel
   where TEntity : class, IEntity<object>
 {
@@ -31,6 +31,7 @@ public abstract class
     var query = (IMultipleResultQuery<TEntity>)_repository
       .MultipleResultQuery()
       .Page(request.Criteria.PageIndex, request.Criteria.PageSize)
+      .AndFilter(RequestFilter(request))
       .OrderByDescending(x => x.Id);
 
     if (request.Criteria.Filter is { })
@@ -64,4 +65,5 @@ public abstract class
     return pagedList;
   }
   protected virtual Expression<Func<TEntity, bool>> Filter(string filter) => x => x == null!;
+  protected virtual Expression<Func<TEntity, bool>> RequestFilter(TQuery request) => x => true;
 }

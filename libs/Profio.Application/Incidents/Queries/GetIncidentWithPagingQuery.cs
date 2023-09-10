@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 
 namespace Profio.Application.Incidents.Queries;
 
-public record GetIncidentWithPagingQuery(Criteria<Incident> Criteria) : GetWithPagingQueryBase<Incident, IncidentDto>(Criteria);
+public record GetIncidentWithPagingQuery(Criteria Criteria) : GetWithPagingQueryBase<IncidentDto>(Criteria);
 
 public class GetIncidentWithPagingQueryHandler : GetWithPagingQueryHandler<GetIncidentWithPagingQuery, IncidentDto, Incident>
 {
@@ -21,6 +21,6 @@ public class GetIncidentWithPagingQueryHandler : GetWithPagingQueryHandler<GetIn
 }
 
 public class
-  GetIncidentWithPagingQueryValidator : GetWithPagingQueryValidatorBase<Incident, GetIncidentWithPagingQuery, IncidentDto>
+  GetIncidentWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetIncidentWithPagingQuery, IncidentDto>
 {
 }

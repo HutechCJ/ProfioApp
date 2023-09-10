@@ -1,8 +1,6 @@
-using Profio.Domain.Interfaces;
-
 namespace Profio.Domain.Specifications;
 
-public class Criteria<T> where T : IEntity<object>
+public class Criteria
 {
   public string? Filter { get; set; }
   public string? OrderBy { get; set; }

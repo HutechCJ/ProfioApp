@@ -9,7 +9,7 @@ using Profio.Domain.Specifications;
 namespace Profio.Application.Deliveries.Queries;
 
 public record GetDeliveryWithPagingQuery
-  (Criteria<Delivery> Criteria) : GetWithPagingQueryBase<Delivery, DeliveryDto>(Criteria);
+  (Criteria Criteria) : GetWithPagingQueryBase<DeliveryDto>(Criteria);
 
 public class
   GetDeliveryWithPagingQueryHandler : GetWithPagingQueryHandler<GetDeliveryWithPagingQuery, DeliveryDto, Delivery>
@@ -19,7 +19,7 @@ public class
 }
 
 public class
-  GetDeliveryWithPagingQueryValidator : GetWithPagingQueryValidatorBase<Delivery, GetDeliveryWithPagingQuery,
+  GetDeliveryWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetDeliveryWithPagingQuery,
     DeliveryDto>
 {
 }

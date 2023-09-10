@@ -18,10 +18,6 @@ namespace Profio.Api.UseCases.v1;
 [SwaggerTag("An authenticated and authorized user")]
 public class UsersController : BaseEntityController<ApplicationUser, UserDto, GetUserByIdQuery>
 {
-  private readonly IUserAccessor _userAccessor;
-
-  public UsersController(IUserAccessor userAccessor)
-    => _userAccessor = userAccessor;
   [HttpPost("login")]
   [AllowAnonymous]
   [MapToApiVersion("1.0")]
@@ -65,6 +61,6 @@ public class UsersController : BaseEntityController<ApplicationUser, UserDto, Ge
   [HttpGet("get-users")]
   [AllowAnonymous]
   [MapToApiVersion("1.0")]
-  public Task<ActionResult<ResultModel<IPagedList<UserDto>>>> GetUsers([FromQuery] Criteria<ApplicationUser> criteria)
+  public Task<ActionResult<ResultModel<IPagedList<UserDto>>>> GetUsers([FromQuery] Criteria criteria)
     => HandlePaginationQuery(new GetUserWithPagingQuery(criteria));
 }
