@@ -5,8 +5,6 @@ EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 WORKDIR /src
-COPY ["Directory.Build.props", "."]
-COPY ["Directory.Build.targets", "."]
 COPY ["apps/Profio.Api/Profio.Api.csproj", "apps/Profio.Api/"]
 COPY ["libs/Profio.Application/Profio.Application.csproj", "libs/Profio.Application/"]
 COPY ["libs/Profio.Infrastructure/Profio.Infrastructure.csproj", "libs/Profio.Infrastructure/"]

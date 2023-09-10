@@ -1,0 +1,30 @@
+name: Publish Profio Api
+
+on:
+  push:
+    branches:
+      - main
+      - stg
+    paths:
+      - 'apps/Profio.Proxy/**'
+      - 'libs/**'
+      - '.github/workflows/profio-api.yml'
+  pull_request:
+    branches: [ stg ]
+
+jobs:
+  build-docker:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v1
+      with:
+        registry: ghcr.io
+        username: ${{ github.ACTOR }}
+        password: ${{ secrets.TOKEN }}
+    - name: Build the profio-api image
+      run: |
+       docker build -f apps/Profio.Proxy/Dockerfile . --tag ghcr.io/profio-app/profio-proxy:latest
+       docker run ghcr.io/profio-app/profio-proxy:latest
+       docker push ghcr.io/profio-app/profio-proxy:latest
