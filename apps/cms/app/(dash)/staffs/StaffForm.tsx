@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import useCreateStaff from '@/features/staff/useCreateStaff';
 import { useSnackbar } from 'notistack';
+import useCountByPosition from '@/features/staff/useCountByPosition';
 
 const positions = [
   {
@@ -27,13 +28,13 @@ const positions = [
 ];
 
 interface StaffFormProps {
-  onSubmit: () => void;
-  handleClose: () => void;
+  onSuccess: () => void;
 }
 
-const StaffForm: React.FC<StaffFormProps> = ({ onSubmit, handleClose }) => {
+const StaffForm: React.FC<StaffFormProps> = ({ onSuccess }) => {
   const { enqueueSnackbar } = useSnackbar();
   const { mutate: createStaff, error, isError, isSuccess } = useCreateStaff();
+  const { refetch: refetchCount } = useCountByPosition();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -53,10 +54,10 @@ const StaffForm: React.FC<StaffFormProps> = ({ onSubmit, handleClose }) => {
       enqueueSnackbar('Successfully!', {
         variant: 'success',
       });
-      onSubmit();
-      handleClose();
+      refetchCount();
+      onSuccess();
     }
-  }, [isSuccess, enqueueSnackbar, onSubmit, handleClose]);
+  }, [isSuccess, enqueueSnackbar, onSuccess, refetchCount]);
 
   return (
     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>

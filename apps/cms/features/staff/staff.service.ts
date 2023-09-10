@@ -14,6 +14,10 @@ class StaffApiService extends HttpService {
     return this.get<Staff>(`/staffs/${id}`);
   }
 
+  countByPosition() {
+    return this.get<number[]>(`/staffs/count-by-position`);
+  }
+
   createStaff(data: CreateStaffRequest) {
     return this.post<Staff>('/staffs', data);
   }

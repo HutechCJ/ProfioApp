@@ -32,7 +32,7 @@ const columns: GridColDef<Staff>[] = [
     width: 300,
     renderCell(params) {
       return (
-        <Link href={`/staffs/${params.value}`} underline="none" color="black">
+        <Link href={`/staffs/${params.value}`}>
           <Typography variant="button">{params.value}</Typography>
         </Link>
       );
@@ -83,7 +83,7 @@ const columns: GridColDef<Staff>[] = [
             dialogTitle="STAFF INFORMATION"
             dialogDescription={`ID: ${staffId}`}
             componentProps={(handleClose) => (
-              <StaffForm onSubmit={() => {<></>}} handleClose={handleClose} />
+              <StaffForm onSuccess={handleClose} />
             )}
           />
 
@@ -95,7 +95,7 @@ const columns: GridColDef<Staff>[] = [
             dialogTitle="Are you sure you want to delete this STAFF?"
             dialogDescription={`ID: ${staffId}`}
             componentProps={(handleClose) => (
-              <StaffForm onSubmit={() => {<></>}} handleClose={handleClose} />
+              <StaffForm onSuccess={handleClose} />
             )}
           />
         </Stack>
@@ -160,7 +160,10 @@ function StaffList() {
             dialogTitle="ADD STAFF"
             dialogDescription="Please enter information for the staff"
             componentProps={(handleClose) => (
-              <StaffForm onSubmit={refetch} handleClose={handleClose} />
+              <StaffForm onSuccess={() => {
+                refetch()
+                handleClose()
+              }} />
             )}
           />
         </ButtonGroup>
@@ -170,7 +173,7 @@ function StaffList() {
         rows={pagingStaffs?.data.items || []}
         rowCount={rowCountState}
         loading={isLoading}
-        pageSizeOptions={[1, 5, 10]}
+        pageSizeOptions={[5, 10, 20, 50, 100]}
         paginationModel={paginationModel}
         paginationMode="server"
         onPaginationModelChange={setPaginationModel}

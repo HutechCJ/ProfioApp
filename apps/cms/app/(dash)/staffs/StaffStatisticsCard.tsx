@@ -17,11 +17,10 @@ import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import MopedIcon from '@mui/icons-material/Moped';
 
 import Stat from '../../../components/Stat';
-import useGetStaffs from '@/features/staff/useGetStaffs';
-import { StaffPosition } from '@/features/staff/staff.types';
+import useCountByPosition from '@/features/staff/useCountByPosition';
 
 const StaffStatisticsCard = () => {
-  const { data: pagingStaffs, isLoading, isError, refetch } = useGetStaffs();
+  const { data: countData, isLoading, isError } = useCountByPosition();
 
   if (isLoading) {
     return (
@@ -35,14 +34,9 @@ const StaffStatisticsCard = () => {
     return <p>Error loading staff data.</p>;
   }
 
-  const staffData = pagingStaffs?.data.items || [];
-  const totalStaff = pagingStaffs?.data.totalCount || 0;
-  const totalDrivers =
-    staffData.filter((staff) => staff.position === StaffPosition.Driver)
-      .length || 0;
-  const totalShippers =
-    staffData.filter((staff) => staff.position === StaffPosition.Shipper)
-      .length || 0;
+  const totalDrivers = countData?.data?.[0] || 0;
+  const totalShippers = countData?.data?.[1] || 0;
+  const totalStaff = totalDrivers + totalShippers;
 
   return (
     <Card sx={{ marginBottom: 4 }}>
