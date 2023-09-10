@@ -28,9 +28,10 @@ public abstract class
 
   public async Task<IPagedList<TModel>> Handle(TQuery request, CancellationToken cancellationToken)
   {
-    var query = _repository
+    var query = (IMultipleResultQuery<TEntity>)_repository
       .MultipleResultQuery()
-      .Page(request.Criteria.PageIndex, request.Criteria.PageSize);
+      .Page(request.Criteria.PageIndex, request.Criteria.PageSize)
+      .OrderByDescending(x => x.Id);
 
     if (request.Criteria.Filter is { })
       query = (IMultipleResultQuery<TEntity>)query
