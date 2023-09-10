@@ -63,5 +63,5 @@ public abstract class
 
     return pagedList;
   }
-  protected virtual Expression<Func<TEntity, bool>> Filter(string filter) => x => x == null;
+  protected virtual Expression<Func<TEntity, bool>> Filter(string filter) => x => x == null!;
 }
