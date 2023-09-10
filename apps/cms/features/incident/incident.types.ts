@@ -2,10 +2,10 @@ import { OrderHistory } from '../orderHistory/orderHistory.types';
 
 export type Incident = {
   id: string;
-  description: string;
+  description: Nullable<string>;
   status: IncidentStatus;
-  time: string;
-  orderHistory: OrderHistory;
+  time: Nullable<string>;
+  orderHistory: Nullable<OrderHistory>;
 };
 
 export enum IncidentStatus {

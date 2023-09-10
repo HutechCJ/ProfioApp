@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import {
   Box,
   Stack,
@@ -12,17 +11,18 @@ import {
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import Link from '@/components/Link';
 import LoadingButton from '@/components/LoadingButton';
-import { Hub, HubStatus } from '@/features/hub/hub.types';
-import useGetHubs from '@/features/hub/useGetVehicles';
+import React from 'react';
+import useGetIncidents from '@/features/incident/useGetVehicles';
+import { Incident, IncidentStatus } from '@/features/incident/incident.types';
 
-const columns: GridColDef<Hub>[] = [
+const columns: GridColDef<Incident>[] = [
   {
     field: 'id',
     headerName: 'ID',
     width: 250,
     renderCell(params) {
       return (
-        <Link href={`/hubs/${params.value}`}>
+        <Link href={`/vehicles/${params.value}`}>
           <Typography variant="button">{params.value}</Typography>
         </Link>
       );
@@ -34,35 +34,42 @@ const columns: GridColDef<Hub>[] = [
     width: 120,
     renderCell(params) {
       const getColor = () => {
-        const value = params.value as HubStatus;
-        if (value === HubStatus.Active) return 'success';
-        if (value === HubStatus.Broken) return 'error';
-        if (value === HubStatus.UnderMaintenance) return 'info';
-        if (value === HubStatus.Full) return 'warning';
+        const value = params.value as IncidentStatus;
+        if (value === IncidentStatus.InProgress) return 'warning';
+        if (value === IncidentStatus.Resolved) return 'success';
         return 'default';
       };
-      return <Chip color={getColor()} label={`${HubStatus[params.value]}`} />;
+      return (
+        <Chip color={getColor()} label={`${IncidentStatus[params.value]}`} />
+      );
     },
   },
   {
-    field: 'zipCode',
+    field: 'time',
     width: 150,
-    headerName: 'Zip Code',
+    headerName: 'Time',
+    valueGetter: (params) => {
+      const { time } = params.row;
+      return time ? `${new Date(time).toLocaleString()}` : '';
+    },
   },
   {
-    field: 'location',
+    field: 'description',
     width: 200,
-    headerName: 'Location (Lat, Long)',
+    headerName: 'Description',
+  },
+  {
+    field: 'orderHistory',
+    width: 200,
+    headerName: 'Order History',
     valueGetter: (params) => {
-      const { location: hubLocation } = params.row;
-      return hubLocation
-        ? `${hubLocation.latitude}, ${hubLocation.longitude}`
-        : '';
+      const { orderHistory } = params.row;
+      return orderHistory ? `${orderHistory.id}` : '';
     },
   },
 ];
 
-function Hubs() {
+function Incidents() {
   const [paginationModel, setPaginationModel] = React.useState({
     page: 0,
     pageSize: 10,
@@ -74,7 +81,7 @@ function Hubs() {
     isError,
     refetch,
     remove,
-  } = useGetHubs({
+  } = useGetIncidents({
     PageIndex: paginationModel.page + 1,
     PageSize: paginationModel.pageSize,
   });
@@ -123,4 +130,4 @@ function Hubs() {
   );
 }
 
-export default Hubs;
+export default Incidents;

@@ -4,7 +4,14 @@ import Link from '@/components/Link';
 import LoadingButton from '@/components/LoadingButton';
 import { Order, OrderStatus } from '@/features/order/order.types';
 import useGetOrders from '@/features/order/useGetOrders';
-import { Box, Stack, Typography, Chip } from '@mui/material';
+import {
+  Box,
+  Stack,
+  Typography,
+  Chip,
+  ButtonGroup,
+  Button,
+} from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
 import React from 'react';
 
@@ -96,15 +103,19 @@ function Orders() {
   return (
     <Box>
       {isError && 'There is an error occurred'}
-      <Stack direction="row" spacing={1} sx={{ mb: 1 }}>
-        <LoadingButton
-          onClick={() => {
-            remove();
-            refetch();
-          }}
-        >
-          Reload
-        </LoadingButton>
+      <Stack direction="row" justifyContent={'end'} spacing={1} sx={{ mb: 1 }}>
+        <ButtonGroup>
+          <LoadingButton
+            onClick={() => {
+              remove();
+              refetch();
+            }}
+            loading={isLoading}
+          >
+            Reload
+          </LoadingButton>
+          <LoadingButton>Add Vehicle</LoadingButton>
+        </ButtonGroup>
       </Stack>
       <Box sx={{ width: '100%', overflow: 'auto' }}>
         <DataGrid

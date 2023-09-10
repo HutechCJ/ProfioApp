@@ -6,7 +6,7 @@ type Address = {
   zipCode: string;
 };
 
-type Location = {
+type Coordination = {
   latitude: number;
   longitude: number;
 };

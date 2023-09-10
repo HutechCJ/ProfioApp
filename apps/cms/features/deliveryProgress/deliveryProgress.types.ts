@@ -2,7 +2,7 @@ import { Order } from '../order/order.types';
 
 export type DeliveryProgress = {
   id: string;
-  currentLocation: Location;
+  currentLocation: Coordination;
   percentComplete: number;
   estimatedTimeRemaining: string;
   lastUpdated: string;

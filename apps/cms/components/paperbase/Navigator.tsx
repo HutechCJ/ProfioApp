@@ -51,7 +51,7 @@ export default function Navigator(props: DrawerProps) {
             <ListItemIcon>
               <HomeIcon />
             </ListItemIcon>
-            <ListItemText>Bảng Điều Khiển</ListItemText>
+            <ListItemText>Overview</ListItemText>
           </ListItemButton>
         </ListItem>
 
