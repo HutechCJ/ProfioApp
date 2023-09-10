@@ -1,5 +1,5 @@
 'use client'
-import React from 'react'
+
 import {
     Box,
     Stack,
@@ -11,14 +11,11 @@ import {
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import Link from '@/components/Link'
 import LoadingButton from '@/components/LoadingButton'
-import useGetVehicles from '@/features/vehicle/useGetVehicles'
-import {
-    Vehicle,
-    VehicleStatus,
-    VehicleType,
-} from '@/features/vehicle/vehicle.types'
+import React from 'react'
+import useGetIncidents from '@/features/incident/useGetVehicles'
+import { Incident, IncidentStatus } from '@/features/incident/incident.types'
 
-const columns: GridColDef<Vehicle>[] = [
+const columns: GridColDef<Incident>[] = [
     {
         field: 'id',
         headerName: 'ID',
@@ -37,50 +34,45 @@ const columns: GridColDef<Vehicle>[] = [
         width: 120,
         renderCell(params) {
             const getColor = () => {
-                const value = params.value as VehicleStatus
-                if (value === VehicleStatus.Busy) return 'error'
-                if (value === VehicleStatus.Idle) return 'warning'
+                const value = params.value as IncidentStatus
+                if (value === IncidentStatus.InProgress) return 'warning'
+                if (value === IncidentStatus.Resolved) return 'success'
                 return 'default'
             }
             return (
                 <Chip
                     color={getColor()}
-                    label={`${VehicleStatus[params.value]}`}
+                    label={`${IncidentStatus[params.value]}`}
                 />
             )
         },
     },
     {
-        field: 'zipCodeCurrent',
+        field: 'time',
         width: 150,
-        headerName: 'Zip Code Current',
-    },
-    {
-        field: 'licensePlate',
-        width: 200,
-        headerName: 'License Plate',
-    },
-    {
-        field: 'type',
-        width: 200,
-        headerName: 'Type',
+        headerName: 'Time',
         valueGetter: (params) => {
-            const { type } = params.row
-            return `${VehicleType[type]}`
+            const { time } = params.row
+            return time ? `${new Date(time).toLocaleString()}` : ''
         },
     },
     {
-        field: 'staff',
+        field: 'description',
         width: 200,
-        headerName: 'Staff',
+        headerName: 'Description',
+    },
+    {
+        field: 'orderHistory',
+        width: 200,
+        headerName: 'Order History',
         valueGetter: (params) => {
-            const { staff } = params.row
-            return `${staff?.id || 'Empty'}`
+            const { orderHistory } = params.row
+            return orderHistory ? `${orderHistory.id}` : ''
         },
     },
 ]
 
-function Vehicles() {
+function Incidents() {
     const [paginationModel, setPaginationModel] = React.useState({
         page: 0,
         pageSize: 10,
@@ -92,7 +84,7 @@ function Vehicles() {
         isError,
         refetch,
         remove,
-    } = useGetVehicles({
+    } = useGetIncidents({
         PageIndex: paginationModel.page + 1,
         PageSize: paginationModel.pageSize,
     })
@@ -146,4 +138,4 @@ function Vehicles() {
     )
 }
 
-export default Vehicles
+export default Incidents

@@ -7,17 +7,17 @@ import ErrorIcon from '@mui/icons-material/Error';
 // Hard navigation routes
 const categories = [
   {
-    id: 'Quản Lý',
+    id: 'Management',
     children: [
       {
-        id: 'Xe Vận Chuyển',
+        id: 'Vehicles',
         icon: <LocalShippingIcon />,
         href: 'vehicles',
       },
-      { id: 'Hub', icon: <HubIcon />, href: 'hubs' },
-      { id: 'Đơn Hàng', icon: <InventoryIcon />, href: 'orders' },
-      { id: 'Sự Cố', icon: <ErrorIcon />, href: 'accidents' },
-      { id: 'Nhân Viên', icon: <PeopleIcon />, href: 'staffs' },
+      { id: 'Hubs', icon: <HubIcon />, href: 'hubs' },
+      { id: 'Orders', icon: <InventoryIcon />, href: 'orders' },
+      { id: 'Incidents', icon: <ErrorIcon />, href: 'incidents' },
+      { id: 'Staffs', icon: <PeopleIcon />, href: 'staffs' },
     ],
   },
 ];

@@ -9,7 +9,7 @@ export type Vehicle = {
     name: string;
     phone: string;
     position: string;
-  };
+  } | null;
 };
 
 export enum VehicleType {

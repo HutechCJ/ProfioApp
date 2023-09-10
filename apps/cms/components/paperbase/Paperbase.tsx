@@ -56,7 +56,7 @@ export default function Paperbase({ children }: React.PropsWithChildren) {
           onDrawerToggle={handleDrawerToggle}
           title={
             headerTitle
-              ? `${headerTitle.category} ${headerTitle.id}`
+              ? `${headerTitle.category} > ${headerTitle.id}`
               : undefined
           }
         />

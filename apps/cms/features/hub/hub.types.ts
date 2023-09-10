@@ -1,16 +1,9 @@
 export type Hub = {
   id: string;
   zipCode: string;
-  location: Location;
+  location: Nullable<Coordination>;
   status: HubStatus;
 };
-
-export enum VehicleType {
-  Truck,
-  Trailer,
-  Van,
-  Motorcycle,
-}
 
 export enum HubStatus {
   Active,

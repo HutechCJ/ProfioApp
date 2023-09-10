@@ -44,7 +44,6 @@ function SignIn() {
   useEffect(() => {
     if (isSuccess) {
       enqueueSnackbar(`Logged in!`, { variant: 'success' });
-      alert(`${result.data.toString()}`);
       window.location.reload();
     }
   }, [isSuccess]);

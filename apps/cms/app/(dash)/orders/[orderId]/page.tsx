@@ -18,7 +18,7 @@ function Order({ params }: { params: { orderId: string } }) {
 
   return (
     <Box>
-      <Stack>
+      <Stack direction="row" spacing={1} sx={{ mb: 1 }}>
         <Button>Update</Button>
         <Button>Delete</Button>
       </Stack>
