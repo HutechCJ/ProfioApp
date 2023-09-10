@@ -9,6 +9,7 @@ import 'package:profio_staff_client/providers/mqtt_provider.dart';
 
 class LocationManager {
   static const String locationTopic = '/location';
+  static bool stopSimulation = false;
 
   static Future<Position> getPosition() async {
     bool serviceEnabled;
@@ -51,7 +52,8 @@ class LocationManager {
   }
 
   static void simulateCarMovement(MqttProvider mqttProvider,
-      Position startLocation, Position endLocation, double vehicleSpeed) {
+      Position startLocation, Position endLocation, double vehicleSpeed,
+      {Function(Position)? onIntermediatePosition}) {
     const pubTopic = locationTopic;
 
     // Calculate the total distance between start and end locations
@@ -64,6 +66,12 @@ class LocationManager {
     const timerInterval = Duration(seconds: 1);
 
     Timer.periodic(timerInterval, (timer) async {
+      if (stopSimulation) {
+        timer.cancel();
+        print('Simulation stopped.');
+        stopSimulation = false;
+        return;
+      }
       // Calculate the distance to travel in this time interval
       final distanceToTravel = vehicleSpeed * timerInterval.inSeconds;
 
@@ -74,6 +82,8 @@ class LocationManager {
       // Publish the intermediate position (simulating vehicle movement)
       print(
           'Intermediate Position: ${intermediatePosition.latitude}, ${intermediatePosition.longitude}');
+
+      onIntermediatePosition?.call(intermediatePosition);
 
       // Update the startLocation for the next iteration
       startLocation = intermediatePosition;
@@ -157,5 +167,9 @@ class LocationManager {
     );
 
     return newPosition;
+  }
+
+  static void stopCarSimulation() {
+    stopSimulation = true;
   }
 }

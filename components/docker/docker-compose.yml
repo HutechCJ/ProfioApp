@@ -16,7 +16,6 @@ services:
       - '55679:55679' # zpages extension
     depends_on:
       - jaeger-all-in-one
-      - zipkin-all-in-one
 
   # Grafana
   grafana:
@@ -40,16 +39,6 @@ services:
     networks:
       - profio-bridge
 
-  # Zipkin
-  zipkin-all-in-one:
-    image: openzipkin/zipkin:latest
-    container_name: zipkin-all-in-one
-    restart: always
-    ports:
-      - '9411:9411'
-    networks:
-      - profio-bridge
-
   # Prometheus
   prometheus:
     image: prom/prometheus:latest
@@ -64,16 +53,34 @@ services:
     networks:
       - profio-bridge
 
-  # ELK
-  elk:
-    image: sebp/elk:latest
+  # seq
+  seq:
+    image: datalust/seq:latest
+    container_name: seq
+    restart: on-failure
     ports:
-      - "5601:5601"
-      - "9200:9200"
-      - "5044:5044"
+      - '5341:80'
+    environment:
+      - ACCEPT_EULA=Y
+    networks:
+      - profio-bridge
+
+  # portainer
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    ports:
+      - 9443:9443
+    volumes:
+      - data:/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
     networks:
       - profio-bridge
 
 networks:
   profio-bridge:
     driver: bridge
+
+volumes:
+  data:

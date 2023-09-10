@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:profio_staff_client/providers/mqtt_provider.dart';
+import 'package:provider/provider.dart';
 
 class MQTTConnectionButton extends StatefulWidget {
   const MQTTConnectionButton({super.key});
@@ -10,8 +11,14 @@ class MQTTConnectionButton extends StatefulWidget {
 }
 
 class _MQTTConnectionButtonState extends State<MQTTConnectionButton> {
-  final MqttProvider mqttProvider = MqttProvider();
+  late MqttProvider mqttProvider;
   bool isConnected = false;
+
+  @override
+  void initState() {
+    mqttProvider = context.read<MqttProvider>();
+    super.initState();
+  }
 
   Future<void> checkConnectionStatus() async {
     await mqttProvider.connect();

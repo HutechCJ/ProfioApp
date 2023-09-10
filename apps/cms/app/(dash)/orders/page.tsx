@@ -92,11 +92,11 @@ function Orders() {
     refetch,
     remove,
   } = useGetOrders({
-    PageNumber: paginationModel.page + 1,
+    PageIndex: paginationModel.page + 1,
     PageSize: paginationModel.pageSize,
   });
 
-  const rowCount = pagingOrders?.data.totalPages || 0;
+  const rowCount = pagingOrders?.data.totalCount || 0;
 
   const [rowCountState, setRowCountState] = React.useState(rowCount);
 

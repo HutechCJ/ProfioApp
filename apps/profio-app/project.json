@@ -1,0 +1,156 @@
+{
+	"name": "profio-app",
+	"$schema": "../../node_modules/nx/schemas/project-schema.json",
+	"sourceRoot": "apps/profio-app/src",
+	"projectType": "application",
+	"targets": {
+		"analyze": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "flutter analyze",
+				"cwd": "apps/profio-app"
+			}
+		},
+		"clean": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "flutter clean",
+				"cwd": "apps/profio-app"
+			}
+		},
+		"format": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "flutter format apps/profio-app/*",
+				"cwd": "apps/profio-app"
+			}
+		},
+		"test": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "flutter test",
+				"cwd": "apps/profio-app"
+			}
+		},
+		"doctor": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "flutter doctor",
+				"cwd": "apps/profio-app"
+			}
+		},
+		"assemble": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "flutter assemble",
+				"cwd": "apps/profio-app"
+			}
+		},
+		"attach": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "flutter attach",
+				"cwd": "apps/profio-app"
+			}
+		},
+		"drive": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "flutter drive",
+				"cwd": "apps/profio-app"
+			}
+		},
+		"gen-l10n": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "flutter gen-l10n",
+				"cwd": "apps/profio-app"
+			}
+		},
+		"install": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "flutter install",
+				"cwd": "apps/profio-app"
+			}
+		},
+		"run": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "flutter run",
+				"cwd": "apps/profio-app"
+			}
+		},
+		"build-aar": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "flutter build aar",
+				"cwd": "apps/profio-app"
+			},
+			"outputs": [
+				"{workspaceRoot}/apps/profio-app/build"
+			]
+		},
+		"build-apk": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "flutter build apk",
+				"cwd": "apps/profio-app"
+			},
+			"outputs": [
+				"{workspaceRoot}/apps/profio-app/build"
+			]
+		},
+		"build-appbundle": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "flutter build appbundle",
+				"cwd": "apps/profio-app"
+			},
+			"outputs": [
+				"{workspaceRoot}/apps/profio-app/build"
+			]
+		},
+		"build-bundle": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "flutter build bundle",
+				"cwd": "apps/profio-app"
+			},
+			"outputs": [
+				"{workspaceRoot}/apps/profio-app/build"
+			]
+		},
+		"build-ios": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "flutter build ios",
+				"cwd": "apps/profio-app"
+			},
+			"outputs": [
+				"{workspaceRoot}/apps/profio-app/build"
+			]
+		},
+		"build-ios-framework": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "flutter build ios-framework",
+				"cwd": "apps/profio-app"
+			},
+			"outputs": [
+				"{workspaceRoot}/apps/profio-app/build"
+			]
+		},
+		"build-ipa": {
+			"executor": "nx:run-commands",
+			"options": {
+				"command": "flutter build ipa",
+				"cwd": "apps/profio-app"
+			},
+			"outputs": [
+				"{workspaceRoot}/apps/profio-app/build"
+			]
+		}
+	},
+	"tags": []
+}

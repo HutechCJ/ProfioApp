@@ -6,7 +6,6 @@ from diagrams.custom import Custom
 from diagrams.onprem.monitoring import Prometheus
 from diagrams.onprem.monitoring import Grafana
 from diagrams.onprem.tracing import Jaeger
-from diagrams.elastic.elasticsearch import Elasticsearch
 from diagrams.onprem.network import Yarp
 from diagrams.onprem.client import Client
 from diagrams.generic.device import Mobile
@@ -38,11 +37,9 @@ with Diagram("Profio API", show=False, direction="LR"):
         Prometheus = Prometheus("Prometheus")
         Grafana = Grafana("Grafana")
         Jaeger = Jaeger("Jaeger")
-        ELK = Elasticsearch("Elasticsearch")
-        Zipkin = Custom("Zipkin", "./resources/zipkin.png")
+        seq = Custom("Seq", "./resources/seq.png")
 
     otelcollector >> Prometheus
     otelcollector >> Grafana
     otelcollector >> Jaeger
-    otelcollector >> ELK
-    otelcollector >> Zipkin
+    otelcollector >> seq

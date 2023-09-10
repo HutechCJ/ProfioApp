@@ -20,6 +20,6 @@ type PagingOptions = {
   OrderBy: string;
   OrderByDescending: string;
   IncludeStrings: string[];
-  PageNumber: number;
+  PageIndex: number;
   PageSize: number;
 };

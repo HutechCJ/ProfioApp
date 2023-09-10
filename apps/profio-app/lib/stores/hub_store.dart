@@ -2,6 +2,7 @@ import 'package:mobx/mobx.dart';
 import 'package:profio_staff_client/api/base_api.dart';
 import 'package:profio_staff_client/api/paging.dart';
 import 'package:profio_staff_client/api/result_model.dart';
+import 'package:profio_staff_client/constants/profio.dart';
 import 'package:profio_staff_client/models/hub.dart';
 
 part 'hub_store.g.dart';
@@ -27,7 +28,7 @@ abstract class HubStoreBase with Store {
   @action
   Future<void> getNextHub(String vehicleId) async {
     var data = await _baseAPI.fetchData(
-        'https://profio-sv1.azurewebsites.net/api/v1/vehicle/$vehicleId/hubs/next');
+        '${Profio.baseUrl}/v1/${Profio.vehicleEndpoints}/$vehicleId/${Profio.hubEndpoints}/next');
     var result = ResultModel.fromJson(data.object);
     var hub = Hub.fromJson(result.data);
     selectedHub = hub;

@@ -76,7 +76,7 @@ create table if not exists "Hubs"
     "Id"       varchar(26)                               not null
         constraint "PK_Hubs"
             primary key,
-    "ZipCode"  varchar(50)                                  not null,
+    "ZipCode"  varchar(50)                               not null,
     "Location" jsonb,
     "Status"   integer                                   not null,
     "Address"  jsonb,
@@ -283,23 +283,23 @@ alter table "DeliveryProgresses"
 create index if not exists "IX_DeliveryProgresses_OrderId"
     on "DeliveryProgresses" ("OrderId");
 
-create table if not exists "Delivery"
+create table if not exists "Deliveries"
 (
     "Id"           varchar(26) not null
-        constraint "PK_Delivery"
+        constraint "PK_Deliveries"
             primary key,
     "DeliveryDate" timestamp with time zone,
     "OrderId"      varchar(26)
-        constraint "FK_Delivery_Orders_OrderId"
+        constraint "FK_Deliveries_Orders_OrderId"
             references "Orders"
             on delete cascade,
     "VehicleId"    varchar(26)
-        constraint "FK_Delivery_Vehicles_VehicleId"
+        constraint "FK_Deliveries_Vehicles_VehicleId"
             references "Vehicles"
             on delete set null
 );
 
-alter table "Delivery"
+alter table "Deliveries"
     owner to admin;
 
 create table if not exists "OrderHistories"
@@ -309,8 +309,8 @@ create table if not exists "OrderHistories"
             primary key,
     "Timestamp"  timestamp with time zone,
     "DeliveryId" varchar(26)
-        constraint "FK_OrderHistories_Delivery_DeliveryId"
-            references "Delivery"
+        constraint "FK_OrderHistories_Deliveries_DeliveryId"
+            references "Deliveries"
             on delete set null,
     "HubId"      varchar(26)
         constraint "FK_OrderHistories_Hubs_HubId"
@@ -347,8 +347,22 @@ alter table "Incidents"
 create index if not exists "IX_Incidents_OrderHistoryId"
     on "Incidents" ("OrderHistoryId");
 
-create index if not exists "IX_Delivery_OrderId"
-    on "Delivery" ("OrderId");
+create index if not exists "IX_Deliveries_OrderId"
+    on "Deliveries" ("OrderId");
 
-create index if not exists "IX_Delivery_VehicleId"
-    on "Delivery" ("VehicleId");
+create index if not exists "IX_Deliveries_VehicleId"
+    on "Deliveries" ("VehicleId");
+
+create table if not exists "IdempotentRequests"
+(
+    "Id"        uuid                     not null
+        constraint "PK_IdempotentRequests"
+            primary key,
+    "Name"      text                     not null,
+    "CreatedAt" timestamp with time zone not null
+);
+
+alter table "IdempotentRequests"
+    owner to admin;
+
+
