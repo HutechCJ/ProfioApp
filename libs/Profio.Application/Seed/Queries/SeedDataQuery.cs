@@ -80,7 +80,7 @@ public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
     var orderList = await _context.Orders.ToListAsync();
     Log.Information("Added order logging" + JsonSerializer.Serialize(orderList));
   }
- 
+
   private async Task VehicleSeeding()
   {
     var json = await File.ReadAllTextAsync(PathSeed.VehicleData);
@@ -90,7 +90,7 @@ public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
     var vehicleList = await _context.Vehicles.ToListAsync();
     Log.Information("Added vehicle logging" + JsonSerializer.Serialize(vehicleList));
   }
-  
+
   private async Task StaffSeeding()
   {
     var json = await File.ReadAllTextAsync(PathSeed.StaffData);
