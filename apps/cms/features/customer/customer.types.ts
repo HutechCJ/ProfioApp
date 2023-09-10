@@ -1,18 +1,18 @@
 export type Customer = {
-    id: 'string'
-    name: 'string'
-    phone: 'string'
-    email: 'string'
-    gender: Gender
-    address: Address
-}
+  id: 'string';
+  name: 'string';
+  phone: 'string';
+  email: 'string';
+  gender: Gender;
+  address: Address;
+};
 
 export enum Gender {
-    Male,
-    Female,
-    Other,
+  Male,
+  Female,
+  Other,
 }
 
-export type CreateCustomerData = Omit<Customer, 'id'>
+export type CreateCustomerData = Omit<Customer, 'id'>;
 
-export type UpdateCustomerData = Customer
+export type UpdateCustomerData = Customer;
