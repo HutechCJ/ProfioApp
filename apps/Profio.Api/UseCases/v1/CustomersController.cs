@@ -16,7 +16,7 @@ public class CustomersController : BaseEntityController<Customer, CustomerDto, G
 {
   [HttpGet]
   [MapToApiVersion("1.0")]
-  public Task<ActionResult<ResultModel<IPagedList<CustomerDto>>>> Get([FromQuery] Criteria<Customer> criteria)
+  public Task<ActionResult<ResultModel<IPagedList<CustomerDto>>>> Get([FromQuery] Criteria criteria)
     => HandlePaginationQuery(new GetCustomerWithPagingQuery(criteria));
 
   [HttpGet("{id:length(26)}")]

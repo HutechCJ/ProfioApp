@@ -16,7 +16,7 @@ public class OrderHistoriesController : BaseEntityController<OrderHistory, Order
 {
   [HttpGet]
   [MapToApiVersion("1.0")]
-  public Task<ActionResult<ResultModel<IPagedList<OrderHistoryDto>>>> Get([FromQuery] Criteria<OrderHistory> criteria)
+  public Task<ActionResult<ResultModel<IPagedList<OrderHistoryDto>>>> Get([FromQuery] Criteria criteria)
     => HandlePaginationQuery(new GetOrderHistoryWithPagingQuery(criteria));
 
   [HttpGet("{id:length(26)}")]

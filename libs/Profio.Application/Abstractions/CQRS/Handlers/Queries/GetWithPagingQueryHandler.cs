@@ -16,7 +16,7 @@ namespace Profio.Application.Abstractions.CQRS.Handlers.Queries;
 
 public abstract class
   GetWithPagingQueryHandler<TQuery, TModel, TEntity> : IRequestHandler<TQuery, IPagedList<TModel>>
-  where TQuery : GetWithPagingQueryBase<TEntity, TModel>
+  where TQuery : GetWithPagingQueryBase<TModel>
   where TModel : BaseModel
   where TEntity : class, IEntity<object>
 {

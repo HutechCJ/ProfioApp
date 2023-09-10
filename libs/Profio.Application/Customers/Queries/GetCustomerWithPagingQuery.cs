@@ -10,7 +10,7 @@ using System.Linq.Expressions;
 namespace Profio.Application.Customers.Queries;
 
 public record GetCustomerWithPagingQuery
-  (Criteria<Customer> Criteria) : GetWithPagingQueryBase<Customer, CustomerDto>(Criteria);
+  (Criteria Criteria) : GetWithPagingQueryBase<CustomerDto>(Criteria);
 
 public class
   GetCustomerWithPagingQueryHandler : GetWithPagingQueryHandler<GetCustomerWithPagingQuery, CustomerDto, Customer>
@@ -32,7 +32,7 @@ public class
 }
 
 public class
-  GetCustomerWithPagingQueryValidator : GetWithPagingQueryValidatorBase<Customer, GetCustomerWithPagingQuery,
+  GetCustomerWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetCustomerWithPagingQuery,
     CustomerDto>
 {
 }

@@ -16,7 +16,7 @@ public class OrdersController : BaseEntityController<Order, OrderDto, GetOrderBy
 {
   [HttpGet]
   [MapToApiVersion("1.0")]
-  public Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> Get([FromQuery] Criteria<Order> criteria)
+  public Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> Get([FromQuery] Criteria criteria)
     => HandlePaginationQuery(new GetOrderWithPagingQuery(criteria));
 
   [HttpGet("{id:length(26)}")]

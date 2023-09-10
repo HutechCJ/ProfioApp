@@ -9,7 +9,7 @@ using System.Linq.Expressions;
 
 namespace Profio.Application.Staffs.Queries;
 
-public record GetStaffWithPagingQuery(Criteria<Staff> Criteria) : GetWithPagingQueryBase<Staff, StaffDto>(Criteria);
+public record GetStaffWithPagingQuery(Criteria Criteria) : GetWithPagingQueryBase<StaffDto>(Criteria);
 
 public class GetStaffWithPagingQueryHandler : GetWithPagingQueryHandler<GetStaffWithPagingQuery, StaffDto, Staff>
 {
@@ -23,6 +23,6 @@ public class GetStaffWithPagingQueryHandler : GetWithPagingQueryHandler<GetStaff
 }
 
 public class
-  GetStaffWithPagingQueryValidator : GetWithPagingQueryValidatorBase<Staff, GetStaffWithPagingQuery, StaffDto>
+  GetStaffWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetStaffWithPagingQuery, StaffDto>
 {
 }

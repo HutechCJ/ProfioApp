@@ -8,7 +8,7 @@ using Profio.Domain.Specifications;
 
 namespace Profio.Application.Routes.Queries;
 
-public record GetRouteWithPagingQuery(Criteria<Route> Criteria) : GetWithPagingQueryBase<Route, RouteDto>(Criteria);
+public record GetRouteWithPagingQuery(Criteria Criteria) : GetWithPagingQueryBase<RouteDto>(Criteria);
 
 public class GetRouteWithPagingQueryHandler : GetWithPagingQueryHandler<GetRouteWithPagingQuery, RouteDto, Route>
 {
@@ -18,6 +18,6 @@ public class GetRouteWithPagingQueryHandler : GetWithPagingQueryHandler<GetRoute
 }
 
 public class
-  GetRouteWithPagingQueryValidator : GetWithPagingQueryValidatorBase<Route, GetRouteWithPagingQuery, RouteDto>
+  GetRouteWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetRouteWithPagingQuery, RouteDto>
 {
 }

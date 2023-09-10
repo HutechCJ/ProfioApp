@@ -14,7 +14,7 @@ public class BaseEntityController<TEntity, TModel, TGetByIdQuery> : BaseControll
   where TGetByIdQuery : GetByIdQueryBase<TModel>
 {
   protected async Task<ActionResult<ResultModel<IPagedList<TModel>>>> HandlePaginationQuery<TPaginationQuery>(TPaginationQuery query)
-        where TPaginationQuery : GetWithPagingQueryBase<TEntity, TModel>
+        where TPaginationQuery : GetWithPagingQueryBase<TModel>
         => Ok(ResultModel<IPagedList<TModel>>.Create(await Mediator.Send(query)));
   protected async Task<ActionResult<ResultModel<TModel>>> HandleGetByIdQuery(TGetByIdQuery query)
         => Ok(ResultModel<TModel>.Create(await Mediator.Send(query)));

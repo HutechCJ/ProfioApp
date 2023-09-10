@@ -16,7 +16,7 @@ public class StaffsController : BaseEntityController<Staff, StaffDto, GetStaffBy
 {
   [HttpGet]
   [MapToApiVersion("1.0")]
-  public Task<ActionResult<ResultModel<IPagedList<StaffDto>>>> Get([FromQuery] Criteria<Staff> criteria)
+  public Task<ActionResult<ResultModel<IPagedList<StaffDto>>>> Get([FromQuery] Criteria criteria)
     => HandlePaginationQuery(new GetStaffWithPagingQuery(criteria));
 
   [HttpGet("{id:length(26)}")]

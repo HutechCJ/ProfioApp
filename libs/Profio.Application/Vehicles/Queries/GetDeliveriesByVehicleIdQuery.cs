@@ -11,7 +11,7 @@ using System.Linq.Expressions;
 
 namespace Profio.Application.Vehicles.Queries;
 
-public record GetDeliveriesByVehicleIdQuery(string VehicleId, Criteria<Delivery> Criteria) : GetWithPagingQueryBase<Delivery, DeliveryDto>(Criteria);
+public record GetDeliveriesByVehicleIdQuery(string VehicleId, Criteria Criteria) : GetWithPagingQueryBase<DeliveryDto>(Criteria);
 public class GetDeliveriesByVehicleIdQueryHandler : GetWithPagingQueryHandler<GetDeliveriesByVehicleIdQuery, DeliveryDto, Delivery>
 {
   public GetDeliveriesByVehicleIdQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)

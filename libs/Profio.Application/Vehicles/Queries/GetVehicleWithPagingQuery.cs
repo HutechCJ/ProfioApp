@@ -9,7 +9,7 @@ using Profio.Domain.Specifications;
 namespace Profio.Application.Vehicles.Queries;
 
 public record GetVehicleWithPagingQuery
-  (Criteria<Vehicle> Criteria) : GetWithPagingQueryBase<Vehicle, VehicleDto>(Criteria);
+  (Criteria Criteria) : GetWithPagingQueryBase<VehicleDto>(Criteria);
 
 public class
   GetVehicleWithPagingQueryHandler : GetWithPagingQueryHandler<GetVehicleWithPagingQuery, VehicleDto, Vehicle>
@@ -20,6 +20,6 @@ public class
 }
 
 public class
-  GetVehicleWithPagingQueryValidator : GetWithPagingQueryValidatorBase<Vehicle, GetVehicleWithPagingQuery, VehicleDto>
+  GetVehicleWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetVehicleWithPagingQuery, VehicleDto>
 {
 }

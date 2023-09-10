@@ -16,7 +16,7 @@ public class DeliveriesController : BaseEntityController<Delivery, DeliveryDto, 
 {
   [HttpGet]
   [MapToApiVersion("1.0")]
-  public Task<ActionResult<ResultModel<IPagedList<DeliveryDto>>>> Get([FromQuery] Criteria<Delivery> criteria)
+  public Task<ActionResult<ResultModel<IPagedList<DeliveryDto>>>> Get([FromQuery] Criteria criteria)
     => HandlePaginationQuery(new GetDeliveryWithPagingQuery(criteria));
 
   [HttpGet("{id:length(26)}")]

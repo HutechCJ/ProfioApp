@@ -19,7 +19,7 @@ public class VehiclesController : BaseEntityController<Vehicle, VehicleDto, GetV
 {
   [HttpGet]
   [MapToApiVersion("1.0")]
-  public Task<ActionResult<ResultModel<IPagedList<VehicleDto>>>> Get([FromQuery] Criteria<Vehicle> criteria)
+  public Task<ActionResult<ResultModel<IPagedList<VehicleDto>>>> Get([FromQuery] Criteria criteria)
     => HandlePaginationQuery(new GetVehicleWithPagingQuery(criteria));
 
   [HttpGet("{id:length(26)}")]
@@ -43,7 +43,7 @@ public class VehiclesController : BaseEntityController<Vehicle, VehicleDto, GetV
     => HandleDeleteCommand(new DeleteVehicleCommand(id));
   [HttpGet("{id:length(26)}/deliveries")]
   [MapToApiVersion("1.0")]
-  public async Task<ActionResult<ResultModel<IPagedList<DeliveryDto>>>> GetDeliveries(string id, [FromQuery] Criteria<Delivery> criteria)
+  public async Task<ActionResult<ResultModel<IPagedList<DeliveryDto>>>> GetDeliveries(string id, [FromQuery] Criteria criteria)
     => Ok(await Mediator.Send(new GetDeliveriesByVehicleIdQuery(id, criteria)));
 
   [HttpGet("{id:length(26)}/hubs/next")]

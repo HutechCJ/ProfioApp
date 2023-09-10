@@ -8,7 +8,7 @@ using Profio.Domain.Specifications;
 
 namespace Profio.Application.OrderHistories.Queries;
 
-public record GetOrderHistoryWithPagingQuery(Criteria<OrderHistory> Criteria) : GetWithPagingQueryBase<OrderHistory, OrderHistoryDto>(Criteria);
+public record GetOrderHistoryWithPagingQuery(Criteria Criteria) : GetWithPagingQueryBase<OrderHistoryDto>(Criteria);
 
 public class GetOrderHistoryWithPagingQueryHandler : GetWithPagingQueryHandler<GetOrderHistoryWithPagingQuery, OrderHistoryDto, OrderHistory>
 {
@@ -17,6 +17,6 @@ public class GetOrderHistoryWithPagingQueryHandler : GetWithPagingQueryHandler<G
   }
 }
 
-public class GetOrderHistoryWithPagingQueryValidator : GetWithPagingQueryValidatorBase<OrderHistory, GetOrderHistoryWithPagingQuery, OrderHistoryDto>
+public class GetOrderHistoryWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetOrderHistoryWithPagingQuery, OrderHistoryDto>
 {
 }

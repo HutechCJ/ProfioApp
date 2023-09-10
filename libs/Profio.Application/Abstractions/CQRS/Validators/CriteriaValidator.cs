@@ -1,11 +1,9 @@
 using FluentValidation;
-using Profio.Domain.Interfaces;
 using Profio.Domain.Specifications;
 
 namespace Profio.Application.Abstractions.CQRS.Validators;
 
-public class CriteriaValidator<TEntity> : AbstractValidator<Criteria<TEntity>>
-  where TEntity : class, IEntity<object>
+public class CriteriaValidator : AbstractValidator<Criteria>
 {
   public CriteriaValidator()
   {
