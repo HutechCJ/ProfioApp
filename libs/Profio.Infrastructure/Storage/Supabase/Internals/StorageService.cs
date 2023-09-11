@@ -1,40 +1,46 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
-using Supabase;
+using Client = Supabase.Client;
 
 namespace Profio.Infrastructure.Storage.Supabase.Internals;
 
 public sealed class StorageService : IStorageService 
 {
   private readonly Client _client;
+  private readonly string _bucketName;
 
-  public StorageService(Client client)
-    => _client = client;
-
-  public async Task<string> UploadAsync(IFormFile file, Bucket bucket)
+  public StorageService(Client client, Bucket bucketName)
   {
-    using var stream = new MemoryStream();
-    await file.CopyToAsync(stream);
-
-    var lastDot = file.FileName.LastIndexOf('.');
-    var ext = file.FileName[(lastDot + 1)..];
-
-    var bucketName = bucket switch
+    _client = client;
+    _bucketName = bucketName switch
     {
       Bucket.Avatar => "avatar",
       Bucket.Vehicle => "vehicle",
       Bucket.Document => "document",
       Bucket.LicensePlate => "license-plate",
       Bucket.Incident => "incident",
-      _ => throw new ArgumentOutOfRangeException(nameof(bucket), bucket, "Invalid bucket type.")
+      _ => throw new ArgumentOutOfRangeException(nameof(bucketName), bucketName, "Invalid bucket type.")
     };
-
-    var fileName = $"{Guid.NewGuid()}.{ext}";
-
-    await _client.Storage.From(bucketName)
-      .Upload(stream.ToArray(), fileName);
-    return _client.Storage.From(bucketName).GetPublicUrl(fileName);
   }
+
+  public async Task<string> UploadAsync(IFormFile file)
+  {
+    using var stream = new MemoryStream();
+    await file.CopyToAsync(stream);
+    var lastDot = file.FileName.LastIndexOf('.');
+    var ext = file.FileName[(lastDot + 1)..];
+    var fileName = $"{Guid.NewGuid()}.{ext}";
+    await _client.Storage.From(_bucketName)
+      .Upload(stream.ToArray(), fileName);
+    return _client.Storage.From(_bucketName).GetPublicUrl(fileName, new()
+    {
+      Width = 512,
+      Height = 512,
+    });
+  }
+
+  public async Task RemoveAsync(Guid id)
+    => await _client.Storage.From(_bucketName).Remove(id.ToString());
 }
 
 public class FileValidator : AbstractValidator<IFormFile>

@@ -5,5 +5,6 @@ namespace Profio.Infrastructure.Storage.Supabase;
 
 public interface IStorageService
 {
-  Task<string> UploadAsync(IFormFile file, Bucket bucket);
+  Task<string> UploadAsync(IFormFile file);
+  Task RemoveAsync(Guid id);
 }
