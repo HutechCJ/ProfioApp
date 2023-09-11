@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Profio.Infrastructure.Logging;
 
-public class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+public sealed class LoggingBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
   where TRequest : IRequest<TResponse>
   where TResponse : notnull
 {

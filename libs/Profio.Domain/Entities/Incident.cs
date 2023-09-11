@@ -3,7 +3,7 @@ using Profio.Domain.Interfaces;
 
 namespace Profio.Domain.Entities;
 
-public class Incident : IEntity
+public sealed class Incident : IEntity
 {
   public string Id { get; set; } = Ulid.NewUlid().ToString()!;
   public string? Description { get; set; }

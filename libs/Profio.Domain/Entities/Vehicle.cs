@@ -3,7 +3,7 @@ using Profio.Domain.Interfaces;
 
 namespace Profio.Domain.Entities;
 
-public class Vehicle : IEntity
+public sealed class Vehicle : IEntity
 {
   public string Id { get; set; } = Ulid.NewUlid().ToString()!;
   public string? ZipCodeCurrent { get; set; }

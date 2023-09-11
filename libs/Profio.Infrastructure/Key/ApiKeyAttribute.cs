@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Profio.Infrastructure.Key;
 
-public class ApiKeyAttribute : ServiceFilterAttribute
+public sealed class ApiKeyAttribute : ServiceFilterAttribute
 {
   public ApiKeyAttribute()
     : base(typeof(ApiKeyAuthFilter))
@@ -11,7 +11,7 @@ public class ApiKeyAttribute : ServiceFilterAttribute
   }
 }
 
-public class ApiKeyAuthFilter : IAuthorizationFilter
+public sealed class ApiKeyAuthFilter : IAuthorizationFilter
 {
   private readonly IApiKeyValidation _apiKeyValidation;
 

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Profio.Domain.Entities;
 
-public class Route : IEntity
+public sealed class Route : IEntity
 {
   public string Id { get; set; } = Ulid.NewUlid().ToString()!;
   public double? Distance { get; set; }

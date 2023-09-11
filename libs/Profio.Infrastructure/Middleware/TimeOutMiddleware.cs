@@ -4,7 +4,7 @@ using Polly;
 
 namespace Profio.Infrastructure.Middleware;
 
-public class TimeOutMiddleware
+public sealed class TimeOutMiddleware
 {
   private readonly RequestDelegate _next;
   private readonly ILogger<TimeOutMiddleware> _logger;

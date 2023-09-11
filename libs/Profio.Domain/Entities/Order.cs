@@ -4,7 +4,7 @@ using Profio.Domain.ValueObjects;
 
 namespace Profio.Domain.Entities;
 
-public class Order : IEntity
+public sealed class Order : IEntity
 {
   public string Id { get; set; } = Ulid.NewUlid().ToString()!;
   public DateTime StartedDate { get; set; } = DateTime.UtcNow;

@@ -4,7 +4,7 @@ using Profio.Domain.Entities;
 
 namespace Profio.Infrastructure.Persistence.Configurations;
 
-public class CustomerConfiguration : IEntityTypeConfiguration<Customer>
+public sealed class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 {
   public void Configure(EntityTypeBuilder<Customer> builder)
   {

@@ -4,7 +4,7 @@ using Profio.Domain.ValueObjects;
 
 namespace Profio.Domain.Entities;
 
-public class Hub : IEntity
+public sealed class Hub : IEntity
 {
   public string Id { get; set; } = Ulid.NewUlid().ToString()!;
   public required string Name { get; set; }

@@ -8,7 +8,7 @@ using Lucene.Net.Util;
 
 namespace Profio.Infrastructure.Searching.Lucene.Internal;
 
-public class LuceneService<T> : ILuceneService<T> where T : class
+public sealed class LuceneService<T> : ILuceneService<T> where T : class
 {
   private readonly IndexWriter _indexWriter;
   private readonly IndexSearcher _indexSearcher;

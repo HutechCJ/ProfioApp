@@ -10,25 +10,26 @@ namespace Profio.Application.Counters.Queries
 
   public class GetEntityCountQueryHandler : IRequestHandler<GetEntityCountQuery, Dictionary<string, int>>
   {
-    private readonly ApplicationDbContext _applicationDbContext;
+    public ApplicationDbContext Context { get; }
     private readonly Dictionary<string, IQueryable<object>> _entitySets;
 
     public GetEntityCountQueryHandler(ApplicationDbContext applicationDbContext)
     {
-      _applicationDbContext = applicationDbContext;
+      Context = applicationDbContext;
 
-      _entitySets = new Dictionary<string, IQueryable<object>>
+      _entitySets = new()
       {
-        [nameof(Customer)] = _applicationDbContext.Set<Customer>(),
-        [nameof(Delivery)] = _applicationDbContext.Set<Delivery>(),
-        [nameof(DeliveryProgress)] = _applicationDbContext.Set<DeliveryProgress>(),
-        [nameof(Incident)] = _applicationDbContext.Set<Incident>(),
-        [nameof(Order)] = _applicationDbContext.Set<Order>(),
-        [nameof(OrderHistory)] = _applicationDbContext.Set<OrderHistory>(),
-        [nameof(Route)] = _applicationDbContext.Set<Route>(),
-        [nameof(Staff)] = _applicationDbContext.Set<Staff>(),
-        [nameof(Vehicle)] = _applicationDbContext.Set<Vehicle>(),
-        ["User"] = _applicationDbContext.Set<ApplicationUser>(),
+        [nameof(Hub)] = Context.Set<Hub>(),
+        [nameof(Customer)] = Context.Set<Customer>(),
+        [nameof(Delivery)] = Context.Set<Delivery>(),
+        [nameof(DeliveryProgress)] = Context.Set<DeliveryProgress>(),
+        [nameof(Incident)] = Context.Set<Incident>(),
+        [nameof(Order)] = Context.Set<Order>(),
+        [nameof(OrderHistory)] = Context.Set<OrderHistory>(),
+        [nameof(Route)] = Context.Set<Route>(),
+        [nameof(Staff)] = Context.Set<Staff>(),
+        [nameof(Vehicle)] = Context.Set<Vehicle>(),
+        ["User"] = Context.Set<ApplicationUser>(),
       };
     }
 

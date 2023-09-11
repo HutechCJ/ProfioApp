@@ -4,7 +4,7 @@ using Profio.Infrastructure.Persistence.Idempotency;
 
 namespace Profio.Infrastructure.Persistence.Configurations;
 
-public class IdempotentRequestConfiguration : IEntityTypeConfiguration<IdempotentRequest>
+public sealed class IdempotentRequestConfiguration : IEntityTypeConfiguration<IdempotentRequest>
 {
   public void Configure(EntityTypeBuilder<IdempotentRequest> builder)
   {

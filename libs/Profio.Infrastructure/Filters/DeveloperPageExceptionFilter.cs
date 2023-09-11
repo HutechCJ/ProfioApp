@@ -7,7 +7,7 @@ using Microsoft.Net.Http.Headers;
 
 namespace Profio.Infrastructure.Filters;
 
-public class DeveloperPageExceptionFilter : IDeveloperPageExceptionFilter
+public sealed class DeveloperPageExceptionFilter : IDeveloperPageExceptionFilter
 {
   private static readonly object ErrorContextItemsKey = new();
   private static readonly MediaTypeHeaderValue JsonMediaType = new(MediaTypeNames.Application.Json);

@@ -2,7 +2,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Profio.Infrastructure.Key;
 
-public class ApiKeyValidation : IApiKeyValidation
+public sealed class ApiKeyValidation : IApiKeyValidation
 {
   private readonly IConfiguration _configuration;
 

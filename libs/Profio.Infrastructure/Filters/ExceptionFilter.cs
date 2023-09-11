@@ -7,7 +7,7 @@ using Profio.Infrastructure.Exceptions;
 
 namespace Profio.Infrastructure.Filters;
 
-public class ExceptionFilter : ExceptionFilterAttribute
+public sealed class ExceptionFilter : ExceptionFilterAttribute
 {
   public override void OnException(ExceptionContext context)
   {
