@@ -9,7 +9,7 @@ export enum StaffPosition {
   Driver,
   Shipper,
   Officer,
-  Stoker
+  Stoker,
 }
 
 export type CreateStaffRequest = Omit<Staff, 'id' | 'position'> & {

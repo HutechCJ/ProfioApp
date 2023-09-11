@@ -18,9 +18,7 @@ export default function RootLayout({
     <html lang="vi">
       <body>
         <Providers>
-          <ThemeRegistry>
-            {children}
-          </ThemeRegistry>
+          <ThemeRegistry>{children}</ThemeRegistry>
         </Providers>
       </body>
     </html>
