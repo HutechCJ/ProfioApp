@@ -15,6 +15,8 @@ on:
 jobs:
   build-docker:
     runs-on: ubuntu-latest
+    permissions:
+      packages: write
     steps:
     - uses: actions/checkout@v2
     - name: Login to GitHub Container Registry
@@ -26,5 +28,4 @@ jobs:
     - name: Build the profio-api image
       run: |
        docker build -f apps/Profio.Api/Dockerfile . --tag ghcr.io/profio-app/profio-api:latest
-       docker run ghcr.io/profio-app/profio-api:latest
        docker push ghcr.io/profio-app/profio-api:latest

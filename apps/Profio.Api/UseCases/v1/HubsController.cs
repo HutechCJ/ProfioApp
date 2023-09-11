@@ -17,8 +17,8 @@ public class HubsController : BaseEntityController<Hub, HubDto, GetHubByIdQuery>
 {
   [HttpGet]
   [MapToApiVersion("1.0")]
-  public Task<ActionResult<ResultModel<IPagedList<HubDto>>>> Get([FromQuery] Criteria criteria)
-    => HandlePaginationQuery(new GetHubWithPagingQuery(criteria));
+  public Task<ActionResult<ResultModel<IPagedList<HubDto>>>> Get([FromQuery] Criteria criteria, [FromQuery] HubEnumFilter hubEnumFilter)
+    => HandlePaginationQuery(new GetHubWithPagingQuery(criteria, hubEnumFilter));
 
   [HttpGet("{id:length(26)}")]
   [MapToApiVersion("1.0")]

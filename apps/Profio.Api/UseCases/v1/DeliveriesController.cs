@@ -38,4 +38,8 @@ public class DeliveriesController : BaseEntityController<Delivery, DeliveryDto, 
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<DeliveryDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteDeliveryCommand(id));
+  [HttpGet("count")]
+  [MapToApiVersion("1.0")]
+  public async Task<ActionResult<ResultModel<int>>> GetCount()
+    => Ok(ResultModel<int>.Create(await Mediator.Send(new GetDeliveryCountQuery())));
 }

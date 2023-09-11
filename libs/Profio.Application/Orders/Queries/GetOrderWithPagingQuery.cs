@@ -18,7 +18,7 @@ public class GetOrderWithPagingQueryHandler : GetWithPagingQueryHandler<GetOrder
   }
   protected override Expression<Func<Order, bool>> RequestFilter(GetOrderWithPagingQuery request)
   {
-    return x => x.Status == request.OrderEnumFilter.Status;
+    return x => request.OrderEnumFilter.Status == null || x.Status == request.OrderEnumFilter.Status;
   }
 }
 
