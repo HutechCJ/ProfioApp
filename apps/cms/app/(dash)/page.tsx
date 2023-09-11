@@ -1,8 +1,13 @@
-'use client';
-
-import useUser from '@/features/user/useUser';
+import { Container, Divider } from '@mui/material'
+import OverviewStatsCard from './OverviewStats'
+import UserGreeting from './UserGreeting'
 
 export default function Index() {
-  const user = useUser();
-  return <div>Hello {`${user?.fullName}`}!</div>;
+    return (
+        <Container maxWidth="xl">
+            <UserGreeting />
+            <OverviewStatsCard />
+            <Divider sx={{ marginY: 2 }} />
+        </Container>
+    )
 }
