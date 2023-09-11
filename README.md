@@ -353,7 +353,7 @@ For the Driver App, navigate to the `apps/profio-app` directory and run the foll
 npx nx serve profio-app
 ```
 
-For running all applications, navigate to the root directory of the project and run these command:
+For running all applications, navigate to the root directory of the project and run the following command:
 
 ```bash
 npx nx run-many --target=serve --all
@@ -384,7 +384,7 @@ For running all external services, navigate to the root directory of the project
 docker-compose up -d
 ```
 
-For running `api` and `proxy` from ghcr.io, navigate to the root directory of the project and run the following command:
+For running `api` & `proxy`, navigate to the root directory of the project and run the following command:
 
 ```bash
 docker pull ghcr.io/hutechcj/profio-api:latest
