@@ -16,8 +16,8 @@ public class StaffsController : BaseEntityController<Staff, StaffDto, GetStaffBy
 {
   [HttpGet]
   [MapToApiVersion("1.0")]
-  public Task<ActionResult<ResultModel<IPagedList<StaffDto>>>> Get([FromQuery] Criteria criteria)
-    => HandlePaginationQuery(new GetStaffWithPagingQuery(criteria));
+  public Task<ActionResult<ResultModel<IPagedList<StaffDto>>>> Get([FromQuery] Criteria criteria, [FromQuery] StaffEnumFilter staffEnumFilter)
+    => HandlePaginationQuery(new GetStaffWithPagingQuery(criteria, staffEnumFilter));
 
   [HttpGet("{id:length(26)}")]
   [MapToApiVersion("1.0")]

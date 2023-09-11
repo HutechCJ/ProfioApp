@@ -10,7 +10,7 @@ using System.Linq.Expressions;
 namespace Profio.Application.Customers.Queries;
 
 public record GetCustomerWithPagingQuery
-  (Criteria Criteria) : GetWithPagingQueryBase<CustomerDto>(Criteria);
+  (Criteria Criteria, CustomerEnumFilter CustomerEnumFilter) : GetWithPagingQueryBase<CustomerDto>(Criteria);
 
 public class
   GetCustomerWithPagingQueryHandler : GetWithPagingQueryHandler<GetCustomerWithPagingQuery, CustomerDto, Customer>
@@ -29,6 +29,10 @@ public class
         && c.Address.Ward.ToLower().Contains(filter))
       || (c.Address.City != null
         && c.Address.City.ToLower().Contains(filter))));
+  protected override Expression<Func<Customer, bool>> RequestFilter(GetCustomerWithPagingQuery request)
+  {
+    return x => request.CustomerEnumFilter.Gender == null || x.Gender == request.CustomerEnumFilter.Gender;
+  }
 }
 
 public class

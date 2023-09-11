@@ -21,7 +21,7 @@ public static class Extension
           if (description.IsDeprecated)
             new OpenApiInfo().Description += " NOTE: This API version has been deprecated.";
         }
-        options.UseInlineDefinitionsForEnums();
+        //options.UseInlineDefinitionsForEnums();
         options.SchemaFilter<EnumSchemaFilter>();
         options.OperationFilter<SwaggerDefaultValues>();
       })

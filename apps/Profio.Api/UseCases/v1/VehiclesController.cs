@@ -19,8 +19,8 @@ public class VehiclesController : BaseEntityController<Vehicle, VehicleDto, GetV
 {
   [HttpGet]
   [MapToApiVersion("1.0")]
-  public Task<ActionResult<ResultModel<IPagedList<VehicleDto>>>> Get([FromQuery] Criteria criteria)
-    => HandlePaginationQuery(new GetVehicleWithPagingQuery(criteria));
+  public Task<ActionResult<ResultModel<IPagedList<VehicleDto>>>> Get([FromQuery] Criteria criteria, [FromQuery] VehicleEnumFilter vehicleEnumFilter)
+    => HandlePaginationQuery(new GetVehicleWithPagingQuery(criteria, vehicleEnumFilter));
 
   [HttpGet("{id:length(26)}")]
   [MapToApiVersion("1.0")]

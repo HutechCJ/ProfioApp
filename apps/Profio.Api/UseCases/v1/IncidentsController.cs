@@ -16,8 +16,8 @@ public class IncidentsController : BaseEntityController<Incident, IncidentDto, G
 {
   [HttpGet]
   [MapToApiVersion("1.0")]
-  public Task<ActionResult<ResultModel<IPagedList<IncidentDto>>>> Get([FromQuery] Criteria criteria)
-    => HandlePaginationQuery(new GetIncidentWithPagingQuery(criteria));
+  public Task<ActionResult<ResultModel<IPagedList<IncidentDto>>>> Get([FromQuery] Criteria criteria, [FromQuery] IncidentEnumFilter incidentEnumFilter)
+    => HandlePaginationQuery(new GetIncidentWithPagingQuery(criteria, incidentEnumFilter));
 
   [HttpGet("{id:length(26)}")]
   [MapToApiVersion("1.0")]
