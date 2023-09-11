@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Profio.Application.Orders;
 using Profio.Application.Orders.Commands;
 using Profio.Application.Orders.Queries;
+using Profio.Application.Vehicles;
 using Profio.Domain.Entities;
 using Profio.Domain.Models;
 using Profio.Domain.Specifications;
@@ -42,4 +43,8 @@ public class OrdersController : BaseEntityController<Order, OrderDto, GetOrderBy
   [MapToApiVersion("1.0")]
   public async Task<ActionResult<ResultModel<int>>> GetCount()
     => Ok(ResultModel<int>.Create(await Mediator.Send(new GetOrderCountQuery())));
+  [HttpGet("{id:length(26)}/vehicles/available")]
+  [MapToApiVersion("1.0")]
+  public async Task<ActionResult<ResultModel<IPagedList<VehicleDto>>>> GetAvailableVehicles(string id, [FromQuery] Criteria criteria)
+    => Ok(ResultModel<IPagedList<VehicleDto>>.Create(await Mediator.Send(new GetAvailableVehicleByOrderIdWithPagingQuery(id, criteria))));
 }
