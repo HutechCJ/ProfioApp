@@ -1,5 +1,6 @@
 using EntityFrameworkCore.Triggered;
 using Microsoft.EntityFrameworkCore;
+using Profio.Domain.Constants;
 using Profio.Domain.Entities;
 
 namespace Profio.Infrastructure.Persistence.Triggers;
@@ -26,6 +27,8 @@ public class AfterCreateDeliveryTrigger : IAfterSaveTrigger<Delivery>
         Delivery = context.Entity,
         Hub = hub
       };
+      order.Status = OrderStatus.InProgress;
+      _applicationDbContext.Orders.Update(order);
       await _applicationDbContext.OrderHistories.AddAsync(orderHistory, cancellationToken);
       await _applicationDbContext.SaveChangesAsync(cancellationToken);
     }
