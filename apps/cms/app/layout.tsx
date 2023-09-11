@@ -18,12 +18,7 @@ export default function RootLayout({
     <html lang="vi">
       <body>
         <Providers>
-          <ThemeRegistry>
-            {children}
-            <Suspense fallback={null}>
-              <NavigationEvents />
-            </Suspense>
-          </ThemeRegistry>
+          <ThemeRegistry>{children}</ThemeRegistry>
         </Providers>
       </body>
     </html>

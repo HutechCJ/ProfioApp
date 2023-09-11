@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Stack, Avatar } from '@mui/material';
 import { SxProps } from '@mui/system';
 
-interface StatProps {
+export interface StatProps {
   icon: React.ReactNode;
   iconSx?: SxProps;
   iconColor?: string;
