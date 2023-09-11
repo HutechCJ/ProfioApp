@@ -1,6 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Profio.Domain.Entities;
+using Profio.Infrastructure.Identity;
 using Profio.Infrastructure.Persistence;
 
 namespace Profio.Application.Counters.Queries
@@ -20,10 +21,14 @@ namespace Profio.Application.Counters.Queries
       {
         [nameof(Customer)] = _applicationDbContext.Set<Customer>(),
         [nameof(Delivery)] = _applicationDbContext.Set<Delivery>(),
+        [nameof(DeliveryProgress)] = _applicationDbContext.Set<DeliveryProgress>(),
         [nameof(Incident)] = _applicationDbContext.Set<Incident>(),
         [nameof(Order)] = _applicationDbContext.Set<Order>(),
+        [nameof(OrderHistory)] = _applicationDbContext.Set<OrderHistory>(),
+        [nameof(Route)] = _applicationDbContext.Set<Route>(),
         [nameof(Staff)] = _applicationDbContext.Set<Staff>(),
-        [nameof(Vehicle)] = _applicationDbContext.Set<Vehicle>()
+        [nameof(Vehicle)] = _applicationDbContext.Set<Vehicle>(),
+        ["User"] = _applicationDbContext.Set<ApplicationUser>(),
       };
     }
 
@@ -36,9 +41,17 @@ namespace Profio.Application.Counters.Queries
       var result = new Dictionary<string, int>();
 
       foreach (var pair in selectedEntityTypes)
-        result[pair.Key] = await pair.Value.CountAsync(cancellationToken: cancellationToken);
+        result[ToCamelCase(pair.Key)] = await pair.Value.CountAsync(cancellationToken: cancellationToken);
 
       return result;
+    }
+    private static string ToCamelCase(string input)
+    {
+      if (string.IsNullOrEmpty(input))
+      {
+        return input;
+      }
+      return char.ToLower(input[0]) + input[1..];
     }
   }
 }
