@@ -1,13 +1,11 @@
 using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using EntityFrameworkCore.QueryBuilder.Interfaces;
 using EntityFrameworkCore.Repository.Collections;
-using EntityFrameworkCore.Repository.Extensions;
 using EntityFrameworkCore.Repository.Interfaces;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
 using FluentValidation;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
+using Profio.Application.Abstractions.CQRS;
 using Profio.Application.Abstractions.CQRS.Events.Queries;
 using Profio.Application.Orders.Validators;
 using Profio.Application.Vehicles;
@@ -41,33 +39,11 @@ public class GetAvailableVehicleByOrderIdWithPagingQueryHandler : IRequestHandle
 
     var query = (IMultipleResultQuery<Vehicle>)_vehicleRepository
       .MultipleResultQuery()
-      .Page(request.Criteria.PageIndex, request.Criteria.PageSize)
-      .AndFilter(x => x.ZipCodeCurrent == destinationZipCode)
-      .OrderByDescending(x => x.Id);
+      .ApplyCriteria(request.Criteria)
+      .AndFilter(x => x.ZipCodeCurrent == destinationZipCode);
 
-    if (request.Criteria.OrderBy is { })
-      query = (IMultipleResultQuery<Vehicle>)query
-        .OrderBy(request.Criteria.OrderBy);
-
-    if (request.Criteria.OrderByDescending is { })
-      query = (IMultipleResultQuery<Vehicle>)query
-        .OrderByDescending(request.Criteria.OrderByDescending);
-
-    var pagedListQueryable = _vehicleRepository
-      .ToQueryable(query);
-
-    var projectedPagedList = pagedListQueryable
-      .ProjectTo<VehicleDto>(_mapper.ConfigurationProvider)
-      .AsSplitQuery();
-
-    var asyncPagedList = projectedPagedList.ToListAsync(cancellationToken);
-
-    var pagedList = await asyncPagedList
-      .Then<List<VehicleDto>, IList<VehicleDto>>(result => result, cancellationToken)
-      .ToPagedListAsync(query.Paging.PageIndex,
-        query.Paging.PageSize,
-        query.Paging.TotalCount,
-        cancellationToken);
+    var pagedList = await _vehicleRepository
+      .GetDataWithQueryAsync<Vehicle, VehicleDto>(query, _mapper.ConfigurationProvider, cancellationToken);
 
     return pagedList;
   }
