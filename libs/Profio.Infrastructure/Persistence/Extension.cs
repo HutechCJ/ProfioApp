@@ -17,7 +17,7 @@ public static class Extension
 {
   public static IServiceCollection AddPostgres(this IServiceCollection services, IConfiguration configuration)
   {
-    services.AddDbContextPool<DbContext, ApplicationDbContext>(options =>
+    services.AddTriggeredDbContextPool<DbContext, ApplicationDbContext>(options =>
     {
       options.UseNpgsql(configuration.GetConnectionString("Postgres"),
           sqlOptions =>
@@ -29,6 +29,8 @@ public static class Extension
         .EnableDetailedErrors()
         .UseExceptionProcessor();
       options.UseModel(ApplicationDbContextModel.Instance);
+      options.UseTriggers(o => o.AddAssemblyTriggers());
+
     });
 
     services.AddScoped<ApplicationDbContextInitializer>();
@@ -37,6 +39,8 @@ public static class Extension
 
     services.AddUnitOfWork();
     services.AddUnitOfWork<ApplicationDbContext>();
+
+    //services.AddScoped<IAfterSaveTrigger<Delivery>, AfterCreateDeliveryTrigger>();
 
     return services;
   }
