@@ -35,22 +35,22 @@
 - [Tentative technologies](#tentative-technologies)
 - [Building blocks](#building-blocks)
 - [Getting Started](#getting-started)
-  - [💻 Infrastructure](#-infrastructure)
-  - [📦 Services](#-services)
-  - [🛠️ Setup](#️-setup)
-  - [🚀 Running the application](#-running-the-application)
-  - [🧪 Testing the application](#-testing-the-application)
-  - [🐳 Running services with Docker](#-running-services-with-docker)
+	- [💻 Infrastructure](#-infrastructure)
+	- [📦 Services](#-services)
+	- [🛠️ Setup](#️-setup)
+	- [🚀 Running the application](#-running-the-application)
+	- [🧪 Testing the application](#-testing-the-application)
+	- [🐳 Running services with Docker](#-running-services-with-docker)
 - [API development](#api-development)
 - [Open API](#open-api)
 - [Dependency Graph](#dependency-graph)
 - [CI/CD](#cicd)
 - [External services](#external-services)
-  - [📦 Container Management](#-container-management)
-  - [🧑‍⚕️ Health Check](#️-health-check)
-  - [📊 Monitoring](#-monitoring)
-  - [📈 Tracing](#-tracing)
-  - [📝 Logging](#-logging)
+	- [📦 Container Management](#-container-management)
+	- [🧑‍⚕️ Health Check](#️-health-check)
+	- [📊 Monitoring](#-monitoring)
+	- [📈 Tracing](#-tracing)
+	- [📝 Logging](#-logging)
 - [Contributing](#contributing)
 - [Contributors](#contributors)
 - [Support and Organization](#support-and-organization)
@@ -301,6 +301,9 @@
 	</li>
 	<li align="justify">
 		<b><a href="https://supabase.io/" target="_blank">Supabase</a></b> - Supabase is an open-source alternative to Firebase that adds real-time and RESTful APIs to your PostgreSQL database without any coding.
+	</li>
+	<li align="justify">
+		<b><a href="https://sendgrid.com/" target="_blank">SendGrid</a></b> - SendGrid is a cloud-based SMTP provider that allows you to send email without having to maintain email servers.
 	</li>
 </ul>
 
