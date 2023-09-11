@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -16,6 +16,8 @@
     <PackageReference Include="EntityFrameworkCore.Data.UnitOfWork" Version="7.0.10" />
     <PackageReference Include="EntityFrameworkCore.Data.UnitOfWork.Abstractions" Version="7.0.10" />
     <PackageReference Include="EntityFrameworkCore.Exceptions.PostgreSQL" Version="6.0.3" />
+    <PackageReference Include="EntityFrameworkCore.Triggered" Version="3.2.2" />
+    <PackageReference Include="EntityFrameworkCore.Triggered.Extensions" Version="3.2.2" />
   </ItemGroup>
 
   <ItemGroup>

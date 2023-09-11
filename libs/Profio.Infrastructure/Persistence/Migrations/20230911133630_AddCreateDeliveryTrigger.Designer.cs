@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Profio.Domain.ValueObjects;
@@ -12,9 +13,11 @@ using Profio.Infrastructure.Persistence;
 namespace Profio.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230911133630_AddCreateDeliveryTrigger")]
+    partial class AddCreateDeliveryTrigger
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -187,7 +190,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers", (string)null);
+                    b.ToTable("Customers");
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.Delivery", b =>
@@ -211,7 +214,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("Deliveries", (string)null);
+                    b.ToTable("Deliveries");
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.DeliveryProgress", b =>
@@ -240,7 +243,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("DeliveryProgresses", (string)null);
+                    b.ToTable("DeliveryProgresses");
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.Hub", b =>
@@ -272,7 +275,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Hubs", (string)null);
+                    b.ToTable("Hubs");
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.Incident", b =>
@@ -299,7 +302,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("OrderHistoryId");
 
-                    b.ToTable("Incidents", (string)null);
+                    b.ToTable("Incidents");
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.Order", b =>
@@ -341,7 +344,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders", (string)null);
+                    b.ToTable("Orders");
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.OrderHistory", b =>
@@ -365,7 +368,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("HubId");
 
-                    b.ToTable("OrderHistories", (string)null);
+                    b.ToTable("OrderHistories");
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.Route", b =>
@@ -389,7 +392,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("StartHubId");
 
-                    b.ToTable("Routes", (string)null);
+                    b.ToTable("Routes");
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.Staff", b =>
@@ -415,7 +418,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Staffs", (string)null);
+                    b.ToTable("Staffs");
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.Vehicle", b =>
@@ -445,7 +448,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("StaffId");
 
-                    b.ToTable("Vehicles", (string)null);
+                    b.ToTable("Vehicles");
                 });
 
             modelBuilder.Entity("Profio.Infrastructure.Identity.ApplicationUser", b =>
@@ -530,7 +533,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("IdempotentRequests", (string)null);
+                    b.ToTable("IdempotentRequests");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
