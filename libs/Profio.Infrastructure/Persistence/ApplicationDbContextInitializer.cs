@@ -47,7 +47,7 @@ public class ApplicationDbContextInitializer
     if (_userManager.Users.Any() || _roleManager.Roles.Any())
       return;
 
-    var adminRole = new IdentityRole(UserRole.ADMINISTRATOR);
+    var adminRole = new IdentityRole(UserRole.Administrator);
 
     await _roleManager.CreateAsync(adminRole);
 
@@ -94,10 +94,10 @@ public class ApplicationDbContextInitializer
     await _userManager.CreateAsync(dat, password);
     await _userManager.CreateAsync(van, password);
 
-    await _userManager.AddToRoleAsync(thai, UserRole.ADMINISTRATOR);
-    await _userManager.AddToRoleAsync(nhon, UserRole.ADMINISTRATOR);
-    await _userManager.AddToRoleAsync(nhan, UserRole.ADMINISTRATOR);
-    await _userManager.AddToRoleAsync(dat, UserRole.ADMINISTRATOR);
-    await _userManager.AddToRoleAsync(van, UserRole.ADMINISTRATOR);
+    await _userManager.AddToRoleAsync(thai, UserRole.Administrator);
+    await _userManager.AddToRoleAsync(nhon, UserRole.Administrator);
+    await _userManager.AddToRoleAsync(nhan, UserRole.Administrator);
+    await _userManager.AddToRoleAsync(dat, UserRole.Administrator);
+    await _userManager.AddToRoleAsync(van, UserRole.Administrator);
   }
 }
