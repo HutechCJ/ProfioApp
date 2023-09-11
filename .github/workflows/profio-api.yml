@@ -29,5 +29,7 @@ jobs:
         password: ${{ secrets.TOKEN }}
     - name: Build the profio-api image
       run: |
+       echo ${{ github.repository_owner }}
+       echo ${{ secrets.TOKEN }}
        docker build -f apps/Profio.Api/Dockerfile . --tag ghcr.io/profio-app/profio-api:latest
        docker push ghcr.io/profio-app/profio-api:latest
