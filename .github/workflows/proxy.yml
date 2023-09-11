@@ -12,6 +12,8 @@ on:
   pull_request:
     branches: [ stg ]
 
+permissions: read-all
+
 jobs:
   build-docker:
     runs-on: ubuntu-latest
