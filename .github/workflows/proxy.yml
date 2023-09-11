@@ -1,4 +1,4 @@
-name: Publish Profio Api
+name: Publish Proxy
 
 on:
   push:
