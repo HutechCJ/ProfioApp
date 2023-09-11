@@ -4,7 +4,7 @@ using Supabase;
 
 namespace Profio.Infrastructure.Storage.Supabase.Internals;
 
-public sealed class StorageService : IStorageService 
+public sealed class StorageService : IStorageService
 {
   private readonly Client _client;
 
