@@ -11,6 +11,8 @@ public class EnumSchemaFilter : ISchemaFilter
     if (!context.Type.IsEnum)
       return;
 
+    schema.Type = "string";
+
     schema.Enum.Clear();
     Enum.GetNames(context.Type)
       .ToList()
