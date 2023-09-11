@@ -232,7 +232,7 @@
 
 <ul>
 	<li align="justify">
-		<b><a href="https://nx.dev" target="_blank">Nx</a></b> - Nx is a set of 	extensible dev tools for monorepos, which helps you develop like Google, 	Facebook, and Microsoft.
+		<b><a href="https://nx.dev" target="_blank">Nx</a></b> - Nx is a set of extensible dev tools for monorepos.
 	</li>
 	<li align="justify">
 		<b><a href="https://nodejs.org/en/" target="_blank">node.js</a></b> - Node.	js® is a JavaScript runtime built on Chrome's V8 JavaScript engine.
@@ -241,19 +241,37 @@
 		<b><a href="https://www.npmjs.com/" target="_blank">npm</a></b> - npm is 	the package manager for the Node JavaScript platform.
 	</li>
 	<li align="justify">
-		<b><a href="https://dotnet.microsoft.com/" target="_blank">.NET Core</a></b> - .NET is a developer platform with tools and libraries for building 	any type of app, including web, mobile, desktop, games, IoT, cloud, and 	microservices.
+		<b><a href="https://flutter.dev/" target="_blank">Flutter</a></b> - Flutter is Google's toolkit for creating sleek apps across mobile, web, and desktop from a single codebase.
+	</li>
+	<li align="justify">
+		<b><a href="https://www.docker.com/" target="_blank">Docker (Kubernetes 	Enabled)</a></b> / <b><a href="https://podman.io/" target="_blank">Podman</a></b>
+		 - Docker is an open platform for app development and management. Podman is a daemonless container engine for OCI Containers on Linux.
+	</li>
+	<li align="justify">
+		<b><a href="https://kubernetes.io/vi/" target="_blank">Kubernetes</a></b> / <b><a href="https://azure.microsoft.com/en-us/products/kubernetes-service" target="_blank">AKS</a></b> / <b><a href="https://www.nomadproject.io/" target="_blank">Nomad</a></b> - The container orchestration platform for Kubernetes, AKS, and Nomad.
+		</b>
+	</li>
+	<li align="justify">
+		<b><a href="https://helm.sh/" target="_blank">Helm</a></b> - Helm is the best way to find, share, and use software built for Kubernetes.
+	</li>
+	<!-- tye -->
+	<li align="justify">
+		<b><a href="https://github.com/dotnet/tye" target="_blank">Tye</a></b> - Tye is a tool that makes developing, testing, and deploying applications easier.
+	</li>
+	<li align="justify">
+		<b><a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10" 	target="_blank">WSL 2 - Ubuntu OS</a></b> - WSL 2 enables running Linux ELF64 binaries on Windows.
+	</li>
+	<li align="justify">
+		<b><a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a></b> - Visual Studio Code is a code editor for modern web and cloud app development.
+	</li>
+	<li align="justify">
+		<b><a href="https://www.jetbrains.com/rider/" target="_blank">JetBrains Rider</a></b> / <b><a href="https://visualstudio.microsoft.com/" target="_blank">Visual Studio 2022</a></b> - JetBrains Rider is a cross-platform .NET IDE built on IntelliJ and ReSharper. Visual Studio is Microsoft's IDE.
+	</li>
+	<li align="justify">
+		<b><a href="https://dotnet.microsoft.com/" target="_blank">.NET Core 7</a></b> - .NET Framework and .NET Core, including ASP.NET and ASP.NET Core.
 	</li>
 	<li align="justify">
 		<b><a href="https://https://www.python.org/" target="_blank">Python</a></b> - Python is a programming language that lets 	you work quickly and integrate systems more effectively.
-	</li>
-	<li align="justify">
-		<b><a href="https://flutter.dev/" target="_blank">Flutter</a></b> - Flutter is Google’s UI toolkit for building beautiful, natively 	compiled applications for mobile, web, and desktop from a single codebase.
-	</li>
-	<li align="justify">
-		<b><a href="https://www.docker.com/" target="_blank">Docker (Kubernetes 	Enabled)</a></b> - Docker is an open platform for developing, shipping, 	and running applications.
-	</li>
-	<li align="justify">
-		<b><a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10" 	target="_blank">WSL 2 - Ubuntu OS</a></b> - WSL 2 is a new version of the architecture 	that powers the Windows Subsystem for Linux to run ELF64 Linux binaries on 	Windows.
 	</li>
 </ul>
 
@@ -261,25 +279,28 @@
 
 <ul>
 	<li align="justify">
-		<b><a href="https://render.com/" target="_blank">Render</a></b> - Render 	is a unified platform to build and run all your apps and websites with 	free SSL, global CDN, private networks and auto deploys from Git.
+		<b><a href="https://render.com/" target="_blank">Render</a></b> - Render is a unified platform for apps and websites with free SSL, global CDN, private networks, and Git auto-deploys.
 	</li>
 	<li align="justify">
-		<b><a href="https://redislabs.com/" target="_blank">Redis Labs</a></b> - 	Redis Labs is the home of Redis, the world’s most popular in-memory 	database, and commercial provider of Redis Enterprise.
+		<b><a href="https://redislabs.com/" target="_blank">Redis Labs</a></b> - 	Redis Labs is the home of Redis, the world’s most popular in-memory 	database.
 	</li>
 	<li align="justify">
-		<b><a href="https://azure.microsoft.com/" target="_blank">Azure</a></b> - 	Azure is an ever-expanding set of cloud computing services to help your 	organization meet its business challenges.
+		<b><a href="https://azure.microsoft.com/" target="_blank">Azure</a></b> - 	Azure is an ever-expanding set of cloud computing services to help your organization meet its business challenges.
 	</li>
 	<li align="justify">
-		<b><a href="https://www.cloudamqp.com/" target="_blank">CloudAMQP</a></b> 	- CloudAMQP automates every part of setup, running and scaling of RabbitMQ 	clusters. Available on all major cloud and application platforms.
+		<b><a href="https://www.cloudamqp.com/" target="_blank">CloudAMQP</a></b> 	- CloudAMQP automates RabbitMQ setup, running, and scaling on all major platforms.
 	</li>
 	<li align="justify">
-		<b><a href="https://www.emqx.io/" target="_blank">EMQX</a></b> - EMQ X 	Broker is a fully open source, highly scalable, highly available 	distributed MQTT messaging broker for IoT, M2M and Mobile applications 	that can handle tens of millions of concurrent clients.
+		<b><a href="https://www.emqx.io/" target="_blank">EMQX</a></b> - EMQ X Broker is an open-source, scalable MQTT messaging broker for IoT, M2M, and mobile apps, handling millions of concurrent clients.
 	</li>
 	<li align="justify">
-		<b><a href="https://vercel.com/" target="_blank">Vercel</a></b> - Vercel 	is a cloud platform for static sites and Serverless Functions that fits 	perfectly with your workflow. It enables developers to host Jamstack 	websites and web services that deploy instantly, scale automatically, and 	require no supervision, all with no configuration.
+		<b><a href="https://vercel.com/" target="_blank">Vercel</a></b> - Vercel is a cloud platform for hosting Jamstack websites and web services, deploying instantly, scaling automatically, and requiring no configuration.
 	</li>
 	<li align="justify">
-		<b><a href="https://cloud.google.com/" target="_blank">Google Cloud 	Platform</a></b> - Google Cloud Platform, offered by Google, is a suite of 	cloud computing services that runs on the same infrastructure that Google 	uses internally for its end-user products, such as Google Search, Gmail, 	file storage, and YouTube.
+		<b><a href="https://cloud.google.com/" target="_blank">Google Cloud 	Platform</a></b> - Google Cloud Platform (GCP) is a suite of cloud services running on the same infrastructure as Google's user products like Search, Gmail, and YouTube.
+	</li>
+	<li align="justify">
+		<b><a href="https://supabase.io/" target="_blank">Supabase</a></b> - Supabase is an open-source alternative to Firebase that adds real-time and RESTful APIs to your PostgreSQL database without any coding.
 	</li>
 </ul>
 
@@ -354,17 +375,42 @@ npx nx test Profio.Api
 
 ## 🐳 Running services with Docker
 
-For running all services, navigate to the root directory of the project and run the following command:
+For running all external services, navigate to the root directory of the project and run the following command:
 
 ```bash
 docker-compose up -d
 ```
 
+For running `api` and `proxy` from ghcr.io, navigate to the root directory of the project and run the following command:
+
+```bash
+docker pull ghcr.io/hutechcj/profio-api:latest
+docker pull ghcr.io/hutechcj/profio-proxy:latest
+docker run -d -p 5023:80 ghcr.io/hutechcj/profio-api:latest
+docker run -d -p 7221:80 ghcr.io/hutechcj/profio-proxy:latest
+```
+
 # API development
 
-We use Clean Architecture for the API development. You can read more about Clean Architecture [here](https://docs.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures#clean-architecture). The CQRS and Mediator patterns are also used in the API development. You can read more about CQRS [here](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs) and Mediator [here](https://refactoring.guru/design-patterns/mediator).
+We use Clean Architecture for the API development. You can read more about Clean Architecture [here](https://docs.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures#clean-architecture). The CQRS and Mediator patterns are also used in the API development. We also implement the Options Pattern to read the configuration settings.You can read more about CQRS [here](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs), Mediator [here](https://refactoring.guru/design-patterns/mediator) and Options Pattern [here](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-8.0).
 
-<img loading="lazy" src="./assets/img/clean-architecture.png" width="100%" alt="Clean Architecture">
+<figure>
+	<img loading="lazy" src="./assets/img/clean-architecture.png" width="100%" alt="Clean Architecture">
+	<figcaption>
+		<p align="center">
+			<b>Clean Architecture</b>
+		</p>
+	</figcaption>
+</figure>
+
+<figure>
+	<img loading="lazy" src="./assets/img/cqrs.png" width="100%" alt="CQRS">
+	<figcaption>
+		<p align="center">
+			<b>CQRS with Mediator</b>
+		</p>
+	</figcaption>
+</figure>
 
 # Open API
 
