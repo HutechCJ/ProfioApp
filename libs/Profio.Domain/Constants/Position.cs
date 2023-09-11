@@ -4,5 +4,6 @@ public enum Position
 {
   Driver,
   Shipper,
-  Officer
+  Officer,
+  Stoker
 }
