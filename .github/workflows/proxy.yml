@@ -29,5 +29,5 @@ jobs:
         password: ${{ secrets.TOKEN }}
     - name: Build the profio-api image
       run: |
-       docker build -f apps/Profio.Proxy/Dockerfile . --tag ghcr.io/profio-app/profio-proxy:latest
-       docker push ghcr.io/profio-app/profio-proxy:latest
+       docker build -f apps/Profio.Proxy/Dockerfile . --tag ghcr.io/hutechcj/profio-proxy:latest
+       docker push ghcr.io/hutechcj/profio-proxy:latest
