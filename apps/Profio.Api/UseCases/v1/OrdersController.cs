@@ -38,4 +38,8 @@ public class OrdersController : BaseEntityController<Order, OrderDto, GetOrderBy
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<OrderDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteOrderCommand(id));
+  [HttpGet("count")]
+  [MapToApiVersion("1.0")]
+  public async Task<ActionResult<ResultModel<int>>> GetCount()
+    => Ok(ResultModel<int>.Create(await Mediator.Send(new GetOrderCountQuery())));
 }

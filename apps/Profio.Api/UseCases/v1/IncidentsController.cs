@@ -38,4 +38,8 @@ public class IncidentsController : BaseEntityController<Incident, IncidentDto, G
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<IncidentDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteIncidentCommand(id));
+  [HttpGet("count")]
+  [MapToApiVersion("1.0")]
+  public async Task<ActionResult<ResultModel<int>>> GetCount()
+    => Ok(ResultModel<int>.Create(await Mediator.Send(new GetIncidentCountQuery())));
 }
