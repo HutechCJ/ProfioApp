@@ -33,7 +33,7 @@ export default function Header(props: HeaderProps) {
   return (
     <React.Fragment>
       <HeaderDefault onDrawerToggle={onDrawerToggle} />
-      <HeaderTitle title={title || 'Dashboard'} />
+      <HeaderTitle title={title || 'Overview'} />
     </React.Fragment>
   );
 }

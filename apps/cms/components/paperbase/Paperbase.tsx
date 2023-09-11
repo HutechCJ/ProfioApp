@@ -1,18 +1,15 @@
 'use client';
 
-import * as React from 'react';
-import useMediaQuery from '@mui/material/useMediaQuery';
-import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Link from '@mui/material/Link';
-import Navigator from './Navigator';
-import Content from './Content';
-import Header from './Header';
-import theme from '../ThemeRegistry/theme';
-import Copyright from '../Copyright';
+import CssBaseline from '@mui/material/CssBaseline';
+import useMediaQuery from '@mui/material/useMediaQuery';
 import { usePathname } from 'next/navigation';
+import * as React from 'react';
+import Copyright from '../Copyright';
+import theme from '../ThemeRegistry/theme';
 import { categories } from '../navItems';
+import Header from './Header';
+import Navigator from './Navigator';
 
 const drawerWidth = 256;
 
