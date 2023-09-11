@@ -8,6 +8,8 @@ export type Staff = {
 export enum StaffPosition {
   Driver,
   Shipper,
+  Officer,
+  Stoker
 }
 
 export type CreateStaffRequest = Omit<Staff, 'id' | 'position'> & {
