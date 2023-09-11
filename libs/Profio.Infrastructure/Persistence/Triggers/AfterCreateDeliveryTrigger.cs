@@ -17,11 +17,11 @@ public class AfterCreateDeliveryTrigger : IAfterSaveTrigger<Delivery>
     {
       var order = await _applicationDbContext.Orders
         .SingleOrDefaultAsync(x => x.Id == context.Entity.OrderId, cancellationToken);
-      if (order == null)
+      if (order is null)
         return;
       var hub = await _applicationDbContext.Hubs
         .FirstOrDefaultAsync(x => x.ZipCode == order.DestinationZipCode, cancellationToken);
-      if (hub == null) return;
+      if (hub is null) return;
       var orderHistory = new OrderHistory
       {
         Delivery = context.Entity,
