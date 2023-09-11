@@ -42,4 +42,8 @@ public class StaffsController : BaseEntityController<Staff, StaffDto, GetStaffBy
   [MapToApiVersion("1.0")]
   public async Task<ActionResult<ResultModel<IEnumerable<int>>>> GetCountByPosition()
     => Ok(ResultModel<IEnumerable<int>>.Create(await Mediator.Send(new GetStaffCountByPositionQuery())));
+  [HttpGet("count")]
+  [MapToApiVersion("1.0")]
+  public async Task<ActionResult<ResultModel<int>>> GetCount()
+    => Ok(ResultModel<int>.Create(await Mediator.Send(new GetStaffCountQuery())));
 }
