@@ -5,7 +5,7 @@ import ErrorIcon from '@mui/icons-material/Error'
 import InventoryIcon from '@mui/icons-material/Inventory'
 import LocalShippingIcon from '@mui/icons-material/LocalShipping'
 import PeopleIcon from '@mui/icons-material/People'
-import { Grid, Paper, Box, LinearProgress } from '@mui/material'
+import { Box, Grid, LinearProgress, Paper } from '@mui/material'
 
 import useEntitiesCounter from '@/features/counter/useEntitiesCounter'
 
