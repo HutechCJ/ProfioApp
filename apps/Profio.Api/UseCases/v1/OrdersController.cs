@@ -1,5 +1,6 @@
 using EntityFrameworkCore.Repository.Collections;
 using Microsoft.AspNetCore.Mvc;
+using Profio.Application.Deliveries;
 using Profio.Application.Orders;
 using Profio.Application.Orders.Commands;
 using Profio.Application.Orders.Queries;
@@ -47,4 +48,8 @@ public class OrdersController : BaseEntityController<Order, OrderDto, GetOrderBy
   [MapToApiVersion("1.0")]
   public async Task<ActionResult<ResultModel<IPagedList<VehicleDto>>>> GetAvailableVehicles(string id, [FromQuery] Criteria criteria)
     => Ok(ResultModel<IPagedList<VehicleDto>>.Create(await Mediator.Send(new GetAvailableVehicleByOrderIdWithPagingQuery(id, criteria))));
+  [HttpGet("{id:length(26)}/deliveries")]
+  [MapToApiVersion("1.0")]
+  public async Task<ActionResult<ResultModel<IPagedList<DeliveryDto>>>> GetDeliveriesByOrderId(string id, [FromQuery] Criteria criteria)
+    => Ok(ResultModel<IPagedList<DeliveryDto>>.Create(await Mediator.Send(new GetDeliveryByOrderIdWithPagingQuery(id, criteria))));
 }

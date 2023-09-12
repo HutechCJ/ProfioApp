@@ -23,7 +23,6 @@ using Profio.Infrastructure.Versioning;
 using System.IO.Compression;
 using System.Net.Mime;
 using System.Text.Json.Serialization;
-using Profio.Infrastructure.Storage;
 
 namespace Profio.Infrastructure;
 
@@ -95,7 +94,7 @@ public static class ConfigureServices
       .AddEventBus(builder.Configuration);
 
     services.AddMqttBus(builder.Configuration);
-    services.AddStorage(builder.Configuration);
+    //services.AddStorage(builder.Configuration);
 
     services.AddApplicationIdentity(builder);
 
