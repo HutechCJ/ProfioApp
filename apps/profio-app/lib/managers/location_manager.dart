@@ -38,11 +38,12 @@ class LocationManager {
   }
 
   static Future<void> publishLocation(
-      MqttProvider mqttProvider, Position position) async {
+      MqttProvider mqttProvider, Position position,
+      {String vehicleId = ''}) async {
     const pubTopic = locationTopic;
     final builder = MqttClientPayloadBuilder();
     final location = VehicleLocation(
-        id: "1234567890",
+        id: vehicleId,
         latitude: position.latitude,
         longitude: position.longitude);
     builder.addString(jsonEncode(location.toJson()));
@@ -53,7 +54,7 @@ class LocationManager {
 
   static void simulateCarMovement(MqttProvider mqttProvider,
       Position startLocation, Position endLocation, double vehicleSpeed,
-      {Function(Position)? onIntermediatePosition}) {
+      {Function(Position)? onIntermediatePosition, String vehicleId = ''}) {
     const pubTopic = locationTopic;
 
     // Calculate the total distance between start and end locations
@@ -95,7 +96,8 @@ class LocationManager {
         print('Destination reached!');
       } else {
         // Publish the intermediate position to MQTT
-        await publishLocation(mqttProvider, intermediatePosition);
+        await publishLocation(mqttProvider, intermediatePosition,
+            vehicleId: vehicleId);
       }
     });
   }

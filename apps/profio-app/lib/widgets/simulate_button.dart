@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:profio_staff_client/stores/hub_store.dart';
 import 'package:profio_staff_client/stores/location_store.dart';
+import 'package:profio_staff_client/stores/vehicle_store.dart';
 import 'package:provider/provider.dart';
 
 class SimulateButton extends StatefulWidget {
@@ -14,10 +16,12 @@ class SimulateButton extends StatefulWidget {
 
 class _SimulateButtonState extends State<SimulateButton> {
   late LocationStore locationStore;
+  late VehicleStore vehicleStore;
 
   @override
   void initState() {
     locationStore = context.read<LocationStore>();
+    vehicleStore = context.read<VehicleStore>();
     locationStore.onInit(context);
     locationStore.getCurrentLocation();
     super.initState();
@@ -35,7 +39,8 @@ class _SimulateButtonState extends State<SimulateButton> {
                 'Longtitude: ${locationStore.hasSelectedPosition ? locationStore.selectedPosition!.longitude.toString() : 'xxx'}'),
             ElevatedButton(
                 onPressed: () {
-                  locationStore.simulateVehicleMovement();
+                  locationStore.simulateVehicleMovement(
+                      vehicleId: vehicleStore.selectedVehicle.id);
                 },
                 child: const Text('Simulate now')),
             ElevatedButton(

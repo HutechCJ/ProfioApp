@@ -80,6 +80,17 @@ mixin _$HubStore on HubStoreBase, Store {
   }
 
   @override
+  void setNullHub() {
+    final _$actionInfo = _$HubStoreBaseActionController.startAction(
+        name: 'HubStoreBase.setNullHub');
+    try {
+      return super.setNullHub();
+    } finally {
+      _$HubStoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 hubList: ${hubList},

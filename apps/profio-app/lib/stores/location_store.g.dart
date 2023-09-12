@@ -42,15 +42,24 @@ mixin _$LocationStore on LocationStoreBase, Store {
         .run(() => super.getCurrentLocation());
   }
 
+  late final _$setCurrentLocationAsyncAction =
+      AsyncAction('LocationStoreBase.setCurrentLocation', context: context);
+
+  @override
+  Future<void> setCurrentLocation(Position position) {
+    return _$setCurrentLocationAsyncAction
+        .run(() => super.setCurrentLocation(position));
+  }
+
   late final _$LocationStoreBaseActionController =
       ActionController(name: 'LocationStoreBase', context: context);
 
   @override
-  void simulateVehicleMovement() {
+  void simulateVehicleMovement({String vehicleId = ''}) {
     final _$actionInfo = _$LocationStoreBaseActionController.startAction(
         name: 'LocationStoreBase.simulateVehicleMovement');
     try {
-      return super.simulateVehicleMovement();
+      return super.simulateVehicleMovement(vehicleId: vehicleId);
     } finally {
       _$LocationStoreBaseActionController.endAction(_$actionInfo);
     }
