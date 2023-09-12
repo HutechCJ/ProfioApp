@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Profio.Application.Deliveries;
 using Profio.Application.Deliveries.Commands;
 using Profio.Application.Deliveries.Queries;
+using Profio.Application.OrderHistories;
 using Profio.Domain.Entities;
 using Profio.Domain.Models;
 using Profio.Domain.Specifications;
@@ -42,4 +43,9 @@ public class DeliveriesController : BaseEntityController<Delivery, DeliveryDto, 
   [MapToApiVersion("1.0")]
   public async Task<ActionResult<ResultModel<int>>> GetCount()
     => Ok(ResultModel<int>.Create(await Mediator.Send(new GetDeliveryCountQuery())));
+  [HttpGet("{id:length(26)}/orderhistories")]
+  [MapToApiVersion("1.0")]
+  public async Task<ActionResult<ResultModel<IPagedList<OrderHistoryDto>>>> GetOrderHistoriesByDeliveryId(string id, [FromQuery] Criteria criteria)
+    => Ok(ResultModel<IPagedList<OrderHistoryDto>>.Create(await Mediator.Send(new GetOrderHistoryByDeliveryIdWithPagingQuery(id, criteria))));
+
 }
