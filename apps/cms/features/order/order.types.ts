@@ -1,13 +1,15 @@
+import { Customer } from '../customer/customer.types';
+
 export type Order = {
   id: string;
   startedDate: string;
   expectedDeliveryTime: string;
   status: OrderStatus;
-  destinationAddress: Address | null;
+  destinationAddress: Nullable<Address>;
   destinationZipCode: string;
   note: string;
   distance: number;
-  customerId: string;
+  customer: Nullable<Customer>;
 };
 
 export enum OrderStatus {
@@ -16,3 +18,7 @@ export enum OrderStatus {
   Completed,
   Cancelled,
 }
+
+export type CreateOrderData = Omit<Order, 'id' | 'customer'> & {
+  customerId: string;
+};

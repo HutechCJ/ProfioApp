@@ -1,15 +1,12 @@
+import { Staff } from '../staff/staff.types';
+
 export type Vehicle = {
   id: string;
   zipCodeCurrent: string;
   licensePlate: string;
   type: VehicleType;
   status: VehicleStatus;
-  staff: {
-    id: string;
-    name: string;
-    phone: string;
-    position: string;
-  } | null;
+  staff: Nullable<Staff>;
 };
 
 export enum VehicleType {
