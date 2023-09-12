@@ -1,6 +1,6 @@
 namespace Profio.Infrastructure.Email.FluentEmail.Internal;
 
-public class EmailMetadata
+public sealed class EmailMetadata
 {
   public string? To;
   public string? Subject;

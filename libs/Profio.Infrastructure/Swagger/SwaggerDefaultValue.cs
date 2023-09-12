@@ -4,7 +4,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Profio.Infrastructure.Swagger;
 
-public class SwaggerDefaultValues : IOperationFilter
+public sealed class SwaggerDefaultValues : IOperationFilter
 {
   public const string VersionPattern = "v{version:apiVersion}";
 

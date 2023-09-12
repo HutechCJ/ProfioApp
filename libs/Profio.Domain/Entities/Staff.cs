@@ -3,7 +3,7 @@ using Profio.Domain.Interfaces;
 
 namespace Profio.Domain.Entities;
 
-public class Staff : IEntity
+public sealed class Staff : IEntity
 {
   public string Id { get; set; } = Ulid.NewUlid().ToString()!;
   public required string Name { get; set; }

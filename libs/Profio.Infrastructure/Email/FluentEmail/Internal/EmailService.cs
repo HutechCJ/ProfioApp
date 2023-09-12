@@ -2,7 +2,7 @@ using FluentEmail.Core;
 
 namespace Profio.Infrastructure.Email.FluentEmail.Internal;
 
-public class EmailService : IEmailService
+public sealed class EmailService : IEmailService
 {
   private readonly IFluentEmailFactory _fluentEmailFactory;
 

@@ -8,7 +8,7 @@ using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Profio.Infrastructure.Swagger;
 
-public class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOptions>
+public sealed class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOptions>
 {
   private readonly IApiVersionDescriptionProvider _provider;
 

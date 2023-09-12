@@ -4,7 +4,7 @@ using Profio.Domain.Entities;
 
 namespace Profio.Infrastructure.Persistence.Configurations;
 
-public class RouteConfiguration : IEntityTypeConfiguration<Route>
+public sealed class RouteConfiguration : IEntityTypeConfiguration<Route>
 {
   public void Configure(EntityTypeBuilder<Route> builder)
   {

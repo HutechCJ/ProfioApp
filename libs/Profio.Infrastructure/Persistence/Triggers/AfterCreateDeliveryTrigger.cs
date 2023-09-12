@@ -5,7 +5,7 @@ using Profio.Domain.Entities;
 
 namespace Profio.Infrastructure.Persistence.Triggers;
 
-public class AfterCreateDeliveryTrigger : IAfterSaveTrigger<Delivery>
+public sealed class AfterCreateDeliveryTrigger : IAfterSaveTrigger<Delivery>
 {
   private readonly ApplicationDbContext _applicationDbContext;
 

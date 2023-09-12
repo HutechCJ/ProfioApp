@@ -5,7 +5,7 @@ using Ganss.Xss;
 
 namespace Profio.Infrastructure.Middleware;
 
-public class XssProtectionMiddleware
+public sealed class XssProtectionMiddleware
 {
   private readonly RequestDelegate _next;
 

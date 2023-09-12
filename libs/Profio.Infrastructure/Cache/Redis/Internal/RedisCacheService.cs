@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Profio.Infrastructure.Cache.Redis.Internal;
 
-public class RedisCacheService : IRedisCacheService
+public sealed class RedisCacheService : IRedisCacheService
 {
   private const string GetKeysLuaScript = "return redis.call('KEYS', @pattern)";
 

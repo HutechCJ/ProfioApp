@@ -5,7 +5,7 @@ using Profio.Infrastructure.Persistence.Converter;
 
 namespace Profio.Infrastructure.Persistence.Configurations;
 
-public class DeliveryProgressConfiguration : IEntityTypeConfiguration<DeliveryProgress>
+public sealed class DeliveryProgressConfiguration : IEntityTypeConfiguration<DeliveryProgress>
 {
   public void Configure(EntityTypeBuilder<DeliveryProgress> builder)
   {

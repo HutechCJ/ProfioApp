@@ -2,7 +2,7 @@ using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace Profio.Infrastructure.HealthCheck;
 
-public class HealthCheck : IHealthCheck
+public sealed class HealthCheck : IHealthCheck
 {
   private readonly HealthService _healthService;
 

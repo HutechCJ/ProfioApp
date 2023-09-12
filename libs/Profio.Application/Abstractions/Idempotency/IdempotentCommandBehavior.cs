@@ -3,7 +3,7 @@ using Profio.Infrastructure.Persistence.Idempotency;
 
 namespace Profio.Application.Abstractions.Idempotency;
 
-public class IdempotentCommandBehavior<TRequest, TResponse>
+public sealed class IdempotentCommandBehavior<TRequest, TResponse>
   : IPipelineBehavior<TRequest, TResponse>
   where TRequest : IdempotentCommand
 {

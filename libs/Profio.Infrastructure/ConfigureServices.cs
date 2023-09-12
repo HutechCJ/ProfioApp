@@ -23,6 +23,7 @@ using Profio.Infrastructure.Versioning;
 using System.IO.Compression;
 using System.Net.Mime;
 using System.Text.Json.Serialization;
+using Profio.Infrastructure.Storage;
 
 namespace Profio.Infrastructure;
 
@@ -87,18 +88,18 @@ public static class ConfigureServices
 
     services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
     services.AddScoped<ITokenService, TokenService>();
+    services.AddScoped<IIdempotencyService, IdempotencyService>();
 
     services.AddPostgres(builder.Configuration)
       .AddRedisCache(builder.Configuration)
       .AddEventBus(builder.Configuration);
 
     services.AddMqttBus(builder.Configuration);
+    services.AddStorage(builder.Configuration);
 
     services.AddApplicationIdentity(builder);
 
     services.AddApiKey();
-
-    services.AddScoped<IIdempotencyService, IdempotencyService>();
   }
 
   public static async Task UseWebInfrastructureAsync(this WebApplication app)

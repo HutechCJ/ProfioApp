@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace Profio.Infrastructure.Validator;
 
-public class RequestValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+public sealed class RequestValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : IRequest<TResponse>
     where TResponse : notnull
 {

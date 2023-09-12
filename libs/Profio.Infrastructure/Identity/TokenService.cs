@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Profio.Infrastructure.Identity;
 
-public class TokenService : ITokenService
+public sealed class TokenService : ITokenService
 {
   private readonly TimeSpan _tokenLifespan;
   private readonly SigningCredentials _signingCredentials;

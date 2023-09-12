@@ -6,7 +6,7 @@ using Lucene.Net.Util;
 
 namespace Profio.Infrastructure.Searching.Lucene.Internal;
 
-public class VietnameseAnalyzer : Analyzer
+public sealed class VietnameseAnalyzer : Analyzer
 {
   private readonly LuceneVersion _version;
 

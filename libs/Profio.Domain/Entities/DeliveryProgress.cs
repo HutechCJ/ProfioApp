@@ -3,7 +3,7 @@ using Profio.Domain.ValueObjects;
 
 namespace Profio.Domain.Entities;
 
-public class DeliveryProgress : IEntity
+public sealed class DeliveryProgress : IEntity
 {
   public string Id { get; set; } = Ulid.NewUlid().ToString()!;
   public Location? CurrentLocation { get; set; }

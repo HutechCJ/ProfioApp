@@ -6,7 +6,7 @@ using Profio.Infrastructure.Hub;
 
 namespace Profio.Infrastructure.Bus.MQTT.Internal;
 
-public class MqttClientService : IMqttClientService
+public sealed class MqttClientService : IMqttClientService
 {
   private readonly IMqttClient _mqttClient;
   private readonly MqttClientOptions _options;
