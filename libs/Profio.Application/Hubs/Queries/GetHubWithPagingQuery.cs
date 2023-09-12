@@ -18,7 +18,20 @@ public class GetHubWithPagingQueryHandler : GetWithPagingQueryHandler<GetHubWith
   }
 
   protected override Expression<Func<Hub, bool>> Filter(string filter)
-    => h => h.Name!.ToLower().Contains(filter);
+    => h
+      => (h.Name != null && h.Name.ToLower().Contains(filter))
+      || (h.ZipCode != null && h.ZipCode.ToLower().Contains(filter))
+      || (h.Address != null && ((h.Address.Street != null
+        && h.Address.Street.ToLower().Contains(filter))
+      || (h.Address.Province != null
+        && h.Address.Province.ToLower().Contains(filter))
+      || (h.Address.Ward != null
+        && h.Address.Ward.ToLower().Contains(filter))
+      || (h.Address.City != null
+        && h.Address.City.ToLower().Contains(filter))
+      || (h.Address.ZipCode != null
+        && h.Address.ZipCode.ToLower().Contains(filter))
+    ));
   protected override Expression<Func<Hub, bool>> RequestFilter(GetHubWithPagingQuery request)
   {
     return x => request.HubEnumFilter.Status == null || x.Status == request.HubEnumFilter.Status;

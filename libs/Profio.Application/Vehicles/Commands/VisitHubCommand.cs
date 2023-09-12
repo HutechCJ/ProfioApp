@@ -37,6 +37,7 @@ public class VisitHubCommandHandler : IRequestHandler<VisitHubCommand, Unit>
 
     var vehicle = await _applicationDbContext.Vehicles
         .Include(v => v.Deliveries)
+        .ThenInclude(d => d.Order)
         .Where(v => v.Id == request.VehicleId)
         .FirstOrDefaultAsync(cancellationToken) ??
       throw new NotFoundException(typeof(Vehicle).Name, request.VehicleId);
@@ -45,13 +46,11 @@ public class VisitHubCommandHandler : IRequestHandler<VisitHubCommand, Unit>
         .OrderByDescending(d => d.DeliveryDate)
         .FirstOrDefault() ?? throw new NotFoundException(typeof(Delivery).Name);
 
-    var orderHistory = new OrderHistory
-    {
-      Delivery = nextDelivery,
-      Hub = hub
-    };
+    if (nextDelivery.Order == null)
+      return Unit.Value;
 
-    await _orderHistoryRepository.AddAsync(orderHistory, cancellationToken);
+    if (hub.ZipCode != nextDelivery.Order.DestinationZipCode)
+      return Unit.Value;
 
     await _orderRepository
       .UpdateAsync(
