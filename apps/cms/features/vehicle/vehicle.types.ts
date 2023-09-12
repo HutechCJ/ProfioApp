@@ -1,4 +1,4 @@
-import { Staff } from "../staff/staff.types";
+import { Staff } from '../staff/staff.types';
 
 export type Vehicle = {
   id: string;
