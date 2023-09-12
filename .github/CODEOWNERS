@@ -1,5 +1,9 @@
 * @foxminchan
-* @fiezt1492
-* @nhonvo
-* @Slimaeus
-* @MeiCloudie
+apps/cms/* @fiezt1492 @MeiCloudie
+apps/cms-e2e/* @fiezt1492 @MeiCloudie
+apps/Profio.Api @nhonvo @Slimaeus
+apps/Profio.Api.Test @nhonvo
+apps/profio-app @Slimaeus
+libs/Profio.Application/* @nhonvo @Slimaeus
+libs/Profio.Domain/* @nhonvo @Slimaeus
+libs/Profio.Infrastructure/* @nhonvo @Slimaeus
