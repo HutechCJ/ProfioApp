@@ -43,7 +43,7 @@ public static class ConfigureServices
       .AddNewtonsoftJson(options =>
         options.SerializerSettings.ContractResolver = new DefaultContractResolver()
         {
-          NamingStrategy = new SnakeCaseNamingStrategy()
+          NamingStrategy = new CamelCaseNamingStrategy()
           {
             ProcessDictionaryKeys = true
           }
