@@ -18,6 +18,12 @@ public class
   public GetVehicleWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
+  protected override Expression<Func<Vehicle, bool>> Filter(string filter)
+  {
+    return v =>
+                (v.ZipCodeCurrent != null && v.ZipCodeCurrent.ToLower().Contains(filter))
+             || (v.LicensePlate != null && v.LicensePlate.ToLower().Contains(filter));
+  }
   protected override Expression<Func<Vehicle, bool>> RequestFilter(GetVehicleWithPagingQuery request)
   {
     return x => (request.VehicleEnumFilter.Status == null || x.Status == request.VehicleEnumFilter.Status)

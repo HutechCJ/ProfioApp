@@ -18,7 +18,8 @@ public class GetStaffWithPagingQueryHandler : GetWithPagingQueryHandler<GetStaff
   }
   protected override Expression<Func<Staff, bool>> Filter(string filter)
   {
-    return s => s.Name.ToLower().Contains(filter) || s.Phone != null && s.Phone.ToLower().Contains(filter);
+    return s => s.Name.ToLower().Contains(filter)
+      || (s.Phone != null && s.Phone.ToLower().Contains(filter));
   }
   protected override Expression<Func<Staff, bool>> RequestFilter(GetStaffWithPagingQuery request)
   {

@@ -19,8 +19,8 @@ public class
   public GetCustomerWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
   protected override Expression<Func<Customer, bool>> Filter(string filter)
     => c
-      => c.Name!.ToLower().Contains(filter)
-      || c.Email!.ToLower().Contains(filter)
+      => (c.Name != null && c.Name.ToLower().Contains(filter))
+      || (c.Email != null && c.Email.ToLower().Contains(filter))
       || (c.Address != null && ((c.Address.Street != null
         && c.Address.Street.ToLower().Contains(filter))
       || (c.Address.Province != null
@@ -28,7 +28,10 @@ public class
       || (c.Address.Ward != null
         && c.Address.Ward.ToLower().Contains(filter))
       || (c.Address.City != null
-        && c.Address.City.ToLower().Contains(filter))));
+        && c.Address.City.ToLower().Contains(filter))
+      || (c.Address.ZipCode != null
+        && c.Address.ZipCode.ToLower().Contains(filter))
+    ));
   protected override Expression<Func<Customer, bool>> RequestFilter(GetCustomerWithPagingQuery request)
   {
     return x => request.CustomerEnumFilter.Gender == null || x.Gender == request.CustomerEnumFilter.Gender;
