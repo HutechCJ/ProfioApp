@@ -437,6 +437,7 @@ MigrationBackup/
 *.userosscache
 *.sln.docstates
 
+.tye/
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
