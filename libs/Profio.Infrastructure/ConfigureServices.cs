@@ -41,9 +41,8 @@ public static class ConfigureServices
       })
       .AddNewtonsoftJson()
       .AddJsonOptions(options =>
-      {
-        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-      })
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
+      )
       .AddApplicationPart(AssemblyReference.Assembly);
 
     services.AddResponseCompression(options =>

@@ -95,8 +95,7 @@ public static class Extension
     return;
 
     static AsyncRetryPolicy CreatePolicy(int retries, ILogger logger, string prefix)
-    {
-      return Policy.Handle<Exception>().WaitAndRetryAsync(
+      => Policy.Handle<Exception>().WaitAndRetryAsync(
           retries,
           _ => TimeSpan.FromSeconds(15),
           (exception, _, retry, _) =>
@@ -104,6 +103,5 @@ public static class Extension
                   "[{Prefix}] Exception {ExceptionType} with message {Message} detected on attempt {Retry} of {Retries}",
                   prefix, exception.GetType().Name, exception.Message, retry, retries)
       );
-    }
   }
 }
