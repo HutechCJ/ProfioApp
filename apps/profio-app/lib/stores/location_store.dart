@@ -34,7 +34,7 @@ abstract class LocationStoreBase with Store {
   }
 
   @action
-  void simulateVehicleMovement() {
+  void simulateVehicleMovement({String vehicleId = ''}) {
     if (!vehicleStore.hasSelectedVehicle) return;
     var vehicleSpeed = getVehicleSpeed(vehicleStore.selectedVehicle.type);
 
@@ -54,7 +54,8 @@ abstract class LocationStoreBase with Store {
 
     LocationManager.simulateCarMovement(
         mqttProvider, selectedPosition!, hubPosition, vehicleSpeed,
-        onIntermediatePosition: (p) => {setCurrentLocation(p)});
+        onIntermediatePosition: (p) => {setCurrentLocation(p)},
+        vehicleId: vehicleId);
   }
 
   double getVehicleSpeed(VehicleType type) {

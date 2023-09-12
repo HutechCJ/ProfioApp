@@ -26,9 +26,17 @@ abstract class HubStoreBase with Store {
   }
 
   @action
+  void setNullHub() {
+    selectedHub = Hub();
+  }
+
+  @action
   Future<void> getNextHub(String vehicleId) async {
     var data = await _baseAPI.fetchData(
         '${Profio.baseUrl}/v1/${Profio.vehicleEndpoints}/$vehicleId/${Profio.hubEndpoints}/next');
+    if (data.apiStatus == ApiStatus.FAILED) {
+      setNullHub();
+    }
     var result = ResultModel.fromJson(data.object);
     var hub = Hub.fromJson(result.data);
     selectedHub = hub;
