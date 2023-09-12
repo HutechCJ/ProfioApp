@@ -395,7 +395,9 @@ docker run -d -p 7221:80 ghcr.io/hutechcj/profio-proxy:latest
 
 # API development
 
-We use Clean Architecture for the API development. You can read more about Clean Architecture [here](https://docs.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures#clean-architecture). The CQRS and Mediator patterns are also used in the API development. We also implement the Options Pattern to read the configuration settings.You can read more about CQRS [here](https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs), Mediator [here](https://refactoring.guru/design-patterns/mediator) and Options Pattern [here](https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-8.0).
+<p align="justify">
+	We use Clean Architecture for the API development. You can read more about Clean Architecture <a href="https://docs.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures#clean-architecture" target="_blank">here</a>. The CQRS and Mediator patterns are also used in the API development. We also implement the Options Pattern to read the configuration settings.You can read more about CQRS <a href="https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs" target="_blank">here</a>, Mediator <a href="https://refactoring.guru/design-patterns/mediator" target="_blank">here</a> and Options Pattern <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-8.0" target="_blank">here</a>.
+</p>
 
 <figure>
 	<img loading="lazy" src="./assets/img/clean-architecture.png" width="100%" alt="Clean Architecture">
