@@ -48,7 +48,7 @@ public static class ConfigureServices
             ProcessDictionaryKeys = true
           }
         })
-      .AddJsonOptions(options => 
+      .AddJsonOptions(options =>
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
       )
       .AddApplicationPart(AssemblyReference.Assembly);
