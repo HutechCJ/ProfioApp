@@ -5,7 +5,7 @@ using Newtonsoft.Json.Linq;
 
 namespace Profio.Infrastructure.Message;
 
-public class MessageService : IMessageService
+public sealed class MessageService : IMessageService
 {
   private const string RootUrl = "https://api.speedsms.vn/index.php";
   private readonly string? _accessToken;
