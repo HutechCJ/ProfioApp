@@ -7,21 +7,9 @@ namespace Profio.Infrastructure.Storage.Supabase.Internals;
 public sealed class StorageService : IStorageService
 {
   private readonly Client _client;
-  private readonly string _bucketName;
 
-  public StorageService(Client client, Bucket bucketName)
-  {
-    _client = client;
-    _bucketName = bucketName switch
-    {
-      Bucket.Avatar => "avatar",
-      Bucket.Vehicle => "vehicle",
-      Bucket.Document => "document",
-      Bucket.LicensePlate => "license-plate",
-      Bucket.Incident => "incident",
-      _ => throw new ArgumentOutOfRangeException(nameof(bucketName), bucketName, "Invalid bucket type.")
-    };
-  }
+  public StorageService(Client client)
+    => _client = client;
 
   public async Task<string> UploadAsync(IFormFile file)
   {
@@ -30,9 +18,9 @@ public sealed class StorageService : IStorageService
     var lastDot = file.FileName.LastIndexOf('.');
     var ext = file.FileName[(lastDot + 1)..];
     var fileName = $"{Guid.NewGuid()}.{ext}";
-    await _client.Storage.From(_bucketName)
+    await _client.Storage.From("avatar")
       .Upload(stream.ToArray(), fileName);
-    return _client.Storage.From(_bucketName).GetPublicUrl(fileName, new()
+    return _client.Storage.From("avatar").GetPublicUrl(fileName, new()
     {
       Width = 512,
       Height = 512,
@@ -40,7 +28,7 @@ public sealed class StorageService : IStorageService
   }
 
   public async Task RemoveAsync(Guid id)
-    => await _client.Storage.From(_bucketName).Remove(id.ToString());
+    => await _client.Storage.From("avatar").Remove(id.ToString());
 }
 
 public class FileValidator : AbstractValidator<IFormFile>
