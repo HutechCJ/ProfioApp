@@ -24,6 +24,7 @@ using Profio.Infrastructure.Versioning;
 using System.IO.Compression;
 using System.Net.Mime;
 using System.Text.Json.Serialization;
+using Newtonsoft.Json.Serialization;
 using Profio.Infrastructure.Message;
 
 namespace Profio.Infrastructure;
@@ -39,8 +40,15 @@ public static class ConfigureServices
         options.Filters.Add<LoggingFilter>();
         options.Filters.Add<ExceptionFilter>();
       })
-      .AddNewtonsoftJson()
-      .AddJsonOptions(options =>
+      .AddNewtonsoftJson(options =>
+        options.SerializerSettings.ContractResolver = new DefaultContractResolver()
+        {
+          NamingStrategy = new SnakeCaseNamingStrategy()
+          {
+            ProcessDictionaryKeys = true
+          }
+        })
+      .AddJsonOptions(options => 
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
       )
       .AddApplicationPart(AssemblyReference.Assembly);
