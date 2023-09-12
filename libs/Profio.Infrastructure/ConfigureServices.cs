@@ -18,6 +18,7 @@ using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Persistence;
 using Profio.Infrastructure.Persistence.Idempotency;
 using Profio.Infrastructure.Searching;
+using Profio.Infrastructure.Storage;
 using Profio.Infrastructure.Swagger;
 using Profio.Infrastructure.Versioning;
 using System.IO.Compression;
@@ -94,7 +95,7 @@ public static class ConfigureServices
       .AddEventBus(builder.Configuration);
 
     services.AddMqttBus(builder.Configuration);
-    //services.AddStorage(builder.Configuration);
+    services.AddStorage(builder.Configuration);
 
     services.AddApplicationIdentity(builder);
 
