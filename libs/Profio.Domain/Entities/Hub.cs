@@ -4,11 +4,11 @@ using Profio.Domain.ValueObjects;
 
 namespace Profio.Domain.Entities;
 
-public class Hub : IEntity<string>
+public sealed class Hub : IEntity
 {
   public string Id { get; set; } = Ulid.NewUlid().ToString()!;
-  public required string? Name { get; set; }
-  public required string? ZipCode { get; set; }
+  public required string Name { get; set; }
+  public required string ZipCode { get; set; }
   public Location? Location { get; set; }
   public Address? Address { get; set; }
   public HubStatus Status { get; set; } = HubStatus.Active;

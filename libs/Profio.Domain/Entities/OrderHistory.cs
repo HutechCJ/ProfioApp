@@ -2,7 +2,7 @@ using Profio.Domain.Interfaces;
 
 namespace Profio.Domain.Entities;
 
-public class OrderHistory : IEntity<string>
+public sealed class OrderHistory : IEntity
 {
   public string Id { get; set; } = Ulid.NewUlid().ToString()!;
   public DateTime? Timestamp { get; set; } = DateTime.UtcNow;

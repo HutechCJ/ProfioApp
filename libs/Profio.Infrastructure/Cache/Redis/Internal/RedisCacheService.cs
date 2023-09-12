@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Profio.Infrastructure.Cache.Redis.Internal;
 
-public class RedisCacheService : IRedisCacheService
+public sealed class RedisCacheService : IRedisCacheService
 {
   private const string GetKeysLuaScript = "return redis.call('KEYS', @pattern)";
 
@@ -50,10 +50,8 @@ public class RedisCacheService : IRedisCacheService
   }
 
   public T GetOrSet<T>(string key, Func<T> valueFactory)
-  {
-    return GetOrSet(key, valueFactory,
+  => GetOrSet(key, valueFactory,
       TimeSpan.FromSeconds(_redisCacheOption.RedisDefaultSlidingExpirationInSecond));
-  }
 
   public T GetOrSet<T>(string key, Func<T> valueFactory, TimeSpan expiration)
   {
@@ -88,17 +86,13 @@ public class RedisCacheService : IRedisCacheService
   }
 
   public IEnumerable<string> GetKeys(string pattern)
-  {
-    return ((RedisResult[])Database.ScriptEvaluate(GetKeysLuaScript, values: new RedisValue[] { pattern })!)
+    => ((RedisResult[])Database.ScriptEvaluate(GetKeysLuaScript, values: new RedisValue[] { pattern })!)
       .Where(x => x.ToString()!.StartsWith(_redisCacheOption.Prefix))
       .Select(x => x.ToString())
       .ToArray()!;
-  }
 
   public IEnumerable<T> GetValues<T>(string key)
-  {
-    return Database.HashGetAll($"{_redisCacheOption.Prefix}:{key}").Select(x => GetByteToObject<T>(x.Value));
-  }
+    => Database.HashGetAll($"{_redisCacheOption.Prefix}:{key}").Select(x => GetByteToObject<T>(x.Value));
 
   public bool RemoveAllKeys(string pattern = "*")
   {
@@ -111,21 +105,14 @@ public class RedisCacheService : IRedisCacheService
     return succeed;
   }
 
-  public void Remove(string key)
-  {
-    Database.KeyDelete($"{_redisCacheOption.Prefix}:{key}");
-  }
+  public void Remove(string key) => Database.KeyDelete($"{_redisCacheOption.Prefix}:{key}");
 
   public void Reset()
-  {
-    Database.ScriptEvaluate(
+    => Database.ScriptEvaluate(
       ClearCacheLuaScript,
       values: new RedisValue[] { _redisCacheOption.Prefix + "*" },
       flags: CommandFlags.FireAndForget);
-  }
 
   private static T GetByteToObject<T>(RedisValue value)
-  {
-    return JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(value!)) ?? throw new NullReferenceException();
-  }
+    => JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(value!)) ?? throw new NullReferenceException();
 }

@@ -1,3 +1,5 @@
+Directory.Build.props
+Directory.Build.targets
 **/.classpath
 **/.dockerignore
 **/.env

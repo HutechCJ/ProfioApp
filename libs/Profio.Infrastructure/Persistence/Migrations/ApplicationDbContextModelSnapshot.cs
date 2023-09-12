@@ -187,7 +187,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Customers");
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.Delivery", b =>
@@ -211,7 +211,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("VehicleId");
 
-                    b.ToTable("Delivery");
+                    b.ToTable("Deliveries", (string)null);
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.DeliveryProgress", b =>
@@ -240,7 +240,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("DeliveryProgresses");
+                    b.ToTable("DeliveryProgresses", (string)null);
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.Hub", b =>
@@ -272,7 +272,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Hubs");
+                    b.ToTable("Hubs", (string)null);
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.Incident", b =>
@@ -299,7 +299,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("OrderHistoryId");
 
-                    b.ToTable("Incidents");
+                    b.ToTable("Incidents", (string)null);
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.Order", b =>
@@ -341,7 +341,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("CustomerId");
 
-                    b.ToTable("Orders");
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.OrderHistory", b =>
@@ -365,7 +365,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("HubId");
 
-                    b.ToTable("OrderHistories");
+                    b.ToTable("OrderHistories", (string)null);
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.Route", b =>
@@ -389,7 +389,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("StartHubId");
 
-                    b.ToTable("Routes");
+                    b.ToTable("Routes", (string)null);
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.Staff", b =>
@@ -415,7 +415,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Staffs");
+                    b.ToTable("Staffs", (string)null);
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.Vehicle", b =>
@@ -445,7 +445,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("StaffId");
 
-                    b.ToTable("Vehicles");
+                    b.ToTable("Vehicles", (string)null);
                 });
 
             modelBuilder.Entity("Profio.Infrastructure.Identity.ApplicationUser", b =>
@@ -513,6 +513,24 @@ namespace Profio.Infrastructure.Persistence.Migrations
                         .HasDatabaseName("UserNameIndex");
 
                     b.ToTable("AspNetUsers", (string)null);
+                });
+
+            modelBuilder.Entity("Profio.Infrastructure.Persistence.Idempotency.IdempotentRequest", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("IdempotentRequests", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

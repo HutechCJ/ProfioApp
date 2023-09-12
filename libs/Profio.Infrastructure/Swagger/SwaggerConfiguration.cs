@@ -24,12 +24,19 @@ public static class SwaggerConfiguration
             Description = "Staging Environment"
           }
         };
+
+        swagger.ExternalDocs = new()
+        {
+          Description = "Github",
+          Url = new("https://github.com/HutechCJ/ProfioApp/")
+        };
       });
     });
 
     app.UseSwaggerUI(c =>
     {
       c.DocumentTitle = "Profio API";
+      c.InjectStylesheet("/css/swagger-ui.css");
       foreach (var description in app.ApplicationServices
                  .GetRequiredService<IApiVersionDescriptionProvider>()
                  .ApiVersionDescriptions)
@@ -51,6 +58,7 @@ public static class SwaggerConfiguration
                  .GetRequiredService<IApiVersionDescriptionProvider>()
                  .ApiVersionDescriptions)
         options.SpecUrl($"/swagger/{description.GroupName}/swagger.json");
+
       options.EnableUntrustedSpec();
     });
 

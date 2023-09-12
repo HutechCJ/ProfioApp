@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -12,14 +11,21 @@ using Profio.Infrastructure.HealthCheck;
 using Profio.Infrastructure.Hub;
 using Profio.Infrastructure.Identity;
 using Profio.Infrastructure.Jobs;
+using Profio.Infrastructure.Key;
 using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.Middleware;
 using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Persistence;
+using Profio.Infrastructure.Persistence.Idempotency;
 using Profio.Infrastructure.Searching;
+using Profio.Infrastructure.Storage;
 using Profio.Infrastructure.Swagger;
 using Profio.Infrastructure.Versioning;
 using System.IO.Compression;
+using System.Net.Mime;
+using System.Text.Json.Serialization;
+using Newtonsoft.Json.Serialization;
+using Profio.Infrastructure.Message;
 
 namespace Profio.Infrastructure;
 
@@ -32,10 +38,19 @@ public static class ConfigureServices
         options.RespectBrowserAcceptHeader = true;
         options.ReturnHttpNotAcceptable = true;
         options.Filters.Add<LoggingFilter>();
-        options.Filters.Add<ExceptionMiddleware>();
-        options.Filters.Add(new ProducesAttribute("application/json"));
+        options.Filters.Add<ExceptionFilter>();
       })
-      .AddNewtonsoftJson()
+      .AddNewtonsoftJson(options =>
+        options.SerializerSettings.ContractResolver = new DefaultContractResolver()
+        {
+          NamingStrategy = new CamelCaseNamingStrategy()
+          {
+            ProcessDictionaryKeys = true
+          }
+        })
+      .AddJsonOptions(options =>
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
+      )
       .AddApplicationPart(AssemblyReference.Assembly);
 
     services.AddResponseCompression(options =>
@@ -44,11 +59,9 @@ public static class ConfigureServices
         options.Providers.Add<GzipCompressionProvider>();
         options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(new[]
         {
-          "application/json",
-          "application/xml",
-          "text/plain",
-          "image/png",
-          "image/jpeg"
+          MediaTypeNames.Application.Json,
+          MediaTypeNames.Text.Plain,
+          MediaTypeNames.Image.Jpeg
         });
       })
       .Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal)
@@ -69,7 +82,7 @@ public static class ConfigureServices
         .AllowAnyHeader()));
 
     builder.AddApiVersioning();
-    builder.AddSerilog();
+    builder.AddSerilog("Profio Api");
     builder.AddOpenTelemetry();
     builder.AddHealthCheck();
     builder.AddHangFire();
@@ -83,14 +96,19 @@ public static class ConfigureServices
 
     services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
     services.AddScoped<ITokenService, TokenService>();
+    services.AddScoped<IIdempotencyService, IdempotencyService>();
 
     services.AddPostgres(builder.Configuration)
       .AddRedisCache(builder.Configuration)
       .AddEventBus(builder.Configuration);
 
     services.AddMqttBus(builder.Configuration);
+    services.AddStorage(builder.Configuration);
+    services.AddMessageService(builder.Configuration);
 
     services.AddApplicationIdentity(builder);
+
+    services.AddApiKey();
   }
 
   public static async Task UseWebInfrastructureAsync(this WebApplication app)
@@ -125,22 +143,8 @@ public static class ConfigureServices
       .UseStaticFiles();
 
     app.MapHealthCheck();
-    app.Map("/", () => Results.Redirect("/api-docs"));
+    app.Map("/", () => Results.Redirect("/swagger"));
     app.Map("/error", () => Results.Problem("An unexpected error occurred.", statusCode: 500))
       .ExcludeFromDescription();
-    app.MapWhen(context => context.Response.StatusCode == StatusCodes.Status401Unauthorized, appBuilder =>
-    {
-      appBuilder.Run(async context =>
-      {
-        var problemDetails = new ProblemDetails
-        {
-          Title = "Unauthorized",
-          Detail = "You are not authorized to access this resource.",
-          Status = StatusCodes.Status401Unauthorized,
-          Type = "https://httpstatuses.com/401"
-        };
-        await context.Response.WriteAsJsonAsync(problemDetails);
-      });
-    });
   }
 }

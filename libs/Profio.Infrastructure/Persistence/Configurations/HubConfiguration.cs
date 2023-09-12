@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Profio.Infrastructure.Persistence.Configurations;
 
-public class HubConfiguration : IEntityTypeConfiguration<Domain.Entities.Hub>
+public sealed class HubConfiguration : IEntityTypeConfiguration<Domain.Entities.Hub>
 {
   public void Configure(EntityTypeBuilder<Domain.Entities.Hub> builder)
   {

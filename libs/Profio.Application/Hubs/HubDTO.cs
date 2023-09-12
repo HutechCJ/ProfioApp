@@ -1,5 +1,4 @@
 using Profio.Domain.Constants;
-using Profio.Domain.Entities;
 using Profio.Domain.Models;
 using Profio.Domain.ValueObjects;
 

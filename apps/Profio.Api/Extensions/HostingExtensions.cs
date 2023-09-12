@@ -1,6 +1,10 @@
+using FirebaseAdmin;
+using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Profio.Application;
 using Profio.Infrastructure;
+using Profio.Infrastructure.Persistence;
 using Profio.Infrastructure.Swagger;
 
 namespace Profio.Api.Extensions;
@@ -9,6 +13,11 @@ public static class HostingExtensions
 {
   public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
   {
+    FirebaseApp.Create(new AppOptions()
+    {
+      Credential = GoogleCredential.FromFile("firebase.json")
+    });
+
     builder.Services.AddApplicationServices();
     builder.Services.AddInfrastructureServices(builder);
     builder.Services.AddRateLimiting();
@@ -25,6 +34,9 @@ public static class HostingExtensions
 
   public static async Task<WebApplication> ConfigurePipelineAsync(this WebApplication app)
   {
+    var migration = new MigrationBuilder("Profio.Infrastructure.Persistence.Migrations");
+    migration.MigrateDataFromScript();
+
     app.UseOpenApi()
       .UseDeveloperExceptionPage()
       .UseRedocly()
@@ -37,7 +49,9 @@ public static class HostingExtensions
     app.MapControllers()
       .RequirePerUserRateLimit();
     app.UseRateLimiter();
+
     await app.UseWebInfrastructureAsync();
+    await app.DoDbMigrationAsync(app.Logger);
 
     return app;
   }

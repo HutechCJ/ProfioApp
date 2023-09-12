@@ -1,10 +1,10 @@
 using AutoMapper;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
 using FluentValidation;
-using Profio.Application.CQRS.Events.Commands;
-using Profio.Application.CQRS.Handlers.Command;
-using Profio.Application.CQRS.Validators;
-using Profio.Application.Orders.Validator;
+using Profio.Application.Abstractions.CQRS.Events.Commands;
+using Profio.Application.Abstractions.CQRS.Handlers.Command;
+using Profio.Application.Abstractions.CQRS.Validators;
+using Profio.Application.Customers.Validators;
 using Profio.Domain.Constants;
 using Profio.Domain.Entities;
 using Profio.Domain.ValueObjects;
@@ -36,7 +36,7 @@ public class CreateOrderCommandHandler : CreateCommandHandlerBase<CreateOrderCom
 
 public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
 {
-  public CreateOrderCommandValidator(CustomerExistenceByNotNullIdValidator customerIdValidator)
+  public CreateOrderCommandValidator(CustomerExistenceByIdValidator customerIdValidator)
   {
     RuleFor(c => c.ExpectedDeliveryTime)
       .GreaterThan(c => c.StartedDate);
@@ -46,7 +46,7 @@ public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
 
     RuleFor(c => c.DestinationZipCode)
       .Matches("^[0-9]*$")
-      .MaximumLength(50);
+      .MaximumLength(10);
 
     RuleFor(c => c.Note)
       .MaximumLength(250);

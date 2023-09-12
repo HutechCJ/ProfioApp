@@ -2,7 +2,7 @@ using Profio.Domain.Interfaces;
 
 namespace Profio.Domain.Entities;
 
-public class Delivery : IEntity<string>
+public sealed class Delivery : IEntity
 {
   public string Id { get; set; } = Ulid.NewUlid().ToString()!;
   public DateTime? DeliveryDate { get; set; } = DateTime.UtcNow;

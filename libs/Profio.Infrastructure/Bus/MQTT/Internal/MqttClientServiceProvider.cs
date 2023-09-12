@@ -1,6 +1,6 @@
 namespace Profio.Infrastructure.Bus.MQTT.Internal;
 
-public class MqttClientServiceProvider
+public sealed class MqttClientServiceProvider
 {
   public readonly IMqttClientService MqttClientService;
 

@@ -1,3 +1,4 @@
+using Profio.Application.Customers;
 using Profio.Domain.Constants;
 using Profio.Domain.Models;
 using Profio.Domain.ValueObjects;
@@ -14,5 +15,5 @@ public record OrderDto : BaseModel
   public required string? DestinationZipCode { get; init; }
   public string? Note { get; init; }
   public double? Distance { get; init; }
-  public string? CustomerId { get; init; }
+  public CustomerDto? Customer { get; init; }
 }

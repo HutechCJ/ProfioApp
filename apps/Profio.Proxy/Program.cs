@@ -1,27 +1,37 @@
 using Profio.Infrastructure.OpenTelemetry;
 using Spectre.Console;
-
-var builder = WebApplication.CreateBuilder(args);
+using Profio.Infrastructure.Logging;
+using Serilog;
 
 AnsiConsole.Write(new FigletText("Profio Proxy").Centered().Color(Color.BlueViolet));
 
-builder.WebHost.UseKestrel(options =>
+try
 {
-  options.ConfigureHttpsDefaults(h =>
-  {
-    h.ClientCertificateMode = Microsoft.AspNetCore.Server.Kestrel.Https.ClientCertificateMode.RequireCertificate;
-    h.ClientCertificateValidation = (certificate, _, _) => certificate.Subject.Contains("CN=Profio");
-  });
-  options.ListenAnyIP(80);
-  options.ListenAnyIP(443);
-});
+  var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddReverseProxy()
-  .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
+  builder.AddSerilog("Profio.Proxy");
 
-builder.AddOpenTelemetry();
+  builder.Services.AddHealthChecks();
 
-var app = builder.Build();
+  builder.Services.AddReverseProxy()
+    .LoadFromConfig(builder.Configuration.GetSection("ReverseProxy"));
 
-app.MapReverseProxy();
-app.Run();
+  builder.AddOpenTelemetry();
+
+  var app = builder.Build();
+
+  app.MapReverseProxy();
+  app.MapHealthChecks("/health");
+  app.Run();
+}
+catch (Exception ex)
+  when (ex.GetType().Name is not "StopTheHostException"
+        && ex.GetType().Name is not "HostAbortedException")
+{
+  Log.Fatal(ex, "Unhandled exception");
+}
+finally
+{
+  Log.Information("Shut down complete");
+  Log.CloseAndFlush();
+}

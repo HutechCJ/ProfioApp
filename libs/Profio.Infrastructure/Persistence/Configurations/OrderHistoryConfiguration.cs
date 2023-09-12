@@ -4,7 +4,7 @@ using Profio.Domain.Entities;
 
 namespace Profio.Infrastructure.Persistence.Configurations;
 
-public class OrderHistoryConfiguration : IEntityTypeConfiguration<OrderHistory>
+public sealed class OrderHistoryConfiguration : IEntityTypeConfiguration<OrderHistory>
 {
   public void Configure(EntityTypeBuilder<OrderHistory> builder)
   {

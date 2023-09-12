@@ -4,7 +4,7 @@ using Profio.Domain.Entities;
 
 namespace Profio.Infrastructure.Persistence.Configurations;
 
-public class IncidentConfiguration : IEntityTypeConfiguration<Incident>
+public sealed class IncidentConfiguration : IEntityTypeConfiguration<Incident>
 {
   public void Configure(EntityTypeBuilder<Incident> builder)
   {

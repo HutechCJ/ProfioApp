@@ -1,6 +1,12 @@
 version = 1
 
 [[analyzers]]
+name = "python"
+
+  [analyzers.meta]
+  runtime_version = "3.x.x"
+
+[[analyzers]]
 name = "csharp"
 
 [[analyzers]]
@@ -10,5 +16,16 @@ name = "javascript"
   plugins = ["react"]
   environment = [
     "jquery",
-    "browser"
+    "browser",
+    "cypress",
+    "jest"
   ]
+
+[[transformers]]
+name = "prettier"
+
+[[transformers]]
+name = "dotnet-format"
+
+[[transformers]]
+name = "yapf"

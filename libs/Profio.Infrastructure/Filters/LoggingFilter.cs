@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Profio.Infrastructure.Filters;
 
-public class LoggingFilter : IActionFilter
+public sealed class LoggingFilter : IActionFilter
 {
   private readonly ILogger<LoggingFilter> _logger;
 

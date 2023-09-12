@@ -25,7 +25,7 @@ public static class Extension
       .AddHangfire(_ => { }, name: "HangFire", tags: new[] { "jobs" })
       .AddSignalRHub(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
         ? "https://localhost:9023/current-location"
-        : "https://profio.azurewebsites.net/current-location",
+        : $"https://{Environment.ExpandEnvironmentVariables("%WEBSITE_SITE_NAME%")}.azurewebsites.net/current-location",
         name: "SignalR",
         tags: new[] { "hub" });
 

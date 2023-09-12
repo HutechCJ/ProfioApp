@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -6,17 +7,19 @@ using System.Text;
 
 namespace Profio.Infrastructure.Identity;
 
-public class TokenService : ITokenService
+public sealed class TokenService : ITokenService
 {
   private readonly TimeSpan _tokenLifespan;
   private readonly SigningCredentials _signingCredentials;
+  private readonly UserManager<ApplicationUser> _userManager;
 
-  public TokenService(IConfiguration configuration)
+  public TokenService(IConfiguration configuration, UserManager<ApplicationUser> userManager)
   {
     var tokenKey = configuration["Authentication:TokenKey"] ?? string.Empty;
     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(tokenKey));
     _signingCredentials = new(key, SecurityAlgorithms.HmacSha256Signature);
     _tokenLifespan = TimeSpan.FromHours(5);
+    _userManager = userManager;
   }
 
   public string CreateToken(ApplicationUser user)
@@ -28,6 +31,8 @@ public class TokenService : ITokenService
       new(ClaimTypes.Name, user.UserName ?? string.Empty),
       new(ClaimTypes.Email, user.Email ?? string.Empty)
     };
+
+    tokenClaims.AddRange(GetRoleClaims(user).Result);
 
     var tokenDescriptor = new SecurityTokenDescriptor
     {
@@ -69,5 +74,12 @@ public class TokenService : ITokenService
     }, out _);
 
     return true;
+  }
+
+  private async Task<IList<Claim>> GetRoleClaims(ApplicationUser user)
+  {
+    var roles = await _userManager.GetRolesAsync(user);
+
+    return roles.Select(r => new Claim(ClaimTypes.Role, r)).ToList();
   }
 }

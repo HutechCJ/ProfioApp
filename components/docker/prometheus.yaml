@@ -11,4 +11,4 @@ scrape_configs:
     honor_labels: true
     static_configs:
       - targets:
-        - 'otelcol:9464'
+          - 'otelcol:9464'

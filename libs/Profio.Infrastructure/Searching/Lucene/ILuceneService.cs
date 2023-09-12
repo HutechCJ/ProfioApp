@@ -12,5 +12,5 @@ public interface ILuceneService<T> where T : class
 
   public void ClearAll();
 
-  public void Index(List<T> data, int options);
+  public void Index(List<T> data, Lucene options);
 }

@@ -3,7 +3,7 @@ using Profio.Domain.Interfaces;
 
 namespace Profio.Domain.Entities;
 
-public class Vehicle : IEntity<string>
+public sealed class Vehicle : IEntity
 {
   public string Id { get; set; } = Ulid.NewUlid().ToString()!;
   public string? ZipCodeCurrent { get; set; }
@@ -12,5 +12,5 @@ public class Vehicle : IEntity<string>
   public VehicleStatus Status { get; set; } = VehicleStatus.Idle;
   public string? StaffId { get; set; }
   public Staff? Staff { get; set; }
-  public ICollection<Delivery>? Deliveries { get; set; } = new List<Delivery>();
+  public ICollection<Delivery> Deliveries { get; set; } = new List<Delivery>();
 }

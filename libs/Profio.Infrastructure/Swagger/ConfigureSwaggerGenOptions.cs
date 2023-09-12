@@ -2,12 +2,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Profio.Infrastructure.Swagger;
 
-public class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOptions>
+public sealed class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOptions>
 {
   private readonly IApiVersionDescriptionProvider _provider;
 
@@ -38,37 +39,71 @@ public class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOptions>
             Url = new("https://opensource.org/licenses/MIT")
           },
 
-          TermsOfService = new("https://www.cjlogistics.com/en/agreement/privacy-policy")
+          TermsOfService = new("https://www.cjlogistics.com/en/agreement/privacy-policy"),
+
+          Extensions =
+          {
+            {
+              "x-logo", new OpenApiObject
+              {
+                { "url", new OpenApiString("https://i.imgur.com/UAo6IJa.png") },
+                { "altText", new OpenApiString("Profio API") },
+                { "backgroundColor", new OpenApiString("#FFFFFF") },
+                { "href", new OpenApiString("") }
+              }
+            }
+          }
         });
     }
 
     options.AddSecurityDefinition("Bearer", new()
-      {
-        Name = "Authorization",
-        Description = "Enter the Bearer Authorization string as following: `Generated-JWT-Token`",
-        In = ParameterLocation.Header,
-        Type = SecuritySchemeType.Http,
-        Scheme = JwtBearerDefaults.AuthenticationScheme
-      });
+    {
+      Name = "Authorization",
+      Description = "Enter the Bearer Authorization string as following: `Generated-JWT-Token`",
+      In = ParameterLocation.Header,
+      Type = SecuritySchemeType.Http,
+      Scheme = JwtBearerDefaults.AuthenticationScheme
+    });
 
-      options.AddSecurityRequirement(new()
+    options.AddSecurityDefinition("ApiKey", new()
+    {
+      Description = "Enter the `API Key` that you get from the System Administrator",
+      Type = SecuritySchemeType.ApiKey,
+      Name = "X-API-Key",
+      In = ParameterLocation.Header,
+      Scheme = "ApiKeyScheme"
+    });
+
+    options.AddSecurityRequirement(new()
+    {
       {
+        new()
         {
-          new()
+          Name = JwtBearerDefaults.AuthenticationScheme,
+          In = ParameterLocation.Header,
+          Reference = new()
           {
-            Name = JwtBearerDefaults.AuthenticationScheme,
-            In = ParameterLocation.Header,
-            Reference = new()
-            {
-              Id = JwtBearerDefaults.AuthenticationScheme,
-              Type = ReferenceType.SecurityScheme
-            }
+            Id = JwtBearerDefaults.AuthenticationScheme,
+            Type = ReferenceType.SecurityScheme
+          }
+        },
+        new List<string>()
+      },
+      {
+        new()
+        {
+          Reference = new()
+          {
+            Type = ReferenceType.SecurityScheme,
+            Id = "ApiKey"
           },
-          new List<string>()
-        }
-      });
+          In = ParameterLocation.Header
+        },
+        new List<string>()
+      }
+    });
 
-      options.ResolveConflictingActions(apiDescription => apiDescription.First());
-      options.EnableAnnotations();
+    options.ResolveConflictingActions(apiDescription => apiDescription.First());
+    options.EnableAnnotations();
   }
 }

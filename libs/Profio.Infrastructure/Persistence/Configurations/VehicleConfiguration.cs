@@ -4,7 +4,7 @@ using Profio.Domain.Entities;
 
 namespace Profio.Infrastructure.Persistence.Configurations;
 
-public class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
+public sealed class VehicleConfiguration : IEntityTypeConfiguration<Vehicle>
 {
   public void Configure(EntityTypeBuilder<Vehicle> builder)
   {

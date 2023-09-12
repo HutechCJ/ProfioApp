@@ -1,9 +1,9 @@
 using AutoMapper;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
 using FluentValidation;
-using Profio.Application.CQRS.Events.Commands;
-using Profio.Application.CQRS.Handlers.Command;
-using Profio.Application.CQRS.Validators;
+using Profio.Application.Abstractions.CQRS.Events.Commands;
+using Profio.Application.Abstractions.CQRS.Handlers.Command;
+using Profio.Application.Abstractions.CQRS.Validators;
 using Profio.Domain.Constants;
 using Profio.Domain.Entities;
 using Profio.Domain.ValueObjects;
@@ -16,8 +16,8 @@ namespace Profio.Application.Customers.Commands;
   Description = "A Representation of list of Customer")]
 public record CreateCustomerCommand : CreateCommandBase
 {
-  public required string? Name { get; set; }
-  public required string? Phone { get; set; }
+  public required string Name { get; set; }
+  public required string Phone { get; set; }
   public string? Email { get; set; }
   public Gender? Gender { get; set; } = Domain.Constants.Gender.Male;
   public required Address? Address { get; set; }

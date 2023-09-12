@@ -24,7 +24,7 @@ public static class Extension
   public static void UseHangFire(this WebApplication app)
   {
     app.UseHangfireDashboard();
-    app.UseHangfireDashboard("/jobs", new DashboardOptions
+    app.UseHangfireDashboard("/jobs", new()
     {
       Authorization = new[] { new HangFireAuthorizationFilter() },
       IgnoreAntiforgeryToken = true

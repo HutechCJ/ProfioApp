@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Profio.Domain.Constants;
 using Profio.Infrastructure.Identity;
 using Serilog;
 
@@ -9,11 +10,13 @@ public class ApplicationDbContextInitializer
 {
   private readonly ApplicationDbContext _context;
   private readonly UserManager<ApplicationUser> _userManager;
+  private readonly RoleManager<IdentityRole> _roleManager;
 
   public ApplicationDbContextInitializer(
     ApplicationDbContext context,
-    UserManager<ApplicationUser> userManager)
-    => (_context, _userManager) = (context, userManager);
+    UserManager<ApplicationUser> userManager,
+    RoleManager<IdentityRole> roleManager)
+    => (_context, _userManager, _roleManager) = (context, userManager, roleManager);
 
   public async Task InitialiseAsync()
   {
@@ -41,8 +44,12 @@ public class ApplicationDbContextInitializer
 
   public async Task TrySeedAsync()
   {
-    if (_userManager.Users.Any())
+    if (_userManager.Users.Any() || _roleManager.Roles.Any())
       return;
+
+    var adminRole = new IdentityRole(UserRole.Administrator);
+
+    await _roleManager.CreateAsync(adminRole);
 
     var thai = new ApplicationUser
     {
@@ -72,21 +79,25 @@ public class ApplicationDbContextInitializer
       Email = "dat@gmail.com"
     };
 
-    var loi = new ApplicationUser
+    var van = new ApplicationUser
     {
-      UserName = "loi@gmail.com",
-      FullName = "Tạ Thạch Lỗi",
-      Email = "loi@gmail.com"
+      UserName = "van@gmail.com",
+      FullName = "Trương Thục Vân",
+      Email = "van@gmail.com"
     };
 
     const string password = "P@ssw0rd";
 
-    await Task.WhenAll(
-      _userManager.CreateAsync(thai, password),
-      _userManager.CreateAsync(nhon, password),
-      _userManager.CreateAsync(nhan, password),
-      _userManager.CreateAsync(dat, password),
-      _userManager.CreateAsync(loi, password)
-    ).ConfigureAwait(false);
+    await _userManager.CreateAsync(thai, password);
+    await _userManager.CreateAsync(nhon, password);
+    await _userManager.CreateAsync(nhan, password);
+    await _userManager.CreateAsync(dat, password);
+    await _userManager.CreateAsync(van, password);
+
+    await _userManager.AddToRoleAsync(thai, UserRole.Administrator);
+    await _userManager.AddToRoleAsync(nhon, UserRole.Administrator);
+    await _userManager.AddToRoleAsync(nhan, UserRole.Administrator);
+    await _userManager.AddToRoleAsync(dat, UserRole.Administrator);
+    await _userManager.AddToRoleAsync(van, UserRole.Administrator);
   }
 }

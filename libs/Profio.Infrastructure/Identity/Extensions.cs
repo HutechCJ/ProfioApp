@@ -1,4 +1,3 @@
-using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -8,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Profio.Infrastructure.Persistence;
-using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
+using System.Text;
 
 namespace Profio.Infrastructure.Identity;
 
@@ -31,16 +30,9 @@ public static class Extensions
 
       options.User.RequireUniqueEmail = true;
     })
+      .AddRoles<IdentityRole>()
       .AddEntityFrameworkStores<ApplicationDbContext>()
       .AddDefaultTokenProviders();
-
-    services.AddAntiforgery(options =>
-    {
-      options.Cookie.Name = "XSRF-TOKEN";
-      options.Cookie.HttpOnly = true;
-      options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-      options.HeaderName = "X-XSRF-TOKEN";
-    });
 
     var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Authentication:TokenKey"] ?? string.Empty));
 
@@ -48,42 +40,43 @@ public static class Extensions
         options =>
         {
           options.DefaultScheme = IdentityConstants.ApplicationScheme;
-          options.DefaultChallengeScheme = IdentityConstants.ApplicationScheme;
+          options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
         })
       .AddJwtBearer(JwtBearerDefaults.AuthenticationScheme,
         options =>
-        options.TokenValidationParameters = new()
-        {
-          ValidateIssuerSigningKey = true,
-          IssuerSigningKey = key,
-          ValidateIssuer = false,
-          ValidateAudience = false,
-          ValidateLifetime = true,
-          ClockSkew = TimeSpan.FromSeconds(5)
-        }
+          options.TokenValidationParameters = new()
+          {
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = key,
+            ValidateIssuer = false,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ClockSkew = TimeSpan.FromSeconds(5)
+          }
       )
       .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme,
         options =>
-      {
-        options.Cookie.Name = "USER-TOKEN";
-        options.Cookie.HttpOnly = true;
-        options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-        options.Cookie.SameSite = SameSiteMode.Strict;
-        options.ExpireTimeSpan = TimeSpan.FromDays(3);
-        options.SlidingExpiration = true;
-      })
+        {
+          options.Cookie.Name = "USER-TOKEN";
+          options.Cookie.HttpOnly = true;
+          options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+          options.ExpireTimeSpan = TimeSpan.FromDays(3);
+          options.SlidingExpiration = true;
+        })
       .AddPolicyScheme(
         IdentityConstants.ApplicationScheme,
         IdentityConstants.ApplicationScheme,
         options =>
-      {
-        options.ForwardDefaultSelector = context =>
         {
-          var authHeader = context.Request.Headers[HeaderNames.Authorization].FirstOrDefault();
-          return authHeader?.StartsWith("Bearer ") == true
-            ? JwtBearerDefaults.AuthenticationScheme
-            : CookieAuthenticationDefaults.AuthenticationScheme;
-        };
-      });
+          options.ForwardDefaultSelector = context =>
+          {
+            var authHeader = context.Request.Headers[HeaderNames.Authorization].FirstOrDefault();
+            return authHeader?.StartsWith("Bearer ") == true
+              ? JwtBearerDefaults.AuthenticationScheme
+              : CookieAuthenticationDefaults.AuthenticationScheme;
+          };
+        });
+
+    services.AddScoped<IUserAccessor, UserAccessor>();
   }
 }

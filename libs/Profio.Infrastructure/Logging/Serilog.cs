@@ -1,6 +1,6 @@
 namespace Profio.Infrastructure.Logging;
 
-public class Serilog
+public sealed class Serilog
 {
   public bool UseConsole { get; set; } = true;
 

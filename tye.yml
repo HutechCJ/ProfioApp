@@ -1,0 +1,13 @@
+name: Profio Application
+services:
+  - name: profio-api
+    project: apps/Profio.Api/Profio.Api.csproj
+    bindings:
+      - protocol: https
+        port: 9023
+
+  - name: profio-proxy
+    project: apps/Profio.Proxy/Profio.Proxy.csproj
+    bindings:
+      - protocol: http
+        port: 7221

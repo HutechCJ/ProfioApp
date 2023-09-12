@@ -4,7 +4,7 @@ using Profio.Domain.Entities;
 
 namespace Profio.Infrastructure.Persistence.Configurations;
 
-public class StaffConfiguration : IEntityTypeConfiguration<Staff>
+public sealed class StaffConfiguration : IEntityTypeConfiguration<Staff>
 {
   public void Configure(EntityTypeBuilder<Staff> builder)
   {

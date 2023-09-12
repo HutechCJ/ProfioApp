@@ -1,8 +1,8 @@
 using AutoMapper;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
-using Profio.Application.CQRS.Events.Queries;
-using Profio.Application.CQRS.Handlers.Queries;
-using Profio.Application.CQRS.Validators;
+using Profio.Application.Abstractions.CQRS.Events.Queries;
+using Profio.Application.Abstractions.CQRS.Handlers.Queries;
+using Profio.Application.Abstractions.CQRS.Validators;
 using Profio.Domain.Entities;
 
 namespace Profio.Application.Hubs.Queries;
@@ -15,4 +15,7 @@ public class GetHubByIdQueryHandler : GetByIdQueryHandlerBase<GetHubByIdQuery, H
   {
   }
 }
-public class GetHubByIdQueryValidator : GetByIdQueryValidatorBase<GetHubByIdQuery, HubDto> { }
+
+public class GetHubByIdQueryValidator : GetByIdQueryValidatorBase<GetHubByIdQuery, HubDto>
+{
+}
