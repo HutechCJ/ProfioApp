@@ -106,9 +106,9 @@ public sealed class RedisCacheService : IRedisCacheService
   }
 
   public void Remove(string key) => Database.KeyDelete($"{_redisCacheOption.Prefix}:{key}");
-  
+
   public void Reset()
-    =>  Database.ScriptEvaluate(
+    => Database.ScriptEvaluate(
       ClearCacheLuaScript,
       values: new RedisValue[] { _redisCacheOption.Prefix + "*" },
       flags: CommandFlags.FireAndForget);
