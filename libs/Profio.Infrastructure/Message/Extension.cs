@@ -6,8 +6,5 @@ namespace Profio.Infrastructure.Message;
 public static class Extension
 {
   public static void AddMessageService(this IServiceCollection services, IConfiguration configuration)
-  {
-    var token = configuration["Sms:AccessToken"];
-    services.AddSingleton<IMessageService>(new MessageService(token));
-  }
+    => services.AddSingleton<IMessageService>(new MessageService(configuration["Sms:AccessToken"]));
 }
