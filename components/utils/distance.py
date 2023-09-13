@@ -22,7 +22,7 @@ with open("../../libs/Profio.Infrastructure/Persistence/Seeding/Hub.json",
           encoding="utf-8") as file:
     hub_data = json.load(file)
 
-provinces_from_data = set([hub["Address"]["Province"] for hub in hub_data])
+provinces_from_data = {[hub["Address"]["Province"] for hub in hub_data]}
 
 neighbors = {
     "Hà Nội": ["Hà Nam", "Hưng Yên", "Bắc Ninh", "Vĩnh Phúc", "Hòa Bình"],
@@ -60,7 +60,9 @@ hubs_by_province = {hub["Address"]["Province"]: hub for hub in hub_data}
 distances = []
 for province, neighbors_list in neighbors.items():
     for neighbor in neighbors_list:
-        if province in hubs_by_province and neighbor in hubs_by_province and province != neighbor:
+        if province in hubs_by_province
+        and neighbor in hubs_by_province
+        and province != neighbor:
             start_hub = hubs_by_province[province]
             end_hub = hubs_by_province[neighbor]
             distance = calculate_distance(start_hub["Location"]["Latitude"],

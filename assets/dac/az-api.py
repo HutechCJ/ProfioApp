@@ -1,4 +1,4 @@
-from diagrams import Cluster, Diagram, Edge
+from diagrams import Cluster, Diagram
 from diagrams.azure.web import AppServiceEnvironments
 from diagrams.onprem.database import PostgreSQL
 from diagrams.onprem.inmemory import Redis
