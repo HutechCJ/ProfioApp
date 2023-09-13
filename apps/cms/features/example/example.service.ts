@@ -19,7 +19,7 @@ class ExampleApiService extends HttpService {
   }
 
   updateExample(id: string, data: any) {
-    return this.put<Example>(`/examples/${id}`, data);
+    return this.put(`/examples/${id}`, data);
   }
 
   deleteExample(id: string) {

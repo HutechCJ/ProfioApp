@@ -20,6 +20,7 @@ import { useForm } from '@tanstack/react-form'
 import React from 'react'
 import { GoogleMap, useJsApiLoader } from '@react-google-maps/api'
 import _ from 'lodash'
+import useGetOrderHubsPath from '@/features/order/useGetOrderHubsPath'
 
 const containerStyle = {
     width: '100%',
@@ -34,9 +35,15 @@ const center = {
 function Order({ params }: { params: { orderId: string } }) {
     const {
         data: orderApiRes,
-        isLoading,
-        isError,
+        isLoading: orderLoading,
+        isError: orderError,
     } = useGetOrder(params.orderId)
+
+    const {
+        data: orderHubsPathApiRes,
+        isLoading: hubsPathLoading,
+        isError: hubsPathError,
+    } = useGetOrderHubsPath(params.orderId)
 
     const form = useForm({
         // Memoize your default values to prevent re-renders
@@ -68,11 +75,11 @@ function Order({ params }: { params: { orderId: string } }) {
         setMap(null)
     }, [])
 
-    if (isLoading) {
+    if (orderLoading) {
         return 'Loading...'
     }
 
-    if (!orderApiRes || isError) {
+    if (!orderApiRes || orderError) {
         return 'There is an error occurred!'
     }
 
@@ -100,18 +107,41 @@ function Order({ params }: { params: { orderId: string } }) {
                 //     </GoogleMap>
                 // )
             }
-            <Box>
-                <iframe
-                    width="450"
-                    height="250"
-                    frameBorder="0"
-                    style={{
-                        border: 0,
-                    }}
-                    allowFullScreen
-                    referrerPolicy="no-referrer-when-downgrade"
-                    src={`http://localhost:4200/api/maps/directions?origin=Oslo+Norway&destination=Telemark+Norway&avoid=tolls|highways`}
-                ></iframe>
+            <Box sx={{
+                width: "100%"
+            }}>
+                {orderHubsPathApiRes && (
+                    <iframe
+                        width="100%"
+                        height="500"
+                        frameBorder="0"
+                        style={{
+                            border: 0,
+                        }}
+                        allowFullScreen
+                        referrerPolicy="no-referrer-when-downgrade"
+                        src={`https://www.google.com/maps/embed/v1/directions?${new URLSearchParams(
+                            {
+                                region: 'VN',
+                                key: `AIzaSyDAW0v16XSZI3GdNte36gFHDynsed4-cz0`,
+                                origin: `${
+                                    orderHubsPathApiRes.data.items[0].location
+                                        ?.latitude ?? 0
+                                },${
+                                    orderHubsPathApiRes.data.items[0].location
+                                        ?.longitude ?? 0
+                                }`,
+                                destination: `${
+                                    orderHubsPathApiRes.data.items[1].location
+                                        ?.latitude ?? 0
+                                },${
+                                    orderHubsPathApiRes.data.items[1].location
+                                        ?.longitude ?? 0
+                                }`,
+                            }
+                        )}`}
+                    ></iframe>
+                )}
             </Box>
             <form.Provider>
                 <Paper

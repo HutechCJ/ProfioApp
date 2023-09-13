@@ -3,6 +3,7 @@
 import { getPagingQueryString } from '@/common/utils/string';
 import { Order } from './order.types';
 import HttpService from '@/common/services/http.service';
+import { Hub } from '../hub/hub.types';
 
 class OrderApiService extends HttpService {
   getOrders(options?: Partial<PagingOptions>) {
@@ -12,6 +13,10 @@ class OrderApiService extends HttpService {
 
   getOrderById(id: string) {
     return this.get<Order>(`/orders/${id}`);
+  }
+
+  getOrderHubPathById(id: string) {
+    return this.get<Paging<Hub>>(`/orders/${id}/hubs/path`);
   }
 }
 
