@@ -50,10 +50,14 @@ dependencies:
   # Connection
   connectivity_plus: ^4.0.2
 
-  #STATE MANAGEMENTS
+  # STATE MANAGEMENTS
   flutter_mobx: ^2.0.6+5
   mobx: ^2.2.0
   provider: ^6.0.5
+
+  # Google Maps
+  google_maps_flutter: ^2.5.0
+  flutter_polyline_points: ^2.0.0
 
 dev_dependencies:
   flutter_test:
