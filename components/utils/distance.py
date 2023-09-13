@@ -60,9 +60,7 @@ hubs_by_province = {hub["Address"]["Province"]: hub for hub in hub_data}
 distances = []
 for province, neighbors_list in neighbors.items():
     for neighbor in neighbors_list:
-        if province in hubs_by_province
-        and neighbor in hubs_by_province
-        and province != neighbor:
+        if province in hubs_by_provinceand neighbor in hubs_by_province and province != neighbor:
             start_hub = hubs_by_province[province]
             end_hub = hubs_by_province[neighbor]
             distance = calculate_distance(start_hub["Location"]["Latitude"],
