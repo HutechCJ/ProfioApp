@@ -19,35 +19,35 @@ class _VehicleListState extends State<VehicleList> {
   @override
   void initState() {
     vehicleStore = context.read<VehicleStore>();
+    vehicleStore.fetchVehicles();
     super.initState();
   }
 
   @override
+  void dispose() {
+    vehicleStore.onDispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: vehicleStore.fetchVehicles(),
-        builder: (context, snappshot) {
-          if (snappshot.connectionState == ConnectionState.waiting) {
-            return const Text('Loading...');
-          }
-          return Center(
-            child: Observer(builder: (context) {
-              return DropdownButton<Vehicle>(
-                value: vehicleStore.hasSelectedVehicle
-                    ? vehicleStore.selectedVehicle
-                    : null, // The currently selected vehicle
-                onChanged: (newValue) {
-                  vehicleStore.setVehicle(newValue!);
-                },
-                items: vehicleStore.vehicleList.map((Vehicle vehicle) {
-                  return DropdownMenuItem<Vehicle>(
-                    value: vehicle,
-                    child: Text(vehicle.id), // Display a vehicle property here
-                  );
-                }).toList(),
-              );
-            }),
-          );
-        });
+    return Center(
+      child: Observer(builder: (context) {
+        return DropdownButton<Vehicle>(
+          value: vehicleStore.hasSelectedVehicle
+              ? vehicleStore.selectedVehicle
+              : null, // The currently selected vehicle
+          onChanged: (newValue) {
+            vehicleStore.setVehicle(newValue!);
+          },
+          items: vehicleStore.vehicleList.map((Vehicle vehicle) {
+            return DropdownMenuItem<Vehicle>(
+              value: vehicle,
+              child: Text(vehicle.id), // Display a vehicle property here
+            );
+          }).toList(),
+        );
+      }),
+    );
   }
 }
