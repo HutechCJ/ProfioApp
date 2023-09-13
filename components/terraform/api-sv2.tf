@@ -6,8 +6,8 @@ resource "azurerm_api_management" "example_sv2" {
   name                = var.apiSv2ResourceName
   location            = var.resourceGroupLocation
   resource_group_name = var.resourceGroupName
-  publisher_name      = "Your Company"
-  publisher_email     = "your@email.com"
+  publisher_name      = "Nguyen Xuan Nhan"
+  publisher_email     = "nguyenxuannhan407@gmail.com"
 
   sku {
     name     = "Developer"
