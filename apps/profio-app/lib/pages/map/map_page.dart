@@ -111,7 +111,7 @@ class _MapPageState extends State<MapPage> {
 
               _setPolyline(directions['polyline_decoded']);
             },
-            icon: const Icon(Icons.line_axis),
+            icon: const Icon(Icons.drive_eta),
           ),
           // Observer(
           //   builder: (_) {
