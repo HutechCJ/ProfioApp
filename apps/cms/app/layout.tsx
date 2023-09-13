@@ -1,7 +1,5 @@
-import { Suspense } from 'react';
-import ThemeRegistry from '../components/ThemeRegistry/ThemeRegistry';
-import { NavigationEvents } from '@/components/navigation-events';
 import Providers from '@/components/providers/Providers';
+import ThemeRegistry from '../components/ThemeRegistry/ThemeRegistry';
 
 export const metadata = {
   title: 'Profio CMS',
