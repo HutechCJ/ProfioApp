@@ -73,16 +73,6 @@ class _MapPageState extends State<MapPage> {
     );
   }
 
-  // static const CameraPosition _kGooglePlex = CameraPosition(
-  //   target: LatLng(37.42796133580664, -122.085749655962),
-  //   zoom: 14.4746,
-  // );
-
-  // static const CameraPosition _kLake = CameraPosition(
-  //     bearing: 192.8334901395799,
-  //     target: LatLng(37.43296265331129, -122.08832357078792),
-  //     tilt: 59.440717697143555,
-  //     zoom: 19.151926040649414);
   void _currentLocation(BuildContext context) async {
     final GoogleMapController controller = await _controller.future;
     if (locationStore.hasSelectedPosition) {
@@ -123,14 +113,14 @@ class _MapPageState extends State<MapPage> {
             },
             icon: const Icon(Icons.line_axis),
           ),
-          Observer(
-            builder: (_) {
-              if (locationStore.selectedPosition != null) {
-                _currentLocation(context);
-              }
-              return const SizedBox(); // This widget doesn't need to render anything
-            },
-          ),
+          // Observer(
+          //   builder: (_) {
+          //     if (locationStore.selectedPosition != null) {
+          //       _currentLocation(context);
+          //     }
+          //     return const SizedBox(); // This widget doesn't need to render anything
+          //   },
+          // ),
           Expanded(
             child: GoogleMap(
               mapType: MapType.normal,
