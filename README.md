@@ -35,22 +35,22 @@
 - [Tentative technologies](#tentative-technologies)
 - [Building blocks](#building-blocks)
 - [Getting Started](#getting-started)
-  - [💻 Infrastructure](#-infrastructure)
-  - [📦 Services](#-services)
-  - [🛠️ Setup](#️-setup)
-  - [🚀 Running the application](#-running-the-application)
-  - [🧪 Testing the application](#-testing-the-application)
-  - [🐳 Running services with Docker](#-running-services-with-docker)
+	- [💻 Infrastructure](#-infrastructure)
+	- [📦 Services](#-services)
+	- [🛠️ Setup](#️-setup)
+	- [🚀 Running the application](#-running-the-application)
+	- [🧪 Testing the application](#-testing-the-application)
+	- [🐳 Running services with Docker](#-running-services-with-docker)
 - [API development](#api-development)
 - [Open API](#open-api)
 - [Dependency Graph](#dependency-graph)
 - [CI/CD](#cicd)
 - [External services](#external-services)
-  - [📦 Container Management](#-container-management)
-  - [🧑‍⚕️ Health Check](#️-health-check)
-  - [📊 Monitoring](#-monitoring)
-  - [📈 Tracing](#-tracing)
-  - [📝 Logging](#-logging)
+	- [📦 Container Management](#-container-management)
+	- [🧑‍⚕️ Health Check](#️-health-check)
+	- [📊 Monitoring](#-monitoring)
+	- [📈 Tracing](#-tracing)
+	- [📝 Logging](#-logging)
 - [Contributing](#contributing)
 - [Contributors](#contributors)
 - [Support and Organization](#support-and-organization)
@@ -357,6 +357,12 @@ For running all applications, navigate to the root directory of the project and 
 
 ```bash
 npx nx run-many --target=serve --all
+```
+
+For running by `tye`, navigate to the root directory of the project and run the following command:
+
+```bash
+tye run --dashboard
 ```
 
 > **Warning**
