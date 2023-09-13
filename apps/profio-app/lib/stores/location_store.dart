@@ -65,11 +65,11 @@ abstract class LocationStoreBase with Store {
   double getVehicleSpeed(VehicleType type) {
     switch (type) {
       case VehicleType.motorcycle:
-        return 40;
+        return 0.004;
       case VehicleType.truck:
       case VehicleType.trailer:
       case VehicleType.van:
-        return 60;
+        return 0.006;
     }
   }
 

@@ -2,14 +2,42 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mqtt_client/mqtt_client.dart';
+import 'package:profio_staff_client/api/base_api.dart';
 import 'package:profio_staff_client/models/vehicle_location.dart';
 import 'package:profio_staff_client/providers/mqtt_provider.dart';
 
 class LocationManager {
   static const String locationTopic = '/location';
   static bool stopSimulation = false;
+  static Map<String, dynamic>? cachedDirections;
+
+  static Future<Map<String, dynamic>> getDirections(
+      String origin, String destination) async {
+    const String key = 'AIzaSyDAW0v16XSZI3GdNte36gFHDynsed4-cz0';
+    final String url =
+        'https://maps.googleapis.com/maps/api/directions/json?origin=$origin&destination=$destination&key=$key';
+
+    var response = await BaseAPI().fetchData(url);
+    var json = response.object;
+
+    var results = {
+      'bounds_ne': json['routes'][0]['bounds']['northeast'],
+      'bounds_sw': json['routes'][0]['bounds']['southwest'],
+      'start_location': json['routes'][0]['legs'][0]['start_location'],
+      'end_location': json['routes'][0]['legs'][0]['end_location'],
+      'polyline': json['routes'][0]['overview_polyline']['points'],
+      'polyline_decoded': PolylinePoints()
+          .decodePolyline(json['routes'][0]['overview_polyline']['points']),
+    };
+
+    // Cache the directions data
+    cachedDirections = results;
+
+    return results;
+  }
 
   static Future<Position> getPosition() async {
     bool serviceEnabled;

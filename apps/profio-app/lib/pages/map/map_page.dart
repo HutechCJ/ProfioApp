@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -84,26 +85,25 @@ class _MapPageState extends State<MapPage> {
   //     zoom: 19.151926040649414);
   void _currentLocation(BuildContext context) async {
     final GoogleMapController controller = await _controller.future;
-    Position currentLocation = await LocationManager.getPosition();
+    if (locationStore.hasSelectedPosition) {
+      Position currentLocation = locationStore.selectedPosition as Position;
 
-    controller.animateCamera(CameraUpdate.newCameraPosition(
-      CameraPosition(
-        bearing: 0,
-        target: LatLng(currentLocation.latitude, currentLocation.longitude),
-        zoom: 17.0,
-      ),
-    ));
+      _setMarker(LatLng(currentLocation.latitude, currentLocation.longitude));
+
+      controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(
+          bearing: 0,
+          target: LatLng(currentLocation.latitude, currentLocation.longitude),
+          zoom: 17.0,
+        ),
+      ));
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('Map')),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () => _currentLocation(context),
-        label: const Text('My Location'),
-        icon: const Icon(Icons.location_on),
-      ),
       body: Column(
         children: [
           IconButton(
@@ -122,6 +122,14 @@ class _MapPageState extends State<MapPage> {
               _setPolyline(directions['polyline_decoded']);
             },
             icon: const Icon(Icons.line_axis),
+          ),
+          Observer(
+            builder: (_) {
+              if (locationStore.selectedPosition != null) {
+                _currentLocation(context);
+              }
+              return const SizedBox(); // This widget doesn't need to render anything
+            },
           ),
           Expanded(
             child: GoogleMap(
