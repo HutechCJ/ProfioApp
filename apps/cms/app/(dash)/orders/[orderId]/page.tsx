@@ -78,27 +78,41 @@ function Order({ params }: { params: { orderId: string } }) {
 
     return (
         <Container maxWidth="xl" sx={{ '& > :not(style)': { m: 2 } }}>
-            {isLoaded && (
-                <GoogleMap
-                    mapContainerStyle={containerStyle}
-                    center={center}
-                    zoom={10}
-                    onLoad={onLoad}
-                    onUnmount={onUnmount}
-                >
-                    {/* Child components, such as markers, info windows, etc. */}
-
-                    <Box
-                        sx={{
-                            zIndex: 99,
-                        }}
-                    >
-                        <Typography variant="h1" component="h1">
-                            Hello
-                        </Typography>
-                    </Box>
-                </GoogleMap>
-            )}
+            {
+                // isLoaded && (
+                //     <GoogleMap
+                //         mapContainerStyle={containerStyle}
+                //         center={center}
+                //         zoom={10}
+                //         onLoad={onLoad}
+                //         onUnmount={onUnmount}
+                //     >
+                //         {/* Child components, such as markers, info windows, etc. */}
+                //         <Box
+                //             sx={{
+                //                 zIndex: 99,
+                //             }}
+                //         >
+                //             <Typography variant="h1" component="h1">
+                //                 Hello
+                //             </Typography>
+                //         </Box>
+                //     </GoogleMap>
+                // )
+            }
+            <Box>
+                <iframe
+                    width="450"
+                    height="250"
+                    frameBorder="0"
+                    style={{
+                        border: 0,
+                    }}
+                    allowFullScreen
+                    referrerPolicy="no-referrer-when-downgrade"
+                    src={`http://localhost:4200/api/maps/directions?origin=Oslo+Norway&destination=Telemark+Norway&avoid=tolls|highways`}
+                ></iframe>
+            </Box>
             <form.Provider>
                 <Paper
                     sx={{
