@@ -3,7 +3,6 @@ import 'package:geolocator/geolocator.dart';
 import 'package:mobx/mobx.dart';
 import 'package:profio_staff_client/enums/vehicle_type.dart';
 import 'package:profio_staff_client/managers/location_manager.dart';
-import 'package:profio_staff_client/models/location.dart';
 import 'package:profio_staff_client/providers/mqtt_provider.dart';
 import 'package:profio_staff_client/stores/hub_store.dart';
 import 'package:profio_staff_client/stores/vehicle_store.dart';

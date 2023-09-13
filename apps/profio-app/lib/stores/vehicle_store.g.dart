@@ -57,6 +57,14 @@ mixin _$VehicleStore on VehicleStoreBase, Store {
     return _$fetchVehiclesAsyncAction.run(() => super.fetchVehicles());
   }
 
+  late final _$visitAsyncAction =
+      AsyncAction('VehicleStoreBase.visit', context: context);
+
+  @override
+  Future<void> visit() {
+    return _$visitAsyncAction.run(() => super.visit());
+  }
+
   late final _$VehicleStoreBaseActionController =
       ActionController(name: 'VehicleStoreBase', context: context);
 
