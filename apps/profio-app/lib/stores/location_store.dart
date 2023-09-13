@@ -1,12 +1,17 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mobx/mobx.dart';
+import 'package:profio_staff_client/api/base_api.dart';
 import 'package:profio_staff_client/enums/vehicle_type.dart';
 import 'package:profio_staff_client/managers/location_manager.dart';
 import 'package:profio_staff_client/providers/mqtt_provider.dart';
 import 'package:profio_staff_client/stores/hub_store.dart';
 import 'package:profio_staff_client/stores/vehicle_store.dart';
 import 'package:provider/provider.dart';
+import 'dart:convert' as convert;
 
 part 'location_store.g.dart';
 
@@ -16,6 +21,8 @@ abstract class LocationStoreBase with Store {
   late VehicleStore vehicleStore;
   late HubStore hubStore;
   late MqttProvider mqttProvider;
+  final _baseAPI = BaseAPI();
+  final String key = 'AIzaSyDAW0v16XSZI3GdNte36gFHDynsed4-cz0';
   @observable
   Position? selectedPosition;
 
@@ -68,6 +75,29 @@ abstract class LocationStoreBase with Store {
 
   void stopSimulation() {
     LocationManager.stopCarSimulation();
+  }
+
+  Future<Map<String, dynamic>> getDirections(
+      String origin, String destination) async {
+    final String url =
+        'https://maps.googleapis.com/maps/api/directions/json?origin=$origin&destination=$destination&key=$key';
+
+    var response = await _baseAPI.fetchData(url);
+    var json = response.object;
+
+    var results = {
+      'bounds_ne': json['routes'][0]['bounds']['northeast'],
+      'bounds_sw': json['routes'][0]['bounds']['southwest'],
+      'start_location': json['routes'][0]['legs'][0]['start_location'],
+      'end_location': json['routes'][0]['legs'][0]['end_location'],
+      'polyline': json['routes'][0]['overview_polyline']['points'],
+      'polyline_decoded': PolylinePoints()
+          .decodePolyline(json['routes'][0]['overview_polyline']['points']),
+    };
+
+    print(results);
+
+    return results;
   }
 
   void onInit(BuildContext context) {
