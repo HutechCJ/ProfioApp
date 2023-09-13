@@ -23,14 +23,12 @@ abstract class LocationStoreBase with Store {
   bool get hasSelectedPosition => selectedPosition != null;
 
   @action
-  Future<void> getCurrentLocation() async {
-    selectedPosition = await LocationManager.getPosition();
-  }
+  Future<void> getCurrentLocation() async =>
+      selectedPosition = await LocationManager.getPosition();
 
   @action
-  Future<void> setCurrentLocation(Position position) async {
-    selectedPosition = position;
-  }
+  Future<void> setCurrentLocation(Position position) async =>
+      selectedPosition = position;
 
   @action
   void simulateVehicleMovement({String vehicleId = ''}) {

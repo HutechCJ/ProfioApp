@@ -21,13 +21,13 @@ mixin _$VehicleStore on VehicleStoreBase, Store {
       Atom(name: 'VehicleStoreBase.vehicleList', context: context);
 
   @override
-  List<Vehicle> get vehicleList {
+  ObservableList<Vehicle> get vehicleList {
     _$vehicleListAtom.reportRead();
     return super.vehicleList;
   }
 
   @override
-  set vehicleList(List<Vehicle> value) {
+  set vehicleList(ObservableList<Vehicle> value) {
     _$vehicleListAtom.reportWrite(value, super.vehicleList, () {
       super.vehicleList = value;
     });

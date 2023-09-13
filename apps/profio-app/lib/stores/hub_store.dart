@@ -21,14 +21,10 @@ abstract class HubStoreBase with Store {
   bool get hasSelectedHub => selectedHub.id != '';
 
   @action
-  void setHub(Hub hub) {
-    selectedHub = hub;
-  }
+  void setHub(Hub hub) => selectedHub = hub;
 
   @action
-  void setNullHub() {
-    selectedHub = Hub();
-  }
+  void setNullHub() => selectedHub = Hub();
 
   @action
   Future<void> getNextHub(String vehicleId) async {

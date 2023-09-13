@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mobx/mobx.dart';
 import 'package:profio_staff_client/api/base_api.dart';
@@ -18,7 +19,7 @@ abstract class VehicleStoreBase with Store {
   late HubStore hubStore;
 
   @observable
-  List<Vehicle> vehicleList = [];
+  ObservableList<Vehicle> vehicleList = ObservableList();
 
   @observable
   Vehicle selectedVehicle = Vehicle();
@@ -27,9 +28,7 @@ abstract class VehicleStoreBase with Store {
   bool get hasSelectedVehicle => selectedVehicle.id != '';
 
   @action
-  void setVehicle(Vehicle vehicle) {
-    selectedVehicle = vehicle;
-  }
+  void setVehicle(Vehicle vehicle) => selectedVehicle = vehicle;
 
   @action
   Future<void> fetchVehicles() async {
@@ -38,7 +37,7 @@ abstract class VehicleStoreBase with Store {
     var result = ResultModel.fromJson(data.object);
     var paging = Paging.fromJson(result.data);
     var vehicles = paging.items.map((item) => Vehicle.fromJson(item)).toList();
-    vehicleList = vehicles;
+    vehicleList = ObservableList.of(vehicles);
   }
 
   @action
@@ -54,5 +53,10 @@ abstract class VehicleStoreBase with Store {
 
   void onInit(BuildContext context) {
     hubStore = context.read<HubStore>();
+  }
+
+  void onDispose() {
+    vehicleList = ObservableList();
+    selectedVehicle = Vehicle();
   }
 }
