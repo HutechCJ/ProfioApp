@@ -1,13 +1,13 @@
-'use client'
-import { useQuery } from '@tanstack/react-query'
-import orderApi from './order.service'
+'use client';
+import { useQuery } from '@tanstack/react-query';
+import orderApi from './order.service';
 
 const useGetOrderDeliveries = (id: string) => {
-    const queryData = useQuery([`orders/get/${id}/deliveries`], {
-        queryFn: () => orderApi.getOrderDeliveries(id),
-        keepPreviousData: true,
-    })
+  const queryData = useQuery([`orders/get/${id}/deliveries`], {
+    queryFn: () => orderApi.getOrderDeliveries(id),
+    keepPreviousData: true,
+  });
 
-    return queryData
-}
-export default useGetOrderDeliveries
+  return queryData;
+};
+export default useGetOrderDeliveries;

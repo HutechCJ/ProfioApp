@@ -20,7 +20,7 @@ class OrderApiService extends HttpService {
     return this.get<Paging<Hub>>(`/orders/${id}/hubs/path`);
   }
 
-  getOrderDeliveries(id : string) {
+  getOrderDeliveries(id: string) {
     return this.get<Paging<Delivery>>(`/orders/${id}/deliveries`);
   }
 }
