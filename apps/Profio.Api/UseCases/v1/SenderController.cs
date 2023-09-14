@@ -21,7 +21,7 @@ public class SenderController : BaseController
     => (_emailService, _messageService) = (emailService, messageService);
 
   [HttpPost("email")]
-  public async Task<IActionResult> SendEmail(OrderInfo order, EmailType type)
+  public async Task<IActionResult> SendEmail(OrderInfo order, [FromQuery] EmailType type)
   {
     await _emailService.SendEmailAsync(new()
     {
