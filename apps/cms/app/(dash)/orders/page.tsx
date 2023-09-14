@@ -36,7 +36,8 @@ const columns: GridColDef<Order>[] = [
       const getColor = () => {
         const value = params.value as OrderStatus;
         if (value === OrderStatus.Cancelled) return 'error';
-        if (value === OrderStatus.Completed) return 'success';
+        if (value === OrderStatus.Completed) return 'info';
+        if (value === OrderStatus.Received) return 'success';
         if (value === OrderStatus.InProgress) return 'warning';
         return 'default';
       };
