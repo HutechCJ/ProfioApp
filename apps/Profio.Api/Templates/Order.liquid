@@ -3,7 +3,7 @@
     <thead>
       <tr>
         <th style="text-align:left;">
-          <h1>CJ Logistics</h1>
+          <img loading="lazy" src="https://i.imgur.com/fDVaSAD.jpg" alt="CJ Logistics" style="width: 100px;"/>
         </th>
         <th style="text-align:right;font-weight:400;">{{OrderDate}}</th>
       </tr>
@@ -14,9 +14,40 @@
       </tr>
       <tr>
         <td colspan="2" style="border: solid 1px #ddd; padding:10px 20px;">
+          <p align="center">
+            {% if Status == "Received the order" %}
+              <img loading="lazy" src="https://i.imgur.com/QFIpLQI.png" alt="Received the order" style="width: 100px;"/>
+            {% elsif Status == "On delivery" %}
+              <img loading="lazy" src="https://i.imgur.com/KOrEOg6.png" alt="On delivery" style="width: 100px;"/>
+            {% elsif Status == "Has an incident" %}
+              <img loading="lazy" src="https://i.imgur.com/T8XztBX.png" alt="Has an incident" style="width: 100px;"/>
+            {% elsif Status == "Shipping" %}
+              <img loading="lazy" src="https://i.imgur.com/ZJ4LyRa.png" alt="Shipping" style="width: 100px;"/>
+            {% elsif Status == "Cancel" %}
+              <img loading="lazy" src="https://i.imgur.com/aHZKJJR.png" alt="Cancel" style="width: 100px;"/>
+            {% elsif Status == "Arrived the warehouse" %}
+              <img loading="lazy" src="https://i.imgur.com/isVyMQ4.png" alt="CJ Logistics" style="width: 100px;"/>
+            {% else %}
+              <img loading="lazy" src="https://i.imgur.com/Bh4GVRH.png" alt="Complete" style="width: 100px;"/>
+            {% endif %}
+          </p>
           <p style="font-size:14px;margin:0 0 6px 0;">
-            <span style="font-weight:bold; display:inline-block; min-width:150px">Status:</span>
-            <b style="color:#e9c46a; font-weight:normal; margin:0">Pending</b>
+            <span style="font-weight:bold; display:inline-block; min-width:146px">Status:</span>
+            {% if Status == "Received the order" %}
+              <b style="color: #dda15e;">{{Status}}</b>
+            {% elsif Status == "On delivery" %}
+              <b style="color: #2a9d8f;">{{Status}}</b>
+            {% elsif Status == "Has an incident" %}
+              <b style="color: #fb8b24;">{{Status}}</b>
+            {% elsif Status == "Shipping" %}
+              <b style="color: #0077b6;">{{Status}}</b>
+            {% elsif Status == "Cancel" %}
+              <b style="color: #d00000;">{{Status}}</b>
+            {% elsif Status == "Arrived the warehouse" %}
+              <b style="color: #003049;">{{Status}}</b>
+            {% else %}
+              <b style="color: #57cc99;">{{Status}}</b>
+            {% endif %}
           </p>
           <p style="font-size:14px;margin:0 0 6px 0;">
             <span style="font-weight:bold; display:inline-block; min-width:146px">Order:</span>#{{Id}}
@@ -55,7 +86,7 @@
                 <a href="https://www.cjlogistics.com/en/network/en-vn" target="_blank">CJ Logistics</a><br/>
                   3rd Floor, Trung Yen Plaza, Block O17,Trung Hoa Ward, Cau Giay Dist.,Hanoi, Vietnam<br/>
               <br/>
-                <b>Phone:</b> +84-28-3547-4456<br/>
+                <b>Phone:</b><a href="tel:02835474456" target="_blank"> +84-28-3547-4456</a><br/>
         </td>
       </tr>
     </tfoot>

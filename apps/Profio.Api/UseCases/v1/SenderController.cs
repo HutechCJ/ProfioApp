@@ -20,17 +20,27 @@ public class SenderController : BaseController
   public SenderController(IEmailService emailService, IMessageService messageService)
     => (_emailService, _messageService) = (emailService, messageService);
 
-  [HttpPost("email/order-info")]
-  [MapToApiVersion("1.0")]
-  public async Task<IActionResult> SendEmail(OrderInfo order)
+  [HttpPost("email")]
+  public async Task<IActionResult> SendEmail(OrderInfo order, EmailType type)
   {
     await _emailService.SendEmailAsync(new()
     {
       To = order.Email,
       Subject = "Order Information",
-      Template = $"{Directory.GetCurrentDirectory()}/Templates/OrderInfo.liquid",
+      Template = $"{Directory.GetCurrentDirectory()}/Templates/Order.liquid",
       Model = new
       {
+        Status = type switch
+        {
+          EmailType.OrderPending => "Received the order",
+          EmailType.OrderInProcess => "On delivery",
+          EmailType.IncidentReported => "Has an incident",
+          EmailType.OrderShipping => "Shipping",
+          EmailType.CancelOrder => "Cancel",
+          EmailType.OrderArrived => "Arrived the warehouse",
+          EmailType.OrderCompleted => "Completed",
+          _ => throw new ArgumentOutOfRangeException(nameof(type), type, "Invalid email type!"),
+        },
         OrderDate = DateTime.Now.ToString("dd/MM/yyyy"),
         order.Id,
         order.CustomerName,
@@ -44,7 +54,7 @@ public class SenderController : BaseController
     return Ok("Send email successfully!");
   }
 
-  [HttpGet("sms/order-info/{phone:length(10)}")]
+  [HttpGet("sms/{phone:length(10)}")]
   [MapToApiVersion("1.0")]
   [ApiKey]
   public async Task<IActionResult> SendSms(string phone, [FromQuery] MessageType type)
