@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
@@ -11,7 +9,6 @@ import 'package:profio_staff_client/providers/mqtt_provider.dart';
 import 'package:profio_staff_client/stores/hub_store.dart';
 import 'package:profio_staff_client/stores/vehicle_store.dart';
 import 'package:provider/provider.dart';
-import 'dart:convert' as convert;
 
 part 'location_store.g.dart';
 
@@ -84,6 +81,16 @@ abstract class LocationStoreBase with Store {
 
     var response = await _baseAPI.fetchData(url);
     var json = response.object;
+
+    // var mockResults = {
+    //   'bounds_ne': {"lat": 11.1723978, "lng": 106.7017798},
+    //   'bounds_sw': {"lat": 10.7761223, "lng": 106.3984619},
+    //   'start_location': {"lat": 11.1723834, "lng": 106.3991713},
+    //   'end_location': {"lat": 10.7761223, "lng": 106.7008669},
+    //   'polyline': json['routes'][0]['overview_polyline']['points'],
+    //   'polyline_decoded': PolylinePoints()
+    //       .decodePolyline(json['routes'][0]['overview_polyline']['points']),
+    // };
 
     var results = {
       'bounds_ne': json['routes'][0]['bounds']['northeast'],
