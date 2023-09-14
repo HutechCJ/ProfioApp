@@ -20,7 +20,8 @@ public class SenderController : BaseController
   public SenderController(IEmailService emailService, IMessageService messageService)
     => (_emailService, _messageService) = (emailService, messageService);
 
-  [HttpPost("email")]
+  [HttpPost("email/order")]
+  [MapToApiVersion("1.0")]
   public async Task<IActionResult> SendEmail(OrderInfo order, [FromQuery] EmailType type)
   {
     await _emailService.SendEmailAsync(new()
@@ -61,11 +62,11 @@ public class SenderController : BaseController
   {
     var message = type switch
     {
-      MessageType.OrderReceived => "Cam on ban da su dung dich vu cua chung toi CJ Logistics. Chung toi se chuyen hang den ban trong thoi gian som nhat",
-      MessageType.OrderShipped => "Van don cua ban da duoc chuyen di. Vui long kiem tra lai thong tin van don cua ban",
-      MessageType.IncidentReported => "Van don cua ban da gap su co. Chung toi se giai quyet trong thoi gian som nhat",
-      MessageType.IncidentResolved => "Su co ve van don cua ban da duoc giai quyet",
-      MessageType.CancelOrder => "Van don cua ban da bi huy. Vui long lien he voi chung toi de biet them chi tiet",
+      MessageType.OrderReceived => "Cam on quy khach da su dung dich vu cua chung toi CJ Logistics",
+      MessageType.OrderShipped => "Van don cua quy khach da duoc chuyen di va se den trong thoi gian som nhat",
+      MessageType.IncidentReported => "Van don cua quy khach da gap su co. Chung toi se giai quyet trong thoi gian som nhat",
+      MessageType.IncidentResolved => "Su co ve van don cua quy khach da duoc giai quyet",
+      MessageType.CancelOrder => "Van don cua quy khach da bi huy. Vui long lien he de biet them thong tin",
       _ => throw new ArgumentOutOfRangeException(nameof(type), type, "Invalid message type!"),
     };
 
