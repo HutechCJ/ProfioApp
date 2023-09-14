@@ -12,7 +12,7 @@ public static class Extension
   {
     services.Configure<FluentEmail.Email>(configuration.GetSection(nameof(FluentEmail.Email)));
     var cfg = services.BuildServiceProvider().GetRequiredService<IOptions<FluentEmail.Email>>().Value;
-    services.AddFluentEmail(cfg.From)
+    services.AddFluentEmail(cfg.From, "CJ Logistics")
       .AddSmtpSender(cfg.Host, cfg.Port, cfg.Username, cfg.Password)
       .AddLiquidRenderer();
     services.AddScoped<IEmailService, EmailService>();
