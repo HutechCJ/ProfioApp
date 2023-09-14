@@ -1,11 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:profio_staff_client/managers/location_manager.dart';
 import 'package:profio_staff_client/stores/hub_store.dart';
 import 'package:profio_staff_client/stores/location_store.dart';
 import 'package:provider/provider.dart';
@@ -55,6 +53,16 @@ class _MapPageState extends State<MapPage> {
     });
   }
 
+  void _setSimulateMarker(LatLng point) {
+    setState(() {
+      _markers.add(Marker(
+          markerId: const MarkerId('simulateMarker'),
+          position: point,
+          icon: BitmapDescriptor.defaultMarkerWithHue(
+              BitmapDescriptor.hueAzure)));
+    });
+  }
+
   void _setPolyline(List<PointLatLng> points) {
     final String polylineIdVal = 'polyline_$_polylineIdCounter';
     _polylineIdCounter++;
@@ -78,7 +86,8 @@ class _MapPageState extends State<MapPage> {
     if (locationStore.hasSelectedPosition) {
       Position currentLocation = locationStore.selectedPosition as Position;
 
-      _setMarker(LatLng(currentLocation.latitude, currentLocation.longitude));
+      _setSimulateMarker(
+          LatLng(currentLocation.latitude, currentLocation.longitude));
 
       controller.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(
@@ -96,22 +105,33 @@ class _MapPageState extends State<MapPage> {
       appBar: AppBar(title: const Text('Map')),
       body: Column(
         children: [
-          IconButton(
-            onPressed: () async {
-              var directions = await locationStore.getDirections(
-                '${locationStore.selectedPosition!.latitude},${locationStore.selectedPosition!.longitude}',
-                '${hubStore.selectedHub.location.latitude},${hubStore.selectedHub.location.longitude}',
-              );
-              _goToPlace(
-                directions['start_location']['lat'],
-                directions['start_location']['lng'],
-                directions['bounds_ne'],
-                directions['bounds_sw'],
-              );
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              IconButton(
+                onPressed: () async {
+                  var directions = await locationStore.getDirections(
+                    '${locationStore.selectedPosition!.latitude},${locationStore.selectedPosition!.longitude}',
+                    '${hubStore.selectedHub.location.latitude},${hubStore.selectedHub.location.longitude}',
+                  );
+                  _goToPlace(
+                    directions['start_location']['lat'],
+                    directions['start_location']['lng'],
+                    directions['bounds_ne'],
+                    directions['bounds_sw'],
+                  );
 
-              _setPolyline(directions['polyline_decoded']);
-            },
-            icon: const Icon(Icons.drive_eta),
+                  _setPolyline(directions['polyline_decoded']);
+                },
+                icon: const Icon(Icons.drive_eta),
+              ),
+              IconButton(
+                onPressed: () async {
+                  _currentLocation(context);
+                },
+                icon: const Icon(Icons.spatial_tracking),
+              ),
+            ],
           ),
           // Observer(
           //   builder: (_) {
@@ -123,6 +143,7 @@ class _MapPageState extends State<MapPage> {
           // ),
           Expanded(
             child: GoogleMap(
+              myLocationEnabled: true,
               mapType: MapType.normal,
               initialCameraPosition: _cameraPosition,
               markers: _markers,
