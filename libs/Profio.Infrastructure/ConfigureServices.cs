@@ -25,6 +25,7 @@ using System.IO.Compression;
 using System.Net.Mime;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json.Serialization;
+using Profio.Infrastructure.Email;
 using Profio.Infrastructure.Message;
 
 namespace Profio.Infrastructure;
@@ -100,6 +101,7 @@ public static class ConfigureServices
 
     services.AddPostgres(builder.Configuration)
       .AddRedisCache(builder.Configuration)
+      .AddEmailSender(builder.Configuration)
       .AddEventBus(builder.Configuration);
 
     services.AddMqttBus(builder.Configuration);

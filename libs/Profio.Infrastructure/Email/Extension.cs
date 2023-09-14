@@ -8,13 +8,13 @@ namespace Profio.Infrastructure.Email;
 
 public static class Extension
 {
-  public static IServiceCollection AddEmail(this IServiceCollection services, IConfiguration configuration)
+  public static IServiceCollection AddEmailSender(this IServiceCollection services, IConfiguration configuration)
   {
-    services.Configure<FluentEmail.Email>(configuration.GetSection(nameof(FluentEmail)));
+    services.Configure<FluentEmail.Email>(configuration.GetSection(nameof(FluentEmail.Email)));
     var cfg = services.BuildServiceProvider().GetRequiredService<IOptions<FluentEmail.Email>>().Value;
     services.AddFluentEmail(cfg.From)
-      .AddSendGridSender(cfg.SendGridApiKey)
-      .AddRazorRenderer();
+      .AddSmtpSender(cfg.Host, cfg.Port, cfg.Username, cfg.Password)
+      .AddLiquidRenderer();
     services.AddScoped<IEmailService, EmailService>();
     return services;
   }
