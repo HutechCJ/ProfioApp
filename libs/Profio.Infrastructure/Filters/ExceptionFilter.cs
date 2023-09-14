@@ -69,7 +69,7 @@ public sealed class ExceptionFilter : ExceptionFilterAttribute
     context.Result = new ObjectResult(details)
     {
       StatusCode = StatusCodes.Status500InternalServerError,
-      Value = ResultModel<string>.CreateError(null, "Internal Server Error.")
+      Value = ResultModel<string>.CreateError(context.Exception.Message, "Internal Server Error.")
     };
   }
 }

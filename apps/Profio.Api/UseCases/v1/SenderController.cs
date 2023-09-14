@@ -28,7 +28,9 @@ public class SenderController : BaseController
     {
       To = order.Email,
       Subject = "Order Information",
-      Template = $"{Directory.GetCurrentDirectory()}/Templates/Order.liquid",
+      Template = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
+      ? $"{Directory.GetCurrentDirectory()}/Templates/Order.liquid"
+      : $"{Directory.GetCurrentDirectory()}/wwwroot/Templates/Order.liquid",
       Model = new
       {
         Status = type switch
