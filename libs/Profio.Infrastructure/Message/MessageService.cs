@@ -1,7 +1,7 @@
 using System.Net;
-using System.Net.Mime;
 using System.Text;
-using Newtonsoft.Json.Linq;
+using Newtonsoft.Json;
+using Profio.Infrastructure.Exceptions;
 
 namespace Profio.Infrastructure.Message;
 
@@ -23,70 +23,38 @@ public sealed class MessageService : IMessageService
     return result;
   }
 
-  public string SendSms(string[] phones, string content, string sender)
+  public async Task<string> SendSms(string phones, string content)
   {
-    if (phones.Length <= 0)
-      return "";
-    if (content.Equals(""))
+    if (string.IsNullOrEmpty(phones) || string.IsNullOrEmpty(content))
       return "";
 
-    using var httpClient = new HttpClient();
-    httpClient.DefaultRequestHeaders.Add("Authorization", _accessToken);
-    httpClient.DefaultRequestHeaders.Accept.Add(new(MediaTypeNames.Application.Json));
-    var json = new JObject
+    var client = new HttpClient();
+    var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes($"{_accessToken}:x"));
+    client.DefaultRequestHeaders.Authorization = new("Basic", credentials);
+    client.DefaultRequestHeaders.Accept.Add(new("application/json"));
+
+    const string sender = "";
+    var phoneNumbers = phones.Split(',');
+
+    var smsData = new
     {
-      ["to"] = JToken.FromObject(phones),
-      ["content"] = EncodeNonAsciiCharacters(content),
-      ["sms_type"] = "2",
-      ["sender"] = sender
+      to = phoneNumbers,
+      content,
+      type = 2,
+      sender
     };
 
-    var response = httpClient.PostAsync($"{RootUrl}/sms/send", new StringContent(json.ToString(), Encoding.UTF8, MediaTypeNames.Application.Json)).Result;
-    if (response.StatusCode != HttpStatusCode.OK) return "";
-    var result = response.Content.ReadAsStringAsync().Result;
-    return result;
-  }
+    var json = JsonConvert.SerializeObject(smsData);
 
-  public string SendMms(string[] phones, string content, string link, string sender)
-  {
-    if (phones.Length <= 0)
-      return "";
-    if (content.Equals(""))
-      return "";
+    var contentToSend = new StringContent(json, Encoding.UTF8, "application/json");
 
-    using var httpClient = new HttpClient();
-    httpClient.DefaultRequestHeaders.Add("Authorization", _accessToken);
-    httpClient.DefaultRequestHeaders.Accept.Add(new(MediaTypeNames.Application.Json));
-    var json = new JObject
-    {
-      ["to"] = JToken.FromObject(phones),
-      ["content"] = EncodeNonAsciiCharacters(content),
-      ["sms_type"] = "2",
-      ["sender"] = sender,
-      ["link"] = link
-    };
+    var response = await client.PostAsync($"{RootUrl}/sms/send", contentToSend);
 
-    var response = httpClient.PostAsync($"{RootUrl}/mms/send", new StringContent(json.ToString(), Encoding.UTF8, MediaTypeNames.Application.Json)).Result;
-    if (response.StatusCode != HttpStatusCode.OK) return "";
-    var result = response.Content.ReadAsStringAsync().Result;
-    return result;
-  }
+    if (!response.IsSuccessStatusCode)
+      throw new SmsException(response.StatusCode, response.RequestMessage!.ToString());
 
-  private static string EncodeNonAsciiCharacters(string value)
-  {
-    var sb = new StringBuilder();
-    foreach (var c in value)
-    {
-      if (c > 127)
-      {
-        var encodedValue = "\\u" + ((int)c).ToString("x4");
-        sb.Append(encodedValue);
-      }
-      else
-      {
-        sb.Append(c);
-      }
-    }
-    return sb.ToString();
+    var responseContent = await response.Content.ReadAsStringAsync();
+    return responseContent;
+
   }
 }

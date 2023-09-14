@@ -41,18 +41,22 @@ public class OrdersController : BaseEntityController<Order, OrderDto, GetOrderBy
   [MapToApiVersion("1.0")]
   public Task<ActionResult<ResultModel<OrderDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteOrderCommand(id));
+
   [HttpGet("count")]
   [MapToApiVersion("1.0")]
   public async Task<ActionResult<ResultModel<int>>> GetCount()
     => Ok(ResultModel<int>.Create(await Mediator.Send(new GetOrderCountQuery())));
+
   [HttpGet("{id:length(26)}/vehicles/available")]
   [MapToApiVersion("1.0")]
   public async Task<ActionResult<ResultModel<IPagedList<VehicleDto>>>> GetAvailableVehicles(string id, [FromQuery] Criteria criteria)
     => Ok(ResultModel<IPagedList<VehicleDto>>.Create(await Mediator.Send(new GetAvailableVehicleByOrderIdWithPagingQuery(id, criteria))));
+
   [HttpGet("{id:length(26)}/deliveries")]
   [MapToApiVersion("1.0")]
   public async Task<ActionResult<ResultModel<IPagedList<DeliveryDto>>>> GetDeliveriesByOrderId(string id, [FromQuery] Criteria criteria)
     => Ok(ResultModel<IPagedList<DeliveryDto>>.Create(await Mediator.Send(new GetDeliveryByOrderIdWithPagingQuery(id, criteria))));
+
   [HttpGet("{id:length(26)}/hubs/path")]
   [MapToApiVersion("1.0")]
   public async Task<ActionResult<ResultModel<IPagedList<HubDto>>>> GetHubPath(string id, [FromQuery] Criteria criteria)
