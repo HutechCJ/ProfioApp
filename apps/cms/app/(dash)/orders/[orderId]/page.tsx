@@ -1,7 +1,7 @@
 /* eslint-disable react/no-children-prop */
 'use client';
 
-import { OrderStatus } from '@/features/order/order.types';
+import { OrderStatus, Order as OrderType } from '@/features/order/order.types';
 import useGetOrder from '@/features/order/useGetOrder';
 import {
   Box,
@@ -18,19 +18,10 @@ import {
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import { useForm } from '@tanstack/react-form';
 import React from 'react';
-import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
 import _ from 'lodash';
-import useGetOrderHubsPath from '@/features/order/useGetOrderHubsPath';
-
-const containerStyle = {
-  width: '100%',
-  height: '400px',
-};
-
-const center = {
-  lat: -3.745,
-  lng: -38.523,
-};
+import GoogleMapComponent from './GoogleMap';
+import OrderStepper from './OrderStepper';
+import { Customer } from '@/features/customer/customer.types';
 
 function Order({ params }: { params: { orderId: string } }) {
   const {
@@ -39,16 +30,16 @@ function Order({ params }: { params: { orderId: string } }) {
     isError: orderError,
   } = useGetOrder(params.orderId);
 
-  const {
-    data: orderHubsPathApiRes,
-    isLoading: hubsPathLoading,
-    isError: hubsPathError,
-  } = useGetOrderHubsPath(params.orderId);
-
   const form = useForm({
     // Memoize your default values to prevent re-renders
     defaultValues: {
       ...orderApiRes?.data,
+      destinationAddress: orderApiRes?.data.destinationAddress
+        ? getAddressField(orderApiRes?.data.destinationAddress)
+        : '',
+      customer: orderApiRes?.data.customer?.name || '',
+      customerId: orderApiRes?.data.customer?.id || '',
+      status: orderApiRes ? OrderStatus[orderApiRes.data.status] : '',
     },
     onSubmit: async (values) => {
       // Do something with form data
@@ -56,24 +47,9 @@ function Order({ params }: { params: { orderId: string } }) {
     },
   });
 
-  const { isLoaded } = useJsApiLoader({
-    id: 'google-map-script',
-    googleMapsApiKey: '',
-  });
-
-  const [map, setMap] = React.useState(null);
-
-  const onLoad = React.useCallback(function callback(map: any) {
-    // This is just an example of getting and using the map instance!!! don't just blindly copy!
-    const bounds = new window.google.maps.LatLngBounds(center);
-    map.fitBounds(bounds);
-
-    setMap(map);
-  }, []);
-
-  const onUnmount = React.useCallback(function callback(map: any) {
-    setMap(null);
-  }, []);
+  function getAddressField(address: Address) {
+    return `${address.street} ${address.province} ${address.ward} ${address.city} ${address.zipCode}`;
+  }
 
   if (orderLoading) {
     return 'Loading...';
@@ -85,62 +61,11 @@ function Order({ params }: { params: { orderId: string } }) {
 
   return (
     <Container maxWidth="xl" sx={{ '& > :not(style)': { m: 2 } }}>
-      {
-        // isLoaded && (
-        //     <GoogleMap
-        //         mapContainerStyle={containerStyle}
-        //         center={center}
-        //         zoom={10}
-        //         onLoad={onLoad}
-        //         onUnmount={onUnmount}
-        //     >
-        //         {/* Child components, such as markers, info windows, etc. */}
-        //         <Box
-        //             sx={{
-        //                 zIndex: 99,
-        //             }}
-        //         >
-        //             <Typography variant="h1" component="h1">
-        //                 Hello
-        //             </Typography>
-        //         </Box>
-        //     </GoogleMap>
-        // )
-      }
-      <Box
-        sx={{
-          width: '100%',
-        }}
-      >
-        {orderHubsPathApiRes && (
-          <iframe
-            width="100%"
-            height="500"
-            frameBorder="0"
-            style={{
-              border: 0,
-            }}
-            allowFullScreen
-            referrerPolicy="no-referrer-when-downgrade"
-            src={`https://www.google.com/maps/embed/v1/directions?${new URLSearchParams(
-              {
-                region: 'VN',
-                key: `AIzaSyDAW0v16XSZI3GdNte36gFHDynsed4-cz0`,
-                origin: `${
-                  orderHubsPathApiRes.data.items[0].location?.latitude ?? 0
-                },${
-                  orderHubsPathApiRes.data.items[0].location?.longitude ?? 0
-                }`,
-                destination: `${
-                  orderHubsPathApiRes.data.items[1].location?.latitude ?? 0
-                },${
-                  orderHubsPathApiRes.data.items[1].location?.longitude ?? 0
-                }`,
-              },
-            )}`}
-          ></iframe>
-        )}
-      </Box>
+      <Typography variant="h4" component="h4">
+        {`Order #${orderApiRes.data.id}`}
+      </Typography>
+      <OrderStepper order={orderApiRes.data} />
+      <GoogleMapComponent orderId={params.orderId} />
       <form.Provider>
         <Paper
           sx={{
@@ -157,14 +82,14 @@ function Order({ params }: { params: { orderId: string } }) {
               }}
             >
               <form.Field
-                name={k}
-                onChange={(value: any) =>
-                  !value
-                    ? 'A first name is required'
-                    : value.length < 3
-                    ? 'First name must be at least 3 characters'
-                    : undefined
-                }
+                name={k as keyof typeof form.options.defaultValues}
+                // onChange={(value: any) =>
+                //     !value
+                //         ? 'A first name is required'
+                //         : value.length < 3
+                //         ? 'First name must be at least 3 characters'
+                //         : undefined
+                // }
                 onChangeAsyncDebounceMs={500}
                 onChangeAsync={async (value: any) => {
                   await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -183,7 +108,9 @@ function Order({ params }: { params: { orderId: string } }) {
                         name={field.name}
                         value={field.state.value as any}
                         onBlur={field.handleBlur}
-                        onChange={(e) => field.handleChange(e.target.value)}
+                        onChange={(e) =>
+                          field.handleChange(e.target.value as never)
+                        }
                       />
                       {/* <FieldInfo field={field} /> */}
                     </FormControl>
