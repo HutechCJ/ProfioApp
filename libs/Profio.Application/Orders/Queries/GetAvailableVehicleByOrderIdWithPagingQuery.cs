@@ -3,12 +3,15 @@ using EntityFrameworkCore.QueryBuilder.Interfaces;
 using EntityFrameworkCore.Repository.Collections;
 using EntityFrameworkCore.Repository.Interfaces;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
+using FluentEmail.Core.Models;
 using FluentValidation;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Profio.Application.Abstractions.CQRS;
 using Profio.Application.Abstractions.CQRS.Events.Queries;
 using Profio.Application.Orders.Validators;
 using Profio.Application.Vehicles;
+using Profio.Domain.Constants;
 using Profio.Domain.Entities;
 using Profio.Domain.Specifications;
 using Profio.Infrastructure.Exceptions;
@@ -32,15 +35,17 @@ public class GetAvailableVehicleByOrderIdWithPagingQueryHandler : IRequestHandle
   public async Task<IPagedList<VehicleDto>> Handle(GetAvailableVehicleByOrderIdWithPagingQuery request, CancellationToken cancellationToken)
   {
     var order = await _applicationDbContext.Orders
-      .FindAsync(new object?[] { request.OrderId }, cancellationToken: cancellationToken)
+      .Include(x => x.Customer)
+      .SingleOrDefaultAsync(x => x.Id == request.OrderId, cancellationToken: cancellationToken)
       ?? throw new NotFoundException(typeof(Order).Name, request.OrderId);
 
-    var destinationZipCode = order.DestinationZipCode;
+    var customerZipCode = order.Customer?.Address?.ZipCode ?? throw new NotFoundException(typeof(Address).Name);
 
     var query = (IMultipleResultQuery<Vehicle>)_vehicleRepository
       .MultipleResultQuery()
       .ApplyCriteria(request.Criteria)
-      .AndFilter(x => x.ZipCodeCurrent == destinationZipCode);
+      .AndFilter(x => x.ZipCodeCurrent == customerZipCode)
+      .AndFilter(x => x.Status == VehicleStatus.Idle);
 
     var pagedList = await _vehicleRepository
       .GetDataWithQueryAsync<Vehicle, VehicleDto>(query, _mapper.ConfigurationProvider, cancellationToken);
