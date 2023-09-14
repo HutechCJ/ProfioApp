@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Profio.Domain.Constants;
 using Profio.Domain.Contracts;
 using Profio.Infrastructure.Email.FluentEmail;
 using Profio.Infrastructure.Key;
@@ -19,7 +20,7 @@ public class SenderController : BaseController
   public SenderController(IEmailService emailService, IMessageService messageService)
     => (_emailService, _messageService) = (emailService, messageService);
 
-  [HttpPost("/email/order-info")]
+  [HttpPost("email/order-info")]
   [MapToApiVersion("1.0")]
   public async Task<IActionResult> SendEmail(OrderInfo order)
   {
@@ -43,12 +44,22 @@ public class SenderController : BaseController
     return Ok("Send email successfully!");
   }
 
-  [HttpGet("/sms/order-info/{phone:length(10)}")]
+  [HttpGet("sms/order-info/{phone:length(10)}")]
   [MapToApiVersion("1.0")]
   [ApiKey]
-  public async Task<IActionResult> SendSms(string phone)
+  public async Task<IActionResult> SendSms(string phone, [FromQuery] MessageType type)
   {
-    await _messageService.SendSms(phone, "Cam on ban da su dung dich vu cua chung toi. Van don cua ban da duoc tao thanh cong!");
+    var message = type switch
+    {
+      MessageType.OrderReceived => "Cam on ban da su dung dich vu cua chung toi CJ Logistics. Chung toi se chuyen hang den ban trong thoi gian som nhat",
+      MessageType.OrderShipped => "Van don cua ban da duoc chuyen di. Vui long kiem tra lai thong tin van don cua ban",
+      MessageType.IncidentReported => "Van don cua ban da gap su co. Chung toi se giai quyet trong thoi gian som nhat",
+      MessageType.IncidentResolved => "Su co ve van don cua ban da duoc giai quyet",
+      MessageType.CancelOrder => "Van don cua ban da bi huy. Vui long lien he voi chung toi de biet them chi tiet",
+      _ => throw new ArgumentOutOfRangeException(nameof(type), type, "Invalid message type!"),
+    };
+
+    await _messageService.SendSms(phone, message);
     return Ok("Send sms successfully!");
   }
 }
