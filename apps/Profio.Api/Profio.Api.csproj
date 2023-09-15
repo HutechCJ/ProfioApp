@@ -9,10 +9,6 @@
     <DockerfileContext>..\..</DockerfileContext>
   </PropertyGroup>
 
-  <!--<ItemGroup>
-    <Content Remove="wwwroot\Templates\Order.liquid" />
-  </ItemGroup>-->
-
   <ItemGroup>
     <None Include="wwwroot\Templates\Order.liquid" />
   </ItemGroup>
