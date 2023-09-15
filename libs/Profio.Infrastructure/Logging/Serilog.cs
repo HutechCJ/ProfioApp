@@ -7,5 +7,5 @@ public sealed class Serilog
   public string LogTemplate { get; set; } =
     "{Timestamp:yyyy-MM-dd HH:mm:ss.fff} {Level} - {Message:lj}{NewLine}{Exception}";
 
-  public Uri? SeqUrl { get; set; }
+  public string? SeqUrl { get; set; } = "http://localhost:5341";
 }

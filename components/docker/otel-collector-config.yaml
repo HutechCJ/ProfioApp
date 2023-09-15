@@ -16,33 +16,33 @@ exporters:
 
   logging:
 
-  jaeger:
+  zipkin:
+    endpoint: 'http://zipkin-all-in-one:9411/api/v2/spans'
+    format: proto
+
+  otlphttp/jaeger:
     endpoint: jaeger-all-in-one:14250
-    tls:
-      insecure: true
 
   otlphttp/seq:
     endpoint: 'http://seq:5341/ingest/otlp'
-    tls:
-      insecure: true
 
 processors:
   batch:
 
 extensions:
-  health_check:
+  health_check: {}
   pprof:
     endpoint: :1888
   zpages:
-    endpoint: :55679
+    endpoint: 0.0.0.0:55679
 
 service:
-  extensions: [pprof, zpages, health_check]
+  extensions:  [pprof, zpages, health_check]
   pipelines:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [logging, jaeger]
+      exporters: [logging, zipkin, otlphttp/jaeger]
     metrics:
       receivers: [otlp]
       processors: [batch]

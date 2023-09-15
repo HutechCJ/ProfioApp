@@ -16,6 +16,9 @@ services:
       - '55679:55679' # zpages extension
     depends_on:
       - jaeger-all-in-one
+      - zipkin-all-in-one
+    networks:
+      - profio-bridge
 
   # Grafana
   grafana:
@@ -24,6 +27,15 @@ services:
     restart: always
     ports:
       - '3000:3000'
+    networks:
+      - profio-bridge
+
+  # Zipkin
+  zipkin-all-in-one:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin-all-in-one
+    ports:
+      - '9411:9411'
     networks:
       - profio-bridge
 
