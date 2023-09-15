@@ -1,10 +1,10 @@
 import { NextRequest } from 'next/server';
 
 export async function GET(request: NextRequest) {
-  request.nextUrl.searchParams.append('key', process.env.GOOGLE_MAP_API_KEY);
+  request.nextUrl.searchParams.append('key', process.env.GOOGLE_MAP_API_KEY!);
   console.log(request.nextUrl.searchParams);
   const url = new URL(
-    `https://www.google.com/maps/embed/v1/directions?${request.nextUrl.searchParams}`,
+    `https://www.google.com/maps/embed/v1/directions?${request.nextUrl.searchParams}`
   );
   const res = await fetch(url);
 
