@@ -103,7 +103,7 @@ function Hubs() {
           >
             Reload
           </LoadingButton>
-          <LoadingButton>Add Vehicle</LoadingButton>
+          <LoadingButton>Add Hub</LoadingButton>
         </ButtonGroup>
       </Stack>
       <Box sx={{ width: '100%', overflow: 'auto' }}>

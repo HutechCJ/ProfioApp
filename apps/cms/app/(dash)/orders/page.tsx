@@ -115,7 +115,7 @@ function Orders() {
           >
             Reload
           </LoadingButton>
-          <LoadingButton>Add Vehicle</LoadingButton>
+          <LoadingButton>Add Order</LoadingButton>
         </ButtonGroup>
       </Stack>
       <Box sx={{ width: '100%', overflow: 'auto' }}>

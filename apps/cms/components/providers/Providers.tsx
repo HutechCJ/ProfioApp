@@ -6,7 +6,7 @@ import {
   QueryClient,
   MutationCache,
 } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+// import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
 import { useSnackbar } from 'notistack';
 
@@ -30,7 +30,7 @@ function Providers({ children }: React.PropsWithChildren) {
     <QueryClientProvider client={client}>
       {/* <RouterTransition/> */}
       <ReactQueryStreamedHydration>{children}</ReactQueryStreamedHydration>
-      <ReactQueryDevtools initialIsOpen={false} />
+      {/* <ReactQueryDevtools initialIsOpen={false} /> */}
     </QueryClientProvider>
   );
 }

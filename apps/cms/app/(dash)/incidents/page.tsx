@@ -110,7 +110,7 @@ function Incidents() {
           >
             Reload
           </LoadingButton>
-          <LoadingButton>Add Vehicle</LoadingButton>
+          <LoadingButton>Add Incident</LoadingButton>
         </ButtonGroup>
       </Stack>
       <Box sx={{ width: '100%', overflow: 'auto' }}>
