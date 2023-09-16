@@ -1,3 +1,13 @@
+@font-face {
+  font-family: 'CJONLYONE body regular';
+  src: url('../../static/fonts/CJONLYONE-body-Regular.woff') format('woff');
+}
+
+@font-face {
+  font-family: 'CJONLYONE title regular';
+  src: url('../../static/fonts/CJONLYONE-title-Medium.woff') format('woff');
+}
+
 :root {
   --ifm-color-primary: #5b99e2;
   --ifm-color-primary-dark: #3770b2;
@@ -8,6 +18,8 @@
   --ifm-color-primary-lightest: #a0c5ef;
   --ifm-code-font-size: 95%;
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-font-family-base: 'CJONLYONE body regular';
+  --ifm-heading-font-family: 'CJONLYONE title regular';
 }
 
 .hero {
