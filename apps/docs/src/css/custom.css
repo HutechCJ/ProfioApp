@@ -13,3 +13,22 @@
 .hero {
   background-image: url('/img/banner.png');
 }
+
+.card {
+  border: 1px solid #e3dbdb;
+  box-shadow: none;
+  border-radius: 5px;
+  text-decoration: none !important;
+  color: whitesmoke;
+  background-color: #242526;
+}
+
+.card__description {
+  font-size: 14px;
+}
+
+.page__section {
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+  width: 100%;
+  padding: 40px 10px 40px;
+}

@@ -3,29 +3,21 @@ import Link from '@docusaurus/Link';
 
 import SectionLayout from './SectionLayout';
 
-const InvestorsList = [
+const SponorList = [
   {
-    url: 'https://dotnet.microsoft.com/en-us/',
-    logo: require('../../static/img/tech/dotnet.png').default,
+    url: 'https://hutech.edu.vn/',
+    logo: require('../../static/img/organization/hutech.png').default,
   },
   {
-    url: 'https://nextjs.org/',
-    logo: require('../../static/img/tech/nextjs.png').default,
-  },
-  {
-    url: 'https://flutter.dev/',
-    logo: require('../../static/img/tech/flutter.png').default,
-  },
-  {
-    url: 'https://docusaurus.io/',
-    logo: require('../../static/img/tech/docusaurus.png').default,
+    url: 'https://cjvietnam.vn/',
+    logo: require('../../static/img/organization/cj.png').default,
   },
 ];
 
-const InvestorsSection = () => {
+const SponorSection = () => {
   return (
     <SectionLayout
-      title="Tentative Technologies"
+      title="Sponors and Organization"
       style={{ backgroundColor: 'white' }}
       titleStyle={{ color: '#444950' }}
     >
@@ -36,8 +28,8 @@ const InvestorsSection = () => {
           gap: '5px',
         }}
       >
-        {InvestorsList.map(({ url, logo }, idx) => (
-          <div className="col col--2" key={idx}>
+        {SponorList.map(({ url, logo }, idx) => (
+          <div className="col col--4" key={idx}>
             <div className="col-demo text--center">
               <div
                 style={{
@@ -48,7 +40,7 @@ const InvestorsSection = () => {
                 }}
               >
                 <Link href={url}>
-                  <img loading="lazy" src={logo} style={{ width: '100px' }} />
+                  <img loading="lazy" src={logo} />
                 </Link>
               </div>
             </div>
@@ -59,4 +51,4 @@ const InvestorsSection = () => {
   );
 };
 
-export default InvestorsSection;
+export default SponorSection;
