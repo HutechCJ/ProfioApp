@@ -1,0 +1,15 @@
+:root {
+  --ifm-color-primary: #5b99e2;
+  --ifm-color-primary-dark: #3770b2;
+  --ifm-color-primary-darker: #1b4b81;
+  --ifm-color-primary-darkest: #092545;
+  --ifm-color-primary-light: #6ca8eb;
+  --ifm-color-primary-lighter: #8ca8eb;
+  --ifm-color-primary-lightest: #a0c5ef;
+  --ifm-code-font-size: 95%;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+}
+
+.hero {
+  background-image: url('/img/banner.png');
+}
