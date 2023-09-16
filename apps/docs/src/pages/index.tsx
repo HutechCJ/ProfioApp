@@ -134,10 +134,12 @@ export default function Home(): JSX.Element {
           direction="right"
         >
           <p>
-            We are a global logistics company that provides comprehensive and extensive logistics services worldwide.
+            We are a global logistics company that provides comprehensive and
+            extensive logistics services worldwide.
           </p>
           <p>
-            At CJ Logistics, we believe that our people are our greatest asset and that our people are the reason for our success.
+            At CJ Logistics, we believe that our people are our greatest asset
+            and that our people are the reason for our success.
           </p>
         </FeatureSection>
         <SponorSection />
