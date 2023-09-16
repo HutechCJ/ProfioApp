@@ -1,47 +1,125 @@
 ---
+title: Introduction
+description: A modern, powerful, and professional tool for transportation management.
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# Introduction
 
-Let's discover **Docusaurus in less than 5 minutes**.
+<p align="justify">
+  Profio is a powerful tool for optimizing and simplifying transportation management. It ensures quick, safe, and efficient movements for vehicles or ships. With features like advanced optimization, safety monitoring, seamless integration, and real-time insights, Profio boosts efficiency, reduces costs, and ensures professionalism in transportation management. It's your key to the future of transportation management.
+</p>
 
-## Getting Started
+![Profio](./../static/img/web-preview.jpg)
 
-Get started by **creating a new site**.
+# Why Profio?
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+<p align="justify">
+  Because Profio is the best tool for transportation management. It's a powerful tool that ensures quick, safe, and efficient movements for vehicles or ships. With features like advanced optimization, safety monitoring, seamless integration, and real-time insights, Profio boosts efficiency, reduces costs, and ensures professionalism in transportation management. It's your key to the future of transportation management.
+</p>
 
-### What you'll need
+<p align="justify">
+  Profio also has a lot of features that make it the best tool for transportation management. It's a powerful tool that ensures quick, safe, and efficient movements for vehicles or ships. With features like advanced optimization, safety monitoring, seamless integration, and real-time insights, Profio boosts efficiency, reduces costs, and ensures professionalism in transportation management. It's your key to the future of transportation management.
+</p>
 
-- [Node.js](https://nodejs.org/en/download/) version 16.14 or above:
-  - When installing Node.js, you are recommended to check all checkboxes related to dependencies.
+# Features
 
-## Generate a new site
+- [x] Tracking and monitoring of trucks with real-time updates when they are on delivery routes.
+- [x] Real-time updates on the status of trucks, including their location, speed, and fuel level.
+- [x] Update status of orders in real-time, including their location, status, and ETA.
+- [x] Manage orders and deliveries with ease using the Profio CMS.
+- [x] Email notifications for new orders, deliveries, and other important events.
+- [x] Find the shortest route for a truck to reach its destination.
+- [ ] Add GPS IoT devices to trucks to track their location and status `(requires hardware)`.
+- [ ] Send sms for new orders, deliveries, and other important events.
+- [ ] Migration to Microservices architechture.
+- [ ] Aution for a 3rd transport company to deliver the order.
 
-Generate a new Docusaurus site using the **classic template**.
+# About the project
 
-The classic template will automatically be added to your project after you run the command:
+<p align="justify">
+  This is a product of the CJ Code your Future 2023 contest. The goal of this contest is to create a product that will help the transportation industry. The product should be able to help the transportation industry in the following ways:
+</p>
 
-```bash
-npm init docusaurus@latest my-website classic
-```
+- Reduce the cost of transportation.
+- Increase the efficiency of transportation.
+- Improve the safety of transportation.
+- Help the CJ Company to be more competitive in the transportation industry.
 
-You can type this command into Command Prompt, Powershell, Terminal, or any other integrated terminal of your code editor.
+![Hutech Contest](./../static/img/hutech-cj.jpg)
 
-The command also installs all necessary dependencies you need to run Docusaurus.
+:::caution
 
-## Start your site
+All the connection strings and other sensitive information are stored will be unavailable when we public this project.
 
-Run the development server:
+:::
 
-```bash
-cd my-website
-npm run start
-```
+# Our Team
 
-The `cd` command changes the directory you're working with. In order to work with your newly created Docusaurus site, you'll need to navigate the terminal there.
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key))
 
-The `npm run start` command builds your website locally and serves it through a development server, ready for you to view at http://localhost:3000/.
+<table>
+	<tr>
+		<td align="center" valign="top">
+				<img loading="lazy" width="150" height="150" src="https://github.com/foxminchan.png?s=150"/>
+        <br/>
+        <a href="https://github.com/foxminchan">Xuan Nhan</a>
+        <p>
+          <a href="https://github.com/HutechCJ/ProfioApp/commits?author=foxminchan" title="Developer">💻</a>
+          <a href="#docs" title="Documentation">📖</a>
+          <a href="#infra" title="Infrastructure">🚇</a>
+          <a href="#tool" title="Tools">🔧</a>
+					<a href="#mentoring" title="Mentoring">🧑‍🏫</a>
+        </p>
+		</td>
+		<td align="center" valign="top">
+				<img loading="lazy" width="150" height="150" src="https://github.com/Slimaeus.png?s=150"/>
+        <br/>
+        <a href="https://github.com/Slimaeus">Hong Thai</a>
+        <p>
+          <a href="https://github.com/HutechCJ/ProfioApp/commits?author=Slimaeus" title="Developer">💻</a>
+          <a href="#infra" title="Infrastructure">🚇</a>
+					<a href="#projectManagement" title="Project Management">📆</a>
+					<a href="#maintenance" title="Maintenance">🚧</a>
+					<a href="#review" title="Reviewed Pull Requests">👀</a>
+        </p>
+		</td>
+		<td align="center" valign="top">
+				<img loading="lazy" width="150" height="150" src="https://github.com/nhonvo.png?s=150"/>
+        <br/>
+        <a href="https://github.com/nhonvo">Truong Nhon</a>
+        <p>
+          <a href="https://github.com/HutechCJ/ProfioApp/commits?author=nhonvo" title="Developer">💻</a>
+          <a href="#ideas" title="Ideas, Planning, & Feedback">🤔</a>
+					<a href="#data" title="Data">🔣</a>
+					<a href="#business" title="Business Development">💼</a>
+        </p>
+		</td>
+		<td align="center" valign="top">
+				<img loading="lazy" width="150" height="150" src="https://github.com/fiezt1492.png?s=150"/>
+        <br/>
+        <a href="https://github.com/fiezt1492">Tien Dat</a>
+        <p>
+          <a href="https://github.com/HutechCJ/ProfioApp/commits?author=fiezt1492" title="Developer">💻</a>
+          <a href="#design" title="Design">🎨</a>
+					<a href="#content" title="Content">🖋</a>
+					<a href="#maintenance" title="Maintenance">🚧</a>
+        </p>
+		</td>
+		<td align="center" valign="top">
+				<img loading="lazy" width="150" height="150" src="https://github.com/MeiCloudie.png?s=150"/>
+        <br/>
+        <a href="https://github.com/MeiCloudie">Thuc Van</a>
+        <p>
+          <a href="https://github.com/HutechCJ/ProfioApp/commits?author=MeiCloudie" title="Developer">💻</a>
+          <a href="#design" title="Design">🎨</a>
+					<a href="#content" title="Content">🖋</a>
+					<a href="#talk" title="Talks">📢</a>
+        </p>
+		</td>
+	</tr>
+</table>
 
-Open `docs/intro.md` (this page) and edit some lines: the site **reloads automatically** and displays your changes.
+# License
+
+This project is licensed under the terms of the [MIT license]('https://opensource.org/license/mit/').

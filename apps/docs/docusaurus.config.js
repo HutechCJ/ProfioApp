@@ -87,28 +87,57 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Company',
             items: [
               {
-                label: 'Tutorial',
-                to: '/docs/intro',
+                label: 'About',
+                href: 'https://www.cjlogistics.com/en/about/brand/message',
+              },
+              {
+                label: 'Library',
+                href: 'https://www.cjlogistics.com/en/about/brand/story',
+              },
+              {
+                label: 'Sponsorship',
+                href: 'https://www.cjlogistics.com/en/about/sponsorship/motorsports',
+              },
+              {
+                label: 'Investor Relations',
+                href: 'https://www.cjlogistics.com/en/page/investment/composition',
+              },
+              {
+                label: 'Recruitment',
+                href: 'https://www.cjlogistics.com/en/page/about/cj-way',
               },
             ],
           },
           {
-            title: 'Community',
+            title: 'Legal',
             items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: 'Privacy Policy',
+                href: 'https://www.cjlogistics.com/en/agreement/privacy-policy',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
+                label: 'Operation Policy',
+                href: 'https://www.cjlogistics.com/en/agreement/operation-management-policy',
+              },
+            ],
+          },
+          {
+            title: 'Support',
+            items: [
+              {
+                label: 'Business Inquiry',
+                href: 'https://www.cjlogistics.com/en/support/contacts',
               },
               {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
+                label: 'FAQ',
+                href: 'https://www.cjlogistics.com/en/support/faq',
+              },
+              {
+                label: '1:1 Assistance',
+                href: 'https://www.cjlogistics.com/en/support/inquiry/agreement',
               },
             ],
           },
@@ -116,17 +145,27 @@ const config = {
             title: 'More',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
+                label: 'CJ Vietnam',
+                href: 'https://cjvietnam.vn/vi/about/overview',
               },
               {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                label: 'Hutech University',
+                href: 'https://hutech.edu.vn/',
+              },
+              {
+                label: 'Hutech CJ',
+                href: 'https://github.com/HutechCJ',
               },
             ],
           },
         ],
         copyright: `Copyright © ${new Date().getFullYear()} HutechCJ. All rights reserved`,
+        logo: {
+          alt: 'CJ Logo',
+          src: 'img/logo.png',
+          href: 'https://github.com/HutechCJ',
+          width: 100,
+        },
       },
       prism: {
         theme: lightCodeTheme,
