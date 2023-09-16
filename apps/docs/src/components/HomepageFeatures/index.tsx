@@ -14,7 +14,8 @@ const FeatureList: FeatureItem[] = [
     Svg: require('@site/static/img/tracking-track.svg').default,
     description: (
       <>
-        Track your truck in real time. You can see the location of the truck on the map.
+        Track your truck in real time. You can see the location of the truck on
+        the map.
       </>
     ),
   },
@@ -23,7 +24,8 @@ const FeatureList: FeatureItem[] = [
     Svg: require('@site/static/img/order-mangement.svg').default,
     description: (
       <>
-        The order management system allows you to manage orders. You can see the status of your order and the location of the truck.
+        The order management system allows you to manage orders. You can see the
+        status of your order and the location of the truck.
       </>
     ),
   },
@@ -32,10 +34,11 @@ const FeatureList: FeatureItem[] = [
     Svg: require('@site/static/img/mobile-phone.svg').default,
     description: (
       <>
-        The incident warning system allows administrator to warn the driver of an incident. The driver can see via mobile app.
+        The incident warning system allows administrator to warn the driver of
+        an incident. The driver can see via mobile app.
       </>
     ),
-  }
+  },
 ];
 
 function Feature({ title, Svg, description }: FeatureItem) {
