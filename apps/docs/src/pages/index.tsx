@@ -46,69 +46,83 @@ export default function Home(): JSX.Element {
       <HomepageHeader />
       <main>
         <HomepageFeatures />
-        <section className="page__section" style={{ backgroundColor: '#1b1b1d' }}>
-        <div className="container">
-          <div className="row" style={{ gap: '10px', marginTop: '20px' }}>
-            <div className="col col--5 col--offset-1">
-              <div className="col-demo">
-                <div className="card-demo">
-                  <div className="card">
-                    <div className="card__header">
-                      <h3
-                        className="text--center"
-                        style={{ whiteSpace: 'pre-line' }}
-                      >
-                        The Logistics Platform
-                      </h3>
-                    </div>
-                    <div className="card__body">
-                      <p className="text--center">
-                        ProfIO is not just a tracking system, it’s a real-time solution that integrates with Google Maps to provide accurate and up-to-the-minute tracking of vehicles including motorbikes, vans, and trucks
-                      </p>
-                    </div>
-                    <div className="card__footer">
-                      <Link
-                        className={clsx('button button--primary button--block')}
-                        href="https://github.com/HutechCJ/ProfioApp"
-                      >
-                        Visit The Project
-                      </Link>
+        <section
+          className="page__section"
+          style={{ backgroundColor: '#1b1b1d' }}
+        >
+          <div className="container">
+            <div className="row" style={{ gap: '10px', marginTop: '20px' }}>
+              <div className="col col--5 col--offset-1">
+                <div className="col-demo">
+                  <div className="card-demo">
+                    <div className="card">
+                      <div className="card__header">
+                        <h3
+                          className="text--center"
+                          style={{ whiteSpace: 'pre-line' }}
+                        >
+                          The Logistics Platform
+                        </h3>
+                      </div>
+                      <div className="card__body">
+                        <p className="text--center">
+                          ProfIO is not just a tracking system, it’s a real-time
+                          solution that integrates with Google Maps to provide
+                          accurate and up-to-the-minute tracking of vehicles
+                          including motorbikes, vans, and trucks
+                        </p>
+                      </div>
+                      <div className="card__footer">
+                        <Link
+                          className={clsx(
+                            'button button--primary button--block',
+                          )}
+                          href="https://github.com/HutechCJ/ProfioApp"
+                        >
+                          Visit The Project
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="col col--5">
-              <div className="col-demo">
-                <div className="card-demo">
-                  <div className="card">
-                    <div className="card__header">
-                      <h3
-                        className="text--center"
-                        style={{ whiteSpace: 'pre-line' }}
-                      >
-                        The Logistics Company
-                      </h3>
-                    </div>
-                    <div className="card__body">
-                      <p className="text--center">
-                         CJ Logistics is a global logistics company that provides comprehensive and extensive logistics services worldwide. CJ Logistics is a global logistics company that provides comprehensive and extensive logistics services worldwide.
-                      </p>
-                    </div>
-                    <div className="card__footer">
-                      <Link
-                        className={clsx('button button--primary button--block')}
-                        href="mailto:info@cjvietnam.vn"
-                      >
-                        Contact The Company
-                      </Link>
+              <div className="col col--5">
+                <div className="col-demo">
+                  <div className="card-demo">
+                    <div className="card">
+                      <div className="card__header">
+                        <h3
+                          className="text--center"
+                          style={{ whiteSpace: 'pre-line' }}
+                        >
+                          The Logistics Company
+                        </h3>
+                      </div>
+                      <div className="card__body">
+                        <p className="text--center">
+                          CJ Logistics is a global logistics company that
+                          provides comprehensive and extensive logistics
+                          services worldwide. CJ Logistics is a global logistics
+                          company that provides comprehensive and extensive
+                          logistics services worldwide.
+                        </p>
+                      </div>
+                      <div className="card__footer">
+                        <Link
+                          className={clsx(
+                            'button button--primary button--block',
+                          )}
+                          href="mailto:info@cjvietnam.vn"
+                        >
+                          Contact The Company
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
         </section>
         <SponorSection />
         <TechStackSection />
