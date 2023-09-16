@@ -57,10 +57,13 @@ export default function Home(): JSX.Element {
               <div className="col col--5 col--offset-1">
                 <div className="col-demo">
                   <div className="card-demo">
-                    <div className="card" style={{
-                      backgroundColor: '#242526',
-                      color: '#fff',
-                      }}>
+                    <div
+                      className="card"
+                      style={{
+                        backgroundColor: '#242526',
+                        color: '#fff',
+                      }}
+                    >
                       <div className="card__header">
                         <h3
                           className="text--center"
@@ -94,10 +97,13 @@ export default function Home(): JSX.Element {
               <div className="col col--5">
                 <div className="col-demo">
                   <div className="card-demo">
-                    <div className="card" style={{
-                      backgroundColor: '#242526',
-                      color: '#fff',
-                      }}>
+                    <div
+                      className="card"
+                      style={{
+                        backgroundColor: '#242526',
+                        color: '#fff',
+                      }}
+                    >
                       <div className="card__header">
                         <h3
                           className="text--center"
