@@ -12,7 +12,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
-[SwaggerTag("A hub endpoints")]
+[SwaggerTag("Manage Hubs")]
 public class HubsController : BaseEntityController<Hub, HubDto, GetHubByIdQuery>
 {
   [HttpGet]
