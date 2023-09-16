@@ -3,18 +3,22 @@ import Link from '@docusaurus/Link';
 
 import SectionLayout from './SectionLayout';
 
+import dotnet from '../../static/img/tech/dotnet.png';
+import nextjs from '../../static/img/tech/nextjs.png';
+import flutter from '../../static/img/tech/flutter.png';
+
 const InvestorsList = [
   {
     url: 'https://dotnet.microsoft.com/en-us/',
-    logo: 'https://i.imgur.com/HYadxRR.png',
+    logo: dotnet,
   },
   {
     url: 'https://nextjs.org/',
-    logo: 'https://i.imgur.com/U9hrfQp.png',
+    logo: nextjs,
   },
   {
     url: 'https://flutter.dev/',
-    logo: 'https://i.imgur.com/NYNWmfc.png',
+    logo: flutter,
   },
 ];
 
