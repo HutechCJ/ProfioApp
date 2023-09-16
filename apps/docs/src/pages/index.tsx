@@ -9,7 +9,9 @@ import styles from './index.module.css';
 import DeveloperCommunitySection from '../components/DeveloperCommunitySection';
 import TechStackSection from '../components/TechStackSection';
 import SponorSection from '../components/SponorsAndOrganization';
+import FeatureSection from '../components/FeatureSection';
 
+const Icon = require('../../static/img/container.svg').default;
 function HomepageHeader() {
   const { siteConfig } = useDocusaurusContext();
   return (
@@ -124,6 +126,20 @@ export default function Home(): JSX.Element {
             </div>
           </div>
         </section>
+        <FeatureSection
+          title="Knowledge Base"
+          btnLink="https://www.cjlogistics.com/en/network/en-vn"
+          btnText="Read More"
+          image={Icon}
+          direction="right"
+        >
+          <p>
+            We are a global logistics company that provides comprehensive and extensive logistics services worldwide.
+          </p>
+          <p>
+            At CJ Logistics, we believe that our people are our greatest asset and that our people are the reason for our success.
+          </p>
+        </FeatureSection>
         <SponorSection />
         <TechStackSection />
         <DeveloperCommunitySection />

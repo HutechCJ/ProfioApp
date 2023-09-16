@@ -3,7 +3,7 @@ import Link from '@docusaurus/Link';
 
 import SectionLayout from './SectionLayout';
 
-const InvestorsList = [
+const TechList = [
   {
     url: 'https://dotnet.microsoft.com/en-us/',
     logo: require('../../static/img/tech/dotnet.png').default,
@@ -22,7 +22,7 @@ const InvestorsList = [
   },
 ];
 
-const InvestorsSection = () => {
+const TechSection = () => {
   return (
     <SectionLayout
       title="Tentative Technologies"
@@ -36,7 +36,7 @@ const InvestorsSection = () => {
           gap: '5px',
         }}
       >
-        {InvestorsList.map(({ url, logo }, idx) => (
+        {TechList.map(({ url, logo }, idx) => (
           <div className="col col--2" key={idx}>
             <div className="col-demo text--center">
               <div
@@ -59,4 +59,4 @@ const InvestorsSection = () => {
   );
 };
 
-export default InvestorsSection;
+export default TechSection;
