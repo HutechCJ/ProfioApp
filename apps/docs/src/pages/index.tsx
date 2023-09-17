@@ -116,8 +116,8 @@ export default function Home(): JSX.Element {
                         <p className="text--center">
                           CJ Logistics is a global logistics company that
                           provides comprehensive and extensive logistics
-                          services worldwide. At CJ, we believe that
-                          our people are our greatest asset.
+                          services worldwide. At CJ, we believe that our people
+                          are our greatest asset.
                         </p>
                       </div>
                       <div className="card__footer">

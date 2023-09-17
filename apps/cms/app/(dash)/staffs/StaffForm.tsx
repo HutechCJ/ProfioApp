@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { StaffPosition } from '@/features/staff/staff.types';
 import {
@@ -12,7 +12,6 @@ import {
   Stack,
   Button,
 } from '@mui/material';
-import useCreateStaff from '@/features/staff/useCreateStaff';
 import { useSnackbar } from 'notistack';
 import useCountByPosition from '@/features/staff/useCountByPosition';
 
@@ -25,27 +24,63 @@ const positions = [
     value: StaffPosition.Shipper,
     label: 'Shipper',
   },
+  {
+    value: StaffPosition.Officer,
+    label: 'Officer',
+  },
+  {
+    value: StaffPosition.Stoker,
+    label: 'Stoker',
+  },
 ];
 
 interface StaffFormProps {
+  onSubmit: (data: FormData) => void;
+  initialValue: {
+    name?: string;
+    phone?: string & { length: 10 };
+    position?: StaffPosition;
+  };
+  error: any;
+  isError: boolean;
+  isSuccess: boolean;
   onSuccess: () => void;
+  labelButton: string;
 }
 
-const StaffForm: React.FC<StaffFormProps> = ({ onSuccess }) => {
+const StaffForm: React.FC<StaffFormProps> = ({
+  onSubmit,
+  initialValue,
+  error,
+  isError,
+  isSuccess,
+  onSuccess,
+  labelButton,
+}) => {
+  const [staff, setStaff] = useState({
+    name: initialValue.name || '',
+    phone: initialValue.phone || '',
+    position: initialValue.position || StaffPosition.Driver,
+  });
+
   const { enqueueSnackbar } = useSnackbar();
-  const { mutate: createStaff, error, isError, isSuccess } = useCreateStaff();
   const { refetch: refetchCount } = useCountByPosition();
+
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setStaff({
+      ...staff,
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    createStaff({
-      name: data.get('name') as string,
-      phone: data.get('phone') as string & { length: 10 },
-      position:
-        StaffPosition[
-          parseInt(data.get('position') as string) as StaffPosition
-        ],
+    onSubmit(data);
+    setStaff({
+      name: '',
+      phone: '',
+      position: StaffPosition.Driver,
     });
   };
 
@@ -70,6 +105,8 @@ const StaffForm: React.FC<StaffFormProps> = ({ onSuccess }) => {
         name="name"
         label="Full Name"
         autoComplete="given-name"
+        value={staff.name}
+        onChange={handleChangeInput}
       />
       <TextField
         margin="dense"
@@ -80,6 +117,8 @@ const StaffForm: React.FC<StaffFormProps> = ({ onSuccess }) => {
         name="phone"
         label="Phone"
         autoComplete="phone"
+        value={staff.phone}
+        onChange={handleChangeInput}
       />
       <TextField
         margin="dense"
@@ -91,6 +130,8 @@ const StaffForm: React.FC<StaffFormProps> = ({ onSuccess }) => {
         id="position"
         name="position"
         label="Position"
+        value={staff.position}
+        onChange={handleChangeInput}
       >
         {positions.map((option) => (
           <MenuItem key={option.value} value={option.value}>
@@ -102,20 +143,22 @@ const StaffForm: React.FC<StaffFormProps> = ({ onSuccess }) => {
         <Alert severity="error" sx={{ mt: 2 }}>
           <AlertTitle>Error</AlertTitle>
           <Stack>
-            {Object.values(
-              (error as any).response.data.data as {
-                [key: string]: any;
-              },
-            )
-              .flat()
-              .map((value, i) => (
-                <span key={`error_${i}`}>{value}</span>
-              ))}
+            {error &&
+              error.response &&
+              error.response.data &&
+              error.response.data.data &&
+              Object.values(error.response.data.data)
+                .flat()
+                .map((value, i) => (
+                  <React.Fragment key={`error_${i}`}>
+                    {String(value)}
+                  </React.Fragment>
+                ))}
           </Stack>
         </Alert>
       )}
       <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
-        SUBMIT
+        {labelButton}
       </Button>
     </Box>
   );
