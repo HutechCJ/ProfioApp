@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Profio.Domain.Constants;
 using Profio.Domain.Contracts;
 using Profio.Infrastructure.Email.FluentEmail;
-using Profio.Infrastructure.Message;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Api.UseCases.v1;
