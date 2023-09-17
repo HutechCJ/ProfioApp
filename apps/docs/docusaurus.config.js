@@ -23,7 +23,6 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
           editUrl: 'https://github.com/HutechCJ/ProfioApp',
           remarkPlugins: [simplePlantUML],
         },
@@ -67,9 +66,8 @@ const config = {
             type: 'doc',
             docId: 'intro',
             position: 'left',
-            label: 'Architecture',
+            label: 'Documentation',
           },
-          { to: '/blog', label: 'Documentation', position: 'left' },
           {
             href: 'https://www.cjlogistics.com/en/main',
             label: 'Website',

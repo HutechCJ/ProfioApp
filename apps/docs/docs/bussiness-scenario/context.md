@@ -10,6 +10,8 @@ sidebar_position: 1
 
 ![Logistics Management](../../static/img/context/logistics.jpg)
 
+<p align="justify">
+
 1. **Complexity in Logistics Management**
    The process of managing and tracking the transportation of goods based on zip codes is inherently intricate. It involves various aspects, such as route planning, inventory management, and coordination among multiple parties in the supply chain.
 
@@ -35,32 +37,50 @@ sidebar_position: 1
 
 To tackle these multifaceted challenges, it is essential to implement comprehensive solutions that enhance logistics management, mitigate delays, and provide real-time visibility into the supply chain.
 
+</p>
+
 ## Proposed Solution
 
+<p align="justify">
+
 In response to the challenges we've identified in the logistics landscape, we have designed a comprehensive solution aimed at streamlining operations, reducing delivery delays, and offering real-time insights into the supply chain. Our solution encompasses the following key components:
+
+</p>
 
 **1. Customer Status Updates**
 
 ![Customer](../../static/img/context/customer.png)
 
-_Objective_: Our foremost goal is to furnish customers with accurate and timely updates regarding the status of their deliveries.
+<p align="justify">
 
-_Description_: We recognize the significance of keeping customers well-informed about the progress of their shipments. To achieve this, we have implemented a customer communication system that consistently sends real-time notifications detailing the current location and estimated delivery time of their orders. This feature is poised to elevate customer satisfaction levels by diminishing uncertainty and augmenting transparency throughout the delivery process.
+**Objective**: Our foremost goal is to furnish customers with accurate and timely updates regarding the status of their deliveries.
+
+**Description**: We recognize the significance of keeping customers well-informed about the progress of their shipments. To achieve this, we have implemented a customer communication system that consistently sends real-time notifications detailing the current location and estimated delivery time of their orders. This feature is poised to elevate customer satisfaction levels by diminishing uncertainty and augmenting transparency throughout the delivery process.
+
+</p>
 
 **2. Incident Management**
 
 ![Incident](../../static/img/context/incidents.jpg)
 
-_Objective_: Our aim here is to promptly identify and address any incidents that have the potential to disrupt the supply chain.
+<p align="justify">
 
-_Description_: Our solution incorporates a robust incident management module that ensures swift notifications to all active hubs and pertinent stakeholders in the event of any incidents that could disrupt the delivery process. This module also facilitates the documentation and tracking of incidents occurring at hubs or involving vehicles, expediting the resolution process. By proactively managing disruptions, we intend to minimize their impact on delivery timelines and overall logistical operations.
+**Objective**: Our aim here is to promptly identify and address any incidents that have the potential to disrupt the supply chain.
+
+**Description**: Our solution incorporates a robust incident management module that ensures swift notifications to all active hubs and pertinent stakeholders in the event of any incidents that could disrupt the delivery process. This module also facilitates the documentation and tracking of incidents occurring at hubs or involving vehicles, expediting the resolution process. By proactively managing disruptions, we intend to minimize their impact on delivery timelines and overall logistical operations.
+
+</p>
 
 **3. Real-time Vehicle Tracking**
 
 ![Vehicle](../../static/img/context/vehicle.webp)
 
-_Objective_: We aim to provide real-time visibility into the locations of vehicles and optimize route planning.
+<p align="justify">
 
-_Description_: Leveraging the power of Google Maps technology, our solution offers comprehensive real-time tracking of vehicle locations across Viet Nam. This functionality empowers logistics managers with the ability to monitor the precise whereabouts of shipments in real-time. Moreover, it utilizes advanced route optimization algorithms to calculate the most efficient and shortest routes for deliveries. By combining real-time tracking with route optimization, we aspire to reduce transit times, fuel consumption, and delivery costs, ultimately enhancing the overall efficiency of our logistics operations.
+**Objective**: We aim to provide real-time visibility into the locations of vehicles and optimize route planning.
+
+**Description**: Leveraging the power of Google Maps technology, our solution offers comprehensive real-time tracking of vehicle locations across Viet Nam. This functionality empowers logistics managers with the ability to monitor the precise whereabouts of shipments in real-time. Moreover, it utilizes advanced route optimization algorithms to calculate the most efficient and shortest routes for deliveries. By combining real-time tracking with route optimization, we aspire to reduce transit times, fuel consumption, and delivery costs, ultimately enhancing the overall efficiency of our logistics operations.
 
 By implementing these solution components, our objective is to effectively address the complexities in logistics management, mitigate inefficiencies leading to delivery delays, and fill the void of real-time visibility in the supply chain. Our overarching aim is to deliver a robust and seamlessly integrated logistics management system that elevates customer satisfaction, minimizes disruptions, and optimizes logistics processes throughout Viet Nam.
+
+</p>
