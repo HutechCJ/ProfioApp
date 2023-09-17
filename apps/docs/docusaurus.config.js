@@ -9,14 +9,13 @@ const simplePlantUML = require('@akebifiky/remark-simple-plantuml');
 const config = {
   title: 'Profio Application',
   tagline: '🚛 A Modern Logistics Management System ✈️',
-  url: 'https://www.cjlogistics.com/en/main',
+  url: 'https://profio-document.onrender.com',
   baseUrl: '/',
+  projectName: 'ProfioApp',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'HutechCJ', // Usually your GitHub org/user name.
-  projectName: 'ProfioApp', // Usually your repo name.
-
+  organizationName: 'HutechCJ',
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
