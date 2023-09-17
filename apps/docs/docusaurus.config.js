@@ -1,8 +1,9 @@
-// @ts-check
+// @ts-nocheck
 // Note: type annotations allow type checking and IDEs autocompletion
 
 const lightCodeTheme = require('prism-react-renderer/themes/github');
 const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const simplePlantUML = require('@akebifiky/remark-simple-plantuml');
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
@@ -15,7 +16,6 @@ const config = {
   favicon: 'img/favicon.ico',
   organizationName: 'HutechCJ', // Usually your GitHub org/user name.
   projectName: 'ProfioApp', // Usually your repo name.
-
   presets: [
     [
       'classic',
@@ -25,6 +25,7 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
           editUrl: 'https://github.com/HutechCJ/ProfioApp',
+          remarkPlugins: [simplePlantUML],
         },
         blog: {
           showReadingTime: true,
@@ -36,7 +37,6 @@ const config = {
       }),
     ],
   ],
-
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
