@@ -24,7 +24,7 @@ import MopedIcon from '@mui/icons-material/Moped';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import FormDialog from '@/components/FormDialog';
-import StaffForm from '../StaffForm';
+import AddStaff from '../AddStaff';
 
 function Staff({ params }: { params: { staffId: string } }) {
   const { data: staffApiRes, isLoading, isError } = useGetStaff(params.staffId);
@@ -59,7 +59,7 @@ function Staff({ params }: { params: { staffId: string } }) {
             dialogTitle="STAFF INFORMATION"
             dialogDescription={`ID: ${params.staffId}`}
             componentProps={(handleClose) => (
-              <StaffForm onSuccess={handleClose} />
+              <AddStaff onSuccess={handleClose} />
             )}
           />
 
@@ -70,7 +70,7 @@ function Staff({ params }: { params: { staffId: string } }) {
             dialogTitle="Are you sure you want to delete this STAFF?"
             dialogDescription={`ID: ${params.staffId}`}
             componentProps={(handleClose) => (
-              <StaffForm onSuccess={handleClose} />
+              <AddStaff onSuccess={handleClose} />
             )}
           />
         </ButtonGroup>

@@ -1,9 +1,10 @@
 import { useMutation } from '@tanstack/react-query';
 import staffApi from './staff.service';
+import { UpdateStaffRequest } from './staff.types';
 
 const useUpdateStaff = () => {
   return useMutation({
-    mutationFn: (id: string) => staffApi.updateStaff(id),
+    mutationFn: (data: UpdateStaffRequest) => staffApi.updateStaff(data),
   });
 };
 
