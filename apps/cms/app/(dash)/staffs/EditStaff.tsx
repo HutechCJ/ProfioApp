@@ -6,7 +6,6 @@ import useUpdateStaff from '@/features/staff/useUpdateStaff';
 import StaffForm from './StaffForm';
 import useGetStaff from '@/features/staff/useGetStaff';
 import { StaffPosition } from '@/features/staff/staff.types';
-import useGetStaffs from '@/features/staff/useGetStaffs';
 
 interface EditStaffProps {
   onSuccess: () => void;

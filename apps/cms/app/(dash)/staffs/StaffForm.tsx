@@ -14,7 +14,6 @@ import {
 } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import useCountByPosition from '@/features/staff/useCountByPosition';
-import useGetStaffs from '@/features/staff/useGetStaffs';
 
 const positions = [
   {
@@ -36,7 +35,7 @@ const positions = [
 ];
 
 interface StaffFormProps {
-  onSubmit: any;
+  onSubmit: (data: FormData) => void;
   initialValue: {
     name?: string;
     phone?: string & { length: 10 };
