@@ -15,3 +15,7 @@ export enum StaffPosition {
 export type CreateStaffRequest = Omit<Staff, 'id' | 'position'> & {
   position: string;
 };
+
+export type UpdateStaffRequest = Omit<Staff, 'position'> & {
+  position: string;
+};
