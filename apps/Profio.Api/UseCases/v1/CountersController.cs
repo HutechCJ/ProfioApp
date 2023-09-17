@@ -10,7 +10,8 @@ namespace Profio.Api.UseCases.v1;
 public class CountersController : BaseController
 {
   [HttpGet("entities")]
-  [MapToApiVersion("1.0")]
+  [SwaggerOperation(summary: "Retrieve the count of items in each table of the entity")]
+
   public async Task<ActionResult<ResultModel<Dictionary<string, int>>>> GetEntityCount([FromQuery] IList<string> entityTypes)
     => Ok(ResultModel<Dictionary<string, int>>.Create(await Mediator.Send(new GetEntityCountQuery(entityTypes))));
 }
