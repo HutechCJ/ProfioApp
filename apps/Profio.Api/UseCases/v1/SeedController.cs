@@ -11,7 +11,7 @@ public class SeedController : BaseController
 {
   [ApiKey]
   [HttpGet]
-  [MapToApiVersion("1.0")]
-  public async Task<IActionResult> GetNotFoundAsync()
+  [SwaggerOperation(summary: "Seed Data")]
+  public async Task<IActionResult> SeedData()
     => Ok(await Mediator.Send(new SeedDataQuery()));
 }

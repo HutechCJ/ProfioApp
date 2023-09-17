@@ -18,7 +18,7 @@ public class SenderController : BaseController
     => _emailService = emailService;
 
   [HttpPost("email/order")]
-  [MapToApiVersion("1.0")]
+  [SwaggerOperation(summary: "Send Order Email")]
   public async Task<IActionResult> SendEmail(OrderInfo order, [FromQuery] EmailType type)
   {
     await _emailService.SendEmailAsync(new()
