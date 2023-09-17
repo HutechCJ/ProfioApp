@@ -1,6 +1,7 @@
 using Profio.Domain.Constants;
 using Profio.Domain.Interfaces;
 using Profio.Domain.ValueObjects;
+using System.Text.Json.Serialization;
 
 namespace Profio.Domain.Entities;
 
@@ -15,6 +16,7 @@ public sealed class Order : IEntity
   public string? Note { get; set; }
   public double? Distance { get; set; }
   public string? CustomerId { get; set; }
+  [JsonIgnore]
   public Customer? Customer { get; set; }
   public ICollection<Delivery>? Deliveries { get; set; } = new List<Delivery>();
   public ICollection<DeliveryProgress> DeliveryProgresses { get; set; } = new List<DeliveryProgress>();

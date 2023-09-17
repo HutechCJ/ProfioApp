@@ -15,6 +15,8 @@ import {
 import PeopleIcon from '@mui/icons-material/People';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import MopedIcon from '@mui/icons-material/Moped';
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
+import InventoryIcon from '@mui/icons-material/Inventory';
 
 import Stat from '../../../components/Stat';
 import useCountByPosition from '@/features/staff/useCountByPosition';
@@ -36,7 +38,10 @@ const StaffStatisticsCard = () => {
 
   const totalDrivers = countData?.data?.[0] || 0;
   const totalShippers = countData?.data?.[1] || 0;
-  const totalStaff = totalDrivers + totalShippers;
+  const totalOfficers = countData?.data?.[2] || 0;
+  const totalStokers = countData?.data?.[3] || 0;
+  const totalStaff =
+    totalDrivers + totalShippers + totalOfficers + totalStokers;
 
   return (
     <Card sx={{ marginBottom: 4 }}>
@@ -65,6 +70,18 @@ const StaffStatisticsCard = () => {
             value={totalShippers}
             description="Shipper"
             iconColor="blue"
+          />
+          <Stat
+            icon={<BusinessCenterIcon />}
+            value={totalOfficers}
+            description="Officer"
+            iconColor="green"
+          />
+          <Stat
+            icon={<InventoryIcon />}
+            value={totalStokers}
+            description="Stoker"
+            iconColor="brown"
           />
         </Stack>
       </CardContent>

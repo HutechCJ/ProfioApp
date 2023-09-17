@@ -6,6 +6,7 @@ using Profio.Application.Users.Commands.ChangePassword;
 using Profio.Application.Users.Commands.Login;
 using Profio.Application.Users.Commands.Register;
 using Profio.Application.Users.Queries;
+using Profio.Domain.Constants;
 using Profio.Domain.Models;
 using Profio.Domain.Specifications;
 using Profio.Infrastructure.Identity;
@@ -20,7 +21,6 @@ public class UsersController : BaseEntityController<ApplicationUser, UserDto, Ge
 {
   [HttpPost("login")]
   [AllowAnonymous]
-  [MapToApiVersion("1.0")]
   [SwaggerOperation(
     summary: "Login",
     description: "The API will return a token and cookie named `USER-TOKEN` to the user if the credentials are correct"
@@ -40,27 +40,27 @@ public class UsersController : BaseEntityController<ApplicationUser, UserDto, Ge
 
   [HttpPost("register")]
   [AllowAnonymous]
-  [MapToApiVersion("1.0")]
   public async Task<ActionResult<ResultModel<AccountDto>>> Register(RegisterCommand registerCommand)
     => Ok(ResultModel<AccountDto>.Create(await Mediator.Send(registerCommand)));
 
   [HttpPost("change-password")]
+  [SwaggerOperation(summary: "Change Password")]
   public async Task<ActionResult<ResultModel<AccountDto>>> ChangePassword(ChangePasswordCommand changePasswordCommand)
     => Ok(ResultModel<AccountDto>.Create(await Mediator.Send(changePasswordCommand)));
 
   [HttpGet("{id:guid}")]
-  [MapToApiVersion("1.0")]
+  [SwaggerOperation(summary: "Get User by Id")]
   public Task<ActionResult<ResultModel<UserDto>>> GetUserById(Guid id)
     => HandleGetByIdQuery(new(id));
 
   [HttpGet("check-authorization")]
-  [MapToApiVersion("1.0")]
+  [SwaggerOperation(summary: "Check user's autherization status")]
   public async Task<ActionResult<ResultModel<AccountDto>>> CheckAuthorization()
     => Ok(ResultModel<AccountDto>.Create(await Mediator.Send(new CheckAuthorizationQuery())));
 
   [HttpGet("get-users")]
-  [AllowAnonymous]
-  [MapToApiVersion("1.0")]
+  [SwaggerOperation(summary: "Get User list")]
+  [Authorize(Roles = UserRole.Administrator)]
   public Task<ActionResult<ResultModel<IPagedList<UserDto>>>> GetUsers([FromQuery] Criteria criteria)
     => HandlePaginationQuery(new GetUserWithPagingQuery(criteria));
 }

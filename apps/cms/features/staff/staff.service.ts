@@ -1,7 +1,7 @@
 'use client';
 
 import { getPagingQueryString } from '@/common/utils/string';
-import { CreateStaffRequest, Staff } from './staff.types';
+import { CreateStaffRequest, Staff, UpdateStaffRequest } from './staff.types';
 import HttpService from '@/common/services/http.service';
 
 class StaffApiService extends HttpService {
@@ -22,8 +22,8 @@ class StaffApiService extends HttpService {
     return this.post<Staff>('/staffs', data);
   }
 
-  updateStaff(id: string) {
-    return this.put(`/staffs/${id}`);
+  updateStaff(data: UpdateStaffRequest) {
+    return this.put(`/staffs/${data.id}`, data);
   }
 
   deleteStaff(id: string) {

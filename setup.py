@@ -12,9 +12,8 @@ with open("requirements.txt") as f:
     ]
 
 setup(
-    name="profio-mkdocs",
+    name="profio python package",
     version="0.1.0",
-    description="A documentation for Profio project",
     author="HutechCJ",
     url="https://github.com/HutechCJ",
     install_requires=install_requires,
