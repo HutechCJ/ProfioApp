@@ -86,7 +86,7 @@ function StaffList() {
           <ActionForList
             entityId={staffId}
             entity="staff"
-            detailsLink={`/staff/${staffId}`}
+            detailsLink={`/staffs/${staffId}`}
             editComponentProps={(handleClose) => (
               <EditStaff
                 onSuccess={() => {
