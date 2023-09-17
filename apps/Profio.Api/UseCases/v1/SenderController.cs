@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Profio.Domain.Constants;
 using Profio.Domain.Contracts;
 using Profio.Infrastructure.Email.FluentEmail;
-using Profio.Infrastructure.Message;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Api.UseCases.v1;
@@ -19,16 +18,14 @@ public class SenderController : BaseController
     => _emailService = emailService;
 
   [HttpPost("email/order")]
-  [MapToApiVersion("1.0")]
+  [SwaggerOperation(summary: "Send Order Email")]
   public async Task<IActionResult> SendEmail(OrderInfo order, [FromQuery] EmailType type)
   {
     await _emailService.SendEmailAsync(new()
     {
       To = order.Email,
       Subject = "Order Information",
-      Template = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
-      ? $"{Directory.GetCurrentDirectory()}/Templates/Order.liquid"
-      : $"{Directory.GetCurrentDirectory()}/wwwroot/Templates/Order.liquid",
+      Template = $"{Directory.GetCurrentDirectory()}/wwwroot/Templates/Order.liquid",
       Model = new
       {
         Status = type switch

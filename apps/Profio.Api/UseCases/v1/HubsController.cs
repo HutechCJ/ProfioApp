@@ -16,32 +16,32 @@ namespace Profio.Api.UseCases.v1;
 public class HubsController : BaseEntityController<Hub, HubDto, GetHubByIdQuery>
 {
   [HttpGet]
-  [MapToApiVersion("1.0")]
+  [SwaggerOperation(summary: "Get Hub List with Paging")]
   public Task<ActionResult<ResultModel<IPagedList<HubDto>>>> Get([FromQuery] Criteria criteria, [FromQuery] HubEnumFilter hubEnumFilter)
     => HandlePaginationQuery(new GetHubWithPagingQuery(criteria, hubEnumFilter));
 
   [HttpGet("{id:length(26)}")]
-  [MapToApiVersion("1.0")]
+  [SwaggerOperation(summary: "Get Hub by Id")]
   public Task<ActionResult<ResultModel<HubDto>>> GetById(string id)
     => HandleGetByIdQuery(new(id));
 
   [HttpPost]
-  [MapToApiVersion("1.0")]
+  [SwaggerOperation(summary: "Create Hub")]
   public Task<ActionResult<ResultModel<HubDto>>> Post(CreateHubCommand command)
     => HandleCreateCommand(command);
 
   [HttpPut("{id:length(26)}")]
-  [MapToApiVersion("1.0")]
+  [SwaggerOperation(summary: "Update Hub")]
   public Task<IActionResult> Put([FromRoute] string id, [FromBody] UpdateHubCommand command)
     => HandleUpdateCommand(id, command);
 
   [HttpDelete("{id:length(26)}")]
-  [MapToApiVersion("1.0")]
+  [SwaggerOperation(summary: "Delete Hub")]
   public Task<ActionResult<ResultModel<HubDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteHubCommand(id));
 
   [HttpGet("nearest-hub")]
-  [MapToApiVersion("1.0")]
+  [SwaggerOperation(summary: "Get nearest Hub")]
   public async Task<ActionResult<ResultModel<HubDto>>> GetNearestHub([FromQuery] Location location)
     => Ok(ResultModel<HubDto>.Create(await Mediator.Send(new GetNearestHubByLocationQuery(location))));
 

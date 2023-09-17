@@ -21,14 +21,14 @@ public class SystemController : BaseController
 
   [ApiKey]
   [HttpGet]
-  [MapToApiVersion("1.0")]
+  [SwaggerOperation(summary: "Get Platform's configuration")]
   [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
   public IActionResult GetPlatform()
     => Ok(_config.GetPlatform(_env));
 
   [ApiKey]
   [HttpGet("status")]
-  [MapToApiVersion("1.0")]
+  [SwaggerOperation(summary: "Get Platform's status")]
   public IActionResult GetServerStatus()
     => Ok(Extension.GetPlatformStatus(_env));
 }

@@ -1,5 +1,6 @@
 using Profio.Domain.Constants;
 using Profio.Domain.Interfaces;
+using System.Text.Json.Serialization;
 
 namespace Profio.Domain.Entities;
 
@@ -11,6 +12,7 @@ public sealed class Vehicle : IEntity
   public VehicleType Type { get; set; } = VehicleType.Truck;
   public VehicleStatus Status { get; set; } = VehicleStatus.Idle;
   public string? StaffId { get; set; }
+  [JsonIgnore]
   public Staff? Staff { get; set; }
   public ICollection<Delivery> Deliveries { get; set; } = new List<Delivery>();
 }
