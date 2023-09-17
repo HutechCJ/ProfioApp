@@ -15,27 +15,27 @@ namespace Profio.Api.UseCases.v1;
 public class CustomersController : BaseEntityController<Customer, CustomerDto, GetCustomerByIdQuery>
 {
   [HttpGet]
-  [MapToApiVersion("1.0")]
+  [SwaggerOperation(summary: "Get Customer List with Paging")]
   public Task<ActionResult<ResultModel<IPagedList<CustomerDto>>>> Get([FromQuery] Criteria criteria, [FromQuery] CustomerEnumFilter customerEnumFilter)
     => HandlePaginationQuery(new GetCustomerWithPagingQuery(criteria, customerEnumFilter));
 
   [HttpGet("{id:length(26)}")]
-  [MapToApiVersion("1.0")]
+  [SwaggerOperation(summary: "Get Customer by Id")]
   public Task<ActionResult<ResultModel<CustomerDto>>> GetById(string id)
     => HandleGetByIdQuery(new(id));
 
   [HttpPost]
-  [MapToApiVersion("1.0")]
+  [SwaggerOperation(summary: "Create Customer")]
   public Task<ActionResult<ResultModel<CustomerDto>>> Post(CreateCustomerCommand command)
     => HandleCreateCommand(command);
 
   [HttpPut("{id:length(26)}")]
-  [MapToApiVersion("1.0")]
+  [SwaggerOperation(summary: "Update Customer")]
   public Task<IActionResult> Put([FromRoute] string id, [FromBody] UpdateCustomerCommand command)
     => HandleUpdateCommand(id, command);
 
   [HttpDelete("{id:length(26)}")]
-  [MapToApiVersion("1.0")]
+  [SwaggerOperation(summary: "Delete Customer")]
   public Task<ActionResult<ResultModel<CustomerDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteCustomerCommand(id));
 }
