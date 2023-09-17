@@ -119,7 +119,3 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 		</td>
 	</tr>
 </table>
-
-# License
-
-This project is licensed under the terms of the [MIT license]('https://opensource.org/license/mit/').

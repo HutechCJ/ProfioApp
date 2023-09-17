@@ -255,6 +255,8 @@ Learn more about ASP.NET Core Identity schema at <a href="https://learn.microsof
 
 ### STAFFS Entity
 
+<p align="justify">
+
 - **Description:** The "STAFFS" entity represents the staff members involved in logistics operations. These staff members play crucial roles in the management and execution of logistics tasks, including drivers, warehouse personnel, and administrative staff.
 - **Attributes:**
   - `Id`: Primary Key - A unique identifier for each staff member, typically in the form of a varchar(26).
@@ -262,7 +264,11 @@ Learn more about ASP.NET Core Identity schema at <a href="https://learn.microsof
   - `Phone`: (char(10)) - The contact phone number of the staff member, typically limited to 10 characters.
   - `Position`: (integer) - An integer code representing the staff member's position or role within the logistics team.
 
+</p>
+
 ### VEHICLES Entity
+
+<p align="justify">
 
 - **Description:** The "VEHICLES" entity manages the fleet of vehicles used for transportation within the logistics system. These vehicles serve as essential assets for carrying out deliveries and shipments.
 - **Attributes:**
@@ -273,7 +279,11 @@ Learn more about ASP.NET Core Identity schema at <a href="https://learn.microsof
   - `Status`: (integer) - An integer code representing the operational status of the vehicle, which can include values such as operational, under maintenance, or offline.
   - `StaffId`: Foreign Key - References the staff member responsible for the vehicle, typically linking to the "STAFFS" entity using the staff member's unique identifier.
 
+</p>
+
 ### DELIVERIES Entity
+
+<p align="justify">
 
 - **Description:** The "DELIVERIES" entity tracks the details of individual deliveries, including delivery dates, associated vehicles, and orders. It serves as a central repository for monitoring and managing the progress of each delivery.
 - **Attributes:**
@@ -282,7 +292,11 @@ Learn more about ASP.NET Core Identity schema at <a href="https://learn.microsof
   - `VehicleId`: Foreign Key - References the vehicle used for the delivery, linking to the "VEHICLES" entity using the vehicle's unique identifier.
   - `OrderId`: Foreign Key - References the order associated with the delivery, typically linking to the "ORDERS" entity using the order's unique identifier.
 
+</p>
+
 ### ORDERS Entity
+
+<p align="justify">
 
 - **Description:** The "ORDERS" entity manages customer orders within the logistics system. It encompasses essential order-related details, including order initiation dates, expected delivery times, and order statuses.
 - **Attributes:**
@@ -297,7 +311,11 @@ Learn more about ASP.NET Core Identity schema at <a href="https://learn.microsof
   - `CustomerId`: Foreign Key - References the customer who placed the order, typically linking to the "CUSTOMERS" entity using the customer's unique identifier.
   - `PhaseId`: Foreign Key - References the current phase of the order, often linking to the "PHASES" entity using the phase's unique identifier.
 
+</p>
+
 ### CUSTOMERS Entity
+
+<p align="justify">
 
 - **Description:** The "CUSTOMERS" entity represents the customers who interact with the logistics system by placing orders. It encompasses customer-specific details necessary for communication and order management.
 - **Attributes:**
@@ -308,7 +326,11 @@ Learn more about ASP.NET Core Identity schema at <a href="https://learn.microsof
   - `Gender`: (integer) - An integer code representing the gender of the customer, allowing for categorization.
   - `Address`: (jsonb) - JSON data containing detailed address information for the customer, accommodating various address components such as street, city, and postal code.
 
+</p>
+
 ### DELIVERYPROGRESS Entity
+
+<p align="justify">
 
 - **Description:** The "DELIVERYPROGRESS" entity serves as a crucial tool for monitoring and tracking the progress of deliveries. It provides real-time information about delivery location, completion percentage, and estimated time remaining.
 - **Attributes:**
@@ -319,7 +341,11 @@ Learn more about ASP.NET Core Identity schema at <a href="https://learn.microsof
   - `LastUpdate`: (timestamp with time zone) - The timestamp of the last progress update, recorded with time zone information.
   - `OrderId`: Foreign Key - References the order associated with the delivery progress record, typically linking to the "ORDERS" entity using the order's unique identifier.
 
+</p>
+
 ### INCIDENTS Entity
+
+<p align="justify">
 
 - **Description:** The "INCIDENTS" entity records and manages incidents that may occur during the course of logistics operations. It serves as a repository for incident-related details and their impact on deliveries.
 - **Attributes:**
@@ -328,6 +354,8 @@ Learn more about ASP.NET Core Identity schema at <a href="https://learn.microsof
   - `IncidentTime`: (timestamp with time zone) - The timestamp indicating when the incident occurred, recorded with time zone information.
   - `Status`: (integer) - An integer code representing the current status or resolution status of the incident, facilitating incident tracking.
   - `DeliveryId`: Foreign Key - References the delivery affected by the incident, typically linking to the "DELIVERIES" entity using the delivery's unique identifier.
+
+</p>
 
 ### PHASES Entity
 
@@ -339,6 +367,8 @@ Learn more about ASP.NET Core Identity schema at <a href="https://learn.microsof
 
 ### ROUTES Entity
 
+<p align="justify">
+
 - **Description:** The "ROUTES" entity defines specific routes used by vehicles within the logistics system. It includes details such as distance covered, helping optimize transportation.
 - **Attributes:**
   - `Id`: Primary Key - A unique identifier for each route, typically in the form of a varchar(26).
@@ -346,7 +376,11 @@ Learn more about ASP.NET Core Identity schema at <a href="https://learn.microsof
   - `StartHubId`: Foreign Key - References the hub where the route starts, typically linking to the "HUBS" entity using the hub's unique identifier.
   - `EndHubId`: Foreign Key - References the hub where the route ends, typically linking to the "HUBS" entity using the hub's unique identifier.
 
+</p>
+
 ### HUBS Entity
+
+<p align="justify">
 
 - **Description:** The "HUBS" entity represents hubs or locations within the logistics network. These hubs serve as key points for organizing and managing logistics operations, including distribution centers, warehouses, and pick-up/delivery points.
 - **Attributes:**
@@ -357,19 +391,29 @@ Learn more about ASP.NET Core Identity schema at <a href="https://learn.microsof
   - `Address`: (jsonb) - JSON data containing comprehensive address details of the hub, accommodating various address components.
   - `Name`: (varchar(50)) - The name or identifier of the hub, typically used for easy reference and identification.
 
+</p>
+
 ## Other Schema
 
 ### \_\_EFMigrationsHistory Entity
+
+<p align="justify">
 
 - **Description:** The "\_\_EFMigrationsHistory" entity is a system table that stores details about the migrations applied to the database. It is automatically created when you create the project.
   - **Attributes:**
     - `MigrationId`: (varchar(150)) - The unique identifier of the migration, allowing for up to 150 characters.
     - `ProductVersion`: (varchar(32)) - The version of the product, allowing for up to 32 characters.
 
+</p>
+
 ### IDEMPOTENTREQUEST Entity
+
+<p align="justify">
 
 - **Description:** The "IDEMPOTENTREQUEST" entity is a system table that stores details about the idempotent requests applied to the database. It is automatically created when you create the project.
   - **Attributes:**
     - `Id`: (uuid) - The unique identifier of the idempotent request.
     - `Name`: (text) - The name of the idempotent request.
     - `CreatedAt`: (timestamp with time zone) - The timestamp of the idempotent request, recorded with time zone information.
+
+</p>

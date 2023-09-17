@@ -16,29 +16,26 @@ const config = {
   favicon: 'img/favicon.ico',
   organizationName: 'HutechCJ', // Usually your GitHub org/user name.
   projectName: 'ProfioApp', // Usually your repo name.
-  presets: [
-    [
-      'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
-        docs: {
-          sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/HutechCJ/ProfioApp',
-          remarkPlugins: [simplePlantUML],
-        },
-        blog: {
-          showReadingTime: true,
-          editUrl: 'https://github.com/HutechCJ/ProfioApp',
-        },
-        theme: {
-          customCss: require.resolve('./src/css/custom.css'),
-        },
-      }),
-    ],
-  ],
+
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
+      metadata: [
+        {
+          name: 'keywords',
+          content:
+            'CJ, Logistics, Profio, Application, Hutech, University, CJ Logistics, Hutech CJ',
+        },
+        {
+          name: 'description',
+          content: 'A Modern Logistics Management System',
+        },
+        { name: 'og:title', content: 'Profio Application' },
+        {
+          name: 'og:description',
+          content: 'A Modern Logistics Management System',
+        },
+      ],
       zoom: {
         selector: '.markdown :not(em) > img',
         config: {
@@ -175,6 +172,56 @@ const config = {
         respectPrefersColorScheme: false,
       },
     }),
+  presets: [
+    [
+      'classic',
+      /** @type {import('@docusaurus/preset-classic').Options} */
+      ({
+        docs: {
+          sidebarPath: require.resolve('./sidebars.js'),
+          editUrl: 'https://github.com/HutechCJ/ProfioApp',
+          remarkPlugins: [simplePlantUML],
+        },
+        blog: {
+          showReadingTime: true,
+          editUrl: 'https://github.com/HutechCJ/ProfioApp',
+        },
+        theme: {
+          customCss: require.resolve('./src/css/custom.css'),
+        },
+      }),
+    ],
+  ],
+  plugins: [
+    [
+      '@docusaurus/plugin-pwa',
+      {
+        debug: true,
+        offlineModeActivationStrategies: [
+          'appInstalled',
+          'standalone',
+          'queryString',
+        ],
+        pwaHead: [
+          {
+            tagName: 'link',
+            rel: 'icon',
+            href: '/img/logo.png',
+          },
+          {
+            tagName: 'link',
+            rel: 'manifest',
+            href: '/manifest.json',
+          },
+          {
+            tagName: 'meta',
+            name: 'theme-color',
+            content: 'rgb(37, 194, 160)',
+          },
+        ],
+      },
+    ],
+  ],
 };
 
 module.exports = config;
