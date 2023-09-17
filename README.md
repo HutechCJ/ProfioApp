@@ -3,6 +3,9 @@
 		<img loading="lazy" width="100%" src="./assets/img/cj-logistics.png" alt="Logo CJ">
 	</picture>
 	<p>
+    <a href="https://github.com/HutechCJ/ProfioApp/actions/workflows/ci.yml" target="_blank">
+      <img loading="lazy" src="https://github.com/HutechCJ/ProfioApp/actions/workflows/ci.yml/badge.svg?branch=main" alt="CI">
+    </a>
 		<a href="https://app.deepsource.com/gh/HutechCJ/ProfioApp/?ref=repository-badge" target="_blank">
 			<img loading="lazy" src="https://app.deepsource.com/gh/HutechCJ/ProfioApp.svg/?label=resolved+issues&show_trend=true&token=LhQScOINz_ITerHwJ5CKaFuM" alt="Deepsource">
 		</a>
