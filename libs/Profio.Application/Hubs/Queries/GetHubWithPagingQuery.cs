@@ -33,9 +33,7 @@ public class GetHubWithPagingQueryHandler : GetWithPagingQueryHandler<GetHubWith
         && h.Address.ZipCode.ToLower().Contains(filter))
     ));
   protected override Expression<Func<Hub, bool>> RequestFilter(GetHubWithPagingQuery request)
-  {
-    return x => request.HubEnumFilter.Status == null || x.Status == request.HubEnumFilter.Status;
-  }
+    => x => request.HubEnumFilter.Status == null || x.Status == request.HubEnumFilter.Status;
 }
 
 public class GetHubWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetHubWithPagingQuery, HubDto>

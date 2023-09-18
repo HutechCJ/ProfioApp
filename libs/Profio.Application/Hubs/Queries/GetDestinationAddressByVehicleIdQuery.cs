@@ -26,13 +26,17 @@ public class GetDestinationAddressByVehicleIdQueryHandler : IRequestHandler<GetD
 
     var nextDelivery = vehicle.Deliveries
         .OrderByDescending(d => d.DeliveryDate)
-        .FirstOrDefault() ?? throw new NotFoundException(typeof(Delivery).Name);
+        .FirstOrDefault()
+        ?? throw new NotFoundException(typeof(Delivery).Name);
 
-    var order = nextDelivery.Order ?? throw new NotFoundException(typeof(Order).Name);
+    var order = nextDelivery.Order
+      ?? throw new NotFoundException(typeof(Order).Name);
 
-    var customer = order.Customer ?? throw new NotFoundException(typeof(Customer).Name);
+    var customer = order.Customer
+      ?? throw new NotFoundException(typeof(Customer).Name);
 
-    var address = customer.Address ?? throw new NotFoundException(typeof(Address).Name);
+    var address = customer.Address
+      ?? throw new NotFoundException(typeof(Address).Name);
 
     return address;
   }
