@@ -25,37 +25,6 @@ alter table "AspNetRoles"
 create unique index if not exists "RoleNameIndex"
     on "AspNetRoles" ("NormalizedName");
 
-create table if not exists "AspNetUsers"
-(
-    "Id"                   text    not null
-        constraint "PK_AspNetUsers"
-            primary key,
-    "FullName"             text,
-    "UserName"             varchar(256),
-    "NormalizedUserName"   varchar(256),
-    "Email"                varchar(256),
-    "NormalizedEmail"      varchar(256),
-    "EmailConfirmed"       boolean not null,
-    "PasswordHash"         text,
-    "SecurityStamp"        text,
-    "ConcurrencyStamp"     text,
-    "PhoneNumber"          text,
-    "PhoneNumberConfirmed" boolean not null,
-    "TwoFactorEnabled"     boolean not null,
-    "LockoutEnd"           timestamp with time zone,
-    "LockoutEnabled"       boolean not null,
-    "AccessFailedCount"    integer not null
-);
-
-alter table "AspNetUsers"
-    owner to admin;
-
-create index if not exists "EmailIndex"
-    on "AspNetUsers" ("NormalizedEmail");
-
-create unique index if not exists "UserNameIndex"
-    on "AspNetUsers" ("NormalizedUserName");
-
 create table if not exists "Customers"
 (
     "Id"      varchar(26) not null
@@ -98,6 +67,45 @@ create table if not exists "Staffs"
 
 alter table "Staffs"
     owner to admin;
+
+create table if not exists "AspNetUsers"
+(
+    "Id"                   text    not null
+        constraint "PK_AspNetUsers"
+            primary key,
+    "FullName"             text,
+    "UserName"             varchar(256),
+    "NormalizedUserName"   varchar(256),
+    "Email"                varchar(256),
+    "NormalizedEmail"      varchar(256),
+    "EmailConfirmed"       boolean not null,
+    "PasswordHash"         text,
+    "SecurityStamp"        text,
+    "ConcurrencyStamp"     text,
+    "PhoneNumber"          text,
+    "PhoneNumberConfirmed" boolean not null,
+    "TwoFactorEnabled"     boolean not null,
+    "LockoutEnd"           timestamp with time zone,
+    "LockoutEnabled"       boolean not null,
+    "AccessFailedCount"    integer not null,
+    "ImageUrl"             text,
+    "StaffId"              varchar(26)
+        constraint "FK_AspNetUsers_Staffs_StaffId"
+            references "Staffs"
+            on delete set null
+);
+
+alter table "AspNetUsers"
+    owner to admin;
+
+create index if not exists "EmailIndex"
+    on "AspNetUsers" ("NormalizedEmail");
+
+create unique index if not exists "UserNameIndex"
+    on "AspNetUsers" ("NormalizedUserName");
+
+create index if not exists "IX_AspNetUsers_StaffId"
+    on "AspNetUsers" ("StaffId");
 
 create table if not exists "AspNetRoleClaims"
 (
@@ -238,6 +246,33 @@ alter table "Vehicles"
 create index if not exists "IX_Vehicles_StaffId"
     on "Vehicles" ("StaffId");
 
+create table if not exists "IdempotentRequests"
+(
+    "Id"        uuid                     not null
+        constraint "PK_IdempotentRequests"
+            primary key,
+    "Name"      text                     not null,
+    "CreatedAt" timestamp with time zone not null
+);
+
+alter table "IdempotentRequests"
+    owner to admin;
+
+create table if not exists "Phase"
+(
+    "Id"      varchar(26) not null
+        constraint "PK_Phase"
+            primary key,
+    "Order"   integer     not null,
+    "RouteId" varchar(26)
+        constraint "FK_Phase_Routes_RouteId"
+            references "Routes"
+            on delete set null
+);
+
+alter table "Phase"
+    owner to admin;
+
 create table if not exists "Orders"
 (
     "Id"                   varchar(26)              not null
@@ -253,7 +288,11 @@ create table if not exists "Orders"
             references "Customers"
             on delete set null,
     "DestinationAddress"   jsonb,
-    "Note"                 varchar(250)
+    "Note"                 varchar(250),
+    "PhaseId"              varchar(26)
+        constraint "FK_Orders_Phase_PhaseId"
+            references "Phase"
+            on delete set null
 );
 
 alter table "Orders"
@@ -261,6 +300,9 @@ alter table "Orders"
 
 create index if not exists "IX_Orders_CustomerId"
     on "Orders" ("CustomerId");
+
+create index if not exists "IX_Orders_PhaseId"
+    on "Orders" ("PhaseId");
 
 create table if not exists "DeliveryProgresses"
 (
@@ -302,50 +344,25 @@ create table if not exists "Deliveries"
 alter table "Deliveries"
     owner to admin;
 
-create table if not exists "OrderHistories"
-(
-    "Id"         varchar(26) not null
-        constraint "PK_OrderHistories"
-            primary key,
-    "Timestamp"  timestamp with time zone,
-    "DeliveryId" varchar(26)
-        constraint "FK_OrderHistories_Deliveries_DeliveryId"
-            references "Deliveries"
-            on delete set null,
-    "HubId"      varchar(26)
-        constraint "FK_OrderHistories_Hubs_HubId"
-            references "Hubs"
-            on delete set null
-);
-
-alter table "OrderHistories"
-    owner to admin;
-
-create index if not exists "IX_OrderHistories_HubId"
-    on "OrderHistories" ("HubId");
-
-create index if not exists "IX_OrderHistories_DeliveryId"
-    on "OrderHistories" ("DeliveryId");
-
 create table if not exists "Incidents"
 (
-    "Id"             varchar(26) not null
+    "Id"          varchar(26) not null
         constraint "PK_Incidents"
             primary key,
-    "Description"    varchar(250),
-    "Status"         integer     not null,
-    "Time"           timestamp with time zone,
-    "OrderHistoryId" varchar(26)
-        constraint "FK_Incidents_OrderHistories_OrderHistoryId"
-            references "OrderHistories"
-            on delete cascade
+    "Description" varchar(250),
+    "Status"      integer     not null,
+    "Time"        timestamp with time zone,
+    "DeliveryId"  varchar(26)
+        constraint "FK_Incidents_Deliveries_DeliveryId"
+            references "Deliveries"
+            on delete set null
 );
 
 alter table "Incidents"
     owner to admin;
 
-create index if not exists "IX_Incidents_OrderHistoryId"
-    on "Incidents" ("OrderHistoryId");
+create index if not exists "IX_Incidents_DeliveryId"
+    on "Incidents" ("DeliveryId");
 
 create index if not exists "IX_Deliveries_OrderId"
     on "Deliveries" ("OrderId");
@@ -353,16 +370,5 @@ create index if not exists "IX_Deliveries_OrderId"
 create index if not exists "IX_Deliveries_VehicleId"
     on "Deliveries" ("VehicleId");
 
-create table if not exists "IdempotentRequests"
-(
-    "Id"        uuid                     not null
-        constraint "PK_IdempotentRequests"
-            primary key,
-    "Name"      text                     not null,
-    "CreatedAt" timestamp with time zone not null
-);
-
-alter table "IdempotentRequests"
-    owner to admin;
-
-
+create index if not exists "IX_Phase_RouteId"
+    on "Phase" ("RouteId");
