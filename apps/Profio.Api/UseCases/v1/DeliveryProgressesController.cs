@@ -14,7 +14,7 @@ namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Manage delivery progresses")]
-public class DeliveryProgressesController : BaseEntityController<DeliveryProgress, DeliveryProgressDto, GetDeliveryProgressByIdQuery>
+public sealed class DeliveryProgressesController : BaseEntityController<DeliveryProgress, DeliveryProgressDto, GetDeliveryProgressByIdQuery>
 {
   [HttpGet]
   [SwaggerOperation(summary: "Get Delivery Progress List with Paging")]

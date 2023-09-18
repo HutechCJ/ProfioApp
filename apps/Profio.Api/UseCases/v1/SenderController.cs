@@ -10,7 +10,7 @@ namespace Profio.Api.UseCases.v1;
 [ApiVersion("1.0")]
 [SwaggerTag("The Email Sender")]
 [Authorize]
-public class SenderController : BaseController
+public sealed class SenderController : BaseController
 {
   private readonly IEmailService _emailService;
 

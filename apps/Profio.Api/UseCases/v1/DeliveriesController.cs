@@ -13,7 +13,7 @@ namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Manage deliveries")]
-public class DeliveriesController : BaseEntityController<Delivery, DeliveryDto, GetDeliveryByIdQuery>
+public sealed class DeliveriesController : BaseEntityController<Delivery, DeliveryDto, GetDeliveryByIdQuery>
 {
   [HttpGet]
   [SwaggerOperation(summary: "Get Delivery List with Paging")]

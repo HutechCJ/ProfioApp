@@ -17,7 +17,7 @@ namespace Profio.Api.UseCases.v1;
 [ApiVersion("1.0")]
 [Authorize]
 [SwaggerTag("An authenticated and authorized user")]
-public class UsersController : BaseEntityController<ApplicationUser, UserDto, GetUserByIdQuery>
+public sealed class UsersController : BaseEntityController<ApplicationUser, UserDto, GetUserByIdQuery>
 {
   [HttpPost("login")]
   [AllowAnonymous]

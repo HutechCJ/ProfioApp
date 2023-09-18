@@ -12,7 +12,7 @@ namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Manage customers")]
-public class CustomersController : BaseEntityController<Customer, CustomerDto, GetCustomerByIdQuery>
+public sealed class CustomersController : BaseEntityController<Customer, CustomerDto, GetCustomerByIdQuery>
 {
   [HttpGet]
   [SwaggerOperation(summary: "Get Customer List with Paging")]

@@ -9,7 +9,7 @@ namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Manage counters")]
-public class CountersController : BaseController
+public sealed class CountersController : BaseController
 {
   [HttpGet("entities")]
   [SwaggerOperation(summary: "Retrieve the count of items in each table of the entity")]

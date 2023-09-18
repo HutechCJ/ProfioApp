@@ -15,7 +15,7 @@ namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Manage vehicles")]
-public class VehiclesController : BaseEntityController<Vehicle, VehicleDto, GetVehicleByIdQuery>
+public sealed class VehiclesController : BaseEntityController<Vehicle, VehicleDto, GetVehicleByIdQuery>
 {
   [HttpGet]
   [SwaggerOperation(summary: "Get Vehicle List with Paging")]

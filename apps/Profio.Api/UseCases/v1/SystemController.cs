@@ -11,7 +11,7 @@ namespace Profio.Api.UseCases.v1;
 [ApiVersion("1.0")]
 [Authorize(Roles = UserRole.Administrator)]
 [SwaggerTag("The System Monitor and Status")]
-public class SystemController : BaseController
+public sealed class SystemController : BaseController
 {
   private readonly IConfiguration _config;
   private readonly IWebHostEnvironment _env;
