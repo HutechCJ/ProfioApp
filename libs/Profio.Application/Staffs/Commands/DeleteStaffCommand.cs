@@ -7,15 +7,15 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Staffs.Commands;
 
-public record DeleteStaffCommand(object Id) : DeleteCommandBase<StaffDto>(Id);
+public sealed record DeleteStaffCommand(object Id) : DeleteCommandBase<StaffDto>(Id);
 
-public class DeleteStaffCommandHandler : DeleteCommandHandlerBase<DeleteStaffCommand, StaffDto, Staff>
+public sealed class DeleteStaffCommandHandler : DeleteCommandHandlerBase<DeleteStaffCommand, StaffDto, Staff>
 {
   public DeleteStaffCommandHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class DeleteStaffCommandValidator : DeleteCommandValidatorBase<DeleteStaffCommand, StaffDto>
+public sealed class DeleteStaffCommandValidator : DeleteCommandValidatorBase<DeleteStaffCommand, StaffDto>
 {
 }

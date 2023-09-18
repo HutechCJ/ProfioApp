@@ -4,7 +4,7 @@ using Profio.Domain.ValueObjects;
 
 namespace Profio.Application.Hubs;
 
-public record HubDto : BaseModel
+public sealed record HubDto : BaseModel
 {
   public required string Id { get; set; }
   public required string? ZipCode { get; set; }

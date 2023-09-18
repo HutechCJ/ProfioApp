@@ -4,8 +4,8 @@ using Profio.Infrastructure.Persistence;
 
 namespace Profio.Application.Staffs.Queries;
 
-public record GetStaffCountByPositionQuery : IRequest<IEnumerable<int>>;
-public class GetStaffCountByPositionQueryHandler : IRequestHandler<GetStaffCountByPositionQuery, IEnumerable<int>>
+public sealed record GetStaffCountByPositionQuery : IRequest<IEnumerable<int>>;
+public sealed class GetStaffCountByPositionQueryHandler : IRequestHandler<GetStaffCountByPositionQuery, IEnumerable<int>>
 {
   private readonly ApplicationDbContext _applicationDbContext;
 

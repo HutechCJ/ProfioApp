@@ -10,9 +10,9 @@ namespace Profio.Application.Users.Commands.Login;
 [SwaggerSchema(
   Title = "Account Request",
   Description = "A Representation of Account")]
-public record LoginCommand(string UserName, string Password) : IRequest<AccountDto>;
+public sealed record LoginCommand(string UserName, string Password) : IRequest<AccountDto>;
 
-public record LoginCommandHandler : IRequestHandler<LoginCommand, AccountDto>
+public sealed record LoginCommandHandler : IRequestHandler<LoginCommand, AccountDto>
 {
   private readonly IMapper _mapper;
   private readonly ITokenService _tokenService;

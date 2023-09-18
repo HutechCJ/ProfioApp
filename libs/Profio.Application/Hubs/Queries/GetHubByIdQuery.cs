@@ -7,15 +7,15 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Hubs.Queries;
 
-public record GetHubByIdQuery(object Id) : GetByIdQueryBase<HubDto>(Id);
+public sealed record GetHubByIdQuery(object Id) : GetByIdQueryBase<HubDto>(Id);
 
-public class GetHubByIdQueryHandler : GetByIdQueryHandlerBase<GetHubByIdQuery, HubDto, Hub>
+public sealed class GetHubByIdQueryHandler : GetByIdQueryHandlerBase<GetHubByIdQuery, HubDto, Hub>
 {
   public GetHubByIdQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class GetHubByIdQueryValidator : GetByIdQueryValidatorBase<GetHubByIdQuery, HubDto>
+public sealed class GetHubByIdQueryValidator : GetByIdQueryValidatorBase<GetHubByIdQuery, HubDto>
 {
 }

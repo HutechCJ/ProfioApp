@@ -4,7 +4,7 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.OrderHistories.Validators;
 
-public class OrderHistoryExistenceByIdValidator : EntityExistenceByIdValidator<OrderHistory>
+public sealed class OrderHistoryExistenceByIdValidator : EntityExistenceByIdValidator<OrderHistory>
 {
   public OrderHistoryExistenceByIdValidator(IRepositoryFactory unitOfWork) : base(unitOfWork)
   {

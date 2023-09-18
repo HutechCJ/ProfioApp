@@ -4,7 +4,7 @@ using Profio.Domain.ValueObjects;
 
 namespace Profio.Application.Customers;
 
-public record CustomerDto : BaseModel
+public sealed record CustomerDto : BaseModel
 {
   public required string Id { get; init; }
   public required string? Name { get; init; }

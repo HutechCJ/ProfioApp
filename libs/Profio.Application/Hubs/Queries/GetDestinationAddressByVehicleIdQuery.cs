@@ -7,8 +7,8 @@ using Profio.Infrastructure.Persistence;
 
 namespace Profio.Application.Hubs.Queries;
 
-public record GetDestinationAddressByVehicleIdQuery(string VehicleId) : IRequest<Address>;
-public class GetDestinationAddressByVehicleIdQueryHandler : IRequestHandler<GetDestinationAddressByVehicleIdQuery, Address>
+public sealed record GetDestinationAddressByVehicleIdQuery(string VehicleId) : IRequest<Address>;
+public sealed class GetDestinationAddressByVehicleIdQueryHandler : IRequestHandler<GetDestinationAddressByVehicleIdQuery, Address>
 {
   private readonly ApplicationDbContext _applicationDbContext;
 

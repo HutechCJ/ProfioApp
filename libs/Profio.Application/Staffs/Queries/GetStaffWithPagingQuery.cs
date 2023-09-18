@@ -9,9 +9,9 @@ using System.Linq.Expressions;
 
 namespace Profio.Application.Staffs.Queries;
 
-public record GetStaffWithPagingQuery(Criteria Criteria, StaffEnumFilter StaffEnumFilter) : GetWithPagingQueryBase<StaffDto>(Criteria);
+public sealed record GetStaffWithPagingQuery(Criteria Criteria, StaffEnumFilter StaffEnumFilter) : GetWithPagingQueryBase<StaffDto>(Criteria);
 
-public class GetStaffWithPagingQueryHandler : GetWithPagingQueryHandler<GetStaffWithPagingQuery, StaffDto, Staff>
+public sealed class GetStaffWithPagingQueryHandler : GetWithPagingQueryHandler<GetStaffWithPagingQuery, StaffDto, Staff>
 {
   public GetStaffWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
@@ -27,7 +27,7 @@ public class GetStaffWithPagingQueryHandler : GetWithPagingQueryHandler<GetStaff
   }
 }
 
-public class
+public sealed class
   GetStaffWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetStaffWithPagingQuery, StaffDto>
 {
 }

@@ -11,8 +11,8 @@ using System.Linq.Expressions;
 
 namespace Profio.Application.Vehicles.Queries;
 
-public record GetDeliveryByVehicleIdWithPagingQuery(string VehicleId, Criteria Criteria) : GetWithPagingQueryBase<DeliveryDto>(Criteria);
-public class GetDeliveryByVehicleIdWithPagingQueryHandler : GetWithPagingQueryHandler<GetDeliveryByVehicleIdWithPagingQuery, DeliveryDto, Delivery>
+public sealed record GetDeliveryByVehicleIdWithPagingQuery(string VehicleId, Criteria Criteria) : GetWithPagingQueryBase<DeliveryDto>(Criteria);
+public sealed class GetDeliveryByVehicleIdWithPagingQueryHandler : GetWithPagingQueryHandler<GetDeliveryByVehicleIdWithPagingQuery, DeliveryDto, Delivery>
 {
   public GetDeliveryByVehicleIdWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
@@ -22,7 +22,7 @@ public class GetDeliveryByVehicleIdWithPagingQueryHandler : GetWithPagingQueryHa
     return x => x.VehicleId == request.VehicleId;
   }
 }
-public class GetDeliveryByVehicleIdWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetDeliveryByVehicleIdWithPagingQuery, DeliveryDto>
+public sealed class GetDeliveryByVehicleIdWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetDeliveryByVehicleIdWithPagingQuery, DeliveryDto>
 {
   public GetDeliveryByVehicleIdWithPagingQueryValidator(VehicleExistenceByIdValidator vehicleValidator)
   {

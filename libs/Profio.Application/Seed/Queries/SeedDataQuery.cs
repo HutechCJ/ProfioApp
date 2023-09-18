@@ -8,9 +8,9 @@ using System.Text.Json;
 
 namespace Profio.Application.Seed.Queries;
 
-public record SeedDataQuery : IRequest<string>;
+public sealed record SeedDataQuery : IRequest<string>;
 
-public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
+public sealed class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
 {
   private readonly ApplicationDbContext _context;
   private readonly ILogger<SeedDataHandler> _logger;

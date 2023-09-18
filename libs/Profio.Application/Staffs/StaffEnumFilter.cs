@@ -2,4 +2,4 @@ using Profio.Domain.Constants;
 
 namespace Profio.Application.Staffs;
 
-public record StaffEnumFilter(Position? Position);
+public sealed record StaffEnumFilter(Position? Position);

@@ -7,15 +7,15 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Orders.Commands;
 
-public record DeleteOrderCommand(object Id) : DeleteCommandBase<OrderDto>(Id);
+public sealed record DeleteOrderCommand(object Id) : DeleteCommandBase<OrderDto>(Id);
 
-public class DeleteOrderCommandHandler : DeleteCommandHandlerBase<DeleteOrderCommand, OrderDto, Order>
+public sealed class DeleteOrderCommandHandler : DeleteCommandHandlerBase<DeleteOrderCommand, OrderDto, Order>
 {
   public DeleteOrderCommandHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class DeleteOrderCommandValidator : DeleteCommandValidatorBase<DeleteOrderCommand, OrderDto>
+public sealed class DeleteOrderCommandValidator : DeleteCommandValidatorBase<DeleteOrderCommand, OrderDto>
 {
 }

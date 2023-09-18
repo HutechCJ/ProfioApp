@@ -6,9 +6,9 @@ using Profio.Domain.Identity;
 
 namespace Profio.Application.Users.Queries;
 
-public record GetUserByIdQuery(object Id) : GetByIdQueryBase<UserDto>(Id);
+public sealed record GetUserByIdQuery(object Id) : GetByIdQueryBase<UserDto>(Id);
 
-public class GetUserByIdQueryHandler : GetByIdQueryHandlerBase<GetUserByIdQuery, UserDto, ApplicationUser>
+public sealed class GetUserByIdQueryHandler : GetByIdQueryHandlerBase<GetUserByIdQuery, UserDto, ApplicationUser>
 {
   public GetUserByIdQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {

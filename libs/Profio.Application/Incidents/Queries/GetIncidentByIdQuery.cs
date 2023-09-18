@@ -7,15 +7,15 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Incidents.Queries;
 
-public record GetIncidentByIdQuery(object Id) : GetByIdQueryBase<IncidentDto>(Id);
+public sealed record GetIncidentByIdQuery(object Id) : GetByIdQueryBase<IncidentDto>(Id);
 
-public class GetIncidentByIdQueryHandler : GetByIdQueryHandlerBase<GetIncidentByIdQuery, IncidentDto, Incident>
+public sealed class GetIncidentByIdQueryHandler : GetByIdQueryHandlerBase<GetIncidentByIdQuery, IncidentDto, Incident>
 {
   public GetIncidentByIdQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class GetIncidentByIdQueryValidator : GetByIdQueryValidatorBase<GetIncidentByIdQuery, IncidentDto>
+public sealed class GetIncidentByIdQueryValidator : GetByIdQueryValidatorBase<GetIncidentByIdQuery, IncidentDto>
 {
 }

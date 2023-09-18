@@ -4,4 +4,4 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Vehicles;
 
-public class VehicleProfile : EntityProfileBase<Vehicle, VehicleDto, CreateVehicleCommand, UpdateVehicleCommand> { }
+public sealed class VehicleProfile : EntityProfileBase<Vehicle, VehicleDto, CreateVehicleCommand, UpdateVehicleCommand> { }

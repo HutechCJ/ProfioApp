@@ -7,15 +7,15 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Hubs.Commands;
 
-public record DeleteHubCommand(object Id) : DeleteCommandBase<HubDto>(Id);
+public sealed record DeleteHubCommand(object Id) : DeleteCommandBase<HubDto>(Id);
 
-public class DeleteHubCommandHandler : DeleteCommandHandlerBase<DeleteHubCommand, HubDto, Hub>
+public sealed class DeleteHubCommandHandler : DeleteCommandHandlerBase<DeleteHubCommand, HubDto, Hub>
 {
   public DeleteHubCommandHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class DeleteHubCommandValidator : DeleteCommandValidatorBase<DeleteHubCommand, HubDto>
+public sealed class DeleteHubCommandValidator : DeleteCommandValidatorBase<DeleteHubCommand, HubDto>
 {
 }

@@ -8,21 +8,21 @@ using Profio.Application.Hubs.Validators;
 using Profio.Domain.Entities;
 
 namespace Profio.Application.OrderHistories.Commands;
-public record UpdateOrderHistoryCommand(object Id) : UpdateCommandBase(Id)
+public sealed record UpdateOrderHistoryCommand(object Id) : UpdateCommandBase(Id)
 {
   public DateTime? Timestamp { get; set; }
   public string? DeliveryId { get; set; }
   public string? HubId { get; set; }
 }
 
-public class UpdateOrderHistoryCommandHandler : UpdateCommandHandlerBase<UpdateOrderHistoryCommand, OrderHistory>
+public sealed class UpdateOrderHistoryCommandHandler : UpdateCommandHandlerBase<UpdateOrderHistoryCommand, OrderHistory>
 {
   public UpdateOrderHistoryCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class UpdateOrderHistoryCommandValidator : AbstractValidator<UpdateOrderHistoryCommand>
+public sealed class UpdateOrderHistoryCommandValidator : AbstractValidator<UpdateOrderHistoryCommand>
 {
   public UpdateOrderHistoryCommandValidator(DeliveryExistenceByIdValidator deliveryValidator, HubExistenceByIdValidator hubValidator)
   {

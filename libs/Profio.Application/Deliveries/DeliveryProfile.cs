@@ -4,4 +4,4 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Deliveries;
 
-public class DeliveryProfile : EntityProfileBase<Delivery, DeliveryDto, CreateDeliveryCommand, UpdateDeliveryCommand> { }
+public sealed class DeliveryProfile : EntityProfileBase<Delivery, DeliveryDto, CreateDeliveryCommand, UpdateDeliveryCommand> { }

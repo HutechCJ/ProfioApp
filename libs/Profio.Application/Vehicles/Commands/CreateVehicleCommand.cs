@@ -13,7 +13,7 @@ namespace Profio.Application.Vehicles.Commands;
 [SwaggerSchema(
   Title = "Vehicle Request",
   Description = "A Representation of list of Vehicle")]
-public record CreateVehicleCommand : CreateCommandBase
+public sealed record CreateVehicleCommand : CreateCommandBase
 {
   public string? ZipCodeCurrent { get; set; }
   public string? LicensePlate { get; set; }
@@ -22,14 +22,14 @@ public record CreateVehicleCommand : CreateCommandBase
   public string? StaffId { get; set; }
 }
 
-public class CreateVehicleCommandHandler : CreateCommandHandlerBase<CreateVehicleCommand, Vehicle>
+public sealed class CreateVehicleCommandHandler : CreateCommandHandlerBase<CreateVehicleCommand, Vehicle>
 {
   public CreateVehicleCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class CreateVehicleCommandValidator : AbstractValidator<CreateVehicleCommand>
+public sealed class CreateVehicleCommandValidator : AbstractValidator<CreateVehicleCommand>
 {
   public CreateVehicleCommandValidator(StaffExistenceByIdValidator staffIdValidator)
   {

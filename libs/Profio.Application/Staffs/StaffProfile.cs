@@ -4,4 +4,4 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Staffs;
 
-public class StaffProfile : EntityProfileBase<Staff, StaffDto, CreateStaffCommand, UpdateStaffCommand> { }
+public sealed class StaffProfile : EntityProfileBase<Staff, StaffDto, CreateStaffCommand, UpdateStaffCommand> { }

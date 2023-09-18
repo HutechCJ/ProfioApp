@@ -14,7 +14,7 @@ namespace Profio.Application.Customers.Commands;
 [SwaggerSchema(
   Title = "Customer Create Request",
   Description = "A Representation of list of Customer")]
-public record CreateCustomerCommand : CreateCommandBase
+public sealed record CreateCustomerCommand : CreateCommandBase
 {
   public required string Name { get; set; }
   public required string Phone { get; set; }

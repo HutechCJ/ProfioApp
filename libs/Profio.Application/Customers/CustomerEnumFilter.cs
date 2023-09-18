@@ -2,4 +2,4 @@ using Profio.Domain.Constants;
 
 namespace Profio.Application.Customers;
 
-public record CustomerEnumFilter(Gender? Gender);
+public sealed record CustomerEnumFilter(Gender? Gender);

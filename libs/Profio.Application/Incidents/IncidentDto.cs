@@ -4,7 +4,7 @@ using Profio.Domain.Models;
 
 namespace Profio.Application.Incidents;
 
-public record IncidentDto : BaseModel
+public sealed record IncidentDto : BaseModel
 {
   public required string Id { get; init; }
   public string? Description { get; set; }

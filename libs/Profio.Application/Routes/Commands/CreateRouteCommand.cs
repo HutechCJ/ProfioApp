@@ -12,21 +12,21 @@ namespace Profio.Application.Routes.Commands;
 [SwaggerSchema(
   Title = "Route Create Request",
   Description = "A Representation of list of Route")]
-public record CreateRouteCommand : CreateCommandBase
+public sealed record CreateRouteCommand : CreateCommandBase
 {
   public double? Distance { get; set; }
   public required string StartHubId { get; set; }
   public required string EndHubId { get; set; }
 }
 
-public class CreateRouteCommandHandler : CreateCommandHandlerBase<CreateRouteCommand, Route>
+public sealed class CreateRouteCommandHandler : CreateCommandHandlerBase<CreateRouteCommand, Route>
 {
   public CreateRouteCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class CreateRouteCommandValidator : AbstractValidator<CreateRouteCommand>
+public sealed class CreateRouteCommandValidator : AbstractValidator<CreateRouteCommand>
 {
   public CreateRouteCommandValidator(HubExistenceByIdValidator hubValidator)
   {

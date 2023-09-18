@@ -12,21 +12,21 @@ namespace Profio.Application.Routes.Commands;
 [SwaggerSchema(
   Title = "Route Update Request",
   Description = "A Representation of list of Route")]
-public record UpdateRouteCommand(object Id) : UpdateCommandBase(Id)
+public sealed record UpdateRouteCommand(object Id) : UpdateCommandBase(Id)
 {
   public double? Distance { get; set; }
   public string? StartHubId { get; set; }
   public string? EndHubId { get; set; }
 }
 
-public class UpdateRouteCommandHandler : UpdateCommandHandlerBase<UpdateRouteCommand, Route>
+public sealed class UpdateRouteCommandHandler : UpdateCommandHandlerBase<UpdateRouteCommand, Route>
 {
   public UpdateRouteCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class UpdateRouteCommandValidator : AbstractValidator<UpdateRouteCommand>
+public sealed class UpdateRouteCommandValidator : AbstractValidator<UpdateRouteCommand>
 {
   public UpdateRouteCommandValidator(HubExistenceByIdValidator hubValidator)
   {

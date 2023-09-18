@@ -4,7 +4,7 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Hubs.Validators;
 
-public class HubExistenceByIdValidator : EntityExistenceByIdValidator<Hub>
+public sealed class HubExistenceByIdValidator : EntityExistenceByIdValidator<Hub>
 {
   public HubExistenceByIdValidator(IRepositoryFactory unitOfWork) : base(unitOfWork)
   {

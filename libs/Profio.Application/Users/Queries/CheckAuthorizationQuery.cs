@@ -7,8 +7,8 @@ using Profio.Infrastructure.Auth;
 
 namespace Profio.Application.Users.Queries;
 
-public record CheckAuthorizationQuery : IRequest<AccountDto>;
-public class CheckAuthorizationQueryHandler : IRequestHandler<CheckAuthorizationQuery, AccountDto>
+public sealed record CheckAuthorizationQuery : IRequest<AccountDto>;
+public sealed class CheckAuthorizationQueryHandler : IRequestHandler<CheckAuthorizationQuery, AccountDto>
 {
   private readonly IMapper _mapper;
   private readonly ITokenService _tokenService;

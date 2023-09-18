@@ -15,7 +15,7 @@ namespace Profio.Application.Orders.Commands;
 [SwaggerSchema(
   Title = "Order Create Request",
   Description = "A Representation of list of Order")]
-public record CreateOrderCommand : CreateCommandBase
+public sealed record CreateOrderCommand : CreateCommandBase
 {
   public DateTime StartedDate { get; set; } = DateTime.UtcNow;
   public DateTime? ExpectedDeliveryTime { get; set; }
@@ -27,14 +27,14 @@ public record CreateOrderCommand : CreateCommandBase
   public string? CustomerId { get; set; }
 }
 
-public class CreateOrderCommandHandler : CreateCommandHandlerBase<CreateOrderCommand, Order>
+public sealed class CreateOrderCommandHandler : CreateCommandHandlerBase<CreateOrderCommand, Order>
 {
   public CreateOrderCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
+public sealed class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
 {
   public CreateOrderCommandValidator(CustomerExistenceByIdValidator customerIdValidator)
   {

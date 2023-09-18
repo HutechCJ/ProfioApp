@@ -13,7 +13,7 @@ namespace Profio.Application.Incidents.Commands;
 [SwaggerSchema(
   Title = "Incident Update Request",
   Description = "A Representation of list of Incident")]
-public record UpdateIncidentCommand(object Id) : UpdateCommandBase(Id)
+public sealed record UpdateIncidentCommand(object Id) : UpdateCommandBase(Id)
 {
   public string? Description { get; set; }
   public IncidentStatus Status { get; set; }
@@ -21,14 +21,14 @@ public record UpdateIncidentCommand(object Id) : UpdateCommandBase(Id)
   public string? OrderHistoryId { get; set; }
 }
 
-public class UpdateIncidentCommandHandler : UpdateCommandHandlerBase<UpdateIncidentCommand, Incident>
+public sealed class UpdateIncidentCommandHandler : UpdateCommandHandlerBase<UpdateIncidentCommand, Incident>
 {
   public UpdateIncidentCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class UpdateIncidentCommandValidator : AbstractValidator<UpdateIncidentCommand>
+public sealed class UpdateIncidentCommandValidator : AbstractValidator<UpdateIncidentCommand>
 {
   public UpdateIncidentCommandValidator(OrderHistoryExistenceByIdValidator orderHistoryIdValidator)
   {

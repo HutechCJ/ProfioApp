@@ -7,12 +7,12 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Staffs.Queries;
 
-public record GetStaffByIdQuery(object Id) : GetByIdQueryBase<StaffDto>(Id);
+public sealed record GetStaffByIdQuery(object Id) : GetByIdQueryBase<StaffDto>(Id);
 
-public class GetStaffByIdQueryHandler : GetByIdQueryHandlerBase<GetStaffByIdQuery, StaffDto, Staff>
+public sealed class GetStaffByIdQueryHandler : GetByIdQueryHandlerBase<GetStaffByIdQuery, StaffDto, Staff>
 {
   public GetStaffByIdQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
-public class GetStaffByIdQueryValidator : GetByIdQueryValidatorBase<GetStaffByIdQuery, StaffDto> { }
+public sealed class GetStaffByIdQueryValidator : GetByIdQueryValidatorBase<GetStaffByIdQuery, StaffDto> { }

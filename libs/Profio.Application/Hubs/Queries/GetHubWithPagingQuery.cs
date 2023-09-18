@@ -9,9 +9,9 @@ using System.Linq.Expressions;
 
 namespace Profio.Application.Hubs.Queries;
 
-public record GetHubWithPagingQuery(Criteria Criteria, HubEnumFilter HubEnumFilter) : GetWithPagingQueryBase<HubDto>(Criteria);
+public sealed record GetHubWithPagingQuery(Criteria Criteria, HubEnumFilter HubEnumFilter) : GetWithPagingQueryBase<HubDto>(Criteria);
 
-public class GetHubWithPagingQueryHandler : GetWithPagingQueryHandler<GetHubWithPagingQuery, HubDto, Hub>
+public sealed class GetHubWithPagingQueryHandler : GetWithPagingQueryHandler<GetHubWithPagingQuery, HubDto, Hub>
 {
   public GetHubWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
@@ -36,6 +36,6 @@ public class GetHubWithPagingQueryHandler : GetWithPagingQueryHandler<GetHubWith
     => x => request.HubEnumFilter.Status == null || x.Status == request.HubEnumFilter.Status;
 }
 
-public class GetHubWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetHubWithPagingQuery, HubDto>
+public sealed class GetHubWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetHubWithPagingQuery, HubDto>
 {
 }

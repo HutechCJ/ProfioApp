@@ -4,4 +4,4 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Routes;
 
-public class RouteProfile : EntityProfileBase<Route, RouteDto, CreateRouteCommand, UpdateRouteCommand> { }
+public sealed class RouteProfile : EntityProfileBase<Route, RouteDto, CreateRouteCommand, UpdateRouteCommand> { }

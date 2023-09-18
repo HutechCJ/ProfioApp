@@ -9,10 +9,10 @@ using System.Linq.Expressions;
 
 namespace Profio.Application.Vehicles.Queries;
 
-public record GetVehicleWithPagingQuery
+public sealed record GetVehicleWithPagingQuery
   (Criteria Criteria, VehicleEnumFilter VehicleEnumFilter) : GetWithPagingQueryBase<VehicleDto>(Criteria);
 
-public class
+public sealed class
   GetVehicleWithPagingQueryHandler : GetWithPagingQueryHandler<GetVehicleWithPagingQuery, VehicleDto, Vehicle>
 {
   public GetVehicleWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
@@ -31,7 +31,7 @@ public class
   }
 }
 
-public class
+public sealed class
   GetVehicleWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetVehicleWithPagingQuery, VehicleDto>
 {
 }
