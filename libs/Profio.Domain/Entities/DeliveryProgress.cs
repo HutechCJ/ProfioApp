@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Profio.Domain.Interfaces;
 using Profio.Domain.ValueObjects;
 
@@ -11,5 +12,6 @@ public sealed class DeliveryProgress : IEntity
   public TimeSpan? EstimatedTimeRemaining { get; set; }
   public DateTime? LastUpdated { get; set; }
   public string? OrderId { get; set; }
+  [JsonIgnore]
   public Order? Order { get; set; }
 }

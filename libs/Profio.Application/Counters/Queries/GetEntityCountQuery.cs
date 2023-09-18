@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Profio.Domain.Entities;
-using Profio.Infrastructure.Identity;
+using Profio.Domain.Identity;
 using Profio.Infrastructure.Persistence;
 
 namespace Profio.Application.Counters.Queries

@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Profio.Domain.Constants;
 using Profio.Domain.Interfaces;
 
@@ -9,6 +10,7 @@ public sealed class Incident : IEntity
   public string? Description { get; set; }
   public IncidentStatus Status { get; set; } = IncidentStatus.InProgress;
   public DateTime? Time { get; set; }
-  public string? OrderHistoryId { get; set; }
-  public OrderHistory? OrderHistory { get; set; }
+  public string? DeliveryId { get; set; }
+  [JsonIgnore]
+  public Delivery? Delivery { get; set; }
 }

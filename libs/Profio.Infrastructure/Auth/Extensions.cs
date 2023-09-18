@@ -1,3 +1,4 @@
+using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -6,10 +7,10 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
+using Profio.Domain.Identity;
 using Profio.Infrastructure.Persistence;
-using System.Text;
 
-namespace Profio.Infrastructure.Identity;
+namespace Profio.Infrastructure.Auth;
 
 public static class Extensions
 {

@@ -5,7 +5,8 @@ using LinqKit;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Profio.Infrastructure.Identity;
+using Profio.Domain.Identity;
+using Profio.Infrastructure.Auth;
 
 namespace Profio.Application.Users.Commands.ChangePassword;
 
@@ -29,9 +30,7 @@ public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordComman
     var failures = new List<ValidationFailure>();
     if (_httpContextAccessor.HttpContext is null)
       throw new InvalidOperationException();
-    if (_httpContextAccessor.HttpContext.User is null
-      || _httpContextAccessor.HttpContext.User.Identity is null
-      || _httpContextAccessor.HttpContext.User.Identity.Name is null)
+    if (_httpContextAccessor.HttpContext.User.Identity?.Name is null)
       throw new UnauthorizedAccessException(nameof(ApplicationUser));
 
     var user = await _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name!)

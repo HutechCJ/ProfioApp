@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Profio.Domain.Interfaces;
 
 namespace Profio.Domain.Entities;
@@ -9,6 +10,7 @@ public sealed class Delivery : IEntity
   public string? OrderId { get; set; }
   public Order? Order { get; set; }
   public string? VehicleId { get; set; }
+  [JsonIgnore]
   public Vehicle? Vehicle { get; set; }
-  public ICollection<OrderHistory>? OrderHistories { get; set; } = new List<OrderHistory>();
+  public ICollection<Incident>? Incidents { get; set; } = new List<Incident>();
 }

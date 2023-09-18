@@ -9,7 +9,6 @@ using Profio.Infrastructure.Cache;
 using Profio.Infrastructure.Filters;
 using Profio.Infrastructure.HealthCheck;
 using Profio.Infrastructure.Hub;
-using Profio.Infrastructure.Identity;
 using Profio.Infrastructure.Jobs;
 using Profio.Infrastructure.Key;
 using Profio.Infrastructure.Logging;
@@ -25,6 +24,7 @@ using System.IO.Compression;
 using System.Net.Mime;
 using System.Text.Json.Serialization;
 using Newtonsoft.Json.Serialization;
+using Profio.Infrastructure.Auth;
 using Profio.Infrastructure.Email;
 
 namespace Profio.Infrastructure;

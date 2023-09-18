@@ -13,7 +13,6 @@ public class CountersController : BaseController
 {
   [HttpGet("entities")]
   [SwaggerOperation(summary: "Retrieve the count of items in each table of the entity")]
-
   public async Task<ActionResult<ResultModel<Dictionary<string, int>>>> GetEntityCount(
     [FromQuery]
     [SwaggerParameter(description: $"{nameof(Customer)}, {nameof(Delivery)}, {nameof(DeliveryProgress)}, {nameof(Incident)}, {nameof(Order)}, {nameof(OrderHistory)}, {nameof(Route)}, {nameof(Staff)}, {nameof(Vehicle)}")]

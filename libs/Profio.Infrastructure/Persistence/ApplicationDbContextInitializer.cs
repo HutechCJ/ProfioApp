@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Profio.Domain.Constants;
-using Profio.Infrastructure.Identity;
+using Profio.Domain.Identity;
 using Serilog;
 
 namespace Profio.Infrastructure.Persistence;

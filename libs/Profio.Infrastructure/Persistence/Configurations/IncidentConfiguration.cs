@@ -21,9 +21,9 @@ public sealed class IncidentConfiguration : IEntityTypeConfiguration<Incident>
 
     builder.Property(e => e.Time);
 
-    builder.HasOne(e => e.OrderHistory)
+    builder.HasOne(e => e.Delivery)
       .WithMany(e => e.Incidents)
-      .HasForeignKey(e => e.OrderHistoryId)
-      .OnDelete(DeleteBehavior.Cascade);
+      .HasForeignKey(e => e.DeliveryId)
+      .OnDelete(DeleteBehavior.SetNull);
   }
 }

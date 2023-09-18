@@ -2,7 +2,8 @@ using AutoMapper;
 using FluentValidation.Results;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Profio.Infrastructure.Identity;
+using Profio.Domain.Identity;
+using Profio.Infrastructure.Auth;
 
 namespace Profio.Application.Users.Queries;
 

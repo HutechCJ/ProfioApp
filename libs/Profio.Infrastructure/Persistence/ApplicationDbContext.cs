@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Profio.Domain.Entities;
-using Profio.Infrastructure.Identity;
+using Profio.Domain.Identity;
 using Profio.Infrastructure.Persistence.Idempotency;
 
 namespace Profio.Infrastructure.Persistence;
@@ -14,7 +14,7 @@ public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IDatabas
   public DbSet<Domain.Entities.Hub> Hubs { get; set; } = default!;
   public DbSet<Incident> Incidents { get; set; } = default!;
   public DbSet<Order> Orders { get; set; } = default!;
-  public DbSet<OrderHistory> OrderHistories { get; set; } = default!;
+  public DbSet<Phase> Phases { get; set; } = default!;
   public DbSet<Route> Routes { get; set; } = default!;
   public DbSet<Staff> Staffs { get; set; } = default!;
   public DbSet<Vehicle> Vehicles { get; set; } = default!;

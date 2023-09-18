@@ -1,5 +1,5 @@
 using AutoMapper;
-using Profio.Infrastructure.Identity;
+using Profio.Domain.Identity;
 
 namespace Profio.Application.Users;
 

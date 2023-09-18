@@ -15,26 +15,31 @@ namespace Profio.Api.UseCases.v1;
 public class OrderHistoriesController : BaseEntityController<OrderHistory, OrderHistoryDto, GetOrderHistoryByIdQuery>
 {
   [HttpGet]
+  [Obsolete]
   [SwaggerOperation(summary: "Get Order History List with Paging")]
   public Task<ActionResult<ResultModel<IPagedList<OrderHistoryDto>>>> Get([FromQuery] Criteria criteria)
     => HandlePaginationQuery(new GetOrderHistoryWithPagingQuery(criteria));
 
   [HttpGet("{id:length(26)}")]
+  [Obsolete]
   [SwaggerOperation(summary: "Get Order History by Id")]
   public Task<ActionResult<ResultModel<OrderHistoryDto>>> GetById(string id)
     => HandleGetByIdQuery(new(id));
 
   [HttpPost]
+  [Obsolete]
   [SwaggerOperation(summary: "Create Order History")]
   public Task<ActionResult<ResultModel<OrderHistoryDto>>> Post(CreateOrderHistoryCommand command)
     => HandleCreateCommand(command);
 
   [HttpPut("{id:length(26)}")]
+  [Obsolete]
   [SwaggerOperation(summary: "Update Order History")]
   public Task<IActionResult> Put([FromRoute] string id, [FromBody] UpdateOrderHistoryCommand command)
     => HandleUpdateCommand(id, command);
 
   [HttpDelete("{id:length(26)}")]
+  [Obsolete]
   [SwaggerOperation(summary: "Delete Order History")]
   public Task<ActionResult<ResultModel<OrderHistoryDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteOrderHistoryCommand(id));

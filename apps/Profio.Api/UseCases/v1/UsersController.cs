@@ -7,9 +7,9 @@ using Profio.Application.Users.Commands.Login;
 using Profio.Application.Users.Commands.Register;
 using Profio.Application.Users.Queries;
 using Profio.Domain.Constants;
+using Profio.Domain.Identity;
 using Profio.Domain.Models;
 using Profio.Domain.Specifications;
-using Profio.Infrastructure.Identity;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Api.UseCases.v1;

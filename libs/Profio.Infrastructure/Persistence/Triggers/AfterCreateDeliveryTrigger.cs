@@ -29,7 +29,6 @@ public sealed class AfterCreateDeliveryTrigger : IAfterSaveTrigger<Delivery>
       };
       order.Status = OrderStatus.InProgress;
       _applicationDbContext.Orders.Update(order);
-      await _applicationDbContext.OrderHistories.AddAsync(orderHistory, cancellationToken);
       await _applicationDbContext.SaveChangesAsync(cancellationToken);
     }
   }

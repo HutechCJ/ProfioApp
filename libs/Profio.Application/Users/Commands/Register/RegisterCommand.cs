@@ -4,7 +4,8 @@ using FluentValidation.Results;
 using LinqKit;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Profio.Infrastructure.Identity;
+using Profio.Domain.Identity;
+using Profio.Infrastructure.Auth;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Users.Commands.Register;

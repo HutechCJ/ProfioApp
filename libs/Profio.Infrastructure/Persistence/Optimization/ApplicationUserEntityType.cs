@@ -3,7 +3,7 @@ using System;
 using System.Reflection;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Profio.Infrastructure.Identity;
+using Profio.Domain.Identity;
 
 #pragma warning disable 219, 612, 618
 #nullable enable

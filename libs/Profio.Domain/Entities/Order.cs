@@ -16,6 +16,9 @@ public sealed class Order : IEntity
   public string? Note { get; set; }
   public double? Distance { get; set; }
   public string? CustomerId { get; set; }
+  public string? PhaseId { get; set; }
+  [JsonIgnore]
+  public Phase? Phase { get; set; }
   [JsonIgnore]
   public Customer? Customer { get; set; }
   public ICollection<Delivery>? Deliveries { get; set; } = new List<Delivery>();
