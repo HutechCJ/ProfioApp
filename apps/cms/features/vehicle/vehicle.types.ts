@@ -22,10 +22,17 @@ export enum VehicleStatus {
   Offline,
 }
 
-export type CreateVehicleData = Omit<Vehicle, 'id' | 'staff'> & {
+export type CreateVehicleData = Omit<
+  Vehicle,
+  'id' | 'staff' | 'type' | 'status'
+> & {
   staffId: string;
+  type: string;
+  status: string;
 };
 
-export type UpdateVehicleData = Omit<Vehicle, 'staff'> & {
+export type UpdateVehicleData = Omit<Vehicle, 'staff' | 'type' | 'status'> & {
   staffId: string;
+  type: string;
+  status: string;
 };
