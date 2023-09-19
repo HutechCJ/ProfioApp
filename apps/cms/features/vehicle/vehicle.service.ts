@@ -14,12 +14,20 @@ class VehicleApiService extends HttpService {
     return this.get<Vehicle>(`/vehicles/${id}`);
   }
 
+  countByVehicleType() {
+    return this.get<number[]>(`/vehicles/count-by-type`);
+  }
+
+  countByVehicleStatus() {
+    return this.get<number[]>(`/vehicles/count-by-status`);
+  }
+
   createVehicle(data: CreateVehicleData) {
     return this.post<Vehicle>(`/vehicles`, data);
   }
 
-  updateVehicle(id: string, data: UpdateVehicleData) {
-    return this.put(`/vehicles/${id}`, data);
+  updateVehicle(data: UpdateVehicleData) {
+    return this.put(`/vehicles/${data.id}`, data);
   }
 
   deleteVehicle(id: string) {

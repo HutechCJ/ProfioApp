@@ -32,7 +32,7 @@ const ActionForList: React.FC<ActionForListProps> = ({
         spacing={2}
       >
         <Link href={detailsLink}>
-          <Button color="primary" startIcon={<InfoIcon />}>
+          <Button color="primary" variant="text" startIcon={<InfoIcon />}>
             Details
           </Button>
         </Link>

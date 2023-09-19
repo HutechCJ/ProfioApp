@@ -19,7 +19,7 @@ class StaffApiService extends HttpService {
   }
 
   createStaff(data: CreateStaffRequest) {
-    return this.post<Staff>('/staffs', data);
+    return this.post<Staff>(`/staffs`, data);
   }
 
   updateStaff(data: UpdateStaffRequest) {
