@@ -44,6 +44,11 @@ const config = {
           },
         },
       },
+      docs: {
+        sidebar: {
+          autoCollapseCategories: true,
+        },
+      },
       announcementBar: {
         id: 'announcement-bar',
         content:
@@ -72,7 +77,8 @@ const config = {
           },
           {
             href: 'https://github.com/HutechCJ/ProfioApp',
-            label: 'GitHub',
+            className: 'header-github-link',
+            'aria-label': 'GitHub repository',
             position: 'right',
           },
         ],
@@ -102,6 +108,13 @@ const config = {
               {
                 label: 'Recruitment',
                 href: 'https://www.cjlogistics.com/en/page/about/cj-way',
+              },
+              {
+                html: `
+                <a href="https://www.cjlogistics.com/en/main" target="_blank" rel="noreferrer noopener" aria-label="CJ Logistics">
+                  <img src="/img/cj-banner.png" alt="CJ Logistics" width="150" height="55" />
+                </a>
+              `,
               },
             ],
           },
@@ -155,10 +168,10 @@ const config = {
         ],
         copyright: `Copyright © ${new Date().getFullYear()} HutechCJ. All rights reserved`,
         logo: {
-          alt: 'CJ Logo',
-          src: 'img/logo.png',
+          alt: 'School Logo',
+          src: 'img/school.png',
           href: 'https://github.com/HutechCJ',
-          width: 100,
+          width: 300,
         },
       },
       prism: {
@@ -178,13 +191,9 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/HutechCJ/ProfioApp',
+          editUrl: 'https://github.com/HutechCJ/ProfioApp/blob/main/apps/docs/',
           remarkPlugins: [simplePlantUML],
           showLastUpdateAuthor: true,
-        },
-        blog: {
-          showReadingTime: true,
-          editUrl: 'https://github.com/HutechCJ/ProfioApp',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
