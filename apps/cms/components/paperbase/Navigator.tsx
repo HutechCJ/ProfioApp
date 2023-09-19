@@ -11,8 +11,15 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HomeIcon from '@mui/icons-material/Home';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+// import { usePathname } from 'next/navigation';
 import { categories } from '../navItems';
+import { Stack } from '@mui/system';
+import { Avatar, Typography } from '@mui/material';
+import Image from 'next/image';
+import Logo from '../../public/images/CJ_logo.png';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import useUser from '@/features/user/useUser';
+import Copyright from '../Copyright';
 
 const item = {
   py: '2px',
@@ -30,8 +37,9 @@ const itemCategory = {
 };
 
 export default function Navigator(props: DrawerProps) {
-  const pathname = usePathname();
+  // const pathname = usePathname();
   const { ...other } = props;
+  const user = useUser();
 
   return (
     <Drawer variant="permanent" {...other}>
@@ -44,8 +52,37 @@ export default function Navigator(props: DrawerProps) {
             color: '#fff',
           }}
         >
-          Profio
+          <Stack justifyContent="center" alignItems="center">
+            <Stack
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+              spacing={2}
+            >
+              <Avatar sx={{ bgcolor: 'white' }}>
+                <Image src={Logo} alt="CJ Logo" width={20} height={20} />
+              </Avatar>
+              <Typography variant="h6" fontSize={18} fontWeight="bold">
+                Profio Application
+              </Typography>
+            </Stack>
+            <Typography variant="body2" fontSize={14} mt={1}>
+              Content Management System
+            </Typography>
+          </Stack>
         </ListItem>
+
+        <ListItem sx={{ ...item, ...itemCategory }}>
+          <ListItemText>
+            <Stack alignItems="center">
+              <Avatar sx={{ width: 80, height: 80 }} />
+              <Typography variant="body1" color="white" my={1}>
+                {user?.fullName}
+              </Typography>
+            </Stack>
+          </ListItemText>
+        </ListItem>
+
         <ListItem sx={{ ...item, ...itemCategory }}>
           <ListItemButton LinkComponent={Link} href={'/'}>
             <ListItemIcon>
@@ -76,6 +113,24 @@ export default function Navigator(props: DrawerProps) {
             <Divider sx={{ mt: 2 }} />
           </Box>
         ))}
+        <ListItem
+          sx={{
+            ...item,
+            ...itemCategory,
+          }}
+        >
+          <ListItemButton
+            LinkComponent={Link}
+            href={'https://profio-document.onrender.com/'}
+            target="_blank"
+          >
+            <ListItemIcon>
+              <AutoStoriesIcon />
+            </ListItemIcon>
+            <ListItemText>View Documentation</ListItemText>
+          </ListItemButton>
+        </ListItem>
+        <Copyright color="#bdbdbd" sx={{ my: 2 }} />
       </List>
     </Drawer>
   );
