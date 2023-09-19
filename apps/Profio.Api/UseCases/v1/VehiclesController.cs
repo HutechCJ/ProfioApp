@@ -59,6 +59,10 @@ public sealed class VehiclesController : BaseEntityController<Vehicle, VehicleDt
   [SwaggerOperation(summary: "Get Vehicle count by Type")]
   public async Task<ActionResult<ResultModel<IEnumerable<int>>>> GetCountByType()
     => Ok(ResultModel<IEnumerable<int>>.Create(await Mediator.Send(new GetVehicleCountByTypeQuery())));
+  [HttpGet("count-by-status")]
+  [SwaggerOperation(summary: "Get Vehicle count by Status")]
+  public async Task<ActionResult<ResultModel<IEnumerable<int>>>> GetCountByStatus()
+    => Ok(ResultModel<IEnumerable<int>>.Create(await Mediator.Send(new GetVehicleCountByStatusQuery())));
   [HttpPost("{id:length(26)}/hubs/{hubId:length(26)}/visit")]
   [SwaggerOperation(summary: "Vist the hub")]
   public async Task<IActionResult> VisitHub([FromRoute] string id, [FromRoute] string hubId)
