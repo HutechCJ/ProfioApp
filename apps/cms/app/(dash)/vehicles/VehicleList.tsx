@@ -74,7 +74,7 @@ function VehicleList() {
           const value = params.value as VehicleStatus;
           if (value === VehicleStatus.Busy) return 'error';
           if (value === VehicleStatus.Idle) return 'warning';
-          return 'default';
+          return 'primary';
         };
         return (
           <Chip color={getColor()} label={`${VehicleStatus[params.value]}`} />
@@ -93,7 +93,7 @@ function VehicleList() {
     },
     {
       field: 'type',
-      width: 200,
+      width: 150,
       headerName: 'TYPE',
       renderCell(params) {
         const getColor = () => {
@@ -125,7 +125,15 @@ function VehicleList() {
       headerName: 'STAFF',
       valueGetter: (params) => {
         const { staff } = params.row;
-        return `${staff?.id || 'Empty'}`;
+        return `${staff?.name || 'Empty'}`;
+      },
+      renderCell(params) {
+        const { staff } = params.row;
+        return (
+          <Link href={`/staffs/${staff?.id}`} sx={{ color: 'black' }}>
+            <Typography variant="button">{staff?.name || 'Empty'}</Typography>
+          </Link>
+        );
       },
     },
     {
