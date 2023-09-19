@@ -7,15 +7,15 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Vehicles.Queries;
 
-public record GetVehicleByIdQuery(object Id) : GetByIdQueryBase<VehicleDto>(Id);
+public sealed record GetVehicleByIdQuery(object Id) : GetByIdQueryBase<VehicleDto>(Id);
 
-public class GetVehicleByIdQueryHandler : GetByIdQueryHandlerBase<GetVehicleByIdQuery, VehicleDto, Vehicle>
+public sealed class GetVehicleByIdQueryHandler : GetByIdQueryHandlerBase<GetVehicleByIdQuery, VehicleDto, Vehicle>
 {
   public GetVehicleByIdQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class GetVehicleByIdQueryValidator : GetByIdQueryValidatorBase<GetVehicleByIdQuery, VehicleDto>
+public sealed class GetVehicleByIdQueryValidator : GetByIdQueryValidatorBase<GetVehicleByIdQuery, VehicleDto>
 {
 }

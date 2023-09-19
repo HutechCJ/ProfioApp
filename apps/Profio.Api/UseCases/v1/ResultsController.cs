@@ -8,7 +8,7 @@ namespace Profio.Api.UseCases.v1;
 [ApiVersion("1.0")]
 [AllowAnonymous]
 [SwaggerTag("Check the results of the HTTP status code")]
-public class ResultsController : BaseController
+public sealed class ResultsController : BaseController
 {
   [HttpGet("not-found")]
   [SwaggerOperation(summary: "Get Not Found result")]

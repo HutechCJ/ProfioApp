@@ -8,17 +8,17 @@ using Profio.Domain.Specifications;
 
 namespace Profio.Application.Deliveries.Queries;
 
-public record GetDeliveryWithPagingQuery
+public sealed record GetDeliveryWithPagingQuery
   (Criteria Criteria) : GetWithPagingQueryBase<DeliveryDto>(Criteria);
 
-public class
+public sealed class
   GetDeliveryWithPagingQueryHandler : GetWithPagingQueryHandler<GetDeliveryWithPagingQuery, DeliveryDto, Delivery>
 {
 
   public GetDeliveryWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 }
 
-public class
+public sealed class
   GetDeliveryWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetDeliveryWithPagingQuery,
     DeliveryDto>
 {

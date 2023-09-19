@@ -4,4 +4,4 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.OrderHistories;
 
-public class OrderHistoryProfile : EntityProfileBase<OrderHistory, OrderHistoryDto, CreateOrderHistoryCommand, UpdateOrderHistoryCommand> { }
+public sealed class OrderHistoryProfile : EntityProfileBase<OrderHistory, OrderHistoryDto, CreateOrderHistoryCommand, UpdateOrderHistoryCommand> { }

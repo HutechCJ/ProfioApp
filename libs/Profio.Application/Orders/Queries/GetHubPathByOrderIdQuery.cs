@@ -15,8 +15,8 @@ using Profio.Infrastructure.Persistence;
 
 namespace Profio.Application.Orders.Queries;
 
-public record GetHubPathByOrderIdQuery(string OrderId, Criteria Criteria) : GetWithPagingQueryBase<HubDto>(Criteria);
-public class GetHubPathByOrderIdQueryHandler : IRequestHandler<GetHubPathByOrderIdQuery, IPagedList<HubDto>>
+public sealed record GetHubPathByOrderIdQuery(string OrderId, Criteria Criteria) : GetWithPagingQueryBase<HubDto>(Criteria);
+public sealed class GetHubPathByOrderIdQueryHandler : IRequestHandler<GetHubPathByOrderIdQuery, IPagedList<HubDto>>
 {
   private readonly ApplicationDbContext _applicationDbContext;
   private readonly IMapper _mapper;
@@ -57,7 +57,7 @@ public class GetHubPathByOrderIdQueryHandler : IRequestHandler<GetHubPathByOrder
       .ToPagedList(pageIndex, pageSize, totalCount);
   }
 }
-public class GetHubPathByOrderIdQueryValidator : GetWithPagingQueryValidatorBase<GetHubPathByOrderIdQuery, HubDto>
+public sealed class GetHubPathByOrderIdQueryValidator : GetWithPagingQueryValidatorBase<GetHubPathByOrderIdQuery, HubDto>
 {
   public GetHubPathByOrderIdQueryValidator(OrderExistenceByIdValidator orderValidator)
   {

@@ -4,4 +4,4 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Incidents;
 
-public class IncidentProfile : EntityProfileBase<Incident, IncidentDto, CreateIncidentCommand, UpdateIncidentCommand> { }
+public sealed class IncidentProfile : EntityProfileBase<Incident, IncidentDto, CreateIncidentCommand, UpdateIncidentCommand> { }

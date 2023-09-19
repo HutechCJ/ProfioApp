@@ -12,7 +12,7 @@ namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Manage staffs")]
-public class StaffsController : BaseEntityController<Staff, StaffDto, GetStaffByIdQuery>
+public sealed class StaffsController : BaseEntityController<Staff, StaffDto, GetStaffByIdQuery>
 {
   [HttpGet]
   [SwaggerOperation(summary: "Get Staff List with Paging")]

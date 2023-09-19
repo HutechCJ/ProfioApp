@@ -15,7 +15,7 @@ namespace Profio.Application.Orders.Commands;
 [SwaggerSchema(
   Title = "Order Update Request",
   Description = "A Representation of list of Order")]
-public record UpdateOrderCommand(object Id) : UpdateCommandBase(Id)
+public sealed record UpdateOrderCommand(object Id) : UpdateCommandBase(Id)
 {
   public DateTime? StartedDate { get; set; }
   public DateTime? ExpectedDeliveryTime { get; set; }
@@ -27,14 +27,14 @@ public record UpdateOrderCommand(object Id) : UpdateCommandBase(Id)
   public string? CustomerId { get; set; }
 }
 
-public class UpdateOrderCommandHandler : UpdateCommandHandlerBase<UpdateOrderCommand, Order>
+public sealed class UpdateOrderCommandHandler : UpdateCommandHandlerBase<UpdateOrderCommand, Order>
 {
   public UpdateOrderCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class UpdateOrderCommandValidator : AbstractValidator<UpdateOrderCommand>
+public sealed class UpdateOrderCommandValidator : AbstractValidator<UpdateOrderCommand>
 {
   public UpdateOrderCommandValidator(CustomerExistenceByIdValidator customerIdValidator)
   {

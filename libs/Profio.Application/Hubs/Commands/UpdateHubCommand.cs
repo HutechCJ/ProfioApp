@@ -9,7 +9,7 @@ using Profio.Domain.ValueObjects;
 
 namespace Profio.Application.Hubs.Commands;
 
-public record UpdateHubCommand(object Id) : UpdateCommandBase(Id)
+public sealed record UpdateHubCommand(object Id) : UpdateCommandBase(Id)
 {
   public required string? Name { get; set; }
   public required string? ZipCode { get; set; }
@@ -18,14 +18,14 @@ public record UpdateHubCommand(object Id) : UpdateCommandBase(Id)
   public HubStatus? Status { get; set; }
 }
 
-public class UpdateHubCommandHandler : UpdateCommandHandlerBase<UpdateHubCommand, Hub>
+public sealed class UpdateHubCommandHandler : UpdateCommandHandlerBase<UpdateHubCommand, Hub>
 {
   public UpdateHubCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class UpdateHubCommandValidator : UpdateCommandValidatorBase<UpdateHubCommand>
+public sealed class UpdateHubCommandValidator : UpdateCommandValidatorBase<UpdateHubCommand>
 {
   public UpdateHubCommandValidator()
   {

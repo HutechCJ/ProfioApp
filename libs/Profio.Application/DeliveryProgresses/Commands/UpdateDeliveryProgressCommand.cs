@@ -13,7 +13,7 @@ namespace Profio.Application.DeliveryProgresses.Commands;
 [SwaggerSchema(
   Title = "Delivery Progress Update Request",
   Description = "A Representation of list of Delivery Progress")]
-public record UpdateDeliveryProgressCommand(object Id) : UpdateCommandBase(Id)
+public sealed record UpdateDeliveryProgressCommand(object Id) : UpdateCommandBase(Id)
 {
   public Location? CurrentLocation { get; set; }
   public byte PercentComplete { get; set; } = 0;
@@ -22,14 +22,14 @@ public record UpdateDeliveryProgressCommand(object Id) : UpdateCommandBase(Id)
   public string? OrderId { get; set; }
 }
 
-public class UpdateDeliveryProgressCommandHandler : UpdateCommandHandlerBase<UpdateDeliveryProgressCommand, DeliveryProgress>
+public sealed class UpdateDeliveryProgressCommandHandler : UpdateCommandHandlerBase<UpdateDeliveryProgressCommand, DeliveryProgress>
 {
   public UpdateDeliveryProgressCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class UpdateDeliveryProgressCommandValidator : UpdateCommandValidatorBase<UpdateDeliveryProgressCommand>
+public sealed class UpdateDeliveryProgressCommandValidator : UpdateCommandValidatorBase<UpdateDeliveryProgressCommand>
 {
   public UpdateDeliveryProgressCommandValidator(OrderExistenceByIdValidator orderValidator)
   {

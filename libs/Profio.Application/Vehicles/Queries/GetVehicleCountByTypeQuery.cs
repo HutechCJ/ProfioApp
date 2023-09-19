@@ -4,8 +4,8 @@ using Profio.Infrastructure.Persistence;
 
 namespace Profio.Application.Vehicles.Queries;
 
-public record GetVehicleCountByTypeQuery : IRequest<IEnumerable<int>>;
-public class GetVehicleCountByTypeQueryHandler : IRequestHandler<GetVehicleCountByTypeQuery, IEnumerable<int>>
+public sealed record GetVehicleCountByTypeQuery : IRequest<IEnumerable<int>>;
+public sealed class GetVehicleCountByTypeQueryHandler : IRequestHandler<GetVehicleCountByTypeQuery, IEnumerable<int>>
 {
   private readonly ApplicationDbContext _applicationDbContext;
 

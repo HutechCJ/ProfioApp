@@ -13,21 +13,21 @@ namespace Profio.Application.OrderHistories.Commands;
 [SwaggerSchema(
   Title = "Order History Request",
   Description = "A Representation of list of Order History")]
-public record CreateOrderHistoryCommand : CreateCommandBase
+public sealed record CreateOrderHistoryCommand : CreateCommandBase
 {
   public DateTime? Timestamp { get; set; }
   public required string DeliveryId { get; set; }
   public required string HubId { get; set; }
 }
 
-public class CreateOrderHistoryCommandHandler : CreateCommandHandlerBase<CreateOrderHistoryCommand, OrderHistory>
+public sealed class CreateOrderHistoryCommandHandler : CreateCommandHandlerBase<CreateOrderHistoryCommand, OrderHistory>
 {
   public CreateOrderHistoryCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class CreateOrderHistoryCommandValidator : AbstractValidator<CreateOrderHistoryCommand>
+public sealed class CreateOrderHistoryCommandValidator : AbstractValidator<CreateOrderHistoryCommand>
 {
   public CreateOrderHistoryCommandValidator(DeliveryExistenceByIdValidator deliveryValidator, HubExistenceByIdValidator hubValidator)
   {

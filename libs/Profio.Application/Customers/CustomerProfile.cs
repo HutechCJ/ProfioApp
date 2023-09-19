@@ -4,4 +4,4 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Customers;
 
-public class CustomerProfile : EntityProfileBase<Customer, CustomerDto, CreateCustomerCommand, UpdateCustomerCommand> { }
+public sealed class CustomerProfile : EntityProfileBase<Customer, CustomerDto, CreateCustomerCommand, UpdateCustomerCommand> { }

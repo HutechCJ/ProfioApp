@@ -4,7 +4,7 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Deliveries.Validators;
 
-public class DeliveryExistenceByIdValidator : EntityExistenceByIdValidator<Delivery>
+public sealed class DeliveryExistenceByIdValidator : EntityExistenceByIdValidator<Delivery>
 {
   public DeliveryExistenceByIdValidator(IRepositoryFactory unitOfWork) : base(unitOfWork)
   {

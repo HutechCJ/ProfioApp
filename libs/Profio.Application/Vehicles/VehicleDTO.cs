@@ -4,7 +4,7 @@ using Profio.Domain.Models;
 
 namespace Profio.Application.Vehicles;
 
-public record VehicleDto : BaseModel
+public sealed record VehicleDto : BaseModel
 {
   public required string Id { get; set; }
   public string? ZipCodeCurrent { get; set; }

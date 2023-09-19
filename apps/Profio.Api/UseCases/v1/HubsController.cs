@@ -13,7 +13,7 @@ namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Manage Hubs")]
-public class HubsController : BaseEntityController<Hub, HubDto, GetHubByIdQuery>
+public sealed class HubsController : BaseEntityController<Hub, HubDto, GetHubByIdQuery>
 {
   [HttpGet]
   [SwaggerOperation(summary: "Get Hub List with Paging")]

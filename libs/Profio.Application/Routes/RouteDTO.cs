@@ -7,7 +7,7 @@ namespace Profio.Application.Routes;
 [SwaggerSchema(
   Title = "Route",
   Description = "A Representation of Route")]
-public record RouteDto : BaseModel
+public sealed record RouteDto : BaseModel
 {
   public required string Id { get; set; }
   public double? Distance { get; set; }

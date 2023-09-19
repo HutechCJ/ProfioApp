@@ -10,7 +10,7 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Vehicles.Commands;
 
-public record UpdateVehicleCommand(object Id) : UpdateCommandBase(Id)
+public sealed record UpdateVehicleCommand(object Id) : UpdateCommandBase(Id)
 {
   public string? ZipCodeCurrent { get; set; }
   public string? LicensePlate { get; set; }
@@ -19,14 +19,14 @@ public record UpdateVehicleCommand(object Id) : UpdateCommandBase(Id)
   public string? StaffId { get; set; }
 }
 
-public class UpdateVehicleCommandHandler : UpdateCommandHandlerBase<UpdateVehicleCommand, Vehicle>
+public sealed class UpdateVehicleCommandHandler : UpdateCommandHandlerBase<UpdateVehicleCommand, Vehicle>
 {
   public UpdateVehicleCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class UpdateVehicleCommandValidator : UpdateCommandValidatorBase<UpdateVehicleCommand>
+public sealed class UpdateVehicleCommandValidator : UpdateCommandValidatorBase<UpdateVehicleCommand>
 {
   public UpdateVehicleCommandValidator(StaffExistenceByIdValidator staffIdValidator)
   {

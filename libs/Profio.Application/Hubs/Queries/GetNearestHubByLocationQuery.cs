@@ -7,8 +7,8 @@ using Profio.Domain.ValueObjects;
 
 namespace Profio.Application.Hubs.Queries;
 
-public record GetNearestHubByLocationQuery(Location Location) : IRequest<HubDto>;
-public class GetNearestHubByLocationQueryHandler : IRequestHandler<GetNearestHubByLocationQuery, HubDto>
+public sealed record GetNearestHubByLocationQuery(Location Location) : IRequest<HubDto>;
+public sealed class GetNearestHubByLocationQueryHandler : IRequestHandler<GetNearestHubByLocationQuery, HubDto>
 {
   private readonly IRepository<Hub> _hubRepository;
   private readonly IMapper _mapper;

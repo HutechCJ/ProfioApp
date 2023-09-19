@@ -12,8 +12,8 @@ using Profio.Infrastructure.Persistence;
 
 namespace Profio.Application.Vehicles.Commands;
 
-public record VisitHubCommand(string VehicleId, string HubId) : IRequest<Unit>;
-public class VisitHubCommandHandler : IRequestHandler<VisitHubCommand, Unit>
+public sealed record VisitHubCommand(string VehicleId, string HubId) : IRequest<Unit>;
+public sealed class VisitHubCommandHandler : IRequestHandler<VisitHubCommand, Unit>
 {
   private readonly ApplicationDbContext _applicationDbContext;
   private readonly IUnitOfWork _unitOfWork;
@@ -62,7 +62,7 @@ public class VisitHubCommandHandler : IRequestHandler<VisitHubCommand, Unit>
     return Unit.Value;
   }
 }
-public class VisitHubCommandValidator : AbstractValidator<VisitHubCommand>
+public sealed class VisitHubCommandValidator : AbstractValidator<VisitHubCommand>
 {
   public VisitHubCommandValidator(VehicleExistenceByIdValidator vehicleValidator, HubExistenceByIdValidator hubValidator)
   {

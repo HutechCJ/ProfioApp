@@ -14,23 +14,23 @@ namespace Profio.Application.Hubs.Commands;
 [SwaggerSchema(
   Title = "Hub Request",
   Description = "A Representation of list of Hub")]
-public record CreateHubCommand : CreateCommandBase
+public sealed record CreateHubCommand : CreateCommandBase
 {
   public required string? Name { get; set; }
   public required string? ZipCode { get; set; }
   public required Location Location { get; set; }
-public Address? Address { get; set; }
-public HubStatus Status { get; set; } = HubStatus.Active;
+  public Address? Address { get; set; }
+  public HubStatus Status { get; set; } = HubStatus.Active;
 }
 
-public class CreateHubCommandHandler : CreateCommandHandlerBase<CreateHubCommand, Hub>
+public sealed class CreateHubCommandHandler : CreateCommandHandlerBase<CreateHubCommand, Hub>
 {
   public CreateHubCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class CreateHubCommandValidator : AbstractValidator<CreateHubCommand>
+public sealed class CreateHubCommandValidator : AbstractValidator<CreateHubCommand>
 {
   public CreateHubCommandValidator()
   {

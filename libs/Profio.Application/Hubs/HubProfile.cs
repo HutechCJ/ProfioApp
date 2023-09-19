@@ -4,4 +4,4 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Hubs;
 
-public class HubProfile : EntityProfileBase<Hub, HubDto, CreateHubCommand, UpdateHubCommand> { }
+public sealed class HubProfile : EntityProfileBase<Hub, HubDto, CreateHubCommand, UpdateHubCommand> { }

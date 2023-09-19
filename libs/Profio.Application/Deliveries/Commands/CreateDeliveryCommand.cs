@@ -13,21 +13,21 @@ namespace Profio.Application.Deliveries.Commands;
 [SwaggerSchema(
   Title = "Delivery Create Request",
   Description = "A Representation of list of Delivery")]
-public record CreateDeliveryCommand : CreateCommandBase
+public sealed record CreateDeliveryCommand : CreateCommandBase
 {
   public DateTime? DeliveryDate { get; set; } = DateTime.UtcNow;
   public required string OrderId { get; set; }
   public required string VehicleId { get; set; }
 }
 
-public class CreateDeliveryCommandHandler : CreateCommandHandlerBase<CreateDeliveryCommand, Delivery>
+public sealed class CreateDeliveryCommandHandler : CreateCommandHandlerBase<CreateDeliveryCommand, Delivery>
 {
   public CreateDeliveryCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class CreateDeliveryCommandValidator : AbstractValidator<CreateDeliveryCommand>
+public sealed class CreateDeliveryCommandValidator : AbstractValidator<CreateDeliveryCommand>
 {
   public CreateDeliveryCommandValidator(OrderExistenceByIdValidator orderValidator, VehicleExistenceByIdValidator vehicleValidator)
   {

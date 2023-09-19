@@ -4,7 +4,7 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Orders.Validators;
 
-public class OrderExistenceByIdValidator : EntityExistenceByIdValidator<Order>
+public sealed class OrderExistenceByIdValidator : EntityExistenceByIdValidator<Order>
 {
   public OrderExistenceByIdValidator(IRepositoryFactory unitOfWork) : base(unitOfWork)
   {

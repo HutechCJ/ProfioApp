@@ -13,10 +13,10 @@ namespace Profio.Application.Users.Commands.Register;
 [SwaggerSchema(
   Title = "Register Request",
   Description = "A Representation of Register Account")]
-public record RegisterCommand
+public sealed record RegisterCommand
   (string Email, string FullName, string Password, string ConfirmPassword) : IRequest<AccountDto>;
 
-public class RegisterCommandHandler : IRequestHandler<RegisterCommand, AccountDto>
+public sealed class RegisterCommandHandler : IRequestHandler<RegisterCommand, AccountDto>
 {
   private readonly IMapper _mapper;
   private readonly ITokenService _tokenService;
@@ -60,7 +60,7 @@ public class RegisterCommandHandler : IRequestHandler<RegisterCommand, AccountDt
   }
 }
 
-public class RegisterCommandValidator : AbstractValidator<RegisterCommand>
+public sealed class RegisterCommandValidator : AbstractValidator<RegisterCommand>
 {
   public RegisterCommandValidator()
   {

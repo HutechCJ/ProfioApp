@@ -8,7 +8,7 @@ using Profio.Domain.Specifications;
 
 namespace Profio.Application.DeliveryProgresses.Queries;
 
-public record GetDeliveryProgressWithPagingQuery
+public sealed record GetDeliveryProgressWithPagingQuery
   (Criteria Criteria) : GetWithPagingQueryBase<DeliveryProgressDto>(Criteria);
 
 public class
@@ -18,7 +18,7 @@ public class
   public GetDeliveryProgressWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
 }
 
-public class
+public sealed class
   GetDeliveryProgressWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetDeliveryProgressWithPagingQuery,
     DeliveryProgressDto>
 {

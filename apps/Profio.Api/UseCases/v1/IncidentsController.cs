@@ -12,7 +12,7 @@ namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Manage incidents")]
-public class IncidentsController : BaseEntityController<Incident, IncidentDto, GetIncidentByIdQuery>
+public sealed class IncidentsController : BaseEntityController<Incident, IncidentDto, GetIncidentByIdQuery>
 {
   [HttpGet]
   [SwaggerOperation(summary: "Get Incident List with Paging")]

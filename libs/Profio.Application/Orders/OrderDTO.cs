@@ -5,7 +5,7 @@ using Profio.Domain.ValueObjects;
 
 namespace Profio.Application.Orders;
 
-public record OrderDto : BaseModel
+public sealed record OrderDto : BaseModel
 {
   public required string Id { get; init; }
   public DateTime StartedDate { get; init; }

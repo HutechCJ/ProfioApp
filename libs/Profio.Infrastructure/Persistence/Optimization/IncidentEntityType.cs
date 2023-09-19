@@ -29,6 +29,13 @@ namespace Profio.Infrastructure.Persistence.Optimization
                 afterSaveBehavior: PropertySaveBehavior.Throw,
                 maxLength: 26);
 
+            var deliveryId = runtimeEntityType.AddProperty(
+                "DeliveryId",
+                typeof(string),
+                propertyInfo: typeof(Incident).GetProperty("DeliveryId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Incident).GetField("<DeliveryId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true);
+
             var description = runtimeEntityType.AddProperty(
                 "Description",
                 typeof(string),
@@ -37,13 +44,6 @@ namespace Profio.Infrastructure.Persistence.Optimization
                 nullable: true,
                 maxLength: 250,
                 unicode: true);
-
-            var orderHistoryId = runtimeEntityType.AddProperty(
-                "OrderHistoryId",
-                typeof(string),
-                propertyInfo: typeof(Incident).GetProperty("OrderHistoryId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Incident).GetField("<OrderHistoryId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                nullable: true);
 
             var status = runtimeEntityType.AddProperty(
                 "Status",
@@ -63,31 +63,31 @@ namespace Profio.Infrastructure.Persistence.Optimization
             runtimeEntityType.SetPrimaryKey(key);
 
             var index = runtimeEntityType.AddIndex(
-                new[] { orderHistoryId });
+                new[] { deliveryId });
 
             return runtimeEntityType;
         }
 
         public static RuntimeForeignKey CreateForeignKey1(RuntimeEntityType declaringEntityType, RuntimeEntityType principalEntityType)
         {
-            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("OrderHistoryId")! },
+            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("DeliveryId")! },
                 principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id")! })!,
                 principalEntityType,
-                deleteBehavior: DeleteBehavior.Cascade);
+                deleteBehavior: DeleteBehavior.SetNull);
 
-            var orderHistory = declaringEntityType.AddNavigation("OrderHistory",
+            var delivery = declaringEntityType.AddNavigation("Delivery",
                 runtimeForeignKey,
                 onDependent: true,
-                typeof(OrderHistory),
-                propertyInfo: typeof(Incident).GetProperty("OrderHistory", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(Incident).GetField("<OrderHistory>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                typeof(Delivery),
+                propertyInfo: typeof(Incident).GetProperty("Delivery", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Incident).GetField("<Delivery>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             var incidents = principalEntityType.AddNavigation("Incidents",
                 runtimeForeignKey,
                 onDependent: false,
                 typeof(ICollection<Incident>),
-                propertyInfo: typeof(OrderHistory).GetProperty("Incidents", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
-                fieldInfo: typeof(OrderHistory).GetField("<Incidents>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+                propertyInfo: typeof(Delivery).GetProperty("Incidents", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Delivery).GetField("<Incidents>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             return runtimeForeignKey;
         }

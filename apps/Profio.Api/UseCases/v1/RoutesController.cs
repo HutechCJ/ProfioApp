@@ -12,7 +12,7 @@ namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Manage routes between hubs")]
-public class RoutesController : BaseEntityController<RouteEntity, RouteDto, GetRouteByIdQuery>
+public sealed class RoutesController : BaseEntityController<RouteEntity, RouteDto, GetRouteByIdQuery>
 {
   [HttpGet]
   [SwaggerOperation(summary: "Get Route List with Paging")]

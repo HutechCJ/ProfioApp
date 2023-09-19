@@ -10,8 +10,8 @@ using Profio.Infrastructure.Auth;
 
 namespace Profio.Application.Users.Commands.ChangePassword;
 
-public record ChangePasswordCommand(string OldPassword, string NewPassword, string ConfirmPassword) : IRequest<AccountDto>;
-public class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand, AccountDto>
+public sealed record ChangePasswordCommand(string OldPassword, string NewPassword, string ConfirmPassword) : IRequest<AccountDto>;
+public sealed class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand, AccountDto>
 {
   private readonly UserManager<ApplicationUser> _userManager;
   private readonly IMapper _mapper;

@@ -7,15 +7,15 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Routes.Commands;
 
-public record DeleteRouteCommand(object Id) : DeleteCommandBase<RouteDto>(Id);
+public sealed record DeleteRouteCommand(object Id) : DeleteCommandBase<RouteDto>(Id);
 
-public class DeleteRouteCommandHandler : DeleteCommandHandlerBase<DeleteRouteCommand, RouteDto, Route>
+public sealed class DeleteRouteCommandHandler : DeleteCommandHandlerBase<DeleteRouteCommand, RouteDto, Route>
 {
   public DeleteRouteCommandHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class DeleteRouteCommandValidator : DeleteCommandValidatorBase<DeleteRouteCommand, RouteDto>
+public sealed class DeleteRouteCommandValidator : DeleteCommandValidatorBase<DeleteRouteCommand, RouteDto>
 {
 }

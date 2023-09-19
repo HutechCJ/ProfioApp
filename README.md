@@ -15,8 +15,8 @@
 		<a href="https://profioapp.azurewebsites.net/ " target="_blank">
 			<img loading="lazy" src="https://img.shields.io/badge/azure-%230072C6.svg?logo=microsoftazure&logoColor=white" alt="Azure">
 		</a>
-		<a href="https://github.com/HutechCJ/ProfioApp/blob/main/LICENSE" target="_blank">
-			<img loading="lazy" src="https://img.shields.io/badge/price-0%20₫-0098f7.svg" alt="Price">
+		<a href="https://profio-cms.onrender.com/" target="_blank">
+			<img loading="lazy" src="https://img.shields.io/badge/render-%2346E3B7?logo=render&logoColor=white" alt="Price">
 		</a>
     <a href="https://gitpod.io/new/#https://github.com/HutechCJ/ProfioApp" target="_blank">
 			<img loading="lazy" src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod" alt="Gitpod">

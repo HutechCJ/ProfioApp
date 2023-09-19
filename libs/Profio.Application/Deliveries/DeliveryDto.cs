@@ -4,7 +4,7 @@ using Profio.Domain.Models;
 
 namespace Profio.Application.Deliveries;
 
-public record DeliveryDto : BaseModel
+public sealed record DeliveryDto : BaseModel
 {
   public required string Id { get; set; }
   public DateTime? DeliveryDate { get; set; }

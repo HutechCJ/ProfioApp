@@ -2,7 +2,7 @@ using Profio.Domain.Models;
 
 namespace Profio.Application.Users;
 
-public record AccountDto : BaseModel
+public sealed record AccountDto : BaseModel
 {
   public required string Id { get; set; }
   public string? UserName { get; set; }

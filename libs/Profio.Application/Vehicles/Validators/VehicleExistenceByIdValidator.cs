@@ -4,7 +4,7 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Vehicles.Validators;
 
-public class VehicleExistenceByIdValidator : EntityExistenceByIdValidator<Vehicle>
+public sealed class VehicleExistenceByIdValidator : EntityExistenceByIdValidator<Vehicle>
 {
   public VehicleExistenceByIdValidator(IRepositoryFactory unitOfWork) : base(unitOfWork)
   {

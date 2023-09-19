@@ -19,8 +19,8 @@ using Profio.Infrastructure.Persistence;
 
 namespace Profio.Application.Orders.Queries;
 
-public record GetAvailableVehicleByOrderIdWithPagingQuery(string OrderId, Criteria Criteria) : GetWithPagingQueryBase<VehicleDto>(Criteria);
-public class GetAvailableVehicleByOrderIdWithPagingQueryHandler : IRequestHandler<GetAvailableVehicleByOrderIdWithPagingQuery, IPagedList<VehicleDto>>
+public sealed record GetAvailableVehicleByOrderIdWithPagingQuery(string OrderId, Criteria Criteria) : GetWithPagingQueryBase<VehicleDto>(Criteria);
+public sealed class GetAvailableVehicleByOrderIdWithPagingQueryHandler : IRequestHandler<GetAvailableVehicleByOrderIdWithPagingQuery, IPagedList<VehicleDto>>
 {
   private readonly IRepository<Vehicle> _vehicleRepository;
   private readonly ApplicationDbContext _applicationDbContext;
@@ -53,7 +53,7 @@ public class GetAvailableVehicleByOrderIdWithPagingQueryHandler : IRequestHandle
     return pagedList;
   }
 }
-public class GetAvailableVehicleByOrderIdWithPagingQueryValidator : AbstractValidator<GetAvailableVehicleByOrderIdWithPagingQuery>
+public sealed class GetAvailableVehicleByOrderIdWithPagingQueryValidator : AbstractValidator<GetAvailableVehicleByOrderIdWithPagingQuery>
 {
   public GetAvailableVehicleByOrderIdWithPagingQueryValidator(OrderExistenceByIdValidator orderValidator)
   {

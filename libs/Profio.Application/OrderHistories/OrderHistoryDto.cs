@@ -4,7 +4,7 @@ using Profio.Domain.Models;
 
 namespace Profio.Application.OrderHistories;
 
-public record OrderHistoryDto : BaseModel
+public sealed record OrderHistoryDto : BaseModel
 {
   public required string Id { get; set; }
   public DateTime? Timestamp { get; set; }

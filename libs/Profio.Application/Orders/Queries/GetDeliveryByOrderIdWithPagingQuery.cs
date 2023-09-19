@@ -10,8 +10,8 @@ using Profio.Domain.Specifications;
 using System.Linq.Expressions;
 
 namespace Profio.Application.Orders.Queries;
-public record GetDeliveryByOrderIdWithPagingQuery(string OrderId, Criteria Criteria) : GetWithPagingQueryBase<DeliveryDto>(Criteria);
-public class GetDeliveryByOrderIdWithPagingQueryHandler : GetWithPagingQueryHandler<GetDeliveryByOrderIdWithPagingQuery, DeliveryDto, Delivery>
+public sealed record GetDeliveryByOrderIdWithPagingQuery(string OrderId, Criteria Criteria) : GetWithPagingQueryBase<DeliveryDto>(Criteria);
+public sealed class GetDeliveryByOrderIdWithPagingQueryHandler : GetWithPagingQueryHandler<GetDeliveryByOrderIdWithPagingQuery, DeliveryDto, Delivery>
 {
   public GetDeliveryByOrderIdWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
@@ -21,7 +21,7 @@ public class GetDeliveryByOrderIdWithPagingQueryHandler : GetWithPagingQueryHand
     return x => x.OrderId == request.OrderId;
   }
 }
-public class GetDeliveryByOrderIdWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetDeliveryByOrderIdWithPagingQuery, DeliveryDto>
+public sealed class GetDeliveryByOrderIdWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetDeliveryByOrderIdWithPagingQuery, DeliveryDto>
 {
   public GetDeliveryByOrderIdWithPagingQueryValidator(OrderExistenceByIdValidator orderValidator)
   {

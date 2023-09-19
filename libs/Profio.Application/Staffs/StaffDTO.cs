@@ -3,7 +3,7 @@ using Profio.Domain.Models;
 
 namespace Profio.Application.Staffs;
 
-public record StaffDto : BaseModel
+public sealed record StaffDto : BaseModel
 {
   public required string Id { get; set; }
   public required string? Name { get; set; }

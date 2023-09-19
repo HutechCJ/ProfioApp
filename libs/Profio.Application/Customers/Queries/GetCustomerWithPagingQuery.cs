@@ -9,10 +9,10 @@ using System.Linq.Expressions;
 
 namespace Profio.Application.Customers.Queries;
 
-public record GetCustomerWithPagingQuery
+public sealed record GetCustomerWithPagingQuery
   (Criteria Criteria, CustomerEnumFilter CustomerEnumFilter) : GetWithPagingQueryBase<CustomerDto>(Criteria);
 
-public class
+public sealed class
   GetCustomerWithPagingQueryHandler : GetWithPagingQueryHandler<GetCustomerWithPagingQuery, CustomerDto, Customer>
 {
 
@@ -38,7 +38,7 @@ public class
   }
 }
 
-public class
+public sealed class
   GetCustomerWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetCustomerWithPagingQuery,
     CustomerDto>
 {

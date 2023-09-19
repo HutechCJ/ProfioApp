@@ -10,8 +10,8 @@ using Profio.Domain.Specifications;
 using System.Linq.Expressions;
 
 namespace Profio.Application.Deliveries.Queries;
-public record GetOrderHistoryByDeliveryIdWithPagingQuery(string DeliveryId, Criteria Criteria) : GetWithPagingQueryBase<OrderHistoryDto>(Criteria);
-public class GetOrderHistoryByDeliveryIdWithPagingQueryHandler : GetWithPagingQueryHandler<GetOrderHistoryByDeliveryIdWithPagingQuery, OrderHistoryDto, OrderHistory>
+public sealed record GetOrderHistoryByDeliveryIdWithPagingQuery(string DeliveryId, Criteria Criteria) : GetWithPagingQueryBase<OrderHistoryDto>(Criteria);
+public sealed class GetOrderHistoryByDeliveryIdWithPagingQueryHandler : GetWithPagingQueryHandler<GetOrderHistoryByDeliveryIdWithPagingQuery, OrderHistoryDto, OrderHistory>
 {
   public GetOrderHistoryByDeliveryIdWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
@@ -21,7 +21,7 @@ public class GetOrderHistoryByDeliveryIdWithPagingQueryHandler : GetWithPagingQu
     return x => x.DeliveryId == request.DeliveryId;
   }
 }
-public class GetOrderHistoryByDeliveryIdWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetOrderHistoryByDeliveryIdWithPagingQuery, OrderHistoryDto>
+public sealed class GetOrderHistoryByDeliveryIdWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetOrderHistoryByDeliveryIdWithPagingQuery, OrderHistoryDto>
 {
   public GetOrderHistoryByDeliveryIdWithPagingQueryValidator(DeliveryExistenceByIdValidator deliveryValidator)
   {

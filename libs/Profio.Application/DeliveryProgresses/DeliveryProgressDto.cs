@@ -4,7 +4,7 @@ using Profio.Domain.ValueObjects;
 
 namespace Profio.Application.DeliveryProgresses;
 
-public record DeliveryProgressDto : BaseModel
+public sealed record DeliveryProgressDto : BaseModel
 {
   public required string Id { get; init; }
   public Location? CurrentLocation { get; set; }

@@ -8,9 +8,9 @@ using System.Text.Json;
 
 namespace Profio.Application.Seed.Queries;
 
-public record SeedDataQuery : IRequest<string>;
+public sealed record SeedDataQuery : IRequest<string>;
 
-public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
+public sealed class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
 {
   private readonly ApplicationDbContext _context;
   private readonly ILogger<SeedDataHandler> _logger;
@@ -104,14 +104,16 @@ public class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
 
   private async Task VehicleSeeding()
   {
-    if (!await _context.Orders.AnyAsync())
+    if (!await _context.Vehicles.AnyAsync())
     {
       var json = await File.ReadAllTextAsync(PathSeed.VehicleData);
       var vehicles = JsonSerializer.Deserialize<List<Vehicle>>(json)!;
       var staffIds = _context.Staffs.Select(x => x.Id).ToList();
+      var hubZipCodes = _context.Hubs.Select(x => x.ZipCode).ToList();
       foreach (var vehicle in vehicles)
       {
         vehicle.StaffId = staffIds[new Random().Next(0, staffIds.Count)];
+        vehicle.ZipCodeCurrent = hubZipCodes[new Random().Next(0, hubZipCodes.Count)];
       }
       await _context.AddRangeAsync(vehicles);
       await _context.SaveChangesAsync();

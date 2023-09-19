@@ -7,7 +7,7 @@ namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Seed Data")]
-public class SeedController : BaseController
+public sealed class SeedController : BaseController
 {
   [ApiKey]
   [HttpGet]

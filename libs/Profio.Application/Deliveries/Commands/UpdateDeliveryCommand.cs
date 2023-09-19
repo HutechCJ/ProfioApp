@@ -9,19 +9,19 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Deliveries.Commands;
 
-public record UpdateDeliveryCommand(object Id) : UpdateCommandBase(Id)
+public sealed record UpdateDeliveryCommand(object Id) : UpdateCommandBase(Id)
 {
   public DateTime? DeliveryDate { get; set; }
   public string? OrderId { get; set; }
   public string? VehicleId { get; set; }
 };
-public class UpdateDeliveryCommandHandler : UpdateCommandHandlerBase<UpdateDeliveryCommand, Delivery>
+public sealed class UpdateDeliveryCommandHandler : UpdateCommandHandlerBase<UpdateDeliveryCommand, Delivery>
 {
   public UpdateDeliveryCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
-public class UpdateDeliveryCommandValidator : UpdateCommandValidatorBase<UpdateDeliveryCommand>
+public sealed class UpdateDeliveryCommandValidator : UpdateCommandValidatorBase<UpdateDeliveryCommand>
 {
   public UpdateDeliveryCommandValidator(OrderExistenceByIdValidator orderValidator, VehicleExistenceByIdValidator vehicleValidator)
   {

@@ -9,9 +9,9 @@ using System.Linq.Expressions;
 
 namespace Profio.Application.Incidents.Queries;
 
-public record GetIncidentWithPagingQuery(Criteria Criteria, IncidentEnumFilter IncidentEnumFilter) : GetWithPagingQueryBase<IncidentDto>(Criteria);
+public sealed record GetIncidentWithPagingQuery(Criteria Criteria, IncidentEnumFilter IncidentEnumFilter) : GetWithPagingQueryBase<IncidentDto>(Criteria);
 
-public class GetIncidentWithPagingQueryHandler : GetWithPagingQueryHandler<GetIncidentWithPagingQuery, IncidentDto, Incident>
+public sealed class GetIncidentWithPagingQueryHandler : GetWithPagingQueryHandler<GetIncidentWithPagingQuery, IncidentDto, Incident>
 {
   public GetIncidentWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
@@ -24,7 +24,7 @@ public class GetIncidentWithPagingQueryHandler : GetWithPagingQueryHandler<GetIn
   }
 }
 
-public class
+public sealed class
   GetIncidentWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetIncidentWithPagingQuery, IncidentDto>
 {
 }

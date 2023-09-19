@@ -4,4 +4,4 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.DeliveryProgresses;
 
-public class DeliveryProgressProfile : EntityProfileBase<DeliveryProgress, DeliveryProgressDto, CreateDeliveryProgressCommand, UpdateDeliveryProgressCommand> { }
+public sealed class DeliveryProgressProfile : EntityProfileBase<DeliveryProgress, DeliveryProgressDto, CreateDeliveryProgressCommand, UpdateDeliveryProgressCommand> { }

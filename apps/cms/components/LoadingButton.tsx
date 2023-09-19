@@ -8,7 +8,7 @@ function LoadingButton({
 }: ButtonProps & { loading?: boolean }) {
   return (
     <Button disabled={loading} {...props}>
-      {loading ? <CircularProgress /> : children}
+      {loading ? <CircularProgress size={30} /> : children}
     </Button>
   );
 }

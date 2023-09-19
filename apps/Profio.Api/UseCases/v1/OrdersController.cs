@@ -15,7 +15,7 @@ namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("Manage orders")]
-public class OrdersController : BaseEntityController<Order, OrderDto, GetOrderByIdQuery>
+public sealed class OrdersController : BaseEntityController<Order, OrderDto, GetOrderByIdQuery>
 {
   [HttpGet]
   [SwaggerOperation(summary: "Get Order List with Paging")]

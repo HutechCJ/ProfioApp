@@ -9,9 +9,9 @@ using System.Linq.Expressions;
 
 namespace Profio.Application.Orders.Queries;
 
-public record GetOrderWithPagingQuery(Criteria Criteria, OrderEnumFilter OrderEnumFilter) : GetWithPagingQueryBase<OrderDto>(Criteria);
+public sealed record GetOrderWithPagingQuery(Criteria Criteria, OrderEnumFilter OrderEnumFilter) : GetWithPagingQueryBase<OrderDto>(Criteria);
 
-public class GetOrderWithPagingQueryHandler : GetWithPagingQueryHandler<GetOrderWithPagingQuery, OrderDto, Order>
+public sealed class GetOrderWithPagingQueryHandler : GetWithPagingQueryHandler<GetOrderWithPagingQuery, OrderDto, Order>
 {
   public GetOrderWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
@@ -32,7 +32,7 @@ public class GetOrderWithPagingQueryHandler : GetWithPagingQueryHandler<GetOrder
   }
 }
 
-public class
+public sealed class
   GetOrderWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetOrderWithPagingQuery, OrderDto>
 {
 }

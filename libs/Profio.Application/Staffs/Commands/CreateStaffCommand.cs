@@ -12,21 +12,21 @@ namespace Profio.Application.Staffs.Commands;
 [SwaggerSchema(
   Title = "Staff Request",
   Description = "A Representation of Staff")]
-public record CreateStaffCommand : CreateCommandBase
+public sealed record CreateStaffCommand : CreateCommandBase
 {
   public required string Name { get; set; }
   public required string Phone { get; set; }
   public Position Position { get; set; } = Position.Driver;
 }
 
-public class CreateStaffCommandHandler : CreateCommandHandlerBase<CreateStaffCommand, Staff>
+public sealed class CreateStaffCommandHandler : CreateCommandHandlerBase<CreateStaffCommand, Staff>
 {
   public CreateStaffCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class CreateStaffCommandValidator : AbstractValidator<CreateStaffCommand>
+public sealed class CreateStaffCommandValidator : AbstractValidator<CreateStaffCommand>
 {
   public CreateStaffCommandValidator()
   {

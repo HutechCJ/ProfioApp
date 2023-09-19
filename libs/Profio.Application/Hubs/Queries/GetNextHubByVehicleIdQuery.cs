@@ -27,18 +27,21 @@ public sealed class GeNextHubByVehicleIdQueryHandler : IRequestHandler<GetNextHu
         .Include(v => v.Deliveries)
         .ThenInclude(d => d.Order)
         .Where(v => v.Id == request.VehicleId)
-        .FirstOrDefaultAsync(cancellationToken) ??
-      throw new NotFoundException(typeof(Vehicle).Name, request.VehicleId);
+        .FirstOrDefaultAsync(cancellationToken)
+        ?? throw new NotFoundException(typeof(Vehicle).Name, request.VehicleId);
 
     var nextDelivery = vehicle.Deliveries
         .OrderByDescending(d => d.DeliveryDate)
-        .FirstOrDefault() ?? throw new NotFoundException(typeof(Delivery).Name);
+        .FirstOrDefault()
+        ?? throw new NotFoundException(typeof(Delivery).Name);
 
-    var destinationZipCode = nextDelivery.Order?.DestinationZipCode ?? throw new NotFoundException(typeof(Order).Name);
+    var destinationZipCode = nextDelivery.Order?.DestinationZipCode
+      ?? throw new NotFoundException(typeof(Order).Name);
 
     var hubDto = await _applicationDbContext.Hubs
       .ProjectTo<HubDto>(_mapper.ConfigurationProvider)
-      .FirstOrDefaultAsync(x => x.ZipCode == destinationZipCode, cancellationToken) ?? throw new NotFoundException(typeof(Hub).Name, destinationZipCode);
+      .FirstOrDefaultAsync(x => x.ZipCode == destinationZipCode, cancellationToken)
+      ?? throw new NotFoundException(typeof(Hub).Name, destinationZipCode);
 
     return hubDto;
   }

@@ -4,4 +4,4 @@ using Profio.Domain.Entities;
 
 namespace Profio.Application.Orders;
 
-public class OrderProfile : EntityProfileBase<Order, OrderDto, CreateOrderCommand, UpdateOrderCommand> { }
+public sealed class OrderProfile : EntityProfileBase<Order, OrderDto, CreateOrderCommand, UpdateOrderCommand> { }

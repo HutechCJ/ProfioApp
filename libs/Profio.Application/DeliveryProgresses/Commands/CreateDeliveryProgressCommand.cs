@@ -14,7 +14,7 @@ namespace Profio.Application.DeliveryProgresses.Commands;
 [SwaggerSchema(
   Title = "Delivery Progress Create Request",
   Description = "A Representation of list of Delivery Progress")]
-public record CreateDeliveryProgressCommand : CreateCommandBase
+public sealed record CreateDeliveryProgressCommand : CreateCommandBase
 {
   public Location? CurrentLocation { get; set; }
   public byte PercentComplete { get; set; } = 0;
@@ -24,14 +24,14 @@ public record CreateDeliveryProgressCommand : CreateCommandBase
 
 }
 
-public class CreateDeliveryProgressCommandHandler : CreateCommandHandlerBase<CreateDeliveryProgressCommand, DeliveryProgress>
+public sealed class CreateDeliveryProgressCommandHandler : CreateCommandHandlerBase<CreateDeliveryProgressCommand, DeliveryProgress>
 {
   public CreateDeliveryProgressCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public class CreateDeliveryProgressCommandValidator : AbstractValidator<CreateDeliveryProgressCommand>
+public sealed class CreateDeliveryProgressCommandValidator : AbstractValidator<CreateDeliveryProgressCommand>
 {
   public CreateDeliveryProgressCommandValidator(OrderExistenceByIdValidator orderValidator)
   {
