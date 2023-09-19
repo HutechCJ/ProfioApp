@@ -55,14 +55,14 @@ const FormDialog: React.FC<FormDialogProps> = ({
         {buttonText}
       </Button>
 
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog open={open} onClose={handleClose} maxWidth={'md'}>
         <Stack
           direction="row"
           justifyContent="space-between"
           alignItems="center"
         >
           <DialogTitle>{dialogTitle}</DialogTitle>
-          <DialogActions sx={{ marginRight: 2, marginBottom: 1 }}>
+          <DialogActions sx={{ marginRight: 2 }}>
             <IconButton onClick={handleClose}>
               <CancelIcon />
             </IconButton>

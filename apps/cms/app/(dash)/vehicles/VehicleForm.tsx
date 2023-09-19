@@ -11,9 +11,12 @@ import {
   AlertTitle,
   Stack,
   Button,
+  Divider,
+  Typography,
 } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import useCountByVehicleType from '@/features/vehicle/useCountByVehicleType';
+import StaffList from '../staffs/StaffList';
 
 const vehicleTypes = [
   {
@@ -191,6 +194,9 @@ const VehicleForm: React.FC<VehicleFormProps> = ({
         value={vehicle.staffId}
         onChange={handleChangeInput}
       />
+      <Typography variant="body2" fontStyle="italic" color="primary">
+        More information about the staff is below
+      </Typography>
       {isError && (
         <Alert severity="error" sx={{ mt: 2 }}>
           <AlertTitle>Error</AlertTitle>
@@ -212,6 +218,8 @@ const VehicleForm: React.FC<VehicleFormProps> = ({
       <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
         {labelButton}
       </Button>
+      <Divider />
+      <StaffList />
     </Box>
   );
 };
