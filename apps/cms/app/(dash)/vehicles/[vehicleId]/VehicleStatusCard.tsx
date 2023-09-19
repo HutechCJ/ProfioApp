@@ -4,8 +4,8 @@ import { Card, CardContent, Container, Stack, Typography } from '@mui/material';
 
 import AlarmIcon from '@mui/icons-material/Alarm';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import { VehicleStatus } from '@/features/vehicle/vehicle.types';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import { VehicleStatus } from '@/features/vehicle/vehicle.types';
 
 const statuses = [
   {
