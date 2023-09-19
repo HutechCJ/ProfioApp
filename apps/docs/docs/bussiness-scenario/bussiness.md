@@ -2,6 +2,9 @@
 title: Scenario
 description: A brief description of the business scenario
 sidebar_position: 2
+last_update:
+  date: 2023-09-18
+  author: Nguyen Xuan Nhan
 ---
 
 # Scenario
