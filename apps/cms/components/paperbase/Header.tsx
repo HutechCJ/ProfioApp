@@ -222,9 +222,9 @@ export function HeaderTitle({
         <Grid container alignItems="center" spacing={1}>
           <Grid item xs>
             <Stack direction="row" alignItems="center">
-                <Box sx={{ mx: 1.5 }}>
-                  <Image src={Logo} alt="CJ Logo" width={58} height={55} />
-                </Box>
+              <Box sx={{ mx: 1.5 }}>
+                <Image src={Logo} alt="CJ Logo" width={58} height={55} />
+              </Box>
               <Stack>
                 <Typography color="black" variant="h5" component="h1">
                   {title}

@@ -64,7 +64,10 @@ export default function Paperbase({ children }: React.PropsWithChildren) {
           }
         />
         <Divider />
-        <Box component="main" sx={{ flex: 1, py: 4, px: 2, bgcolor: '#eaeff1' }}>
+        <Box
+          component="main"
+          sx={{ flex: 1, py: 4, px: 2, bgcolor: '#eaeff1' }}
+        >
           {children}
         </Box>
         <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
