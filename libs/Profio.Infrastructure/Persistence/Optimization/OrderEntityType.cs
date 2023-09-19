@@ -76,6 +76,13 @@ namespace Profio.Infrastructure.Persistence.Optimization
                 maxLength: 250,
                 unicode: true);
 
+            var phaseId = runtimeEntityType.AddProperty(
+                "PhaseId",
+                typeof(string),
+                propertyInfo: typeof(Order).GetProperty("PhaseId", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Order).GetField("<PhaseId>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                nullable: true);
+
             var startedDate = runtimeEntityType.AddProperty(
                 "StartedDate",
                 typeof(DateTime),
@@ -94,6 +101,9 @@ namespace Profio.Infrastructure.Persistence.Optimization
 
             var index = runtimeEntityType.AddIndex(
                 new[] { customerId });
+
+            var index0 = runtimeEntityType.AddIndex(
+                new[] { phaseId });
 
             return runtimeEntityType;
         }
@@ -118,6 +128,30 @@ namespace Profio.Infrastructure.Persistence.Optimization
                 typeof(ICollection<Order>),
                 propertyInfo: typeof(Customer).GetProperty("Orders", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
                 fieldInfo: typeof(Customer).GetField("<Orders>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+
+            return runtimeForeignKey;
+        }
+
+        public static RuntimeForeignKey CreateForeignKey2(RuntimeEntityType declaringEntityType, RuntimeEntityType principalEntityType)
+        {
+            var runtimeForeignKey = declaringEntityType.AddForeignKey(new[] { declaringEntityType.FindProperty("PhaseId")! },
+                principalEntityType.FindKey(new[] { principalEntityType.FindProperty("Id")! })!,
+                principalEntityType,
+                deleteBehavior: DeleteBehavior.SetNull);
+
+            var phase = declaringEntityType.AddNavigation("Phase",
+                runtimeForeignKey,
+                onDependent: true,
+                typeof(Phase),
+                propertyInfo: typeof(Order).GetProperty("Phase", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Order).GetField("<Phase>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
+
+            var orders = principalEntityType.AddNavigation("Orders",
+                runtimeForeignKey,
+                onDependent: false,
+                typeof(ICollection<Order>),
+                propertyInfo: typeof(Phase).GetProperty("Orders", BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly),
+                fieldInfo: typeof(Phase).GetField("<Orders>k__BackingField", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.DeclaredOnly));
 
             return runtimeForeignKey;
         }
