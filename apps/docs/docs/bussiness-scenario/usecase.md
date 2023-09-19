@@ -2,9 +2,6 @@
 title: Usecase View
 description: Visual representation of the interactions of actors with a system.
 sidebar_position: 3
-last_update:
-  date: 2023-09-19
-  author: Nguyen Xuan Nhan
 ---
 
 # Usecase View

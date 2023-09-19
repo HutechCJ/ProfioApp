@@ -194,6 +194,7 @@ const config = {
           editUrl: 'https://github.com/HutechCJ/ProfioApp/blob/main/apps/docs/',
           remarkPlugins: [simplePlantUML],
           showLastUpdateAuthor: true,
+          showLastUpdateTime: true,
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

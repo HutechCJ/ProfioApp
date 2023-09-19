@@ -2,9 +2,6 @@
 title: Event Storming
 description: Event Storming is a workshop format for quickly exploring complex business domains.
 sidebar_position: 4
-last_update:
-  date: 2023-09-20
-  author: Nguyen Xuan Nhan
 ---
 
 # Event Storming

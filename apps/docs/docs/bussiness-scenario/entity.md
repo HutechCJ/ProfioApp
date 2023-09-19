@@ -2,9 +2,6 @@
 title: ER Diagram
 description: A diagram that shows the relationships between entities in a database
 sidebar_position: 2
-last_update:
-  date: 2023-09-18
-  author: Nguyen Xuan Nhan
 ---
 
 ```plantuml

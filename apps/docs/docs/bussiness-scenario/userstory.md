@@ -2,9 +2,6 @@
 title: User Story
 description: A brief description of the user story
 sidebar_position: 5
-last_update:
-  date: 2023-09-18
-  author: Nguyen Xuan Nhan
 ---
 
 # User Story
