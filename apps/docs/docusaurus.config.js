@@ -180,6 +180,7 @@ const config = {
           sidebarPath: require.resolve('./sidebars.js'),
           editUrl: 'https://github.com/HutechCJ/ProfioApp',
           remarkPlugins: [simplePlantUML],
+          showLastUpdateAuthor: true,
         },
         blog: {
           showReadingTime: true,
@@ -195,7 +196,6 @@ const config = {
     [
       '@docusaurus/plugin-pwa',
       {
-        debug: true,
         offlineModeActivationStrategies: [
           'appInstalled',
           'standalone',
