@@ -1,25 +1,24 @@
 'use client';
 
 import Copyright from '@/components/Copyright';
-import Link from '@/components/Link';
 import LoadingButton from '@/components/LoadingButton';
 import useLogin from '@/features/user/useLogin';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import {
   Alert,
   AlertTitle,
-  Avatar,
   Box,
   Checkbox,
   Container,
+  Divider,
   FormControlLabel,
-  Grid,
   Stack,
   TextField,
   Typography,
 } from '@mui/material';
+import Image from 'next/image';
 import { useSnackbar } from 'notistack';
 import React, { useEffect } from 'react';
+import Logo from '../../../../cms/public/images/CJ_logo.png';
 
 function SignIn() {
   const { enqueueSnackbar } = useSnackbar();
@@ -46,26 +45,48 @@ function SignIn() {
       enqueueSnackbar(`Logged in!`, { variant: 'success' });
       window.location.reload();
     }
-  }, [isSuccess]);
+  }, [isSuccess, enqueueSnackbar]);
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        minHeight: '100vh',
+        position: 'relative',
+      }}
+    >
       <Box
         sx={{
           marginTop: 8,
+          marginBottom: 2,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
+        <Stack
+          direction="row"
+          justifyContent="center"
+          alignItems="center"
+          spacing={2}
+        >
+          <Image src={Logo} alt="CJ Logo" width={80} height={80} />
+          <Typography variant="h3" fontWeight="bold">
+            Profio Application
+          </Typography>
+        </Stack>
+        <Typography variant="h5" mt={1}>
+          Content Management System for Profio
+        </Typography>
+        <Typography variant="h4" fontWeight="bold" m={10}>
+          Welcome Back!
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
+            variant="filled"
             margin="normal"
             required
             fullWidth
@@ -75,6 +96,7 @@ function SignIn() {
             autoComplete="userName"
           />
           <TextField
+            variant="filled"
             margin="normal"
             required
             fullWidth
@@ -102,24 +124,22 @@ function SignIn() {
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
             loading={isLoading}
+            size="large"
           >
-            Sign In
+            SIGN IN
           </LoadingButton>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="/auth/sign-up" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
-            </Grid>
-          </Grid>
         </Box>
       </Box>
-      <Copyright sx={{ mt: 8, mb: 4 }} />
+      <Box
+        sx={{
+          position: 'absolute',
+          bottom: 0,
+          textAlign: 'center',
+          padding: 2,
+        }}
+      >
+        <Copyright />
+      </Box>
     </Container>
   );
 }
