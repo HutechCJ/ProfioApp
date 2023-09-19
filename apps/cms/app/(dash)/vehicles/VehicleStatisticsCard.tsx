@@ -25,8 +25,6 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 import Stat from '../../../components/Stat';
 import useCountByVehicleType from '@/features/vehicle/useCountByVehicleType';
-import useGetVehicles from '@/features/vehicle/useGetVehicles';
-import { VehicleStatus } from '@/features/vehicle/vehicle.types';
 import useCountByVehicleStatus from '@/features/vehicle/useCountByVehicleStatus';
 
 const VehicleStatisticsCard = () => {
