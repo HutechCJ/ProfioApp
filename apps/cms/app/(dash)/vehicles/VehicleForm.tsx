@@ -17,6 +17,7 @@ import {
 import { useSnackbar } from 'notistack';
 import useCountByVehicleType from '@/features/vehicle/useCountByVehicleType';
 import StaffList from '../staffs/StaffList';
+import useCountByVehicleStatus from '@/features/vehicle/useCountByVehicleStatus';
 
 const vehicleTypes = [
   {
@@ -86,7 +87,8 @@ const VehicleForm: React.FC<VehicleFormProps> = ({
   });
 
   const { enqueueSnackbar } = useSnackbar();
-  const { refetch: refetchCount } = useCountByVehicleType();
+  const { refetch: refetchCountType } = useCountByVehicleType();
+  const { refetch: refetchCountStatus } = useCountByVehicleStatus();
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setVehicle({
@@ -113,10 +115,17 @@ const VehicleForm: React.FC<VehicleFormProps> = ({
       enqueueSnackbar('Successfully!', {
         variant: 'success',
       });
-      refetchCount();
+      refetchCountType();
+      refetchCountStatus();
       onSuccess();
     }
-  }, [isSuccess, enqueueSnackbar, onSuccess, refetchCount]);
+  }, [
+    isSuccess,
+    enqueueSnackbar,
+    onSuccess,
+    refetchCountType,
+    refetchCountStatus,
+  ]);
 
   return (
     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>

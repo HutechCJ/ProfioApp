@@ -18,6 +18,10 @@ class VehicleApiService extends HttpService {
     return this.get<number[]>(`/vehicles/count-by-type`);
   }
 
+  countByVehicleStatus() {
+    return this.get<number[]>(`/vehicles/count-by-status`);
+  }
+
   createVehicle(data: CreateVehicleData) {
     return this.post<Vehicle>(`/vehicles`, data);
   }

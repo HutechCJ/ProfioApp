@@ -27,12 +27,21 @@ import Stat from '../../../components/Stat';
 import useCountByVehicleType from '@/features/vehicle/useCountByVehicleType';
 import useGetVehicles from '@/features/vehicle/useGetVehicles';
 import { VehicleStatus } from '@/features/vehicle/vehicle.types';
+import useCountByVehicleStatus from '@/features/vehicle/useCountByVehicleStatus';
 
 const VehicleStatisticsCard = () => {
-  const { data: countData, isLoading, isError } = useCountByVehicleType();
-  const { data: vehicleData } = useGetVehicles();
+  const {
+    data: countDataType,
+    isLoading: isLoadingType,
+    isError: isErrorType,
+  } = useCountByVehicleType();
+  const {
+    data: countDataStatus,
+    isLoading: isLoadingStatus,
+    isError: isErrorStatus,
+  } = useCountByVehicleStatus();
 
-  if (isLoading) {
+  if (isLoadingType && isLoadingStatus) {
     return (
       <Box sx={{ width: '100%' }}>
         <LinearProgress />
@@ -40,27 +49,20 @@ const VehicleStatisticsCard = () => {
     );
   }
 
-  if (isError) {
+  if (isErrorType && isErrorStatus) {
     return <p>Error loading vehicle data.</p>;
   }
 
-  const totalTrucks = countData?.data?.[0] || 0;
-  const totalTrailers = countData?.data?.[1] || 0;
-  const totalVans = countData?.data?.[2] || 0;
-  const totalMotorcycles = countData?.data?.[3] || 0;
+  const totalTrucks = countDataType?.data?.[0] || 0;
+  const totalTrailers = countDataType?.data?.[1] || 0;
+  const totalVans = countDataType?.data?.[2] || 0;
+  const totalMotorcycles = countDataType?.data?.[3] || 0;
   const totalVehicle =
     totalTrucks + totalTrailers + totalVans + totalMotorcycles;
 
-  //CHANGE LATER: USE API
-  const totalIdle = vehicleData?.data.items.filter(
-    (c) => c.status === VehicleStatus.Idle
-  ).length;
-  const totalBusy = vehicleData?.data.items.filter(
-    (c) => c.status === VehicleStatus.Busy
-  ).length;
-  const totalOffline = vehicleData?.data.items.filter(
-    (c) => c.status === VehicleStatus.Offline
-  ).length;
+  const totalIdle = countDataStatus?.data?.[0] || 0;
+  const totalBusy = countDataStatus?.data?.[1] || 0;
+  const totalOffline = countDataStatus?.data?.[2] || 0;
 
   return (
     <Card sx={{ marginBottom: 4 }}>
