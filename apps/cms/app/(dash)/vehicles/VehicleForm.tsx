@@ -78,7 +78,7 @@ const VehicleForm: React.FC<VehicleFormProps> = ({
     zipCodeCurrent: initialValue.zipCodeCurrent || '',
     licensePlate: initialValue.licensePlate || '',
     type: initialValue.type || VehicleType.Truck,
-    status: initialValue.type || VehicleStatus.Idle,
+    status: initialValue.status || VehicleStatus.Idle,
     staffId: initialValue.staffId || '',
   });
 
@@ -100,7 +100,7 @@ const VehicleForm: React.FC<VehicleFormProps> = ({
       zipCodeCurrent: initialValue.zipCodeCurrent || '',
       licensePlate: initialValue.licensePlate || '',
       type: initialValue.type || VehicleType.Truck,
-      status: initialValue.type || VehicleStatus.Idle,
+      status: initialValue.status || VehicleStatus.Idle,
       staffId: initialValue.staffId || '',
     });
   };
