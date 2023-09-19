@@ -13,27 +13,34 @@ import Tabs from '@mui/material/Tabs';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import PersonAdd from '@mui/icons-material/PersonAdd';
 import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import * as React from 'react';
 import useLocalStorage from '@/common/hooks/useLocalStorage';
 import StoreKeys from '@/common/constants/storekeys';
+import BedtimeIcon from '@mui/icons-material/Bedtime';
+import SearchIcon from '@mui/icons-material/Search';
+import { Box } from '@mui/material';
+import InputBase from '@mui/material/InputBase';
+import { Stack } from '@mui/system';
+import Image from 'next/image';
+import Logo from '../../public/images/CJ_logo.png';
 
 export const lightColor = 'rgba(255, 255, 255, 0.7)';
 
 export interface HeaderProps {
   onDrawerToggle: () => void;
   title?: string;
+  subtitle?: string;
 }
 
 export default function Header(props: HeaderProps) {
-  const { onDrawerToggle, title } = props;
+  const { onDrawerToggle, title, subtitle } = props;
 
   return (
     <React.Fragment>
       <HeaderDefault onDrawerToggle={onDrawerToggle} />
-      <HeaderTitle title={title || 'Overview'} />
+      <HeaderTitle title={title || 'Overview'} subtitle={subtitle || ''} />
     </React.Fragment>
   );
 }
@@ -66,7 +73,7 @@ export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
         <Toolbar>
-          <Grid container spacing={1} alignItems="center">
+          <Grid container spacing={1} alignItems="center" my={1}>
             <Grid sx={{ display: { sm: 'none', xs: 'block' } }} item>
               <IconButton
                 color="inherit"
@@ -76,6 +83,20 @@ export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
               >
                 <MenuIcon />
               </IconButton>
+            </Grid>
+            <Grid item>
+              <Box
+                sx={{
+                  display: 'flex',
+                  bgcolor: '#8bd4ff',
+                  borderRadius: '3px',
+                }}
+              >
+                <InputBase sx={{ ml: 2, flex: 1 }} placeholder="Search" />
+                <IconButton type="button" sx={{ p: 1 }}>
+                  <SearchIcon />
+                </IconButton>
+              </Box>
             </Grid>
             <Grid item xs />
             {/* <Grid item>
@@ -95,6 +116,13 @@ export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
                             Go to docs
                         </Link>
                     </Grid> */}
+            <Grid item>
+              <Tooltip title="Theme">
+                <IconButton color="inherit">
+                  <BedtimeIcon />
+                </IconButton>
+              </Tooltip>
+            </Grid>
             <Grid item>
               <Tooltip title="Alerts • No alerts">
                 <IconButton color="inherit">
@@ -176,25 +204,36 @@ export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
 
 export function HeaderTitle({
   title,
+  subtitle,
   items,
 }: {
   title: string;
+  subtitle?: string;
   items?: React.ReactNode[];
 }) {
   return (
     <AppBar
       component="div"
-      color="primary"
       position="static"
       elevation={0}
-      sx={{ zIndex: 0 }}
+      sx={{ zIndex: 0, pl: 3.5, py: 2, bgcolor: '#eaeff1' }}
     >
       <Toolbar>
         <Grid container alignItems="center" spacing={1}>
           <Grid item xs>
-            <Typography color="inherit" variant="h5" component="h1">
-              {title}
-            </Typography>
+            <Stack direction="row" alignItems="center">
+                <Box sx={{ mx: 1.5 }}>
+                  <Image src={Logo} alt="CJ Logo" width={58} height={55} />
+                </Box>
+              <Stack>
+                <Typography color="black" variant="h5" component="h1">
+                  {title}
+                </Typography>
+                <Typography color="gray" variant="body1" gutterBottom>
+                  {subtitle}
+                </Typography>
+              </Stack>
+            </Stack>
           </Grid>
           {items?.length &&
             items.map((item, i) => {

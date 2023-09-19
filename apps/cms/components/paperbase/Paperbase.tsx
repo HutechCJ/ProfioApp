@@ -10,6 +10,7 @@ import theme from '../ThemeRegistry/theme';
 import { categories } from '../navItems';
 import Header from './Header';
 import Navigator from './Navigator';
+import { Divider } from '@mui/material';
 
 const drawerWidth = 256;
 
@@ -53,14 +54,17 @@ export default function Paperbase({ children }: React.PropsWithChildren) {
           onDrawerToggle={handleDrawerToggle}
           title={
             headerTitle
-              ? `${headerTitle.category} > ${headerTitle.id}`
+              ? `${headerTitle.category} » ${headerTitle.id}`
+              : undefined
+          }
+          subtitle={
+            headerTitle
+              ? `List of ${headerTitle.id} managed by Profio`
               : undefined
           }
         />
-        <Box
-          component="main"
-          sx={{ flex: 1, py: 6, px: 4, bgcolor: '#eaeff1' }}
-        >
+        <Divider />
+        <Box component="main" sx={{ flex: 1, py: 4, px: 2, bgcolor: '#eaeff1' }}>
           {children}
         </Box>
         <Box component="footer" sx={{ p: 2, bgcolor: '#eaeff1' }}>
