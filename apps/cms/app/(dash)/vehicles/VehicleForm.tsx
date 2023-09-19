@@ -97,11 +97,11 @@ const VehicleForm: React.FC<VehicleFormProps> = ({
     const data = new FormData(event.currentTarget);
     onSubmit(data);
     setVehicle({
-      zipCodeCurrent: '',
-      licensePlate: '',
-      type: VehicleType.Truck,
-      status: VehicleStatus.Idle,
-      staffId: '',
+      zipCodeCurrent: initialValue.zipCodeCurrent || '',
+      licensePlate: initialValue.licensePlate || '',
+      type: initialValue.type || VehicleType.Truck,
+      status: initialValue.type || VehicleStatus.Idle,
+      staffId: initialValue.staffId || '',
     });
   };
 

@@ -78,9 +78,9 @@ const StaffForm: React.FC<StaffFormProps> = ({
     const data = new FormData(event.currentTarget);
     onSubmit(data);
     setStaff({
-      name: '',
-      phone: '',
-      position: StaffPosition.Driver,
+      name: initialValue.name || '',
+      phone: initialValue.phone || '',
+      position: initialValue.position || StaffPosition.Driver,
     });
   };
 
