@@ -5,6 +5,7 @@ using Profio.Application.Abstractions.CQRS.Events.Commands;
 using Profio.Application.Abstractions.CQRS.Handlers.Command;
 using Profio.Application.Abstractions.CQRS.Validators;
 using Profio.Application.Customers.Validators;
+using Profio.Application.Phases.Validators;
 using Profio.Domain.Constants;
 using Profio.Domain.Entities;
 using Profio.Domain.ValueObjects;
@@ -25,6 +26,7 @@ public sealed record CreateOrderCommand : CreateCommandBase
   public string? Note { get; set; }
   public double? Distance { get; set; }
   public string? CustomerId { get; set; }
+  public string? PhaseId { get; set; }
 }
 
 public sealed class CreateOrderCommandHandler : CreateCommandHandlerBase<CreateOrderCommand, Order>
@@ -36,7 +38,7 @@ public sealed class CreateOrderCommandHandler : CreateCommandHandlerBase<CreateO
 
 public sealed class CreateOrderCommandValidator : AbstractValidator<CreateOrderCommand>
 {
-  public CreateOrderCommandValidator(CustomerExistenceByIdValidator customerIdValidator)
+  public CreateOrderCommandValidator(CustomerExistenceByIdValidator customerIdValidator, PhaseExistenceByIdValidator phaseValidator)
   {
     RuleFor(c => c.ExpectedDeliveryTime)
       .GreaterThan(c => c.StartedDate);
@@ -59,5 +61,8 @@ public sealed class CreateOrderCommandValidator : AbstractValidator<CreateOrderC
 
     RuleFor(c => c.CustomerId)
       .SetValidator(customerIdValidator!);
+
+    RuleFor(c => c.PhaseId)
+      .SetValidator(phaseValidator!);
   }
 }
