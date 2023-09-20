@@ -44,5 +44,16 @@ public sealed class HubsController : BaseEntityController<Hub, HubDto, GetHubByI
   [SwaggerOperation(summary: "Get nearest Hub")]
   public async Task<ActionResult<ResultModel<HubDto>>> GetNearestHub([FromQuery] Location location)
     => Ok(ResultModel<HubDto>.Create(await Mediator.Send(new GetNearestHubByLocationQuery(location))));
-
+  [HttpPatch("{id:length(26)}/update-status")]
+  [SwaggerOperation(summary: "Update Hub status")]
+  public async Task<IActionResult> UpdateStatus([FromRoute] string id, [FromBody] UpdateHubStatusCommand command)
+  {
+    if (!id.Equals(command.Id))
+    {
+      ModelState.AddModelError("Id", "Ids are not the same");
+      return ValidationProblem();
+    }
+    await Mediator.Send(command).ConfigureAwait(false);
+    return NoContent();
+  }
 }
