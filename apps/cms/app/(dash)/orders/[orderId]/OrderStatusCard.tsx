@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, CardContent, Container, Stack, Typography } from '@mui/material';
+import { Card, CardContent, Box, Stack, Typography } from '@mui/material';
 
 import PauseCircleFilledIcon from '@mui/icons-material/PauseCircleFilled';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
@@ -13,27 +13,27 @@ const statuses = [
   {
     value: OrderStatus.Pending,
     color: '#e2e2e2',
-    icon: <PauseCircleFilledIcon sx={{ width: 150, height: 150 }} />,
+    icon: <PauseCircleFilledIcon sx={{ width: 50, height: 50 }} />,
   },
   {
     value: OrderStatus.InProgress,
     color: '#ed9a56',
-    icon: <LocalShippingIcon sx={{ width: 150, height: 150 }} />,
+    icon: <LocalShippingIcon sx={{ width: 50, height: 50 }} />,
   },
   {
     value: OrderStatus.Completed,
     color: '#61b2de',
-    icon: <CheckCircleIcon sx={{ width: 150, height: 150 }} />,
+    icon: <CheckCircleIcon sx={{ width: 50, height: 50 }} />,
   },
   {
     value: OrderStatus.Received,
     color: '#579f5a',
-    icon: <ArchiveIcon sx={{ width: 150, height: 150 }} />,
+    icon: <ArchiveIcon sx={{ width: 50, height: 50 }} />,
   },
   {
     value: OrderStatus.Cancelled,
     color: '#d36363',
-    icon: <CancelIcon sx={{ width: 150, height: 150 }} />,
+    icon: <CancelIcon sx={{ width: 50, height: 50 }} />,
   },
 ];
 
@@ -43,11 +43,11 @@ interface OrderStatusCardProps {
 
 const OrderStatusCard: React.FC<OrderStatusCardProps> = ({ status }) => {
   return (
-    <Container>
+    <Box>
       <Card
         sx={{
-          minHeight: 275,
-          height: 350,
+          minHeight: 80,
+          height: 230,
           bgcolor: statuses.find((s) => s.value === status)?.color || '#e2e2e2',
           display: 'flex',
           justifyContent: 'center',
@@ -62,19 +62,19 @@ const OrderStatusCard: React.FC<OrderStatusCardProps> = ({ status }) => {
               alignItems: 'center',
             }}
           >
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="body1" gutterBottom>
               Status
             </Typography>
             {statuses.find((s) => s.value === status)?.icon || (
-              <PauseCircleFilledIcon sx={{ width: 100, height: 100 }} />
+              <PauseCircleFilledIcon sx={{ width: 50, height: 50 }} />
             )}
-            <Typography variant="h4" fontWeight="bold" mt={1} gutterBottom>
+            <Typography variant="h6" fontWeight="bold" mt={1} gutterBottom>
               {OrderStatus[status]}
             </Typography>
           </Stack>
         </CardContent>
       </Card>
-    </Container>
+    </Box>
   );
 };
 
