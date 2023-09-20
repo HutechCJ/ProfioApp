@@ -15,14 +15,10 @@ sealed class UpdateHubStatusCommandHandler : IRequestHandler<UpdateHubStatusComm
   public UpdateHubStatusCommandHandler(ISender sender)
     => _sender = sender;
   public async Task<Unit> Handle(UpdateHubStatusCommand request, CancellationToken cancellationToken)
-  {
-    return await _sender.Send(new UpdateHubCommand(request.Id) { Status = request.Status }, cancellationToken);
-  }
+    => await _sender.Send(new UpdateHubCommand(request.Id) { Status = request.Status }, cancellationToken);
 }
 public class UpdateHubStatusCommandValidator : AbstractValidator<UpdateHubStatusCommand>
 {
   public UpdateHubStatusCommandValidator()
-  {
-    RuleFor(x => x.Id).NotEmpty().NotNull();
-  }
+    => RuleFor(x => x.Id).NotEmpty().NotNull();
 }

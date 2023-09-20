@@ -25,8 +25,6 @@ public sealed class GetDeliveryByVehicleIdWithPagingQueryHandler : GetWithPaging
 public sealed class GetDeliveryByVehicleIdWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetDeliveryByVehicleIdWithPagingQuery, DeliveryDto>
 {
   public GetDeliveryByVehicleIdWithPagingQueryValidator(VehicleExistenceByIdValidator vehicleValidator)
-  {
-    RuleFor(x => x.VehicleId)
+    => RuleFor(x => x.VehicleId)
       .SetValidator(vehicleValidator);
-  }
 }

@@ -56,8 +56,6 @@ public sealed class GetAvailableVehicleByOrderIdWithPagingQueryHandler : IReques
 public sealed class GetAvailableVehicleByOrderIdWithPagingQueryValidator : AbstractValidator<GetAvailableVehicleByOrderIdWithPagingQuery>
 {
   public GetAvailableVehicleByOrderIdWithPagingQueryValidator(OrderExistenceByIdValidator orderValidator)
-  {
-    RuleFor(x => x.OrderId)
+    => RuleFor(x => x.OrderId)
       .SetValidator(orderValidator);
-  }
 }

@@ -24,9 +24,6 @@ public sealed class GetOrderHistoryByDeliveryIdWithPagingQueryHandler : GetWithP
 public sealed class GetOrderHistoryByDeliveryIdWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetOrderHistoryByDeliveryIdWithPagingQuery, OrderHistoryDto>
 {
   public GetOrderHistoryByDeliveryIdWithPagingQueryValidator(DeliveryExistenceByIdValidator deliveryValidator)
-  {
-    RuleFor(x => x.DeliveryId)
-      .SetValidator(deliveryValidator);
-  }
+    => RuleFor(x => x.DeliveryId).SetValidator(deliveryValidator);
 }
 
