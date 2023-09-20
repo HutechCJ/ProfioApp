@@ -349,29 +349,6 @@ namespace Profio.Infrastructure.Persistence.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("Profio.Domain.Entities.OrderHistory", b =>
-                {
-                    b.Property<string>("Id")
-                        .HasColumnType("text");
-
-                    b.Property<string>("DeliveryId")
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<string>("HubId")
-                        .HasColumnType("character varying(26)");
-
-                    b.Property<DateTime?>("Timestamp")
-                        .HasColumnType("timestamp with time zone");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DeliveryId");
-
-                    b.HasIndex("HubId");
-
-                    b.ToTable("OrderHistories");
-                });
-
             modelBuilder.Entity("Profio.Domain.Entities.Phase", b =>
                 {
                     b.Property<string>("Id")
@@ -388,7 +365,7 @@ namespace Profio.Infrastructure.Persistence.Migrations
 
                     b.HasIndex("RouteId");
 
-                    b.ToTable("Phase");
+                    b.ToTable("Phases");
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.Route", b =>
@@ -667,21 +644,6 @@ namespace Profio.Infrastructure.Persistence.Migrations
                     b.Navigation("Customer");
 
                     b.Navigation("Phase");
-                });
-
-            modelBuilder.Entity("Profio.Domain.Entities.OrderHistory", b =>
-                {
-                    b.HasOne("Profio.Domain.Entities.Delivery", "Delivery")
-                        .WithMany()
-                        .HasForeignKey("DeliveryId");
-
-                    b.HasOne("Profio.Domain.Entities.Hub", "Hub")
-                        .WithMany()
-                        .HasForeignKey("HubId");
-
-                    b.Navigation("Delivery");
-
-                    b.Navigation("Hub");
                 });
 
             modelBuilder.Entity("Profio.Domain.Entities.Phase", b =>

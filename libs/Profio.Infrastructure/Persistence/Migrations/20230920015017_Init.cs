@@ -28,32 +28,6 @@ namespace Profio.Infrastructure.Persistence.Migrations
           });
 
       migrationBuilder.CreateTable(
-          name: "AspNetUsers",
-          columns: table => new
-          {
-            Id = table.Column<string>(type: "text", nullable: false),
-            FullName = table.Column<string>(type: "text", nullable: true),
-            UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-            NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-            Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-            NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
-            EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-            PasswordHash = table.Column<string>(type: "text", nullable: true),
-            SecurityStamp = table.Column<string>(type: "text", nullable: true),
-            ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
-            PhoneNumber = table.Column<string>(type: "text", nullable: true),
-            PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
-            TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
-            LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
-            LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
-            AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
-          },
-          constraints: table =>
-          {
-            table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-          });
-
-      migrationBuilder.CreateTable(
           name: "Customers",
           columns: table => new
           {
@@ -62,7 +36,6 @@ namespace Profio.Infrastructure.Persistence.Migrations
             Phone = table.Column<string>(type: "character(10)", fixedLength: true, maxLength: 10, nullable: false),
             Email = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
             Gender = table.Column<int>(type: "integer", nullable: true),
-            ZipCode = table.Column<string>(type: "character(50)", fixedLength: true, maxLength: 50, nullable: false),
             Address = table.Column<Address>(type: "jsonb", nullable: true)
           },
           constraints: table =>
@@ -75,13 +48,28 @@ namespace Profio.Infrastructure.Persistence.Migrations
           columns: table => new
           {
             Id = table.Column<string>(type: "character varying(26)", maxLength: 26, nullable: false),
-            ZipCode = table.Column<string>(type: "character(50)", fixedLength: true, maxLength: 50, nullable: false),
+            Name = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+            ZipCode = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
             Location = table.Column<Location>(type: "jsonb", nullable: true),
+            Address = table.Column<Address>(type: "jsonb", nullable: true),
             Status = table.Column<int>(type: "integer", nullable: false)
           },
           constraints: table =>
           {
             table.PrimaryKey("PK_Hubs", x => x.Id);
+          });
+
+      migrationBuilder.CreateTable(
+          name: "IdempotentRequests",
+          columns: table => new
+          {
+            Id = table.Column<Guid>(type: "uuid", nullable: false),
+            Name = table.Column<string>(type: "text", nullable: false),
+            CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+          },
+          constraints: table =>
+          {
+            table.PrimaryKey("PK_IdempotentRequests", x => x.Id);
           });
 
       migrationBuilder.CreateTable(
@@ -117,6 +105,107 @@ namespace Profio.Infrastructure.Persistence.Migrations
                       principalTable: "AspNetRoles",
                       principalColumn: "Id",
                       onDelete: ReferentialAction.Cascade);
+          });
+
+      migrationBuilder.CreateTable(
+          name: "Routes",
+          columns: table => new
+          {
+            Id = table.Column<string>(type: "character varying(26)", maxLength: 26, nullable: false),
+            Distance = table.Column<double>(type: "double precision", nullable: true),
+            StartHubId = table.Column<string>(type: "character varying(26)", nullable: true),
+            EndHubId = table.Column<string>(type: "character varying(26)", nullable: true)
+          },
+          constraints: table =>
+          {
+            table.PrimaryKey("PK_Routes", x => x.Id);
+            table.ForeignKey(
+                      name: "FK_Routes_Hubs_EndHubId",
+                      column: x => x.EndHubId,
+                      principalTable: "Hubs",
+                      principalColumn: "Id",
+                      onDelete: ReferentialAction.Cascade);
+            table.ForeignKey(
+                      name: "FK_Routes_Hubs_StartHubId",
+                      column: x => x.StartHubId,
+                      principalTable: "Hubs",
+                      principalColumn: "Id",
+                      onDelete: ReferentialAction.Cascade);
+          });
+
+      migrationBuilder.CreateTable(
+          name: "AspNetUsers",
+          columns: table => new
+          {
+            Id = table.Column<string>(type: "text", nullable: false),
+            FullName = table.Column<string>(type: "text", nullable: true),
+            ImageUrl = table.Column<string>(type: "text", nullable: true),
+            StaffId = table.Column<string>(type: "character varying(26)", nullable: true),
+            UserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+            NormalizedUserName = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+            Email = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+            NormalizedEmail = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+            EmailConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+            PasswordHash = table.Column<string>(type: "text", nullable: true),
+            SecurityStamp = table.Column<string>(type: "text", nullable: true),
+            ConcurrencyStamp = table.Column<string>(type: "text", nullable: true),
+            PhoneNumber = table.Column<string>(type: "text", nullable: true),
+            PhoneNumberConfirmed = table.Column<bool>(type: "boolean", nullable: false),
+            TwoFactorEnabled = table.Column<bool>(type: "boolean", nullable: false),
+            LockoutEnd = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+            LockoutEnabled = table.Column<bool>(type: "boolean", nullable: false),
+            AccessFailedCount = table.Column<int>(type: "integer", nullable: false)
+          },
+          constraints: table =>
+          {
+            table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+            table.ForeignKey(
+                      name: "FK_AspNetUsers_Staffs_StaffId",
+                      column: x => x.StaffId,
+                      principalTable: "Staffs",
+                      principalColumn: "Id",
+                      onDelete: ReferentialAction.SetNull);
+          });
+
+      migrationBuilder.CreateTable(
+          name: "Vehicles",
+          columns: table => new
+          {
+            Id = table.Column<string>(type: "character varying(26)", maxLength: 26, nullable: false),
+            ZipCodeCurrent = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+            LicensePlate = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
+            Type = table.Column<int>(type: "integer", nullable: false),
+            Status = table.Column<int>(type: "integer", nullable: false),
+            StaffId = table.Column<string>(type: "character varying(26)", nullable: true)
+          },
+          constraints: table =>
+          {
+            table.PrimaryKey("PK_Vehicles", x => x.Id);
+            table.ForeignKey(
+                      name: "FK_Vehicles_Staffs_StaffId",
+                      column: x => x.StaffId,
+                      principalTable: "Staffs",
+                      principalColumn: "Id",
+                      onDelete: ReferentialAction.SetNull);
+          });
+
+      migrationBuilder.CreateTable(
+          name: "Phases",
+          columns: table => new
+          {
+            Id = table.Column<string>(type: "character varying(26)", maxLength: 26, nullable: false),
+            Order = table.Column<int>(type: "integer", nullable: false),
+            RouteId = table.Column<string>(type: "character varying(26)", nullable: true)
+          },
+          constraints: table =>
+          {
+            table.PrimaryKey("PK_Phases", x => x.Id);
+            table.ForeignKey(
+                      name: "FK_Phases_Routes_RouteId",
+                      column: x => x.RouteId,
+                      principalTable: "Routes",
+                      principalColumn: "Id",
+                      onDelete: ReferentialAction.SetNull);
           });
 
       migrationBuilder.CreateTable(
@@ -205,53 +294,6 @@ namespace Profio.Infrastructure.Persistence.Migrations
           });
 
       migrationBuilder.CreateTable(
-          name: "Routes",
-          columns: table => new
-          {
-            Id = table.Column<string>(type: "character varying(26)", maxLength: 26, nullable: false),
-            Distance = table.Column<double>(type: "double precision", nullable: true),
-            StartHubId = table.Column<string>(type: "character varying(26)", nullable: true),
-            EndHubId = table.Column<string>(type: "character varying(26)", nullable: true)
-          },
-          constraints: table =>
-          {
-            table.PrimaryKey("PK_Routes", x => x.Id);
-            table.ForeignKey(
-                      name: "FK_Routes_Hubs_EndHubId",
-                      column: x => x.EndHubId,
-                      principalTable: "Hubs",
-                      principalColumn: "Id",
-                      onDelete: ReferentialAction.Cascade);
-            table.ForeignKey(
-                      name: "FK_Routes_Hubs_StartHubId",
-                      column: x => x.StartHubId,
-                      principalTable: "Hubs",
-                      principalColumn: "Id",
-                      onDelete: ReferentialAction.Cascade);
-          });
-
-      migrationBuilder.CreateTable(
-          name: "Vehicles",
-          columns: table => new
-          {
-            Id = table.Column<string>(type: "character varying(26)", maxLength: 26, nullable: false),
-            ZipCodeCurrent = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
-            LicensePlate = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: true),
-            VehicleType = table.Column<int>(type: "integer", nullable: false),
-            StaffId = table.Column<string>(type: "character varying(26)", nullable: true)
-          },
-          constraints: table =>
-          {
-            table.PrimaryKey("PK_Vehicles", x => x.Id);
-            table.ForeignKey(
-                      name: "FK_Vehicles_Staffs_StaffId",
-                      column: x => x.StaffId,
-                      principalTable: "Staffs",
-                      principalColumn: "Id",
-                      onDelete: ReferentialAction.SetNull);
-          });
-
-      migrationBuilder.CreateTable(
           name: "Orders",
           columns: table => new
           {
@@ -259,10 +301,12 @@ namespace Profio.Infrastructure.Persistence.Migrations
             StartedDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
             ExpectedDeliveryTime = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
             Status = table.Column<int>(type: "integer", nullable: false),
+            DestinationAddress = table.Column<Address>(type: "jsonb", nullable: true),
             DestinationZipCode = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+            Note = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: true),
             Distance = table.Column<double>(type: "double precision", nullable: true),
-            VehicleId = table.Column<string>(type: "character varying(26)", nullable: true),
-            CustomerId = table.Column<string>(type: "character varying(26)", nullable: true)
+            CustomerId = table.Column<string>(type: "character varying(26)", nullable: true),
+            PhaseId = table.Column<string>(type: "character varying(26)", nullable: true)
           },
           constraints: table =>
           {
@@ -274,7 +318,33 @@ namespace Profio.Infrastructure.Persistence.Migrations
                       principalColumn: "Id",
                       onDelete: ReferentialAction.SetNull);
             table.ForeignKey(
-                      name: "FK_Orders_Vehicles_VehicleId",
+                      name: "FK_Orders_Phases_PhaseId",
+                      column: x => x.PhaseId,
+                      principalTable: "Phases",
+                      principalColumn: "Id",
+                      onDelete: ReferentialAction.SetNull);
+          });
+
+      migrationBuilder.CreateTable(
+          name: "Deliveries",
+          columns: table => new
+          {
+            Id = table.Column<string>(type: "character varying(26)", maxLength: 26, nullable: false),
+            DeliveryDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+            OrderId = table.Column<string>(type: "character varying(26)", nullable: true),
+            VehicleId = table.Column<string>(type: "character varying(26)", nullable: true)
+          },
+          constraints: table =>
+          {
+            table.PrimaryKey("PK_Deliveries", x => x.Id);
+            table.ForeignKey(
+                      name: "FK_Deliveries_Orders_OrderId",
+                      column: x => x.OrderId,
+                      principalTable: "Orders",
+                      principalColumn: "Id",
+                      onDelete: ReferentialAction.Cascade);
+            table.ForeignKey(
+                      name: "FK_Deliveries_Vehicles_VehicleId",
                       column: x => x.VehicleId,
                       principalTable: "Vehicles",
                       principalColumn: "Id",
@@ -304,39 +374,6 @@ namespace Profio.Infrastructure.Persistence.Migrations
           });
 
       migrationBuilder.CreateTable(
-          name: "OrderHistories",
-          columns: table => new
-          {
-            Id = table.Column<string>(type: "character varying(26)", maxLength: 26, nullable: false),
-            Timestamp = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-            OrderId = table.Column<string>(type: "character varying(26)", nullable: true),
-            VehicleId = table.Column<string>(type: "character varying(26)", nullable: true),
-            HubId = table.Column<string>(type: "character varying(26)", nullable: true)
-          },
-          constraints: table =>
-          {
-            table.PrimaryKey("PK_OrderHistories", x => x.Id);
-            table.ForeignKey(
-                      name: "FK_OrderHistories_Hubs_HubId",
-                      column: x => x.HubId,
-                      principalTable: "Hubs",
-                      principalColumn: "Id",
-                      onDelete: ReferentialAction.SetNull);
-            table.ForeignKey(
-                      name: "FK_OrderHistories_Orders_OrderId",
-                      column: x => x.OrderId,
-                      principalTable: "Orders",
-                      principalColumn: "Id",
-                      onDelete: ReferentialAction.Cascade);
-            table.ForeignKey(
-                      name: "FK_OrderHistories_Vehicles_VehicleId",
-                      column: x => x.VehicleId,
-                      principalTable: "Vehicles",
-                      principalColumn: "Id",
-                      onDelete: ReferentialAction.SetNull);
-          });
-
-      migrationBuilder.CreateTable(
           name: "Incidents",
           columns: table => new
           {
@@ -344,17 +381,17 @@ namespace Profio.Infrastructure.Persistence.Migrations
             Description = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: true),
             Status = table.Column<int>(type: "integer", nullable: false),
             Time = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
-            OrderHistoryId = table.Column<string>(type: "character varying(26)", nullable: true)
+            DeliveryId = table.Column<string>(type: "character varying(26)", nullable: true)
           },
           constraints: table =>
           {
             table.PrimaryKey("PK_Incidents", x => x.Id);
             table.ForeignKey(
-                      name: "FK_Incidents_OrderHistories_OrderHistoryId",
-                      column: x => x.OrderHistoryId,
-                      principalTable: "OrderHistories",
+                      name: "FK_Incidents_Deliveries_DeliveryId",
+                      column: x => x.DeliveryId,
+                      principalTable: "Deliveries",
                       principalColumn: "Id",
-                      onDelete: ReferentialAction.Cascade);
+                      onDelete: ReferentialAction.SetNull);
           });
 
       migrationBuilder.CreateIndex(
@@ -389,10 +426,25 @@ namespace Profio.Infrastructure.Persistence.Migrations
           column: "NormalizedEmail");
 
       migrationBuilder.CreateIndex(
+          name: "IX_AspNetUsers_StaffId",
+          table: "AspNetUsers",
+          column: "StaffId");
+
+      migrationBuilder.CreateIndex(
           name: "UserNameIndex",
           table: "AspNetUsers",
           column: "NormalizedUserName",
           unique: true);
+
+      migrationBuilder.CreateIndex(
+          name: "IX_Deliveries_OrderId",
+          table: "Deliveries",
+          column: "OrderId");
+
+      migrationBuilder.CreateIndex(
+          name: "IX_Deliveries_VehicleId",
+          table: "Deliveries",
+          column: "VehicleId");
 
       migrationBuilder.CreateIndex(
           name: "IX_DeliveryProgresses_OrderId",
@@ -400,24 +452,9 @@ namespace Profio.Infrastructure.Persistence.Migrations
           column: "OrderId");
 
       migrationBuilder.CreateIndex(
-          name: "IX_Incidents_OrderHistoryId",
+          name: "IX_Incidents_DeliveryId",
           table: "Incidents",
-          column: "OrderHistoryId");
-
-      migrationBuilder.CreateIndex(
-          name: "IX_OrderHistories_HubId",
-          table: "OrderHistories",
-          column: "HubId");
-
-      migrationBuilder.CreateIndex(
-          name: "IX_OrderHistories_OrderId",
-          table: "OrderHistories",
-          column: "OrderId");
-
-      migrationBuilder.CreateIndex(
-          name: "IX_OrderHistories_VehicleId",
-          table: "OrderHistories",
-          column: "VehicleId");
+          column: "DeliveryId");
 
       migrationBuilder.CreateIndex(
           name: "IX_Orders_CustomerId",
@@ -425,9 +462,14 @@ namespace Profio.Infrastructure.Persistence.Migrations
           column: "CustomerId");
 
       migrationBuilder.CreateIndex(
-          name: "IX_Orders_VehicleId",
+          name: "IX_Orders_PhaseId",
           table: "Orders",
-          column: "VehicleId");
+          column: "PhaseId");
+
+      migrationBuilder.CreateIndex(
+          name: "IX_Phases_RouteId",
+          table: "Phases",
+          column: "RouteId");
 
       migrationBuilder.CreateIndex(
           name: "IX_Routes_EndHubId",
@@ -467,10 +509,10 @@ namespace Profio.Infrastructure.Persistence.Migrations
           name: "DeliveryProgresses");
 
       migrationBuilder.DropTable(
-          name: "Incidents");
+          name: "IdempotentRequests");
 
       migrationBuilder.DropTable(
-          name: "Routes");
+          name: "Incidents");
 
       migrationBuilder.DropTable(
           name: "AspNetRoles");
@@ -479,22 +521,28 @@ namespace Profio.Infrastructure.Persistence.Migrations
           name: "AspNetUsers");
 
       migrationBuilder.DropTable(
-          name: "OrderHistories");
-
-      migrationBuilder.DropTable(
-          name: "Hubs");
+          name: "Deliveries");
 
       migrationBuilder.DropTable(
           name: "Orders");
 
       migrationBuilder.DropTable(
-          name: "Customers");
-
-      migrationBuilder.DropTable(
           name: "Vehicles");
 
       migrationBuilder.DropTable(
+          name: "Customers");
+
+      migrationBuilder.DropTable(
+          name: "Phases");
+
+      migrationBuilder.DropTable(
           name: "Staffs");
+
+      migrationBuilder.DropTable(
+          name: "Routes");
+
+      migrationBuilder.DropTable(
+          name: "Hubs");
     }
   }
 }

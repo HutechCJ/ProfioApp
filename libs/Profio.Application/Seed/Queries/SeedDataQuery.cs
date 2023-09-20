@@ -108,7 +108,9 @@ public sealed class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
     {
       var json = await File.ReadAllTextAsync(PathSeed.VehicleData);
       var vehicles = JsonSerializer.Deserialize<List<Vehicle>>(json)!;
-      var staffIds = _context.Staffs.Select(x => x.Id).ToList();
+      var staffIds = _context.Staffs
+        .Where(x => x.Position == Position.Driver || x.Position == Position.Shipper)
+        .Select(x => x.Id).ToList();
       var hubZipCodes = _context.Hubs.Select(x => x.ZipCode).ToList();
       foreach (var vehicle in vehicles)
       {
