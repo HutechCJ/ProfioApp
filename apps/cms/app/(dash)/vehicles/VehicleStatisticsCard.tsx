@@ -11,7 +11,6 @@ import {
   Stack,
   LinearProgress,
   Typography,
-  Container,
   Grid,
   Paper,
 } from '@mui/material';
@@ -78,10 +77,10 @@ const VehicleStatisticsCard = () => {
           mb={2}
         >
           <Grid item xs={1}>
-            <Container>
+            <Box>
               <Card
                 sx={{
-                  bgcolor: '#ed6c02',
+                  bgcolor: '#ed9852',
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
@@ -96,9 +95,7 @@ const VehicleStatisticsCard = () => {
                         alignItems: 'center',
                       }}
                     >
-                      <Typography variant="body1">
-                        Idle
-                      </Typography>
+                      <Typography variant="body1">Idle</Typography>
                       <Typography variant="h4" fontWeight="bold" mt={1}>
                         {totalIdle}
                       </Typography>
@@ -106,14 +103,14 @@ const VehicleStatisticsCard = () => {
                   </Stack>
                 </CardContent>
               </Card>
-            </Container>
+            </Box>
           </Grid>
 
           <Grid item xs={1}>
-            <Container>
+            <Box>
               <Card
                 sx={{
-                  bgcolor: '#d32f2f',
+                  bgcolor: '#d35050',
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
@@ -128,9 +125,7 @@ const VehicleStatisticsCard = () => {
                         alignItems: 'center',
                       }}
                     >
-                      <Typography variant="body1">
-                        Busy
-                      </Typography>
+                      <Typography variant="body1">Busy</Typography>
                       <Typography variant="h4" fontWeight="bold" mt={1}>
                         {totalBusy}
                       </Typography>
@@ -138,14 +133,14 @@ const VehicleStatisticsCard = () => {
                   </Stack>
                 </CardContent>
               </Card>
-            </Container>
+            </Box>
           </Grid>
 
           <Grid item xs={1}>
-            <Container>
+            <Box>
               <Card
                 sx={{
-                  bgcolor: '#009be5',
+                  bgcolor: '#49b2e5',
                   justifyContent: 'center',
                   alignItems: 'center',
                 }}
@@ -160,9 +155,7 @@ const VehicleStatisticsCard = () => {
                         alignItems: 'center',
                       }}
                     >
-                      <Typography variant="body1">
-                        Offline
-                      </Typography>
+                      <Typography variant="body1">Offline</Typography>
                       <Typography variant="h4" fontWeight="bold" mt={1}>
                         {totalOffline}
                       </Typography>
@@ -170,7 +163,7 @@ const VehicleStatisticsCard = () => {
                   </Stack>
                 </CardContent>
               </Card>
-            </Container>
+            </Box>
           </Grid>
         </Grid>
 
