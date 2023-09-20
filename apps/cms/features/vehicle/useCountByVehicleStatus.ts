@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import vehicleApi from './vehicle.service';
 
 const useCountByVehicleStatus = () => {
-  const queryData = useQuery([`users/count`], {
+  const queryData = useQuery([`users/count-by-status`], {
     queryFn: () => vehicleApi.countByVehicleStatus(),
     keepPreviousData: true,
   });
