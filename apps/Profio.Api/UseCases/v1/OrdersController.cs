@@ -46,6 +46,10 @@ public sealed class OrdersController : BaseEntityController<Order, OrderDto, Get
   [SwaggerOperation(summary: "Get Order count")]
   public async Task<ActionResult<ResultModel<int>>> GetCount()
     => Ok(ResultModel<int>.Create(await Mediator.Send(new GetOrderCountQuery())));
+  [HttpGet("count-by-status")]
+  [SwaggerOperation(summary: "Get Order count by Status")]
+  public async Task<ActionResult<ResultModel<IEnumerable<int>>>> GetCountByStatus()
+    => Ok(ResultModel<IEnumerable<int>>.Create(await Mediator.Send(new GetOrderCountByStatusQuery())));
 
   [HttpGet("{id:length(26)}/vehicles/available")]
   [SwaggerOperation(summary: "Get available Vehicle List by Order Id")]
