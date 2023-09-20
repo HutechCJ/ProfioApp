@@ -40,7 +40,7 @@ public sealed class LuceneService<T> : ILuceneService<T> where T : class
         foreach (var property in data.GetType().GetProperties())
         {
           if (!propertyIndex.ContainsKey(property.Name))
-            propertyIndex.Add(property.Name, new List<Document>());
+            propertyIndex.Add(property.Name, new());
 
           var value = property.GetValue(data, null);
 
@@ -61,7 +61,7 @@ public sealed class LuceneService<T> : ILuceneService<T> where T : class
     var booleanQuery = new BooleanQuery
     {
       { _queryParser.Parse(query), Occur.SHOULD },
-      { new FuzzyQuery(new Term("content", query), 2), Occur.SHOULD }
+      { new FuzzyQuery(new("content", query), 2), Occur.SHOULD }
     };
 
     var hits = _indexSearcher.Search(booleanQuery, maxResults).ScoreDocs;
