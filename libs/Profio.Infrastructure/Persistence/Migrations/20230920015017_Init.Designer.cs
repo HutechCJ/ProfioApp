@@ -13,8 +13,8 @@ using Profio.Infrastructure.Persistence;
 namespace Profio.Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230920013157_UpdatePhasesTable")]
-    partial class UpdatePhasesTable
+    [Migration("20230920015017_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
