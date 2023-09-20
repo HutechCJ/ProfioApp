@@ -1,6 +1,6 @@
 ---
 title: CI/CD
-description: A pipeline for continuous integration and continuous deployment
+description: A CI/CD pipeline
 sidebar_position: 4
 ---
 
