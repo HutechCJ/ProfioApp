@@ -16,7 +16,7 @@ public sealed class EmailService : IEmailService
     => await Policy
       .Handle<Exception>()
       .WaitAndRetryAsync(
-        retryCount: 3, 
+        retryCount: 3,
         sleepDurationProvider: _ => TimeSpan.FromMilliseconds(new Random().Next(1000, 3000)),
         onRetry: (_, retryCount, _) =>
           _logger.LogWarning($"Failed to send email. Retrying... Attempt: {retryCount}")
