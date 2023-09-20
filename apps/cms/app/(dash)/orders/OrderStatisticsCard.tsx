@@ -8,7 +8,7 @@ import {
   CardHeader,
   CardContent,
   Divider,
-  Stack,
+  Grid,
   LinearProgress,
 } from '@mui/material';
 
@@ -57,60 +57,64 @@ const OrderStatisticsCard = () => {
     <Card sx={{ marginBottom: 4 }}>
       <CardHeader title="ORDER" subheader="Statistics" />
       <Divider />
-      <CardContent sx={{ marginY: 4 }}>
-        <Stack
+      <CardContent>
+        <Grid
+          minHeight={128}
+          container
           direction="row"
-          justifyContent="space-around"
-          alignItems="center"
-          divider={<Divider orientation="vertical" flexItem />}
-          mb={4}
+          spacing={1}
+          columns={{ xs: 1, sm: 3, md: 6 }}
+          mb={2}
         >
-          <StatColorCard
-            cardColor="#dd77f2"
-            icon={<InventoryIcon />}
-            label="Total Orders"
-            value={totalOrders}
-          />
-          <StatColorCard
-            cardColor="#e2e2e2"
-            icon={<PauseCircleFilledIcon />}
-            label="Pending"
-            value={totalPending}
-          />
-          <StatColorCard
-            cardColor="#ed9a56"
-            icon={<LocalShippingIcon />}
-            label="InProgress"
-            value={totalInProgress}
-          />
-        </Stack>
-
-        <Stack
-          direction="row"
-          justifyContent="space-around"
-          alignItems="center"
-          divider={<Divider orientation="vertical" flexItem />}
-          mb={4}
-        >
-          <StatColorCard
-            cardColor="#61b2de"
-            icon={<CheckCircleIcon />}
-            label="Completed"
-            value={totalCompleted}
-          />
-          <StatColorCard
-            cardColor="#579f5a"
-            icon={<ArchiveIcon />}
-            label="Received"
-            value={totalReceived}
-          />
-          <StatColorCard
-            cardColor="#d36363"
-            icon={<CancelIcon />}
-            label="Cancelled"
-            value={totalCancelled}
-          />
-        </Stack>
+          <Grid item xs={1}>
+            <StatColorCard
+              cardColor="#dd77f2"
+              icon={<InventoryIcon />}
+              label="Total Orders"
+              value={totalOrders}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <StatColorCard
+              cardColor="#e2e2e2"
+              icon={<PauseCircleFilledIcon />}
+              label="Pending"
+              value={totalPending}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <StatColorCard
+              cardColor="#ed9a56"
+              icon={<LocalShippingIcon />}
+              label="InProgress"
+              value={totalInProgress}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <StatColorCard
+              cardColor="#61b2de"
+              icon={<CheckCircleIcon />}
+              label="Completed"
+              value={totalCompleted}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <StatColorCard
+              cardColor="#579f5a"
+              icon={<ArchiveIcon />}
+              label="Received"
+              value={totalReceived}
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <StatColorCard
+              cardColor="#d36363"
+              icon={<CancelIcon />}
+              label="Cancelled"
+              value={totalCancelled}
+            />
+          </Grid>
+        </Grid>
       </CardContent>
     </Card>
   );

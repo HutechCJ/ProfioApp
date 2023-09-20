@@ -13,7 +13,7 @@ export interface StatProps {
 
 const Stat: React.FC<StatProps> = ({
   icon,
-  iconSx = { width: 60, height: 60 },
+  iconSx = { width: 40, height: 40 },
   iconColor = 'blue',
   label = '',
   value = 0,
@@ -26,12 +26,12 @@ const Stat: React.FC<StatProps> = ({
       alignItems="center"
       spacing={2}
     >
-      <Avatar sx={{ bgcolor: `${iconColor}`, width: 100, height: 100 }}>
+      <Avatar sx={{ bgcolor: `${iconColor}`, width: 70, height: 70 }}>
         {React.cloneElement(icon as React.ReactElement, { sx: iconSx })}
       </Avatar>
       <Stack>
         <Typography variant="body1">{label}</Typography>
-        <Typography variant="h2" fontWeight="bold">
+        <Typography variant="h4" fontWeight="bold">
           {value}
         </Typography>
         <Typography variant="body1" color="gray">

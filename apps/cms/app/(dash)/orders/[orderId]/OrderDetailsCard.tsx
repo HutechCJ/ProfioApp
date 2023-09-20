@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { Card, CardContent, Container, Stack, Typography } from '@mui/material';
-
-import InventoryIcon from '@mui/icons-material/Inventory';
+import { Card, CardContent, Box, Stack, Typography } from '@mui/material';
 
 interface OrderDetailsCardProps {
   startedDate: string;
@@ -22,73 +20,60 @@ const OrderDetailsCard: React.FC<OrderDetailsCardProps> = ({
   distance,
 }) => {
   return (
-    <Container>
+    <Box>
       <Card
         sx={{
-          minHeight: 250,
-          bgcolor: '#dd77f2',
+          minHeight: 80,
+          height: 230,
+          bgcolor: '#e3e3e3',
           display: 'flex',
+          justifyContent: 'flex-start',
           alignItems: 'center',
-          mt: 2,
-          px: 6,
+          pt: 2,
+          px: 2,
         }}
       >
         <CardContent>
-          <Stack
-            direction="row"
-            justifyContent="flex-start"
-            alignItems="center"
-            spacing={8}
-          >
-            <Stack
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              spacing={2}
-            >
-              <Typography variant="h6" gutterBottom>
-                Order
-              </Typography>
-              <InventoryIcon sx={{ width: 150, height: 150 }} />
-            </Stack>
-            <Stack>
-              <Typography variant="h6" gutterBottom>
-                Started Date: <strong>{startedDate}</strong>
-              </Typography>
-              <Typography variant="h6" gutterBottom>
-                Expected Delivery Time: <strong>{expectedDeliveryTime}</strong>
-              </Typography>
-              <Typography variant="h6" gutterBottom>
-                Destination Address:{' '}
-                <strong>
-                  {(() => {
-                    const { street, ward, city, province } =
-                      destinationAddress || {};
-                    const addressParts = [];
+          <Stack>
+            <Typography variant="h6" fontWeight="bold" gutterBottom>
+              • Order •
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              Started Date: <strong>{startedDate}</strong>
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              Expected Delivery Time: <strong>{expectedDeliveryTime}</strong>
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              Destination Address:{' '}
+              <strong>
+                {(() => {
+                  const { street, ward, city, province } =
+                    destinationAddress || {};
+                  const addressParts = [];
 
-                    if (street) addressParts.push(street);
-                    if (ward) addressParts.push(ward);
-                    if (city) addressParts.push(city);
-                    if (province) addressParts.push(province);
+                  if (street) addressParts.push(street);
+                  if (ward) addressParts.push(ward);
+                  if (city) addressParts.push(city);
+                  if (province) addressParts.push(province);
 
-                    return addressParts.join(', ');
-                  })()}
-                </strong>
-              </Typography>
-              <Typography variant="h6" gutterBottom>
-                Destination Zip Code: <strong>{destinationZipCode}</strong>
-              </Typography>
-              <Typography variant="h6" gutterBottom>
-                Note: <strong>{note}</strong>
-              </Typography>
-              <Typography variant="h6" gutterBottom>
-                Distance: <strong>{distance}</strong>
-              </Typography>
-            </Stack>
+                  return addressParts.join(', ');
+                })()}
+              </strong>
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              Destination Zip Code: <strong>{destinationZipCode}</strong>
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              Note: <strong>{note}</strong>
+            </Typography>
+            <Typography variant="body1" gutterBottom>
+              Distance: <strong>{distance}</strong>
+            </Typography>
           </Stack>
         </CardContent>
       </Card>
-    </Container>
+    </Box>
   );
 };
 

@@ -14,6 +14,7 @@ import {
   Divider,
   CardContent,
   ButtonGroup,
+  Grid,
 } from '@mui/material';
 
 import _ from 'lodash';
@@ -111,20 +112,21 @@ function Order({ params }: { params: { orderId: string } }) {
         <Divider />
 
         <CardContent>
-          <Stack
-            direction="column"
-            justifyContent="flex-start"
-            alignItems="center"
+          <Grid
+            minHeight={128}
+            container
+            direction="row"
+            spacing={1}
+            columns={{ xs: 1, sm: 6, md: 12 }}
+            mb={2}
           >
-            <Container>
-              <Stack
-                direction="row"
-                justifyContent="space-around"
-                alignItems="center"
-              >
-                <OrderStatusCard status={orderApiRes.data.status} />
-                <OrderCustomerCard customer={orderApiRes.data.customer} />
-              </Stack>
+            <Grid item xs={3}>
+              <OrderStatusCard status={orderApiRes.data.status} />
+            </Grid>
+            <Grid item xs={3}>
+              <OrderCustomerCard customer={orderApiRes.data.customer} />
+            </Grid>
+            <Grid item xs={6}>
               <OrderDetailsCard
                 startedDate={orderApiRes.data.startedDate}
                 expectedDeliveryTime={orderApiRes.data.expectedDeliveryTime}
@@ -133,8 +135,8 @@ function Order({ params }: { params: { orderId: string } }) {
                 note={orderApiRes.data.note}
                 distance={orderApiRes.data.distance}
               />
-            </Container>
-          </Stack>
+            </Grid>
+          </Grid>
         </CardContent>
       </Card>
 
