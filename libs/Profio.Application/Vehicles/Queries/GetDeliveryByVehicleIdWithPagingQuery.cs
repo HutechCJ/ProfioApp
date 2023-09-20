@@ -18,9 +18,7 @@ public sealed class GetDeliveryByVehicleIdWithPagingQueryHandler : GetWithPaging
   {
   }
   protected override Expression<Func<Delivery, bool>> RequestFilter(GetDeliveryByVehicleIdWithPagingQuery request)
-  {
-    return x => x.VehicleId == request.VehicleId;
-  }
+    => x => x.VehicleId == request.VehicleId;
 }
 public sealed class GetDeliveryByVehicleIdWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetDeliveryByVehicleIdWithPagingQuery, DeliveryDto>
 {
