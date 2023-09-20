@@ -1,7 +1,7 @@
 'use client';
 
 import { getPagingQueryString } from '@/common/utils/string';
-import { Order } from './order.types';
+import { CreateOrderData, Order, UpdateOrderData } from './order.types';
 import HttpService from '@/common/services/http.service';
 import { Hub } from '../hub/hub.types';
 import { Delivery } from '../delivery/delivery.types';
@@ -22,6 +22,22 @@ class OrderApiService extends HttpService {
 
   getOrderDeliveries(id: string) {
     return this.get<Paging<Delivery>>(`/orders/${id}/deliveries`);
+  }
+
+  countByStatus() {
+    return this.get<number[]>(`/orders/count-by-status`);
+  }
+
+  createOrder(data: CreateOrderData) {
+    return this.post<Order>(`/orders`, data);
+  }
+
+  updateOrder(data: UpdateOrderData) {
+    return this.put(`/orders/${data.id}`, data);
+  }
+
+  deleteOrder(id: string) {
+    return this.delete<Order>(`/orders/${id}`);
   }
 }
 
