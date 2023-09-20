@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Http;
-using Profio.Infrastructure.Storage.Supabase.Internals;
 
 namespace Profio.Infrastructure.Storage.Supabase;
 

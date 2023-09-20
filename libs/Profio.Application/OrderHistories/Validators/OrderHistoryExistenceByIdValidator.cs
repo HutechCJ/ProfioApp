@@ -1,6 +1,6 @@
 using EntityFrameworkCore.UnitOfWork.Interfaces;
-using Profio.Application.Abstractions.CQRS.Validators;
 using Profio.Domain.Entities;
+using Profio.Infrastructure.Abstractions.CQRS.Validators;
 
 namespace Profio.Application.OrderHistories.Validators;
 

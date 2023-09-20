@@ -1,13 +1,14 @@
 using AutoMapper;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
 using FluentValidation;
-using Profio.Application.Abstractions.CQRS.Events.Commands;
-using Profio.Application.Abstractions.CQRS.Handlers.Command;
-using Profio.Application.Abstractions.CQRS.Validators;
 using Profio.Application.Customers.Validators;
+using Profio.Application.Phases.Validators;
 using Profio.Domain.Constants;
 using Profio.Domain.Entities;
 using Profio.Domain.ValueObjects;
+using Profio.Infrastructure.Abstractions.CQRS.Events.Commands;
+using Profio.Infrastructure.Abstractions.CQRS.Handlers.Command;
+using Profio.Infrastructure.Abstractions.CQRS.Validators;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Orders.Commands;
@@ -25,6 +26,7 @@ public sealed record UpdateOrderCommand(object Id) : UpdateCommandBase(Id)
   public string? Note { get; set; }
   public double? Distance { get; set; }
   public string? CustomerId { get; set; }
+  public string? PhaseId { get; set; }
 }
 
 public sealed class UpdateOrderCommandHandler : UpdateCommandHandlerBase<UpdateOrderCommand, Order>
@@ -36,7 +38,7 @@ public sealed class UpdateOrderCommandHandler : UpdateCommandHandlerBase<UpdateO
 
 public sealed class UpdateOrderCommandValidator : AbstractValidator<UpdateOrderCommand>
 {
-  public UpdateOrderCommandValidator(CustomerExistenceByIdValidator customerIdValidator)
+  public UpdateOrderCommandValidator(CustomerExistenceByIdValidator customerIdValidator, PhaseExistenceByIdValidator phaseValidator)
   {
     RuleFor(c => c.ExpectedDeliveryTime)
       .GreaterThan(c => c.StartedDate);
@@ -59,5 +61,8 @@ public sealed class UpdateOrderCommandValidator : AbstractValidator<UpdateOrderC
 
     RuleFor(c => c.CustomerId)
       .SetValidator(customerIdValidator!);
+
+    RuleFor(c => c.PhaseId)
+      .SetValidator(phaseValidator!);
   }
 }

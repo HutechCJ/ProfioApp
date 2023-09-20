@@ -1,16 +1,16 @@
 using AutoMapper;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
 using FluentValidation;
-using Profio.Application.Abstractions.CQRS.Events.Commands;
-using Profio.Application.Abstractions.CQRS.Handlers.Command;
 using Profio.Application.Routes.Validators;
 using Profio.Domain.Entities;
+using Profio.Infrastructure.Abstractions.CQRS.Events.Commands;
+using Profio.Infrastructure.Abstractions.CQRS.Handlers.Command;
 
 namespace Profio.Application.Phases.Commands;
 
 public sealed record CreatePhaseCommand : CreateCommandBase
 {
-  public int Order { get; set; } = 0;
+  public int Order { get; set; } = 1;
   public string? RouteId { get; set; }
 };
 sealed class CreatePhaseCommandHandler : CreateCommandHandlerBase<CreatePhaseCommand, Phase>
@@ -24,7 +24,7 @@ public sealed class CreatePhaseCommandValidator : AbstractValidator<CreatePhaseC
   public CreatePhaseCommandValidator(RouteExistenceByIdValidator routeValidator)
   {
     RuleFor(x => x.Order)
-      .GreaterThanOrEqualTo(0);
+      .GreaterThanOrEqualTo(1);
 
     RuleFor(x => x.RouteId)
       .SetValidator(routeValidator!);

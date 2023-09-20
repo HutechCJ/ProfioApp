@@ -4,8 +4,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json.Serialization;
+using Profio.Infrastructure.Auth;
 using Profio.Infrastructure.Bus;
 using Profio.Infrastructure.Cache;
+using Profio.Infrastructure.Email;
 using Profio.Infrastructure.Filters;
 using Profio.Infrastructure.HealthCheck;
 using Profio.Infrastructure.Hub;
@@ -23,9 +26,6 @@ using Profio.Infrastructure.Versioning;
 using System.IO.Compression;
 using System.Net.Mime;
 using System.Text.Json.Serialization;
-using Newtonsoft.Json.Serialization;
-using Profio.Infrastructure.Auth;
-using Profio.Infrastructure.Email;
 
 namespace Profio.Infrastructure;
 
