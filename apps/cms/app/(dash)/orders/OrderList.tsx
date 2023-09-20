@@ -140,7 +140,9 @@ function OrderList() {
         const { customer } = params.row;
         return (
           <Link href={`/customers/${customer?.id}`} sx={{ color: 'black' }}>
-            <Typography variant="button">{customer?.name || 'Empty'}</Typography>
+            <Typography variant="button">
+              {customer?.name || 'Empty'}
+            </Typography>
           </Link>
         );
       },
