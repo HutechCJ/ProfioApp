@@ -1,6 +1,6 @@
-using System.Text.Json;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using System.Text.Json;
 
 namespace Profio.Infrastructure.Swagger;
 

@@ -1,11 +1,11 @@
 using AutoMapper;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
 using FluentValidation;
-using Profio.Application.Abstractions.CQRS.Events.Commands;
-using Profio.Application.Abstractions.CQRS.Handlers.Command;
 using Profio.Application.OrderHistories.Validators;
 using Profio.Domain.Constants;
 using Profio.Domain.Entities;
+using Profio.Infrastructure.Abstractions.CQRS.Events.Commands;
+using Profio.Infrastructure.Abstractions.CQRS.Handlers.Command;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Incidents.Commands;

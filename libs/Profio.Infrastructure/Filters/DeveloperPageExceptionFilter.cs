@@ -2,8 +2,8 @@ using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
-using System.Net.Mime;
 using Microsoft.Net.Http.Headers;
+using System.Net.Mime;
 
 namespace Profio.Infrastructure.Filters;
 

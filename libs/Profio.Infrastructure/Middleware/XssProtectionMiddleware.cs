@@ -1,7 +1,7 @@
+using Ganss.Xss;
 using Microsoft.AspNetCore.Http;
 using System.Net;
 using System.Text;
-using Ganss.Xss;
 
 namespace Profio.Infrastructure.Middleware;
 
