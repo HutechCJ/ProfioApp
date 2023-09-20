@@ -1,5 +1,5 @@
-using Profio.Application.Abstractions.CQRS.Events.Queries;
 using Profio.Domain.Entities;
+using Profio.Infrastructure.Abstractions.CQRS.Events.Queries;
 using Profio.Infrastructure.Persistence;
 
 namespace Profio.Application.Orders.Queries;

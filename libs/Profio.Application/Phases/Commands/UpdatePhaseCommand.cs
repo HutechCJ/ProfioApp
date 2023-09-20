@@ -1,11 +1,11 @@
 using AutoMapper;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
 using FluentValidation;
-using Profio.Application.Abstractions.CQRS.Events.Commands;
-using Profio.Application.Abstractions.CQRS.Handlers.Command;
-using Profio.Application.Abstractions.CQRS.Validators;
 using Profio.Application.Routes.Validators;
 using Profio.Domain.Entities;
+using Profio.Infrastructure.Abstractions.CQRS.Events.Commands;
+using Profio.Infrastructure.Abstractions.CQRS.Handlers.Command;
+using Profio.Infrastructure.Abstractions.CQRS.Validators;
 
 namespace Profio.Application.Phases.Commands;
 
@@ -25,7 +25,7 @@ public sealed class UpdatePhaseCommandValidator : UpdateCommandValidatorBase<Upd
   public UpdatePhaseCommandValidator(RouteExistenceByIdValidator routeValidator)
   {
     RuleFor(x => x.Order)
-    .GreaterThanOrEqualTo(1);
+    .GreaterThanOrEqualTo(0);
 
     RuleFor(x => x.RouteId)
       .SetValidator(routeValidator!);
