@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, CardContent, Container, Stack, Typography } from '@mui/material';
+import { Card, CardContent, Box, Stack, Typography } from '@mui/material';
 import Link from '@/components/Link';
 
 import PersonPinIcon from '@mui/icons-material/PersonPin';
@@ -12,13 +12,13 @@ interface OrderCustomerCardProps {
 
 const OrderCustomerCard: React.FC<OrderCustomerCardProps> = ({ customer }) => {
   return (
-    <Container>
+    <Box>
       <Link href={`/customers/${customer?.id}`} sx={{ textDecoration: 'none' }}>
         <Card
           sx={{
-            minHeight: 275,
-            height: 350,
-            bgcolor: 'orange',
+            minHeight: 80,
+            height: 230,
+            bgcolor: '#e3e3e3',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
@@ -32,14 +32,14 @@ const OrderCustomerCard: React.FC<OrderCustomerCardProps> = ({ customer }) => {
                 alignItems: 'center',
               }}
             >
-              <Typography variant="h6" gutterBottom>
+              <Typography variant="body1" gutterBottom>
                 Customer
               </Typography>
-              <PersonPinIcon sx={{ width: 150, height: 150 }} />
-              <Typography variant="h4" fontWeight="bold">
+              <PersonPinIcon sx={{ width: 50, height: 50 }} />
+              <Typography variant="h6" fontWeight="bold">
                 {customer?.name} ({Gender[customer?.gender || 'Other']})
               </Typography>
-              <Typography variant="h6" fontWeight="bold" gutterBottom>
+              <Typography variant="body1" fontWeight="bold" gutterBottom>
                 Phone: {customer?.phone}
               </Typography>
               <Typography variant="body1" color="#575757" gutterBottom>
@@ -49,7 +49,7 @@ const OrderCustomerCard: React.FC<OrderCustomerCardProps> = ({ customer }) => {
           </CardContent>
         </Card>
       </Link>
-    </Container>
+    </Box>
   );
 };
 
