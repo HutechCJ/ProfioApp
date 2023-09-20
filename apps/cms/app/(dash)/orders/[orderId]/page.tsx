@@ -139,6 +139,8 @@ function Order({ params }: { params: { orderId: string } }) {
         </CardContent>
       </Card>
 
+      <Divider />
+
       <Typography variant="h4" component="h4">
         {`Order #${orderApiRes.data.id}`}
       </Typography>

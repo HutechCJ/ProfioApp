@@ -45,11 +45,7 @@ function OrderStepper({ order }: { order: Order }) {
   // }
 
   return (
-    <Card
-      sx={{
-        width: '100%',
-      }}
-    >
+    <Card>
       <CardContent>
         <Stepper
           activeStep={
