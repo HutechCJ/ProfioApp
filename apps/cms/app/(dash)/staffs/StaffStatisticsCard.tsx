@@ -10,6 +10,8 @@ import {
   Divider,
   Stack,
   LinearProgress,
+  Grid,
+  Paper,
 } from '@mui/material';
 
 import PeopleIcon from '@mui/icons-material/People';
@@ -18,7 +20,7 @@ import MopedIcon from '@mui/icons-material/Moped';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import InventoryIcon from '@mui/icons-material/Inventory';
 
-import Stat from '../../../components/Stat';
+import Stat, { StatProps } from '../../../components/Stat';
 import useCountByPosition from '@/features/staff/useCountByPosition';
 
 const StaffStatisticsCard = () => {
@@ -47,46 +49,71 @@ const StaffStatisticsCard = () => {
     <Card sx={{ marginBottom: 4 }}>
       <CardHeader title="STAFF" subheader="Statistics" />
       <Divider />
-      <CardContent sx={{ marginY: 4 }}>
-        <Stack
+      <CardContent>
+        <Grid
+          minHeight={128}
+          container
           direction="row"
-          justifyContent="space-around"
-          alignItems="center"
+          spacing={2}
+          columns={{ xs: 1, sm: 2, md: 5 }}
         >
-          <Stat
-            icon={<PeopleIcon />}
-            iconColor="orange"
-            value={totalStaff}
-            description="Total Staff"
-          />
-          <Stat
-            icon={<LocalShippingIcon />}
-            value={totalDrivers}
-            description="Driver"
-            iconColor="red"
-          />
-          <Stat
-            icon={<MopedIcon />}
-            value={totalShippers}
-            description="Shipper"
-            iconColor="blue"
-          />
-          <Stat
-            icon={<BusinessCenterIcon />}
-            value={totalOfficers}
-            description="Officer"
-            iconColor="green"
-          />
-          <Stat
-            icon={<InventoryIcon />}
-            value={totalStokers}
-            description="Stoker"
-            iconColor="brown"
-          />
-        </Stack>
+          <Grid item xs={1}>
+            <StatCard
+              icon={<PeopleIcon />}
+              iconColor="orange"
+              value={totalStaff}
+              description="Total Staff"
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <StatCard
+              icon={<LocalShippingIcon />}
+              value={totalDrivers}
+              description="Driver"
+              iconColor="red"
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <StatCard
+              icon={<MopedIcon />}
+              value={totalShippers}
+              description="Shipper"
+              iconColor="blue"
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <StatCard
+              icon={<BusinessCenterIcon />}
+              value={totalOfficers}
+              description="Officer"
+              iconColor="green"
+            />
+          </Grid>
+          <Grid item xs={1}>
+            <StatCard
+              icon={<InventoryIcon />}
+              value={totalStokers}
+              description="Stoker"
+              iconColor="brown"
+            />
+          </Grid>
+        </Grid>
       </CardContent>
     </Card>
   );
 };
 
 export default StaffStatisticsCard;
+
+function StatCard({ ...props }: StatProps) {
+  return (
+    <Paper
+      sx={{
+        padding: 4,
+        height: '100%',
+      }}
+    >
+      <Stat {...props} />
+    </Paper>
+  );
+}
