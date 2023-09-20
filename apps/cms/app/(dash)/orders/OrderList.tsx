@@ -40,7 +40,7 @@ function OrderList() {
 
   React.useEffect(() => {
     setRowCountState((prevRowCountState) =>
-      rowCount !== undefined ? rowCount : prevRowCountState
+      rowCount !== undefined ? rowCount : prevRowCountState,
     );
   }, [rowCount, setRowCountState]);
 
