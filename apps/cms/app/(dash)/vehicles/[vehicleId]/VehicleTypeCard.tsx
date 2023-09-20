@@ -12,22 +12,22 @@ const types = [
   {
     value: VehicleType.Truck,
     color: `rgba(0, 155, 229, 0.75)`,
-    icon: <LocalShippingIcon sx={{ width: 100, height: 100 }} />,
+    icon: <LocalShippingIcon sx={{ width: 80, height: 80 }} />,
   },
   {
     value: VehicleType.Trailer,
     color: `rgba(211, 47, 47, 0.75)`,
-    icon: <RvHookupIcon sx={{ width: 100, height: 100 }} />,
+    icon: <RvHookupIcon sx={{ width: 80, height: 80 }} />,
   },
   {
     value: VehicleType.Van,
     color: `rgb(237, 108, 2, 0.75)`,
-    icon: <AirportShuttleIcon sx={{ width: 100, height: 100 }} />,
+    icon: <AirportShuttleIcon sx={{ width: 80, height: 80 }} />,
   },
   {
     value: VehicleType.Motorcycle,
     color: `rgba(156, 39, 176, 0.75)`,
-    icon: <TwoWheelerIcon sx={{ width: 100, height: 100 }} />,
+    icon: <TwoWheelerIcon sx={{ width: 80, height: 80 }} />,
   },
 ];
 
@@ -46,8 +46,8 @@ const VehicleTypeCard: React.FC<VehicleTypeCardProps> = ({
     <Container>
       <Card
         sx={{
-          minHeight: 275,
-          height: 320,
+          minHeight: 200,
+          height: 300,
           bgcolor: types.find((s) => s.value === type)?.color || '#e2e2e2',
           display: 'flex',
           justifyContent: 'center',

@@ -11,17 +11,17 @@ const statuses = [
   {
     value: VehicleStatus.Idle,
     color: '#ed6c02',
-    icon: <AlarmIcon sx={{ width: 150, height: 150 }} />,
+    icon: <AlarmIcon sx={{ width: 120, height: 120 }} />,
   },
   {
     value: VehicleStatus.Busy,
     color: '#d32f2f',
-    icon: <RemoveCircleOutlineIcon sx={{ width: 150, height: 150 }} />,
+    icon: <RemoveCircleOutlineIcon sx={{ width: 120, height: 120 }} />,
   },
   {
     value: VehicleStatus.Offline,
     color: '#009be5',
-    icon: <WarningAmberIcon sx={{ width: 150, height: 150 }} />,
+    icon: <WarningAmberIcon sx={{ width: 120, height: 120 }} />,
   },
 ];
 
@@ -34,8 +34,8 @@ const VehicleStatusCard: React.FC<VehicleStatusCardProps> = ({ status }) => {
     <Container>
       <Card
         sx={{
-          minHeight: 275,
-          height: 320,
+          minHeight: 200,
+          height: 300,
           bgcolor: statuses.find((s) => s.value === status)?.color || '#e2e2e2',
           display: 'flex',
           justifyContent: 'center',
@@ -54,7 +54,7 @@ const VehicleStatusCard: React.FC<VehicleStatusCardProps> = ({ status }) => {
               Status
             </Typography>
             {statuses.find((s) => s.value === status)?.icon || (
-              <WarningAmberIcon sx={{ width: 100, height: 100 }} />
+              <WarningAmberIcon sx={{ width: 80, height: 80 }} />
             )}
             <Typography variant="h4" fontWeight="bold" mt={1} gutterBottom>
               {VehicleStatus[status]}
