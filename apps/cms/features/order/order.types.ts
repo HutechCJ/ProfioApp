@@ -22,8 +22,9 @@ export enum OrderStatus {
 
 export type CreateOrderData = Omit<
   Order,
-  'id' | 'customer' | 'destinationAddress'
+  'id' | 'status' | 'customer' | 'destinationAddress'
 > & {
+  status: string;
   street: string;
   ward: string;
   city: string;
@@ -32,7 +33,11 @@ export type CreateOrderData = Omit<
   customerId: string;
 };
 
-export type UpdateOrderData = Omit<Order, 'customer' | 'destinationAddress'> & {
+export type UpdateOrderData = Omit<
+  Order,
+  'status' | 'customer' | 'destinationAddress'
+> & {
+  status: string;
   street: string;
   ward: string;
   city: string;
