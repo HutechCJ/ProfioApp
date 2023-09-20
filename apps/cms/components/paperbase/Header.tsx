@@ -73,7 +73,7 @@ export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
         <Toolbar>
-          <Grid container spacing={1} alignItems="center" my={1}>
+          <Grid container spacing={1} alignItems="center" py={2}>
             <Grid sx={{ display: { sm: 'none', xs: 'block' } }} item>
               <IconButton
                 color="inherit"
@@ -99,23 +99,6 @@ export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
               </Box>
             </Grid>
             <Grid item xs />
-            {/* <Grid item>
-                        <Link
-                            href="/"
-                            variant="body2"
-                            sx={{
-                                textDecoration: 'none',
-                                color: lightColor,
-                                '&:hover': {
-                                    color: 'common.white',
-                                },
-                            }}
-                            rel="noopener noreferrer"
-                            target="_blank"
-                        >
-                            Go to docs
-                        </Link>
-                    </Grid> */}
             <Grid item>
               <Tooltip title="Theme">
                 <IconButton color="inherit">
@@ -216,14 +199,14 @@ export function HeaderTitle({
       component="div"
       position="static"
       elevation={0}
-      sx={{ zIndex: 0, pl: 3.5, py: 2, bgcolor: '#eaeff1' }}
+      sx={{ zIndex: 0, pl: 3.5, py: 1, bgcolor: '#eaeff1' }}
     >
       <Toolbar>
         <Grid container alignItems="center" spacing={1}>
           <Grid item xs>
             <Stack direction="row" alignItems="center">
               <Box sx={{ mx: 1.5 }}>
-                <Image src={Logo} alt="CJ Logo" width={58} height={55} />
+                <Image src={Logo} alt="CJ Logo" width={48} />
               </Box>
               <Stack>
                 <Typography color="black" variant="h5" component="h1">
