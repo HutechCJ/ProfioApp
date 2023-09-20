@@ -19,7 +19,7 @@ sealed class CreatePhaseCommandHandler : CreateCommandHandlerBase<CreatePhaseCom
   {
   }
 }
-sealed class CreatePhaseCommandValidator : AbstractValidator<CreatePhaseCommand>
+public sealed class CreatePhaseCommandValidator : AbstractValidator<CreatePhaseCommand>
 {
   public CreatePhaseCommandValidator(RouteExistenceByIdValidator routeValidator)
   {

@@ -20,7 +20,7 @@ sealed class UpdatePhaseCommandHandler : UpdateCommandHandlerBase<UpdatePhaseCom
   {
   }
 }
-sealed class UpdatePhaseCommandValidator : UpdateCommandValidatorBase<UpdatePhaseCommand>
+public sealed class UpdatePhaseCommandValidator : UpdateCommandValidatorBase<UpdatePhaseCommand>
 {
   public UpdatePhaseCommandValidator(RouteExistenceByIdValidator routeValidator)
   {

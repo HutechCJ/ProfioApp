@@ -16,6 +16,6 @@ sealed class DeletePhaseCommandHandler : DeleteCommandHandlerBase<DeletePhaseCom
   }
 }
 
-sealed class DeletePhaseCommandValidator : DeleteCommandValidatorBase<DeletePhaseCommand, PhaseDto>
+public sealed class DeletePhaseCommandValidator : DeleteCommandValidatorBase<DeletePhaseCommand, PhaseDto>
 {
 }

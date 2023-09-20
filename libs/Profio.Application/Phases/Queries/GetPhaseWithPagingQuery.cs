@@ -17,7 +17,7 @@ sealed class GetPhaseWithPagingQueryHandler : GetWithPagingQueryHandler<GetPhase
   }
 }
 
-sealed class
+public sealed class
   GetPhaseWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetPhaseWithPagingQuery, PhaseDto>
 {
 }
