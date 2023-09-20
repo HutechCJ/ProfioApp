@@ -19,8 +19,8 @@ public sealed record CreateHubCommand : CreateCommandBase
   public required string? Name { get; set; }
   public required string? ZipCode { get; set; }
   public required Location Location { get; set; }
-  public Address? Address { get; set; }
-  public HubStatus Status { get; set; } = HubStatus.Active;
+public Address? Address { get; set; }
+public HubStatus Status { get; set; } = HubStatus.Active;
 }
 
 public sealed class CreateHubCommandHandler : CreateCommandHandlerBase<CreateHubCommand, Hub>
