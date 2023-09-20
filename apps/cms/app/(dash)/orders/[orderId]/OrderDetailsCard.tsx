@@ -2,8 +2,6 @@ import React from 'react';
 
 import { Card, CardContent, Box, Stack, Typography } from '@mui/material';
 
-import InventoryIcon from '@mui/icons-material/Inventory';
-
 interface OrderDetailsCardProps {
   startedDate: string;
   expectedDeliveryTime: string;

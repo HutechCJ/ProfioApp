@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, CardContent, Container, Stack, Typography } from '@mui/material';
+import { Card, CardContent, Box, Stack, Typography } from '@mui/material';
 import Link from '@/components/Link';
 
 import PersonPinIcon from '@mui/icons-material/PersonPin';
@@ -12,16 +12,17 @@ interface VehicleStaffCardProps {
 
 const VehicleStaffCard: React.FC<VehicleStaffCardProps> = ({ staff }) => {
   return (
-    <Container>
+    <Box>
       <Link href={`/staffs/${staff?.id}`} sx={{ textDecoration: 'none' }}>
         <Card
           sx={{
-            minHeight: 200,
-            height: 300,
-            bgcolor: '#5ebc5e',
+            minHeight: 80,
+            height: 200,
+            bgcolor: '#e3e3e3',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
+            pt: 2
           }}
         >
           <CardContent>
@@ -32,12 +33,15 @@ const VehicleStaffCard: React.FC<VehicleStaffCardProps> = ({ staff }) => {
                 alignItems: 'center',
               }}
             >
-              <Typography variant="h6" gutterBottom>
+              <Typography variant="body1" gutterBottom>
                 Staff
               </Typography>
-              <PersonPinIcon sx={{ width: 120, height: 120 }} />
-              <Typography variant="h4" fontWeight="bold" gutterBottom>
+              <PersonPinIcon sx={{ width: 50, height: 50 }} />
+              <Typography variant="h6" fontWeight="bold">
                 {staff?.name}
+              </Typography>
+              <Typography variant="body1" fontWeight="bold" gutterBottom>
+                Phone: {staff?.phone}
               </Typography>
               <Typography variant="body1" color="#575757" gutterBottom>
                 {staff?.id}
@@ -46,7 +50,7 @@ const VehicleStaffCard: React.FC<VehicleStaffCardProps> = ({ staff }) => {
           </CardContent>
         </Card>
       </Link>
-    </Container>
+    </Box>
   );
 };
 

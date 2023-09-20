@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, CardContent, Container, Stack, Typography } from '@mui/material';
+import { Card, CardContent, Box, Stack, Typography } from '@mui/material';
 import { VehicleType } from '@/features/vehicle/vehicle.types';
 
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
@@ -11,23 +11,23 @@ import TwoWheelerIcon from '@mui/icons-material/TwoWheeler';
 const types = [
   {
     value: VehicleType.Truck,
-    color: `rgba(0, 155, 229, 0.75)`,
-    icon: <LocalShippingIcon sx={{ width: 80, height: 80 }} />,
+    color: '#a6dfff',
+    icon: <LocalShippingIcon sx={{ width: 50, height: 50 }} />,
   },
   {
     value: VehicleType.Trailer,
-    color: `rgba(211, 47, 47, 0.75)`,
-    icon: <RvHookupIcon sx={{ width: 80, height: 80 }} />,
+    color: '#ffacac',
+    icon: <RvHookupIcon sx={{ width: 50, height: 50 }} />,
   },
   {
     value: VehicleType.Van,
-    color: `rgb(237, 108, 2, 0.75)`,
-    icon: <AirportShuttleIcon sx={{ width: 80, height: 80 }} />,
+    color: '#ffd1ab',
+    icon: <AirportShuttleIcon sx={{ width: 50, height: 50 }} />,
   },
   {
     value: VehicleType.Motorcycle,
-    color: `rgba(156, 39, 176, 0.75)`,
-    icon: <TwoWheelerIcon sx={{ width: 80, height: 80 }} />,
+    color: '#f6c5ff',
+    icon: <TwoWheelerIcon sx={{ width: 50, height: 50 }} />,
   },
 ];
 
@@ -43,15 +43,16 @@ const VehicleTypeCard: React.FC<VehicleTypeCardProps> = ({
   licensePlate,
 }) => {
   return (
-    <Container>
+    <Box>
       <Card
         sx={{
-          minHeight: 200,
-          height: 300,
+          minHeight: 80,
+          height: 200,
           bgcolor: types.find((s) => s.value === type)?.color || '#e2e2e2',
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
+          pt: 2,
         }}
       >
         <CardContent>
@@ -62,25 +63,25 @@ const VehicleTypeCard: React.FC<VehicleTypeCardProps> = ({
               alignItems: 'center',
             }}
           >
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="body1" gutterBottom>
               Vehicle
             </Typography>
             {types.find((s) => s.value === type)?.icon || (
               <LocalShippingIcon sx={{ width: 100, height: 100 }} />
             )}
-            <Typography variant="h4" fontWeight="bold" gutterBottom>
+            <Typography variant="h6" fontWeight="bold" gutterBottom>
               {VehicleType[type]}
             </Typography>
-            <Typography variant="h6" color="#575757" gutterBottom>
+            <Typography variant="body1" gutterBottom>
               Zip Code Current: <strong>{zipCodeCurrent}</strong>
             </Typography>
-            <Typography variant="h6" color="#575757" gutterBottom>
+            <Typography variant="body1" gutterBottom>
               License Plate: <strong>{licensePlate}</strong>
             </Typography>
           </Stack>
         </CardContent>
       </Card>
-    </Container>
+    </Box>
   );
 };
 

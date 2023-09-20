@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Card, CardContent, Container, Stack, Typography } from '@mui/material';
+import { Card, CardContent, Box, Stack, Typography } from '@mui/material';
 
 import AlarmIcon from '@mui/icons-material/Alarm';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
@@ -11,17 +11,17 @@ const statuses = [
   {
     value: VehicleStatus.Idle,
     color: '#ed6c02',
-    icon: <AlarmIcon sx={{ width: 120, height: 120 }} />,
+    icon: <AlarmIcon sx={{ width: 50, height: 50 }} />,
   },
   {
     value: VehicleStatus.Busy,
     color: '#d32f2f',
-    icon: <RemoveCircleOutlineIcon sx={{ width: 120, height: 120 }} />,
+    icon: <RemoveCircleOutlineIcon sx={{ width: 50, height: 50 }} />,
   },
   {
     value: VehicleStatus.Offline,
     color: '#009be5',
-    icon: <WarningAmberIcon sx={{ width: 120, height: 120 }} />,
+    icon: <WarningAmberIcon sx={{ width: 50, height: 50 }} />,
   },
 ];
 
@@ -31,11 +31,11 @@ interface VehicleStatusCardProps {
 
 const VehicleStatusCard: React.FC<VehicleStatusCardProps> = ({ status }) => {
   return (
-    <Container>
+    <Box>
       <Card
         sx={{
-          minHeight: 200,
-          height: 300,
+          minHeight: 80,
+          height: 200,
           bgcolor: statuses.find((s) => s.value === status)?.color || '#e2e2e2',
           display: 'flex',
           justifyContent: 'center',
@@ -50,19 +50,19 @@ const VehicleStatusCard: React.FC<VehicleStatusCardProps> = ({ status }) => {
               alignItems: 'center',
             }}
           >
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="body1" gutterBottom>
               Status
             </Typography>
             {statuses.find((s) => s.value === status)?.icon || (
-              <WarningAmberIcon sx={{ width: 80, height: 80 }} />
+              <WarningAmberIcon sx={{ width: 50, height: 50 }} />
             )}
-            <Typography variant="h4" fontWeight="bold" mt={1} gutterBottom>
+            <Typography variant="h6" fontWeight="bold" mt={1} gutterBottom>
               {VehicleStatus[status]}
             </Typography>
           </Stack>
         </CardContent>
       </Card>
-    </Container>
+    </Box>
   );
 };
 
