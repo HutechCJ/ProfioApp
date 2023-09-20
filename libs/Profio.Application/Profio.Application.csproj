@@ -16,4 +16,9 @@
     <ProjectReference Include="..\Profio.Infrastructure\Profio.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Phases\Commands\" />
+    <Folder Include="Phases\Queries\" />
+  </ItemGroup>
+
 </Project>
