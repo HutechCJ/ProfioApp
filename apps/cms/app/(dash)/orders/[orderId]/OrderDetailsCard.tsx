@@ -30,13 +30,13 @@ const OrderDetailsCard: React.FC<OrderDetailsCardProps> = ({
           justifyContent: 'flex-start',
           alignItems: 'center',
           pt: 2,
-          px: 2
+          px: 2,
         }}
       >
         <CardContent>
           <Stack>
             <Typography variant="h6" fontWeight="bold" gutterBottom>
-              • Order • 
+              • Order •
             </Typography>
             <Typography variant="body1" gutterBottom>
               Started Date: <strong>{startedDate}</strong>

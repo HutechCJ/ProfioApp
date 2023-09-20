@@ -24,7 +24,7 @@ const StatColorCard: React.FC<StatColorCardProps> = ({
           bgcolor: `${cardColor}`,
           justifyContent: 'center',
           alignItems: 'center',
-          m: 0
+          m: 0,
         }}
       >
         <CardContent>

@@ -22,7 +22,7 @@ const VehicleStaffCard: React.FC<VehicleStaffCardProps> = ({ staff }) => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            pt: 2
+            pt: 2,
           }}
         >
           <CardContent>
