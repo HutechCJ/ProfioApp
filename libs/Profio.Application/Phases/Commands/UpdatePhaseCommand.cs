@@ -25,7 +25,7 @@ public sealed class UpdatePhaseCommandValidator : UpdateCommandValidatorBase<Upd
   public UpdatePhaseCommandValidator(RouteExistenceByIdValidator routeValidator)
   {
     RuleFor(x => x.Order)
-    .GreaterThanOrEqualTo(0);
+    .GreaterThanOrEqualTo(1);
 
     RuleFor(x => x.RouteId)
       .SetValidator(routeValidator!);

@@ -1,4 +1,5 @@
 using Profio.Application.Customers;
+using Profio.Application.Phases;
 using Profio.Domain.Constants;
 using Profio.Domain.Models;
 using Profio.Domain.ValueObjects;
@@ -16,4 +17,5 @@ public sealed record OrderDto : BaseModel
   public string? Note { get; init; }
   public double? Distance { get; init; }
   public CustomerDto? Customer { get; init; }
+  public PhaseDto? PhaseDto { get; init; }
 }
