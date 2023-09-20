@@ -11,8 +11,8 @@ namespace Profio.Application.Hubs.Commands;
 
 public sealed record UpdateHubCommand(object Id) : UpdateCommandBase(Id)
 {
-  public required string? Name { get; set; }
-  public required string? ZipCode { get; set; }
+  public string? Name { get; set; }
+  public string? ZipCode { get; set; }
   public Location? Location { get; set; }
   public Address? Address { get; set; }
   public HubStatus? Status { get; set; }
