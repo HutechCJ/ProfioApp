@@ -15,7 +15,5 @@ public class GetCountQueryHandlerBase<TQuery, TEntity> : IRequestHandler<TQuery,
   public GetCountQueryHandlerBase(ApplicationDbContext applicationDbContext)
     => _applicationDbContext = applicationDbContext;
   public Task<int> Handle(TQuery request, CancellationToken cancellationToken)
-  {
-    return _applicationDbContext.Set<TEntity>().CountAsync(cancellationToken);
-  }
+    => _applicationDbContext.Set<TEntity>().CountAsync(cancellationToken);
 }
