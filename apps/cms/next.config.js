@@ -30,11 +30,11 @@ const nextConfig = {
       },
     ],
   },
-  // ...pwa({
-  //   dest: 'public',
-  //   register: true,
-  //   skipWaiting: true,
-  // }),
+  ...pwa({
+    dest: 'public',
+    register: true,
+    skipWaiting: true,
+  }),
   async rewrites() {
     return [
       {
