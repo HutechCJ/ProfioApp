@@ -177,7 +177,7 @@ sidebar_position: 4
 <img
 loading="lazy"
 src={require('../../static/img/event/domain-event.png').default}
-alt="Profio Introduction"
+alt="Domain Event"
 style={{ width: '100%', height: 'auto' }}
 />
 
@@ -190,7 +190,7 @@ style={{ width: '100%', height: 'auto' }}
 <img
 loading="lazy"
 src={require('../../static/img/event/bounded-context.png').default}
-alt="Profio Introduction"
+alt="Bounded Context"
 style={{ width: '100%', height: 'auto' }}
 />
 
@@ -203,7 +203,7 @@ style={{ width: '100%', height: 'auto' }}
 <img
 loading="lazy"
 src={require('../../static/img/event/aggerateroot.png').default}
-alt="Profio Introduction"
+alt="Aggerate Root"
 style={{ width: '100%', height: 'auto' }}
 />
 
@@ -216,7 +216,7 @@ style={{ width: '100%', height: 'auto' }}
 <img
 loading="lazy"
 src={require('../../static/img/event/map.png').default}
-alt="Profio Introduction"
+alt="Context Map"
 style={{ width: '100%', height: 'auto' }}
 />
 
@@ -229,7 +229,7 @@ style={{ width: '100%', height: 'auto' }}
 <img
 loading="lazy"
 src={require('../../static/img/event/access.png').default}
-alt="Profio Introduction"
+alt="Access Control"
 style={{ width: '100%', height: 'auto' }}
 />
 

@@ -41,6 +41,7 @@ public sealed class VehiclesController : BaseEntityController<Vehicle, VehicleDt
   [SwaggerOperation(summary: "Delete Vehicle")]
   public Task<ActionResult<ResultModel<VehicleDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteVehicleCommand(id));
+
   [HttpGet("{id:length(26)}/deliveries")]
   [SwaggerOperation(summary: "Get Delivery List by Vehicle Id")]
   public async Task<ActionResult<ResultModel<IPagedList<DeliveryDto>>>> GetDeliveries(string id, [FromQuery] Criteria criteria)
@@ -50,6 +51,7 @@ public sealed class VehiclesController : BaseEntityController<Vehicle, VehicleDt
   [SwaggerOperation(summary: "Get next Hub by Vehicle Id")]
   public async Task<ActionResult<ResultModel<HubDto>>> GetNextHub(string id)
     => ResultModel<HubDto>.Create(await Mediator.Send(new GetNextHubByVehicleIdQuery(id)));
+
   [HttpGet("{id:length(26)}/destination-address")]
   [SwaggerOperation(summary: "Get Destination Address by Vehicle Id")]
   public async Task<ActionResult<ResultModel<Address>>> GetDestinationAddress(string id)
@@ -59,12 +61,14 @@ public sealed class VehiclesController : BaseEntityController<Vehicle, VehicleDt
   [SwaggerOperation(summary: "Get Vehicle count by Type")]
   public async Task<ActionResult<ResultModel<IEnumerable<int>>>> GetCountByType()
     => Ok(ResultModel<IEnumerable<int>>.Create(await Mediator.Send(new GetVehicleCountByTypeQuery())));
+
   [HttpGet("count-by-status")]
   [SwaggerOperation(summary: "Get Vehicle count by Status")]
   public async Task<ActionResult<ResultModel<IEnumerable<int>>>> GetCountByStatus()
     => Ok(ResultModel<IEnumerable<int>>.Create(await Mediator.Send(new GetVehicleCountByStatusQuery())));
+
   [HttpPost("{id:length(26)}/hubs/{hubId:length(26)}/visit")]
-  [SwaggerOperation(summary: "Vist the hub")]
+  [SwaggerOperation(summary: "Visit the hub")]
   public async Task<IActionResult> VisitHub([FromRoute] string id, [FromRoute] string hubId)
   {
     await Mediator.Send(new VisitHubCommand(id, hubId));

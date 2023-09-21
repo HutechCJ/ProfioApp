@@ -38,10 +38,12 @@ public sealed class StaffsController : BaseEntityController<Staff, StaffDto, Get
   [SwaggerOperation(summary: "Delete Staff")]
   public Task<ActionResult<ResultModel<StaffDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteStaffCommand(id));
+
   [HttpGet("count-by-position")]
   [SwaggerOperation(summary: "Count Staff by Position")]
   public async Task<ActionResult<ResultModel<IEnumerable<int>>>> GetCountByPosition()
     => Ok(ResultModel<IEnumerable<int>>.Create(await Mediator.Send(new GetStaffCountByPositionQuery())));
+
   [HttpGet("count")]
   [SwaggerOperation(summary: "Get Staff count")]
   public async Task<ActionResult<ResultModel<int>>> GetCount()

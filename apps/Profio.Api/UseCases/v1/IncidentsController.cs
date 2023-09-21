@@ -38,6 +38,7 @@ public sealed class IncidentsController : BaseEntityController<Incident, Inciden
   [SwaggerOperation(summary: "Delete Incident")]
   public Task<ActionResult<ResultModel<IncidentDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteIncidentCommand(id));
+
   [HttpGet("count")]
   [SwaggerOperation(summary: "Get Incident count")]
   public async Task<ActionResult<ResultModel<int>>> GetCount()

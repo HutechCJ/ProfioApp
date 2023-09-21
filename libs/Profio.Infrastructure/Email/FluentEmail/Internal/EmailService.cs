@@ -19,7 +19,7 @@ public sealed class EmailService : IEmailService
         retryCount: 3,
         sleepDurationProvider: _ => TimeSpan.FromMilliseconds(new Random().Next(1000, 3000)),
         onRetry: (_, retryCount, _) =>
-          _logger.LogWarning($"Failed to send email. Retrying... Attempt: {retryCount}")
+          _logger.LogWarning("Failed to send email. Retrying... Attempt: {retryCount}", retryCount)
       ).ExecuteAsync(async () =>
         await _fluentEmailFactory
           .Create()
