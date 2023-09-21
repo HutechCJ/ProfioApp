@@ -36,8 +36,5 @@ public sealed class CreateIncidentCommandValidator : AbstractValidator<CreateInc
 
     RuleFor(c => c.Status)
       .IsInEnum();
-
-    RuleFor(c => c.OrderHistoryId)
-      .SetValidator(orderHistoryIdValidator);
   }
 }
