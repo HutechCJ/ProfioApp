@@ -16,10 +16,10 @@ sidebar_position: 1
 </p>
 
 <img
-  loading="lazy"
-  src={require('./../static/img/web-preview.jpg').default}
-  alt="Profio Introduction"
-  style={{ width: '100%', height: 'auto' }}
+loading="lazy"
+src={require('./../static/img/web-preview.jpg').default}
+alt="Profio Introduction"
+style={{ width: '100%', height: 'auto' }}
 />
 
 # Why Profio?
@@ -71,17 +71,11 @@ sidebar_position: 1
 - Help the CJ Company to be more competitive in the transportation industry.
 
 <img
-  loading="lazy"
-  src={require('./../static/img/hutech-cj.jpg').default}
-  alt="Hutech CJ Code your Future"
-  style={{ width: '100%', height: 'auto' }}
+loading="lazy"
+src={require('./../static/img/hutech-cj.jpg').default}
+alt="Hutech CJ Code your Future"
+style={{ width: '100%', height: 'auto' }}
 />
-
-:::caution
-
-All the connection strings and other sensitive information are stored will be unavailable when we public this project.
-
-:::
 
 # Our Team
 
