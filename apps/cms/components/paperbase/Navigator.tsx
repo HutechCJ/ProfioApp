@@ -1,25 +1,23 @@
 'use client';
 
-import * as React from 'react';
+import HomeIcon from '@mui/icons-material/Home';
+import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Drawer, { DrawerProps } from '@mui/material/Drawer';
 import List from '@mui/material/List';
-import Box from '@mui/material/Box';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import HomeIcon from '@mui/icons-material/Home';
 import Link from 'next/link';
 // import { usePathname } from 'next/navigation';
-import { categories } from '../navItems';
-import { Stack } from '@mui/system';
+import useUser from '@/features/user/useUser';
+import AutoStoriesIcon from '@mui/icons-material/AutoStories';
 import { Avatar, Typography } from '@mui/material';
+import { Stack } from '@mui/system';
 import Image from 'next/image';
 import Logo from '../../public/images/CJ_logo.png';
-import AutoStoriesIcon from '@mui/icons-material/AutoStories';
-import useUser from '@/features/user/useUser';
-import Copyright from '../Copyright';
+import { categories } from '../navItems';
 
 const item = {
   py: '2px',
@@ -130,7 +128,6 @@ export default function Navigator(props: DrawerProps) {
             <ListItemText>View Documentation</ListItemText>
           </ListItemButton>
         </ListItem>
-        <Copyright color="#bdbdbd" sx={{ my: 2 }} />
       </List>
     </Drawer>
   );

@@ -161,7 +161,6 @@ function StaffList() {
         paginationMode="server"
         onPaginationModelChange={setPaginationModel}
         sx={{
-          boxShadow: '0 2px 4px rgba(22, 22, 22, 0.5)',
           backgroundColor: 'white',
         }}
       />
