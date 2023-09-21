@@ -8,6 +8,7 @@
     "@docusaurus/core": "^2.1.0",
     "@docusaurus/plugin-content-docs": "^2.1.0",
     "@docusaurus/plugin-pwa": "^2.1.0",
+    "@docusaurus/plugin-sitemap": "^2.4.3",
     "@docusaurus/preset-classic": "^2.1.0",
     "@docusaurus/theme-search-algolia": "^2.1.0",
     "@docusaurus/types": "^2.1.0",
