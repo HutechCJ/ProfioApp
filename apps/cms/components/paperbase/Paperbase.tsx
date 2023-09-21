@@ -30,7 +30,7 @@ export default function Paperbase({ children }: React.PropsWithChildren) {
     .find((child) => pathname.includes(child.href));
 
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh', width: "100%" }}>
+    <Box sx={{ display: 'flex', minHeight: '100vh', width: '100%' }}>
       <CssBaseline />
       <Box
         component="nav"
@@ -66,11 +66,11 @@ export default function Paperbase({ children }: React.PropsWithChildren) {
         <Divider />
         <Box
           component="main"
-          sx={{ flex: 1, py: 4, px: 2, bgcolor: '#fafafa', overflow: "auto" }}
+          sx={{ flex: 1, py: 4, px: 2, bgcolor: '#fafafa', overflow: 'auto' }}
         >
           {children}
         </Box>
-         <Box component="footer" sx={{ p: 2, bgcolor: '#fafafa' }}>
+        <Box component="footer" sx={{ p: 2, bgcolor: '#fafafa' }}>
           <Copyright />
         </Box>
       </Box>
