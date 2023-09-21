@@ -1,4 +1,4 @@
-using Profio.Application.OrderHistories;
+using Profio.Application.Deliveries;
 using Profio.Domain.Constants;
 using Profio.Domain.Models;
 
@@ -10,5 +10,5 @@ public sealed record IncidentDto : BaseModel
   public string? Description { get; set; }
   public IncidentStatus Status { get; set; }
   public DateTime? Time { get; set; }
-  public OrderHistoryDto? OrderHistory { get; set; }
+  public DeliveryDto? Delivery { get; set; }
 }
