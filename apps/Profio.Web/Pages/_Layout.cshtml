@@ -1,0 +1,33 @@
+@using Microsoft.AspNetCore.Components.Web
+@namespace Profio.Web.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@addTagHelper *, Vite.AspNetCore
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="Keyword" content="Profio, CJ Logistics"/>
+  <base href="~/"/>
+  <link rel="stylesheet" vite-href="~/Assets/Css/style.css" asp-append-version="true"/>
+  <link rel="stylesheet" vite-href="~/Assets/Libs/owlcarousel/assets/owl.carousel.min.css" asp-append-version="true"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css">
+  <component type="typeof(HeadOutlet)" render-mode="Server"/>
+</head>
+<body class="bg-gray-50">
+@RenderBody()
+<script src="_framework/blazor.server.js"></script>
+<script type="module" vite-src="~/Assets/Js/app.js" asp-append-version="true"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script vite-src="~/Assets/Lib/easing/easing.min.js" asp-append-version="true"></script>
+<script vite-src="~/Assets/Lib/waypoints/waypoints.min.js" asp-append-version="true"></script>
+<script vite-src="~/Assets/Lib/counterup/counterup.min.js" asp-append-version="true"></script>
+<script vite-src="~/Assets/Lib/owlcarousel/owl.carousel.min.js" asp-append-version="true"></script>
+<script vite-src="~/Assets/Mail/jqBootstrapValidation.min.js" asp-append-version="true"></script>
+<script vite-src="~/Assets/Mail/contact.js" asp-append-version="true"></script>
+<script vite-src="~/Assets/Js/main.js" asp-append-version="true"></script>
+</body>
+</html>
