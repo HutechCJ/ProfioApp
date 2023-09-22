@@ -9,7 +9,5 @@ public partial class Index
   public ILogger Logger { get; set; } = default!;
 
   protected override void OnInitialized()
-  {
-    Logger.Information($"Initialized at {DateTime.Now}");
-  }
+    => Logger.Information($"Initialized at {DateTime.UtcNow}");
 }

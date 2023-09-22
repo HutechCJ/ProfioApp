@@ -20,19 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="wwwroot\images\about.jpg" />
-    <None Include="wwwroot\images\blog-1.jpg" />
-    <None Include="wwwroot\images\blog-2.jpg" />
     <None Include="wwwroot\images\feature.jpg" />
-    <None Include="wwwroot\images\team-1.jpg" />
-    <None Include="wwwroot\images\team-2.jpg" />
-    <None Include="wwwroot\images\team-3.jpg" />
-    <None Include="wwwroot\images\team-4.jpg" />
-    <None Include="wwwroot\images\testimonial-1.jpg" />
-    <None Include="wwwroot\images\testimonial-2.jpg" />
-    <None Include="wwwroot\images\testimonial-3.jpg" />
-    <None Include="wwwroot\images\testimonial-4.jpg" />
-    <None Include="wwwroot\images\user.jpg" />
   </ItemGroup>
 
   <ItemGroup>
