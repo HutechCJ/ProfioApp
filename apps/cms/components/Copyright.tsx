@@ -10,10 +10,17 @@ function Copyright({ ...props }: TypographyProps) {
       {...props}
     >
       {'Copyright © '}
-      <Link color="inherit" href="https://profio.com/">
+      <Link
+        color="#b7ec2"
+        href="https://profio-cms.onrender.com/"
+        style={{
+          textDecoration: 'none',
+          fontWeight: 'bold',
+        }}
+      >
         Profio
       </Link>{' '}
-      {new Date().getFullYear()}.
+      {new Date().getFullYear()}. All rights reserved.
     </Typography>
   );
 }
