@@ -17,7 +17,7 @@ const drawerWidth = 256;
 export default function Paperbase({ children }: React.PropsWithChildren) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
-  const pathname = usePathname();
+  const pathname = usePathname() ?? '';
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
