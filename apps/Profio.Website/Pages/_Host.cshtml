@@ -1,0 +1,36 @@
+@page "/"
+@using Microsoft.AspNetCore.Components.Web
+@namespace Profio.Website.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="Keyword" content="Profio, CJ Logistics" />
+    <meta name="Description" content="ProfioApp is a repository dedicated to the development and maintenance of the Profio application, aimed at providing efficient and professional solutions for transportation management" />
+    <base href="~/" />
+    <link rel="stylesheet" href="/css/app.css" />
+    <link rel="stylesheet" href="/libs/owlcarousel/assets/owl.carousel.min.css" />
+    <link rel="icon" type="image/png" href="favicon.png"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="favicon.png"/>
+    <component type="typeof(HeadOutlet)" render-mode="ServerPrerendered" />
+</head>
+<body>
+<component type="typeof(App)" render-mode="ServerPrerendered" />
+<script src="_framework/blazor.server.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="/libs/easing/easing.min.js"></script>
+<script src="/libs/waypoints/waypoints.min.js"></script>
+<script src="/libs/counterup/counterup.min.js"></script>
+<script src="/libs/owlcarousel/owl.carousel.min.js"></script>
+<script src="/mail/jqBootstrapValidation.min.js"></script>
+<script src="/mail/contact.js"></script>
+<script src="/js/app.js"></script>
+</body>
+</html>
