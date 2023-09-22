@@ -1,6 +1,6 @@
 ---
 title: ER Diagram
-description: A diagram that shows the relationships between entities in a database
+description: A database entity relationship diagram
 sidebar_position: 2
 ---
 

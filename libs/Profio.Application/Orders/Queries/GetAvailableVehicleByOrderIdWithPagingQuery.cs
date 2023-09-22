@@ -7,13 +7,13 @@ using FluentEmail.Core.Models;
 using FluentValidation;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Profio.Application.Abstractions.CQRS;
-using Profio.Application.Abstractions.CQRS.Events.Queries;
 using Profio.Application.Orders.Validators;
 using Profio.Application.Vehicles;
 using Profio.Domain.Constants;
 using Profio.Domain.Entities;
 using Profio.Domain.Specifications;
+using Profio.Infrastructure.Abstractions.CQRS;
+using Profio.Infrastructure.Abstractions.CQRS.Events.Queries;
 using Profio.Infrastructure.Exceptions;
 using Profio.Infrastructure.Persistence;
 
@@ -56,8 +56,6 @@ public sealed class GetAvailableVehicleByOrderIdWithPagingQueryHandler : IReques
 public sealed class GetAvailableVehicleByOrderIdWithPagingQueryValidator : AbstractValidator<GetAvailableVehicleByOrderIdWithPagingQuery>
 {
   public GetAvailableVehicleByOrderIdWithPagingQueryValidator(OrderExistenceByIdValidator orderValidator)
-  {
-    RuleFor(x => x.OrderId)
+    => RuleFor(x => x.OrderId)
       .SetValidator(orderValidator);
-  }
 }

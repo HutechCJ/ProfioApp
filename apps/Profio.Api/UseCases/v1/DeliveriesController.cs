@@ -39,12 +39,13 @@ public sealed class DeliveriesController : BaseEntityController<Delivery, Delive
   [SwaggerOperation(summary: "Delete Delivery")]
   public Task<ActionResult<ResultModel<DeliveryDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteDeliveryCommand(id));
+
   [HttpGet("count")]
   [SwaggerOperation(summary: "Get Delivery count")]
   public async Task<ActionResult<ResultModel<int>>> GetCount()
     => Ok(ResultModel<int>.Create(await Mediator.Send(new GetDeliveryCountQuery())));
 
-  [Obsolete]
+  [Obsolete("Deprecated")]
   [HttpGet("{id:length(26)}/orderhistories")]
   [SwaggerOperation(summary: "Get Order History List by Delivery Id")]
   public async Task<ActionResult<ResultModel<IPagedList<OrderHistoryDto>>>> GetOrderHistoriesByDeliveryId(string id, [FromQuery] Criteria criteria)

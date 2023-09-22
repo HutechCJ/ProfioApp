@@ -1,6 +1,6 @@
-using Profio.Application.Abstractions.CQRS;
 using Profio.Application.Orders.Commands;
 using Profio.Domain.Entities;
+using Profio.Infrastructure.Abstractions.CQRS;
 
 namespace Profio.Application.Orders;
 

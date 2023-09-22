@@ -1,7 +1,7 @@
+using Lucene.Net.Analysis;
 using Lucene.Net.Analysis.Core;
 using Lucene.Net.Analysis.Miscellaneous;
 using Lucene.Net.Analysis.Standard;
-using Lucene.Net.Analysis;
 using Lucene.Net.Util;
 
 namespace Profio.Infrastructure.Searching.Lucene.Internal;

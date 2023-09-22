@@ -1,6 +1,6 @@
-using Profio.Application.Abstractions.CQRS;
 using Profio.Application.Staffs.Commands;
 using Profio.Domain.Entities;
+using Profio.Infrastructure.Abstractions.CQRS;
 
 namespace Profio.Application.Staffs;
 

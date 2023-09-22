@@ -137,9 +137,11 @@ function VehicleList() {
       },
     },
     {
-      field: '',
+      field: 'actions',
       width: 400,
       headerName: 'ACTIONS',
+      sortable: false,
+      filterable: false,
       renderCell: (params) => {
         const vehicleId = params.row.id;
         return (
@@ -221,8 +223,8 @@ function VehicleList() {
         paginationMode="server"
         onPaginationModelChange={setPaginationModel}
         sx={{
-          boxShadow: '0 2px 4px rgba(22, 22, 22, 0.5)',
           backgroundColor: 'white',
+          width: '100%',
         }}
       />
     </Box>

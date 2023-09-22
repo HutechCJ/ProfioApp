@@ -1,6 +1,6 @@
 ---
 title: Work Breakdown Structure
-description: Hierarchical outline of the tasks needed to deliver the project's product or service.
+description: Project's task hierarchy for product delivery
 sidebar_position: 6
 ---
 

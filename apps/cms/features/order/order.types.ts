@@ -20,6 +20,28 @@ export enum OrderStatus {
   Cancelled,
 }
 
-export type CreateOrderData = Omit<Order, 'id' | 'customer'> & {
+export type CreateOrderData = Omit<
+  Order,
+  'id' | 'status' | 'customer' | 'destinationAddress'
+> & {
+  status: string;
+  street: string;
+  ward: string;
+  city: string;
+  province: string;
+  zipCode: string;
+  customerId: string;
+};
+
+export type UpdateOrderData = Omit<
+  Order,
+  'status' | 'customer' | 'destinationAddress'
+> & {
+  status: string;
+  street: string;
+  ward: string;
+  city: string;
+  province: string;
+  zipCode: string;
   customerId: string;
 };

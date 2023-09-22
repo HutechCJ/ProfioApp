@@ -1,10 +1,10 @@
 using EntityFrameworkCore.Repository.Collections;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Mvc;
-using Profio.Application.Abstractions.CQRS.Events.Commands;
-using Profio.Application.Abstractions.CQRS.Events.Queries;
 using Profio.Domain.Interfaces;
 using Profio.Domain.Models;
+using Profio.Infrastructure.Abstractions.CQRS.Events.Commands;
+using Profio.Infrastructure.Abstractions.CQRS.Events.Queries;
 
 namespace Profio.Api.UseCases;
 
@@ -16,8 +16,10 @@ public class BaseEntityController<TEntity, TModel, TGetByIdQuery> : BaseControll
   protected async Task<ActionResult<ResultModel<IPagedList<TModel>>>> HandlePaginationQuery<TPaginationQuery>(TPaginationQuery query)
         where TPaginationQuery : GetWithPagingQueryBase<TModel>
         => Ok(ResultModel<IPagedList<TModel>>.Create(await Mediator.Send(query)));
+
   protected async Task<ActionResult<ResultModel<TModel>>> HandleGetByIdQuery(TGetByIdQuery query)
         => Ok(ResultModel<TModel>.Create(await Mediator.Send(query)));
+
   protected async Task<ActionResult<ResultModel<TModel>>> HandleCreateCommand<TCreateCommand>(TCreateCommand command)
         where TCreateCommand : CreateCommandBase
   {

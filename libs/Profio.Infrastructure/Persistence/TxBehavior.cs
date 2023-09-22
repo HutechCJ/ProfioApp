@@ -1,7 +1,7 @@
-using System.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Profio.Domain.Interfaces;
+using System.Data;
 
 namespace Profio.Infrastructure.Persistence;
 

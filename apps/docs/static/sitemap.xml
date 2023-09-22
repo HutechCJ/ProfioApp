@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://profio-document.onrender.com/</loc>
+  <lastmod>2023-09-21T11:18:07+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/intro</loc>
+  <lastmod>2023-09-21T11:18:14+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/category/business-scenario-and-requirements</loc>
+  <lastmod>2023-09-21T11:18:14+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/category/system-design</loc>
+  <lastmod>2023-09-21T11:18:14+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/category/api-management</loc>
+  <lastmod>2023-09-21T11:18:14+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/category/development</loc>
+  <lastmod>2023-09-21T11:18:14+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/category/screenshots</loc>
+  <lastmod>2023-09-21T11:18:14+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/bussiness-scenario/context</loc>
+  <lastmod>2023-09-21T11:18:13+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/bussiness-scenario/bussiness</loc>
+  <lastmod>2023-09-21T11:18:13+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/bussiness-scenario/entity</loc>
+  <lastmod>2023-09-21T11:18:13+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/bussiness-scenario/usecase</loc>
+  <lastmod>2023-09-21T11:18:13+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/bussiness-scenario/event</loc>
+  <lastmod>2023-09-21T11:18:13+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/bussiness-scenario/userstory</loc>
+  <lastmod>2023-09-21T11:18:13+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/bussiness-scenario/wbs</loc>
+  <lastmod>2023-09-21T11:18:13+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/system-design/buildingblock</loc>
+  <lastmod>2023-09-21T11:18:13+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/system-design/c4</loc>
+  <lastmod>2023-09-21T11:18:13+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/system-design/component</loc>
+  <lastmod>2023-09-21T11:18:13+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/system-design/cicd</loc>
+  <lastmod>2023-09-21T11:18:14+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/api-design/apidesign</loc>
+  <lastmod>2023-09-21T11:18:14+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/development/setup</loc>
+  <lastmod>2023-09-21T11:18:14+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+<url>
+  <loc>https://profio-document.onrender.com/docs/screenshoot/cms</loc>
+  <lastmod>2023-09-21T11:18:14+00:00</lastmod>
+  <priority>0.51</priority>
+</url>
+
+
+</urlset>

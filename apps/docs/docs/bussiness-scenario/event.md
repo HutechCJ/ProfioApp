@@ -1,6 +1,6 @@
 ---
 title: Event Storming
-description: Event Storming is a workshop format for quickly exploring complex business domains.
+description: A workshop for exploring business domains
 sidebar_position: 4
 ---
 
@@ -177,7 +177,7 @@ sidebar_position: 4
 <img
 loading="lazy"
 src={require('../../static/img/event/domain-event.png').default}
-alt="Profio Introduction"
+alt="Domain Event"
 style={{ width: '100%', height: 'auto' }}
 />
 
@@ -190,7 +190,7 @@ style={{ width: '100%', height: 'auto' }}
 <img
 loading="lazy"
 src={require('../../static/img/event/bounded-context.png').default}
-alt="Profio Introduction"
+alt="Bounded Context"
 style={{ width: '100%', height: 'auto' }}
 />
 
@@ -203,10 +203,36 @@ style={{ width: '100%', height: 'auto' }}
 <img
 loading="lazy"
 src={require('../../static/img/event/aggerateroot.png').default}
-alt="Profio Introduction"
+alt="Aggerate Root"
 style={{ width: '100%', height: 'auto' }}
 />
 
 <p align="justify">
 	In the above diagram, we can see that the aggregate root is the domain object that is responsible for the domain events. The domain events are the events that are raised by the domain objects. The domain objects are the objects that are part of the domain model. The domain model is the model that is used to represent the domain.
+</p>
+
+## Context Map
+
+<img
+loading="lazy"
+src={require('../../static/img/event/map.png').default}
+alt="Context Map"
+style={{ width: '100%', height: 'auto' }}
+/>
+
+<p align="justify">
+  In the above diagram, we can see that the domain events are closely tied to the domain model, indicating a strong relationship between the events and the core functionality of the system.
+</p>
+
+## Access Control
+
+<img
+loading="lazy"
+src={require('../../static/img/event/access.png').default}
+alt="Access Control"
+style={{ width: '100%', height: 'auto' }}
+/>
+
+<p align="justify">
+In the above diagrams, access control and security considerations play a crucial role in ensuring the integrity, confidentiality, and availability of the logistics tracking and management system. The access control and security considerations are the security controls that are used to protect the logistics tracking and management system from unauthorized access.
 </p>

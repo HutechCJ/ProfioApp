@@ -1,9 +1,9 @@
 using AutoMapper;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
-using Profio.Application.Abstractions.CQRS.Events.Queries;
-using Profio.Application.Abstractions.CQRS.Handlers.Queries;
-using Profio.Application.Abstractions.CQRS.Validators;
 using Profio.Domain.Entities;
+using Profio.Infrastructure.Abstractions.CQRS.Events.Queries;
+using Profio.Infrastructure.Abstractions.CQRS.Handlers.Queries;
+using Profio.Infrastructure.Abstractions.CQRS.Validators;
 
 namespace Profio.Application.Deliveries.Queries;
 

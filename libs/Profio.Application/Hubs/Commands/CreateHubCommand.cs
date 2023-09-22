@@ -1,12 +1,12 @@
 using AutoMapper;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
 using FluentValidation;
-using Profio.Application.Abstractions.CQRS.Events.Commands;
-using Profio.Application.Abstractions.CQRS.Handlers.Command;
-using Profio.Application.Abstractions.CQRS.Validators;
 using Profio.Domain.Constants;
 using Profio.Domain.Entities;
 using Profio.Domain.ValueObjects;
+using Profio.Infrastructure.Abstractions.CQRS.Events.Commands;
+using Profio.Infrastructure.Abstractions.CQRS.Handlers.Command;
+using Profio.Infrastructure.Abstractions.CQRS.Validators;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Hubs.Commands;
@@ -16,11 +16,11 @@ namespace Profio.Application.Hubs.Commands;
   Description = "A Representation of list of Hub")]
 public sealed record CreateHubCommand : CreateCommandBase
 {
-  public required string? Name { get; set; }
-  public required string? ZipCode { get; set; }
+  public required string Name { get; set; }
+  public required string ZipCode { get; set; }
   public required Location Location { get; set; }
-  public Address? Address { get; set; }
-  public HubStatus Status { get; set; } = HubStatus.Active;
+public Address? Address { get; set; }
+public HubStatus Status { get; set; } = HubStatus.Active;
 }
 
 public sealed class CreateHubCommandHandler : CreateCommandHandlerBase<CreateHubCommand, Hub>

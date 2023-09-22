@@ -1,6 +1,6 @@
 ---
 title: Usecase View
-description: Visual representation of the interactions of actors with a system.
+description: A system's interaction diagram
 sidebar_position: 3
 ---
 

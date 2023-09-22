@@ -3,13 +3,13 @@ using EntityFrameworkCore.Repository.Collections;
 using EntityFrameworkCore.Repository.Extensions;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Profio.Application.Abstractions.CQRS.Events.Queries;
-using Profio.Application.Abstractions.CQRS.Validators;
 using Profio.Application.Hubs;
 using Profio.Application.Orders.Validators;
 using Profio.Domain.Entities;
 using Profio.Domain.Specifications;
 using Profio.Domain.ValueObjects;
+using Profio.Infrastructure.Abstractions.CQRS.Events.Queries;
+using Profio.Infrastructure.Abstractions.CQRS.Validators;
 using Profio.Infrastructure.Exceptions;
 using Profio.Infrastructure.Persistence;
 
@@ -60,8 +60,6 @@ public sealed class GetHubPathByOrderIdQueryHandler : IRequestHandler<GetHubPath
 public sealed class GetHubPathByOrderIdQueryValidator : GetWithPagingQueryValidatorBase<GetHubPathByOrderIdQuery, HubDto>
 {
   public GetHubPathByOrderIdQueryValidator(OrderExistenceByIdValidator orderValidator)
-  {
-    RuleFor(x => x.OrderId)
+    => RuleFor(x => x.OrderId)
       .SetValidator(orderValidator);
-  }
 }

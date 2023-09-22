@@ -1,18 +1,18 @@
 using AutoMapper;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
-using Profio.Application.Abstractions.CQRS.Events.Commands;
-using Profio.Application.Abstractions.CQRS.Handlers.Command;
-using Profio.Application.Abstractions.CQRS.Validators;
 using Profio.Domain.Constants;
 using Profio.Domain.Entities;
 using Profio.Domain.ValueObjects;
+using Profio.Infrastructure.Abstractions.CQRS.Events.Commands;
+using Profio.Infrastructure.Abstractions.CQRS.Handlers.Command;
+using Profio.Infrastructure.Abstractions.CQRS.Validators;
 
 namespace Profio.Application.Hubs.Commands;
 
 public sealed record UpdateHubCommand(object Id) : UpdateCommandBase(Id)
 {
-  public required string? Name { get; set; }
-  public required string? ZipCode { get; set; }
+  public string? Name { get; set; }
+  public string? ZipCode { get; set; }
   public Location? Location { get; set; }
   public Address? Address { get; set; }
   public HubStatus? Status { get; set; }

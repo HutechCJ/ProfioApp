@@ -86,7 +86,6 @@ function SignIn() {
         </Typography>
         <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
           <TextField
-            variant="filled"
             margin="normal"
             required
             fullWidth
@@ -96,7 +95,6 @@ function SignIn() {
             autoComplete="userName"
           />
           <TextField
-            variant="filled"
             margin="normal"
             required
             fullWidth

@@ -14,6 +14,7 @@ import {
   ButtonGroup,
   Button,
   Divider,
+  Grid,
 } from '@mui/material';
 import Link from '@/components/Link';
 
@@ -110,19 +111,27 @@ function Vehicle({ params }: { params: { vehicleId: string } }) {
         <Divider />
 
         <CardContent>
-          <Stack
+          <Grid
+            minHeight={128}
+            container
             direction="row"
-            justifyContent="space-around"
-            alignItems="center"
+            spacing={2}
+            columns={{ xs: 1, sm: 1, md: 3 }}
           >
-            <VehicleStatusCard status={status} />
-            <VehicleTypeCard
-              type={type}
-              zipCodeCurrent={zipCodeCurrent}
-              licensePlate={licensePlate}
-            />
-            <VehicleStaffCard staff={staff} />
-          </Stack>
+            <Grid item xs={1}>
+              <VehicleStatusCard status={status} />
+            </Grid>
+            <Grid item xs={1}>
+              <VehicleTypeCard
+                type={type}
+                zipCodeCurrent={zipCodeCurrent}
+                licensePlate={licensePlate}
+              />
+            </Grid>
+            <Grid item xs={1}>
+              <VehicleStaffCard staff={staff} />
+            </Grid>
+          </Grid>
         </CardContent>
       </Card>
     </Container>

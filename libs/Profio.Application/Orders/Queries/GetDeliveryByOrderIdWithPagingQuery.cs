@@ -1,12 +1,12 @@
 using AutoMapper;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
-using Profio.Application.Abstractions.CQRS.Events.Queries;
-using Profio.Application.Abstractions.CQRS.Handlers.Queries;
-using Profio.Application.Abstractions.CQRS.Validators;
 using Profio.Application.Deliveries;
 using Profio.Application.Orders.Validators;
 using Profio.Domain.Entities;
 using Profio.Domain.Specifications;
+using Profio.Infrastructure.Abstractions.CQRS.Events.Queries;
+using Profio.Infrastructure.Abstractions.CQRS.Handlers.Queries;
+using Profio.Infrastructure.Abstractions.CQRS.Validators;
 using System.Linq.Expressions;
 
 namespace Profio.Application.Orders.Queries;
@@ -24,8 +24,6 @@ public sealed class GetDeliveryByOrderIdWithPagingQueryHandler : GetWithPagingQu
 public sealed class GetDeliveryByOrderIdWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetDeliveryByOrderIdWithPagingQuery, DeliveryDto>
 {
   public GetDeliveryByOrderIdWithPagingQueryValidator(OrderExistenceByIdValidator orderValidator)
-  {
-    RuleFor(x => x.OrderId)
+    => RuleFor(x => x.OrderId)
       .SetValidator(orderValidator);
-  }
 }

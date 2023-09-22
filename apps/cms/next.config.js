@@ -2,6 +2,13 @@
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const { composePlugins, withNx } = require('@nx/next');
+const pwa = require('next-pwa');
+
+const withPWA = pwa({
+  dest: 'public',
+  register: true,
+  skipWaiting: true,
+});
 
 /**
  * @type {import('@nx/next/plugins/with-nx').WithNxOptions}
@@ -50,6 +57,7 @@ const nextConfig = {
 const plugins = [
   // Add more Next.js plugins to this list if needed.
   withNx,
+  withPWA,
 ];
 
 module.exports = composePlugins(...plugins)(nextConfig);

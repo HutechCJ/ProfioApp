@@ -38,8 +38,21 @@ public sealed class IncidentsController : BaseEntityController<Incident, Inciden
   [SwaggerOperation(summary: "Delete Incident")]
   public Task<ActionResult<ResultModel<IncidentDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteIncidentCommand(id));
+
   [HttpGet("count")]
   [SwaggerOperation(summary: "Get Incident count")]
   public async Task<ActionResult<ResultModel<int>>> GetCount()
     => Ok(ResultModel<int>.Create(await Mediator.Send(new GetIncidentCountQuery())));
+  [HttpPatch("{id:length(26)}/update-status")]
+  [SwaggerOperation(summary: "Update Incident status")]
+  public async Task<IActionResult> UpdateStatus([FromRoute] string id, [FromBody] UpdateIncidentStatusCommand command)
+  {
+    if (!id.Equals(command.Id))
+    {
+      ModelState.AddModelError("Id", "Ids are not the same");
+      return ValidationProblem();
+    }
+    await Mediator.Send(command).ConfigureAwait(false);
+    return NoContent();
+  }
 }
