@@ -30,6 +30,14 @@
     'Liberation Mono', 'Courier New', monospace;
 }
 
+.ps-4 {
+  padding-left: 1.5rem !important;
+}
+
+.ms-4 {
+  margin-left: 1.5rem !important;
+}
+
 *,
 *::before,
 *::after {
