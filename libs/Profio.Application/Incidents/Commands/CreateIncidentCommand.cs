@@ -18,7 +18,6 @@ public sealed record CreateIncidentCommand : CreateCommandBase
   public string? Description { get; set; }
   public IncidentStatus Status { get; set; }
   public DateTime? Time { get; set; }
-  public required string OrderHistoryId { get; set; }
 }
 
 public sealed class CreateIncidentCommandHandler : CreateCommandHandlerBase<CreateIncidentCommand, Incident>
@@ -37,8 +36,5 @@ public sealed class CreateIncidentCommandValidator : AbstractValidator<CreateInc
 
     RuleFor(c => c.Status)
       .IsInEnum();
-
-    RuleFor(c => c.OrderHistoryId)
-      .SetValidator(orderHistoryIdValidator);
   }
 }

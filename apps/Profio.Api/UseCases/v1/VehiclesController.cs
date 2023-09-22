@@ -11,6 +11,7 @@ using Profio.Domain.Models;
 using Profio.Domain.Specifications;
 using Profio.Domain.ValueObjects;
 using Swashbuckle.AspNetCore.Annotations;
+
 namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
@@ -72,6 +73,18 @@ public sealed class VehiclesController : BaseEntityController<Vehicle, VehicleDt
   public async Task<IActionResult> VisitHub([FromRoute] string id, [FromRoute] string hubId)
   {
     await Mediator.Send(new VisitHubCommand(id, hubId));
+    return NoContent();
+  }
+  [HttpPatch("{id:length(26)}/update-status")]
+  [SwaggerOperation(summary: "Update Vehicle status")]
+  public async Task<IActionResult> UpdateStatus([FromRoute] string id, [FromBody] UpdateVehicleStatusCommand command)
+  {
+    if (!id.Equals(command.Id))
+    {
+      ModelState.AddModelError("Id", "Ids are not the same");
+      return ValidationProblem();
+    }
+    await Mediator.Send(command).ConfigureAwait(false);
     return NoContent();
   }
 }

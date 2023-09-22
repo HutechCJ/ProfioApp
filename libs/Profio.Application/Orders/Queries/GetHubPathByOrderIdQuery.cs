@@ -60,8 +60,6 @@ public sealed class GetHubPathByOrderIdQueryHandler : IRequestHandler<GetHubPath
 public sealed class GetHubPathByOrderIdQueryValidator : GetWithPagingQueryValidatorBase<GetHubPathByOrderIdQuery, HubDto>
 {
   public GetHubPathByOrderIdQueryValidator(OrderExistenceByIdValidator orderValidator)
-  {
-    RuleFor(x => x.OrderId)
+    => RuleFor(x => x.OrderId)
       .SetValidator(orderValidator);
-  }
 }
