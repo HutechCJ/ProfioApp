@@ -6,13 +6,20 @@ import { Container, Divider } from '@mui/material';
 
 import VehicleList from './VehicleList';
 import VehicleStatisticsCard from './VehicleStatisticsCard';
+import MainTabs from '@/components/MainTabs';
 
 const Vehicles = () => {
+  const tabs = [
+    { label: 'LIST', content: <VehicleList /> },
+    { label: 'STATISTICS', content: <VehicleStatisticsCard /> },
+  ];
+
   return (
     <Container maxWidth="xl">
-      <VehicleStatisticsCard />
+      <MainTabs tabs={tabs} />
+      {/* <VehicleStatisticsCard />
       <Divider />
-      <VehicleList />
+      <VehicleList /> */}
     </Container>
   );
 };

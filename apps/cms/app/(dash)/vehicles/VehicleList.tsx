@@ -56,7 +56,7 @@ function VehicleList() {
     {
       field: 'id',
       headerName: 'ID',
-      width: 300,
+      width: 280,
       renderCell(params) {
         return (
           <Link href={`/vehicles/${params.value}`}>
@@ -138,7 +138,7 @@ function VehicleList() {
     },
     {
       field: 'actions',
-      width: 400,
+      width: 370,
       headerName: 'ACTIONS',
       sortable: false,
       filterable: false,
@@ -174,7 +174,7 @@ function VehicleList() {
   ];
 
   return (
-    <Box sx={{ paddingY: 4 }}>
+    <Box>
       <Stack
         direction="row"
         justifyContent="space-between"
