@@ -1,6 +1,10 @@
 using CurrieTechnologies.Razor.SweetAlert2;
+using Profio.Infrastructure.OpenTelemetry;
 using Profio.Website.Middleware;
 using Serilog;
+using Spectre.Console;
+
+AnsiConsole.Write(new FigletText("Profio Website").Centered().Color(Color.BlueViolet));
 
 try
 {
@@ -9,6 +13,7 @@ try
   builder.Services.AddRazorPages();
   builder.Services.AddServerSideBlazor();
   builder.Services.AddSweetAlert2();
+  builder.AddOpenTelemetry();
 
   var app = builder.Build();
 
