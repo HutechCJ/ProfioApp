@@ -23,6 +23,7 @@ public static class Extension
         }
         options.SchemaFilter<EnumSchemaFilter>();
         options.OperationFilter<SwaggerDefaultValues>();
+        options.OperationFilter<ApiKeyFilter>();
       })
       .AddSwaggerGenNewtonsoftSupport()
       .Configure<SwaggerGeneratorOptions>(o => o.InferSecuritySchemes = false);

@@ -27,7 +27,7 @@ public sealed class SendSmsCommandHandler : IRequestHandler<SendSmsCommand, Unit
         SmsType.IncidentReported => $"Your order with id {request.Message.Message} has an incident",
         SmsType.OrderShipping => $"Your order with id {request.Message.Message} is shipping. Please keep your phone on",
         SmsType.OrderCompleted => $"Your order with id  {request.Message.Message} has been completed",
-        SmsType.IncidentResolved => "An incident for your order has been resolved",
+        SmsType.IncidentResolved => $"An incident of your order with id {request.Message.Message} has been resolved",
         _ => request.Message.Message
       },
       client: _client);

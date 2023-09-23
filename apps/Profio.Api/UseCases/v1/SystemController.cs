@@ -28,7 +28,8 @@ public sealed class SystemController : BaseController
 
   [ApiKey]
   [HttpGet("status")]
-  [SwaggerOperation(summary: "Get Platform's status")]
+  [SwaggerOperation(summary: "Get Platform's status",
+    Description = "In development, Azure has been `BLOCKED` to access this endpoint")]
   public IActionResult GetServerStatus()
     => Ok(Extension.GetPlatformStatus(_env));
 }

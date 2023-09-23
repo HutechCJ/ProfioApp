@@ -27,8 +27,8 @@ public static class SwaggerConfiguration
 
         swagger.ExternalDocs = new()
         {
-          Description = "Github",
-          Url = new("https://github.com/HutechCJ/ProfioApp/")
+          Description = "Application Documentation",
+          Url = new("https://profio-document.onrender.com/")
         };
       });
     });
@@ -37,6 +37,7 @@ public static class SwaggerConfiguration
     {
       c.DocumentTitle = "Profio API";
       c.InjectStylesheet("/css/swagger-ui.css");
+      c.InjectJavascript("/js/swagger-ui.js");
       foreach (var description in app.ApplicationServices
                  .GetRequiredService<IApiVersionDescriptionProvider>()
                  .ApiVersionDescriptions)

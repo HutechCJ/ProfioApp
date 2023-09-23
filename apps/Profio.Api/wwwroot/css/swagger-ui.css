@@ -91,3 +91,17 @@ h3 {
   font-size: 90%;
   margin-left: 10px;
 }
+
+.opblock-custom-tag {
+  font-size: 10px;
+  font-weight: 700;
+  min-width: 80px;
+  padding: 6px 15px;
+  text-align: center;
+  border-radius: 3px;
+  background: #9b5de5;
+  text-shadow: 0 1px 0 rgba(0,0,0,.1);
+  font-family: sans-serif;
+  color: #fff;
+  margin-left: 5px;
+}

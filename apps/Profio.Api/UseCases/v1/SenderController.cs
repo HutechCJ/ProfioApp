@@ -22,7 +22,9 @@ public sealed class SenderController : BaseController
   }
 
   [HttpPost("sms")]
-  [SwaggerOperation(summary: "Send SMS")]
+  [SwaggerOperation(
+    summary: "Send SMS",
+    description: "If you choose the type of sms, the message must be the `Order Id`. Otherwise, you can send any message you want")]
   [ApiKey]
   public async Task<IActionResult> SendSms(SmsMessage message, [FromQuery] SmsType type)
   {
