@@ -1,4 +1,4 @@
-import { Delivery } from "../delivery/delivery.types";
+import { Delivery } from '../delivery/delivery.types';
 
 export type Incident = {
   id: string;
