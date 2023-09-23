@@ -1,0 +1,27 @@
+{
+  "theme_color": "#ffffff",
+  "background_color": "#ffffff",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "./",
+  "name": "Profio Logistics Application",
+  "short_name": "Profio",
+  "description": "The symbol of professionalism in transportation management. Whether you need a solution for managing a fleet of vehicles or ships, Profio provides a powerful tool, optimizing and simplifying the process, ensuring every movement is quick, safe, and efficient",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    }
+  ]
+}

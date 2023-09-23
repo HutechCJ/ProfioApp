@@ -9,9 +9,10 @@ using System.Linq.Expressions;
 
 namespace Profio.Application.Orders.Queries;
 
-public sealed record GetOrderWithPagingQuery(Criteria Criteria, OrderEnumFilter OrderEnumFilter) : GetWithPagingQueryBase<OrderDto>(Criteria);
+public record GetOrderWithPagingQuery(Criteria Criteria, OrderEnumFilter OrderEnumFilter) : GetWithPagingQueryBase<OrderDto>(Criteria);
 
-public sealed class GetOrderWithPagingQueryHandler : GetWithPagingQueryHandler<GetOrderWithPagingQuery, OrderDto, Order>
+public class GetOrderWithPagingQueryHandler<TQuery> : GetWithPagingQueryHandler<TQuery, OrderDto, Order>
+  where TQuery : GetOrderWithPagingQuery
 {
   public GetOrderWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
@@ -26,13 +27,23 @@ public sealed class GetOrderWithPagingQueryHandler : GetWithPagingQueryHandler<G
       || (c.DestinationAddress.Ward != null && c.DestinationAddress.Ward.ToLower().Contains(filter))
       || (c.DestinationAddress.City != null && c.DestinationAddress.City.ToLower().Contains(filter)
       || (c.DestinationAddress.ZipCode != null && c.DestinationAddress.ZipCode.ToLower().Contains(filter)))));
-  protected override Expression<Func<Order, bool>> RequestFilter(GetOrderWithPagingQuery request)
+  protected override Expression<Func<Order, bool>> RequestFilter(TQuery request)
   {
     return x => request.OrderEnumFilter.Status == null || x.Status == request.OrderEnumFilter.Status;
   }
 }
+sealed class GetOrderWithPagingQueryHandler : GetOrderWithPagingQueryHandler<GetOrderWithPagingQuery>
+{
+  public GetOrderWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+  {
+  }
+}
 
-public sealed class
-  GetOrderWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetOrderWithPagingQuery, OrderDto>
+public class
+  GetOrderWithPagingQueryValidator<TQuery> : GetWithPagingQueryValidatorBase<TQuery, OrderDto>
+  where TQuery : GetOrderWithPagingQuery
+{
+}
+public sealed class GetOrderWithPagingQueryValidator : GetOrderWithPagingQueryValidator<GetOrderWithPagingQuery>
 {
 }

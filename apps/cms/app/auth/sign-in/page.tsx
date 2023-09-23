@@ -9,7 +9,6 @@ import {
   Box,
   Checkbox,
   Container,
-  Divider,
   FormControlLabel,
   Stack,
   TextField,

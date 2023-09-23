@@ -9,5 +9,11 @@ services:
   - name: profio-proxy
     project: apps/Profio.Proxy/Profio.Proxy.csproj
     bindings:
-      - protocol: http
+      - protocol: https
         port: 7221
+
+  - name: profio-website
+    project: apps/Profio.Web/Profio.Website.csproj
+    bindings:
+      - protocol: https
+        port: 7070

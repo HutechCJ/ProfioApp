@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Mvc;
 using Profio.Application.Customers;
 using Profio.Application.Customers.Commands;
 using Profio.Application.Customers.Queries;
+using Profio.Application.Orders;
+using Profio.Application.Users.Queries;
 using Profio.Domain.Entities;
 using Profio.Domain.Models;
 using Profio.Domain.Specifications;
@@ -38,4 +40,8 @@ public sealed class CustomersController : BaseEntityController<Customer, Custome
   [SwaggerOperation(summary: "Delete Customer")]
   public Task<ActionResult<ResultModel<CustomerDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteCustomerCommand(id));
+  [HttpGet("{phone:length(10)}")]
+  [SwaggerOperation(summary: "Get Customer List with Paging")]
+  public async Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> GetOrderByPhoneNumber(string phone, [FromQuery] Criteria criteria, [FromQuery] OrderEnumFilter orderEnumFilter)
+    => Ok(ResultModel<IPagedList<OrderDto>>.Create(await Mediator.Send(new GetOrderByUserPhoneNumberWithPagingQuery(phone, criteria, orderEnumFilter))));
 }

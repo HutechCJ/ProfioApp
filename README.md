@@ -297,16 +297,10 @@
 		<b><a href="https://www.emqx.io/" target="_blank">EMQX</a></b> - EMQ X Broker is an open-source, scalable MQTT messaging broker for IoT, M2M, and mobile apps, handling millions of concurrent clients.
 	</li>
 	<li align="justify">
-		<b><a href="https://vercel.com/" target="_blank">Vercel</a></b> - Vercel is a cloud platform for hosting Jamstack websites and web services, deploying instantly, scaling automatically, and requiring no configuration.
-	</li>
-	<li align="justify">
 		<b><a href="https://cloud.google.com/" target="_blank">Google Cloud 	Platform</a></b> - Google Cloud Platform (GCP) is a suite of cloud services running on the same infrastructure as Google's user products like Search, Gmail, and YouTube.
 	</li>
 	<li align="justify">
 		<b><a href="https://supabase.io/" target="_blank">Supabase</a></b> - Supabase is an open-source alternative to Firebase that adds real-time and RESTful APIs to your PostgreSQL database without any coding.
-	</li>
-	<li align="justify">
-		<b><a href="https://sendgrid.com/" target="_blank">SendGrid</a></b> - SendGrid is a cloud-based SMTP provider that allows you to send email without having to maintain email servers.
 	</li>
 </ul>
 
