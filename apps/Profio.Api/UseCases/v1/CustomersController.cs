@@ -53,5 +53,10 @@ public sealed class CustomersController : BaseEntityController<Customer, Custome
   [HttpGet("{phone:length(10)}/orders/current")]
   [SwaggerOperation(summary: "Get Current Order List By Phone number with Paging")]
   public async Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> GetCurrentOrderByPhoneNumber(string phone, [FromQuery] Criteria criteria)
-      => Ok(ResultModel<IPagedList<OrderDto>>.Create(await Mediator.Send(new GetCurrentOrderByCustomerPhoneNumberWithPagingQuery(phone, criteria))));
+  {
+    var result = await Mediator.Send(new GetCurrentOrderByCustomerPhoneNumberWithPagingQuery(phone, criteria));
+    if (result.Count == 0)
+      return NoContent();
+    return Ok(ResultModel<IPagedList<OrderDto>>.Create(result));
+  }
 }
