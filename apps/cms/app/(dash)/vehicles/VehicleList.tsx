@@ -25,6 +25,9 @@ import AddVehicle from './AddVehicle';
 import EditVehicle from './EditVehicle';
 import DeleteVehicle from './DeleteVehicle';
 import ActionForList from '@/components/ActionForList';
+import useDeleteVehicle from '@/features/vehicle/useDeleteVehicle';
+import useCountByVehicleType from '@/features/vehicle/useCountByVehicleType';
+import useCountByVehicleStatus from '@/features/vehicle/useCountByVehicleStatus';
 
 function VehicleList() {
   const [paginationModel, setPaginationModel] = React.useState({
@@ -42,13 +45,18 @@ function VehicleList() {
     PageSize: paginationModel.pageSize,
   });
 
+  const { mutate: deleteVehicle, isSuccess } = useDeleteVehicle();
+
+  const { refetch: refetchCountType } = useCountByVehicleType();
+  const { refetch: refetchCountStatus } = useCountByVehicleStatus();
+
   const rowCount = pagingVehicles?.data.totalCount || 0;
 
   const [rowCountState, setRowCountState] = React.useState(rowCount);
 
   React.useEffect(() => {
     setRowCountState((prevRowCountState) =>
-      rowCount !== undefined ? rowCount : prevRowCountState,
+      rowCount !== undefined ? rowCount : prevRowCountState
     );
   }, [rowCount, setRowCountState]);
 
@@ -158,15 +166,24 @@ function VehicleList() {
                 params={{ vehicleId: vehicleId }}
               />
             )}
-            deleteComponentProps={(handleClose) => (
-              <DeleteVehicle
-                onSuccess={() => {
-                  handleClose();
-                  refetch();
-                }}
-                params={{ vehicleId: vehicleId }}
-              />
-            )}
+            // deleteComponentProps={(handleClose) => (
+            //   <DeleteVehicle
+            //     onSuccess={() => {
+            //       handleClose();
+            //       refetch();
+            //     }}
+            //     params={{ vehicleId: vehicleId }}
+            //   />
+            // )}
+            handleDelete={() => deleteVehicle(vehicleId)}
+            isSuccess={isSuccess}
+            refetchActions={() => {
+              refetchCountType();
+              refetchCountStatus();
+            }}
+            onSuccess={() => {
+              refetch();
+            }}
           />
         );
       },
