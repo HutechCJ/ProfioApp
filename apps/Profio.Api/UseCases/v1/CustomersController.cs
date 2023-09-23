@@ -40,6 +40,7 @@ public sealed class CustomersController : BaseEntityController<Customer, Custome
   [SwaggerOperation(summary: "Delete Customer")]
   public Task<ActionResult<ResultModel<CustomerDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteCustomerCommand(id));
+
   [HttpGet("{phone:length(10)}")]
   [SwaggerOperation(summary: "Get Customer List with Paging")]
   public async Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> GetOrderByPhoneNumber(string phone, [FromQuery] Criteria criteria, [FromQuery] OrderEnumFilter orderEnumFilter)

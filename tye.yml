@@ -13,7 +13,7 @@ services:
         port: 7221
 
   - name: profio-website
-    project: apps/Profio.Web/Profio.Website.csproj
+    project: apps/Profio.Website/Profio.Website.csproj
     bindings:
       - protocol: https
         port: 7070

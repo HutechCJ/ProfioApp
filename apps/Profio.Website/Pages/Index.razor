@@ -3,22 +3,23 @@
 <PageTitle>Home page</PageTitle>
 
 <div class="jumbotron jumbotron-fluid mb-5">
-    <div class="container text-center py-5">
-        <h1 class="text-primary mb-4">Profio</h1>
-        <h1 class="text-white display-3 mb-5">Logistics Services</h1>
-        <div class="mx-auto" style="width: 100%; max-width: 600px;">
-            <div class="input-group">
-                <input type="tel"
-                       class="form-control border-light"
-                       style="padding: 30px;"
-                       placeholder="Enter your phone number..."
-                       required>
-                <div class="input-group-append">
-                    <button class="btn btn-primary px-3">Track & Trace</button>
-                </div>
-            </div>
+  <div class="container text-center py-5">
+    <h1 class="text-primary mb-4">Profio</h1>
+    <h1 class="text-white display-3 mb-5">Logistics Services</h1>
+    <div class="mx-auto" style="width: 100%; max-width: 600px;">
+      <div class="input-group">
+        <input type="tel"
+               class="form-control border-light"
+               style="padding: 30px;"
+               placeholder="Enter your phone number..."
+               required
+               @bind-value="PhoneNumber">
+        <div class="input-group-append">
+          <button class="btn btn-primary px-3" @onclick="Find">Track & Trace</button>
         </div>
+      </div>
     </div>
+  </div>
 </div>
 
 <div class="container-fluid py-5">
@@ -38,7 +39,7 @@
         </p>
         <div class="d-flex align-items-center pt-2">
           <button type="button" class="btn-play" data-toggle="modal"
-                            data-src="https://www.youtube.com/embed/dTUz6XrlvFg" data-target="#videoModal">
+                  data-src="https://www.youtube.com/embed/dTUz6XrlvFg" data-target="#videoModal">
             <span></span>
           </button>
           <h5 class="font-weight-bold m-0 ml-4">Play Video</h5>
@@ -62,52 +63,96 @@
   </div>
 </div>
 
-<div class="container-fluid pt-5">
-  <div class="container">
-    <div class="text-center pb-2">
-      <h6 class="text-primary text-uppercase font-weight-bold">Our Services</h6>
-      <h1 class="mb-4">Best Logistic Services</h1>
+<div class="container-xxl py-5">
+  <div class="container py-5">
+    <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+      <h6 class="text-primary text-uppercase">Our Services</h6>
+      <h1 class="mb-5">Explore Our Services</h1>
     </div>
-    <div class="row pb-3">
-      <div class="col-lg-3 col-md-6 text-center mb-5">
-        <div class="d-flex align-items-center justify-content-center bg-primary mb-4 p-4">
-          <i class="fa fa-2x fa-plane text-dark pr-3"></i>
-          <h6 class="text-white font-weight-medium m-0">Air Freight</h6>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+        <div class="service-item p-4">
+          <div class="overflow-hidden mb-4">
+            <img loading="lazy" class="img-fluid" src="images/service-1.jpg" alt="Air Freight">
+          </div>
+          <h4 class="mb-3">Air Freight</h4>
+          <p>
+            We provide comprehensive logistics solutions for air freight services
+          </p>
+          <a class="btn-slide mt-2" href="">
+            <i class="fa fa-arrow-right"></i><span> Read More</span>
+          </a>
         </div>
-        <p>
-          We provide comprehensive logistics solutions for air freight services
-        </p>
-        <a class="border-bottom text-decoration-none" href="">Read More</a>
       </div>
-      <div class="col-lg-3 col-md-6 text-center mb-5">
-        <div class="d-flex align-items-center justify-content-center bg-primary mb-4 p-4">
-          <i class="fa fa-2x fa-ship text-dark pr-3"></i>
-          <h6 class="text-white font-weight-medium m-0">Ocean Freight</h6>
+      <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
+        <div class="service-item p-4">
+          <div class="overflow-hidden mb-4">
+            <img loading="lazy" class="img-fluid" src="images/service-2.jpg" alt="Ocean Freight">
+          </div>
+          <h4 class="mb-3">Ocean Freight</h4>
+          <p>
+            We provide full logistics services, from global freight to supply chain
+          </p>
+          <a class="btn-slide mt-2" href="">
+            <i class="fa fa-arrow-right"></i><span> Read More</span>
+          </a>
         </div>
-        <p>
-          We provide full logistics services, from global freight to supply chain consulting
-        </p>
-        <a class="border-bottom text-decoration-none" href="">Read More</a>
       </div>
-      <div class="col-lg-3 col-md-6 text-center mb-5">
-        <div class="d-flex align-items-center justify-content-center bg-primary mb-4 p-4">
-          <i class="fa fa-2x fa-truck text-dark pr-3"></i>
-          <h6 class="text-white font-weight-medium m-0">Land Transport</h6>
+      <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.7s">
+        <div class="service-item p-4">
+          <div class="overflow-hidden mb-4">
+            <img loading="lazy" class="img-fluid" src="images/service-3.jpg" alt="Road Freight">
+          </div>
+          <h4 class="mb-3">Road Freight</h4>
+          <p>
+            We're experts in logistics and supply chain, offering global freight
+          </p>
+          <a class="btn-slide mt-2" href="">
+            <i class="fa fa-arrow-right"></i><span> Read More</span>
+          </a>
         </div>
-        <p>
-          We're experts in logistics and supply chain, offering global freight and consulting
-        </p>
-        <a class="border-bottom text-decoration-none" href="">Read More</a>
       </div>
-      <div class="col-lg-3 col-md-6 text-center mb-5">
-        <div class="d-flex align-items-center justify-content-center bg-primary mb-4 p-4">
-          <i class="fa fa-2x fa-store text-dark pr-3"></i>
-          <h6 class="text-white font-weight-medium m-0">Cargo Storage</h6>
+      <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.3s">
+        <div class="service-item p-4">
+          <div class="overflow-hidden mb-4">
+            <img loading="lazy" class="img-fluid" src="images/service-4.jpg" alt="Train Freight">
+          </div>
+          <h4 class="mb-3">Train Freight</h4>
+          <p>
+            We provide comprehensive logistics solutions for train freight services
+          </p>
+          <a class="btn-slide mt-2" href="">
+            <i class="fa fa-arrow-right"></i><span> Read More</span>
+          </a>
         </div>
-        <p>
-          Count on us for worldwide logistics, including freight and supply chain consulting
-        </p>
-        <a class="border-bottom text-decoration-none" href="">Read More</a>
+      </div>
+      <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.5s">
+        <div class="service-item p-4">
+          <div class="overflow-hidden mb-4">
+            <img loading="lazy" class="img-fluid" src="images/service-5.jpg" alt="Customs Clearance">
+          </div>
+          <h4 class="mb-3">Customs Clearance</h4>
+          <p>
+            With our customs expertise, we can help you with the border controls
+          </p>
+          <a class="btn-slide mt-2" href="">
+            <i class="fa fa-arrow-right"></i><span> Read More</span>
+          </a>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-4 wow fadeInUp" data-wow-delay="0.7s">
+        <div class="service-item p-4">
+          <div class="overflow-hidden mb-4">
+            <img loading="lazy" class="img-fluid" src="images/service-6.jpg" alt="Warehouse Solutions">
+          </div>
+          <h4 class="mb-3">Warehouse Solutions</h4>
+          <p>
+            Count on us for worldwide logistics, including freight and supply chain
+          </p>
+          <a class="btn-slide mt-2" href="">
+            <i class="fa fa-arrow-right"></i><span> Read More</span>
+          </a>
+        </div>
       </div>
     </div>
   </div>

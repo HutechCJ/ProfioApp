@@ -1,3 +1,4 @@
+using CurrieTechnologies.Razor.SweetAlert2;
 using Serilog;
 
 try
@@ -6,6 +7,7 @@ try
 
   builder.Services.AddRazorPages();
   builder.Services.AddServerSideBlazor();
+  builder.Services.AddSweetAlert2();
 
   var app = builder.Build();
 

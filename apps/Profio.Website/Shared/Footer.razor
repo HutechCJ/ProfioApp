@@ -52,9 +52,16 @@
       </p>
       <div class="w-100">
         <div class="input-group">
-          <input type="text" class="form-control border-light" style="padding: 30px;" placeholder="Your Email Address">
+          <input type="email"
+                 class="form-control border-light"
+                 style="padding: 30px;"
+                 placeholder="Your Email Address..."
+                 required="required"
+                 @bind="Email">
           <div class="input-group-append">
-            <button class="btn btn-primary px-4">Sign Up</button>
+            <button class="btn btn-primary px-4" @onclick="SaveEmail">
+              Sign Up
+            </button>
           </div>
         </div>
       </div>
