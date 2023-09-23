@@ -56,7 +56,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
   const directionsCallback = React.useCallback(
     (
       result: google.maps.DirectionsResult | null,
-      status: google.maps.DirectionsStatus
+      status: google.maps.DirectionsStatus,
     ) => {
       console.log(result);
       if (result !== null) {
@@ -67,7 +67,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
         }
       }
     },
-    []
+    [],
   );
 
   const directionsResult = React.useMemo(() => {
@@ -87,11 +87,11 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
         const bounds = new window.google.maps.LatLngBounds();
         const origin = new window.google.maps.LatLng(
           orderHubsPathApiRes.data.items[0].location.latitude,
-          orderHubsPathApiRes.data.items[0].location.longitude
+          orderHubsPathApiRes.data.items[0].location.longitude,
         );
         const destination = new window.google.maps.LatLng(
           orderHubsPathApiRes.data.items[1].location.latitude,
-          orderHubsPathApiRes.data.items[1].location.longitude
+          orderHubsPathApiRes.data.items[1].location.longitude,
         );
 
         bounds.extend(origin);
@@ -129,11 +129,11 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
                   options={{
                     origin: new window.google.maps.LatLng(
                       orderHubsPathApiRes.data.items[0].location.latitude,
-                      orderHubsPathApiRes.data.items[0].location.longitude
+                      orderHubsPathApiRes.data.items[0].location.longitude,
                     ),
                     destination: new window.google.maps.LatLng(
                       orderHubsPathApiRes.data.items[1].location.latitude,
-                      orderHubsPathApiRes.data.items[1].location.longitude
+                      orderHubsPathApiRes.data.items[1].location.longitude,
                     ),
                     travelMode: google.maps.TravelMode.DRIVING,
                   }}
