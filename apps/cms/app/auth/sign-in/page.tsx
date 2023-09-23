@@ -107,14 +107,16 @@ function SignIn() {
             control={<Checkbox value="remember" color="primary" />}
             label="Remember me"
           />
-          {isError && (
-            <Alert severity="error">
-              <AlertTitle>Error</AlertTitle>
-              <Stack>
-                {(error as any).response?.data?.data || 'Unknown Error'}
-              </Stack>
-            </Alert>
-          )}
+          <Box>
+            {isError && (
+              <Alert severity="error">
+                <AlertTitle>Error</AlertTitle>
+                <Stack>
+                  {(error as any).response?.data?.data || 'Unknown Error'}
+                </Stack>
+              </Alert>
+            )}
+          </Box>
           <LoadingButton
             type="submit"
             fullWidth

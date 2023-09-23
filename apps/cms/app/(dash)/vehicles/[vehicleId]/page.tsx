@@ -24,18 +24,42 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 import FormDialog from '@/components/FormDialog';
 import EditVehicle from '../EditVehicle';
-import DeleteVehicle from '../DeleteVehicle';
 import VehicleStatusCard from './VehicleStatusCard';
 import VehicleTypeCard from './VehicleTypeCard';
 import VehicleStaffCard from './VehicleStaffCard';
+
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import useGetVehicles from '@/features/vehicle/useGetVehicles';
+import useDeleteVehicle from '@/features/vehicle/useDeleteVehicle';
+import useCountByVehicleType from '@/features/vehicle/useCountByVehicleType';
+import useCountByVehicleStatus from '@/features/vehicle/useCountByVehicleStatus';
 
 function Vehicle({ params }: { params: { vehicleId: string } }) {
   const {
     data: vehicleApiRes,
     isLoading,
     isError,
-    refetch,
+    refetch: refetchVehicle,
   } = useGetVehicle(params.vehicleId);
+
+  const { refetch: refetchVehicles } = useGetVehicles();
+
+  const { mutate: deleteVehicle, isSuccess } = useDeleteVehicle();
+
+  const { refetch: refetchCountType } = useCountByVehicleType();
+  const { refetch: refetchCountStatus } = useCountByVehicleStatus();
+
+  const MySwal = withReactContent(Swal);
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      refetchCountStatus();
+      refetchCountType();
+      refetchVehicles();
+      redirect('/vehicles');
+    }
+  }, [isSuccess, refetchCountStatus, refetchCountType, refetchVehicles]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -47,6 +71,29 @@ function Vehicle({ params }: { params: { vehicleId: string } }) {
 
   const { id, zipCodeCurrent, licensePlate, type, status, staff } =
     vehicleApiRes.data;
+
+  const handleDelete = () => {
+    MySwal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#007dc3',
+      cancelButtonColor: '#d32f2f',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteVehicle(id);
+        MySwal.fire({
+          title: 'Deleted!',
+          text: 'Your data has been deleted.',
+          icon: 'success',
+          confirmButtonColor: '#007dc3',
+          confirmButtonText: 'OK',
+        });
+      }
+    });
+  };
 
   return (
     <Container maxWidth="xl">
@@ -71,30 +118,21 @@ function Vehicle({ params }: { params: { vehicleId: string } }) {
               <EditVehicle
                 onSuccess={() => {
                   handleClose();
-                  refetch();
+                  refetchVehicle();
                 }}
                 params={{ vehicleId: params.vehicleId }}
               />
             )}
           />
 
-          <FormDialog
-            buttonText="Delete"
-            buttonColor="error"
-            buttonIcon={<DeleteIcon />}
-            dialogTitle="Are you sure you want to delete this VEHICLE?"
-            dialogDescription={`ID: ${params.vehicleId}`}
-            componentProps={(handleClose) => (
-              <DeleteVehicle
-                onSuccess={() => {
-                  handleClose();
-                  refetch();
-                  redirect('/vehicles');
-                }}
-                params={{ vehicleId: params.vehicleId }}
-              />
-            )}
-          />
+          <Button
+            onClick={handleDelete}
+            variant="contained"
+            startIcon={<DeleteIcon />}
+            color="error"
+          >
+            Delete
+          </Button>
         </ButtonGroup>
       </Stack>
 

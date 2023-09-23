@@ -15,8 +15,9 @@ import useGetStaffs from '@/features/staff/useGetStaffs';
 import FormDialog from '@/components/FormDialog';
 import AddStaff from './AddStaff';
 import EditStaff from './EditStaff';
-import DeleteStaff from './DeleteStaff';
 import ActionForList from '@/components/ActionForList';
+import useCountByPosition from '@/features/staff/useCountByPosition';
+import useDeleteStaff from '@/features/staff/useDeleteStaff';
 
 function StaffList() {
   const [paginationModel, setPaginationModel] = React.useState({
@@ -33,6 +34,17 @@ function StaffList() {
     PageIndex: paginationModel.page + 1,
     PageSize: paginationModel.pageSize,
   });
+
+  const { mutate: deleteStaff, isSuccess } = useDeleteStaff();
+
+  const { refetch: refetchCountByPosition } = useCountByPosition();
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      refetchCountByPosition();
+      refetch();
+    }
+  }, [isSuccess, refetchCountByPosition, refetch]);
 
   const rowCount = pagingStaffs?.data.totalCount || 0;
 
@@ -77,7 +89,7 @@ function StaffList() {
       },
     },
     {
-      field: '',
+      field: 'actions',
       width: 400,
       headerName: 'ACTIONS',
       renderCell: (params) => {
@@ -96,15 +108,7 @@ function StaffList() {
                 params={{ staffId: staffId }}
               />
             )}
-            deleteComponentProps={(handleClose) => (
-              <DeleteStaff
-                onSuccess={() => {
-                  handleClose();
-                  refetch();
-                }}
-                params={{ staffId: staffId }}
-              />
-            )}
+            handleDelete={() => deleteStaff(staffId)}
           />
         );
       },
@@ -162,6 +166,7 @@ function StaffList() {
         onPaginationModelChange={setPaginationModel}
         sx={{
           backgroundColor: 'white',
+          width: '100%',
         }}
       />
     </Box>

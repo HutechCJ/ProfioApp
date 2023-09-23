@@ -23,8 +23,10 @@ import useGetVehicles from '@/features/vehicle/useGetVehicles';
 import FormDialog from '@/components/FormDialog';
 import AddVehicle from './AddVehicle';
 import EditVehicle from './EditVehicle';
-import DeleteVehicle from './DeleteVehicle';
 import ActionForList from '@/components/ActionForList';
+import useDeleteVehicle from '@/features/vehicle/useDeleteVehicle';
+import useCountByVehicleType from '@/features/vehicle/useCountByVehicleType';
+import useCountByVehicleStatus from '@/features/vehicle/useCountByVehicleStatus';
 
 function VehicleList() {
   const [paginationModel, setPaginationModel] = React.useState({
@@ -41,6 +43,19 @@ function VehicleList() {
     PageIndex: paginationModel.page + 1,
     PageSize: paginationModel.pageSize,
   });
+
+  const { mutate: deleteVehicle, isSuccess } = useDeleteVehicle();
+
+  const { refetch: refetchCountType } = useCountByVehicleType();
+  const { refetch: refetchCountStatus } = useCountByVehicleStatus();
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      refetchCountStatus();
+      refetchCountType();
+      refetch();
+    }
+  }, [isSuccess, refetchCountStatus, refetchCountType, refetch]);
 
   const rowCount = pagingVehicles?.data.totalCount || 0;
 
@@ -158,15 +173,7 @@ function VehicleList() {
                 params={{ vehicleId: vehicleId }}
               />
             )}
-            deleteComponentProps={(handleClose) => (
-              <DeleteVehicle
-                onSuccess={() => {
-                  handleClose();
-                  refetch();
-                }}
-                params={{ vehicleId: vehicleId }}
-              />
-            )}
+            handleDelete={() => deleteVehicle(vehicleId)}
           />
         );
       },
