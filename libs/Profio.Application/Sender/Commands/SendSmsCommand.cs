@@ -8,7 +8,7 @@ using Twilio.Rest.Api.V2010.Account;
 
 namespace Profio.Application.Sender.Commands;
 
-public sealed record SendSmsCommand(SmsMessage  Message, SmsType Type) : IRequest<Unit>;
+public sealed record SendSmsCommand(SmsMessage Message, SmsType Type) : IRequest<Unit>;
 
 public sealed class SendSmsCommandHandler : IRequestHandler<SendSmsCommand, Unit>
 {
