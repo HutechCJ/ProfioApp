@@ -1,4 +1,5 @@
 using CurrieTechnologies.Razor.SweetAlert2;
+using Profio.Website.Middleware;
 using Serilog;
 
 try
@@ -17,6 +18,7 @@ try
     app.UseHsts();
   }
 
+  app.UseRobotsTxtMiddleware();
   app.UseHttpsRedirection();
   app.UseStaticFiles();
   app.UseRouting();
