@@ -251,14 +251,14 @@ export function HeaderTitle({
               </Box>
               <Stack>
                 <Stack
-                  direction="row"
+                  direction={{ sn: 'column', md: 'row' }}
                   alignContent="center"
-                  alignItems="center"
+                  alignItems={{ sn: 'flex-start', md: 'center' }}
                   justifyContent="center"
                 >
                   {mainTitle && (
-                    <>
-                      <Typography color="black" variant="h5" component="h1">
+                    <Stack direction="row">
+                      <Typography color="black" variant="h5" mt="3px">
                         {mainTitle} |
                       </Typography>
                       <Link href={'/'}>
@@ -266,7 +266,7 @@ export function HeaderTitle({
                           <HomeIcon />
                         </IconButton>
                       </Link>
-                    </>
+                    </Stack>
                   )}
 
                   {title ? (
