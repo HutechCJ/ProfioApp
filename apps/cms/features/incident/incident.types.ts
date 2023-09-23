@@ -1,11 +1,11 @@
-import { OrderHistory } from '../orderHistory/orderHistory.types';
+import { Delivery } from "../delivery/delivery.types";
 
 export type Incident = {
   id: string;
   description: Nullable<string>;
   status: IncidentStatus;
   time: Nullable<string>;
-  orderHistory: Nullable<OrderHistory>;
+  delivery: Nullable<Delivery>;
 };
 
 export enum IncidentStatus {
@@ -14,6 +14,6 @@ export enum IncidentStatus {
   Closed,
 }
 
-export type CreateIncidentData = Omit<Incident, 'id'>;
+export type CreateIncidentData = Omit<Incident, 'id' | 'delivery'>;
 
 export type UpdateIncidentData = Incident;
