@@ -63,7 +63,7 @@ export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
   const logout = () => {
     handleClose();
     MySwal.fire({
-      title: 'Are you want to logout?',
+      title: 'Are you sure you want to logout?',
       text: 'You will be logged out of the system!',
       icon: 'warning',
       showCancelButton: true,

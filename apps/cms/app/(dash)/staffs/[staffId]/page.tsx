@@ -29,7 +29,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { StaffPosition } from '@/features/staff/staff.types';
 import FormDialog from '@/components/FormDialog';
 import EditStaff from '../EditStaff';
-import DeleteStaff from '../DeleteStaff';
+
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import useGetStaffs from '@/features/staff/useGetStaffs';
+import useDeleteStaff from '@/features/staff/useDeleteStaff';
+import useCountByPosition from '@/features/staff/useCountByPosition';
 
 function Staff({ params }: { params: { staffId: string } }) {
   const {
@@ -38,6 +43,22 @@ function Staff({ params }: { params: { staffId: string } }) {
     isError,
     refetch,
   } = useGetStaff(params.staffId);
+
+  const { refetch: refetchStaffs } = useGetStaffs();
+
+  const { mutate: deleteStaff, isSuccess } = useDeleteStaff();
+
+  const { refetch: refetchCountByPosition } = useCountByPosition();
+
+  const MySwal = withReactContent(Swal);
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      refetchCountByPosition();
+      refetchStaffs();
+      redirect('/staffs');
+    }
+  }, [isSuccess, refetchCountByPosition, refetchStaffs]);
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -48,6 +69,29 @@ function Staff({ params }: { params: { staffId: string } }) {
   }
 
   const { id, name, phone, position } = staffApiRes.data;
+
+  const handleDelete = () => {
+    MySwal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#007dc3',
+      cancelButtonColor: '#d32f2f',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteStaff(id);
+        MySwal.fire({
+          title: 'Deleted!',
+          text: 'Your data has been deleted.',
+          icon: 'success',
+          confirmButtonColor: '#007dc3',
+          confirmButtonText: 'OK',
+        });
+      }
+    });
+  };
 
   return (
     <Container maxWidth="xl">
@@ -79,23 +123,14 @@ function Staff({ params }: { params: { staffId: string } }) {
             )}
           />
 
-          <FormDialog
-            buttonText="Delete"
-            buttonColor="error"
-            buttonIcon={<DeleteIcon />}
-            dialogTitle="Are you sure you want to delete this STAFF?"
-            dialogDescription={`ID: ${params.staffId}`}
-            componentProps={(handleClose) => (
-              <DeleteStaff
-                onSuccess={() => {
-                  handleClose();
-                  refetch();
-                  redirect('/staffs');
-                }}
-                params={{ staffId: params.staffId }}
-              />
-            )}
-          />
+          <Button
+            onClick={handleDelete}
+            variant="contained"
+            startIcon={<DeleteIcon />}
+            color="error"
+          >
+            Delete
+          </Button>
         </ButtonGroup>
       </Stack>
 

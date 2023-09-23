@@ -23,7 +23,6 @@ import OrderStepper from './OrderStepper';
 import Link from 'next/link';
 import FormDialog from '@/components/FormDialog';
 import EditOrder from '../EditOrder';
-import DeleteOrder from '../DeleteOrder';
 import { redirect } from 'next/navigation';
 import OrderStatusCard from './OrderStatusCard';
 import OrderCustomerCard from './OrderCustomerCard';
@@ -32,6 +31,12 @@ import OrderDetailsCard from './OrderDetailsCard';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import useDeleteOrder from '@/features/order/useDeleteOrder';
+import useCountByOrderStatus from '@/features/order/useCountByOrderStatus';
+
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import useGetOrders from '@/features/order/useGetOrders';
 
 function Order({ params }: { params: { orderId: string } }) {
   const {
@@ -41,6 +46,22 @@ function Order({ params }: { params: { orderId: string } }) {
     refetch: orderRefetch,
   } = useGetOrder(params.orderId);
 
+  const { refetch: refetchOrders } = useGetOrders();
+
+  const { mutate: deleteOrder, isSuccess } = useDeleteOrder();
+
+  const { refetch: refetchCount } = useCountByOrderStatus();
+
+  const MySwal = withReactContent(Swal);
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      refetchCount();
+      refetchOrders();
+      redirect('/orders');
+    }
+  }, [isSuccess, refetchCount, refetchOrders]);
+
   if (orderLoading) {
     return 'Loading...';
   }
@@ -48,6 +69,29 @@ function Order({ params }: { params: { orderId: string } }) {
   if (!orderApiRes || orderError) {
     return 'There is an error occurred!';
   }
+
+  const handleDelete = () => {
+    MySwal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#007dc3',
+      cancelButtonColor: '#d32f2f',
+      confirmButtonText: 'Yes, delete it!',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteOrder(orderApiRes.data.id);
+        MySwal.fire({
+          title: 'Deleted!',
+          text: 'Your data has been deleted.',
+          icon: 'success',
+          confirmButtonColor: '#007dc3',
+          confirmButtonText: 'OK',
+        });
+      }
+    });
+  };
 
   return (
     <Container maxWidth="xl" sx={{ '& > :not(style)': { m: 2 } }}>
@@ -79,23 +123,14 @@ function Order({ params }: { params: { orderId: string } }) {
             )}
           />
 
-          <FormDialog
-            buttonText="Delete"
-            buttonColor="error"
-            buttonIcon={<DeleteIcon />}
-            dialogTitle="Are you sure you want to delete this ORDER?"
-            dialogDescription={`ID: ${params.orderId}`}
-            componentProps={(handleClose) => (
-              <DeleteOrder
-                onSuccess={() => {
-                  handleClose();
-                  orderRefetch();
-                  redirect('/orders');
-                }}
-                params={{ orderId: params.orderId }}
-              />
-            )}
-          />
+          <Button
+            onClick={handleDelete}
+            variant="contained"
+            startIcon={<DeleteIcon />}
+            color="error"
+          >
+            Delete
+          </Button>
         </ButtonGroup>
       </Stack>
 
