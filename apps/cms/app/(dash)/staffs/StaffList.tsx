@@ -138,9 +138,10 @@ function StaffList() {
   return (
     <Box>
       <Stack
-        direction="row"
+        direction={{ sm: 'column', md: 'row' }}
         justifyContent="space-between"
-        alignItems="center"
+        alignItems={{ sm: 'flex-start', md: 'center' }}
+        spacing={{ sm: 1 }}
         marginBottom={2}
       >
         <Typography variant="h5" fontWeight="bold">
@@ -187,6 +188,7 @@ function StaffList() {
         sx={{
           backgroundColor: 'white',
           width: '100%',
+          height: 668,
         }}
         slots={{
           toolbar: (props) => (

@@ -214,9 +214,10 @@ function VehicleList() {
   return (
     <Box>
       <Stack
-        direction="row"
+        direction={{ sm: 'column', md: 'row' }}
         justifyContent="space-between"
-        alignItems="center"
+        alignItems={{ sm: 'flex-start', md: 'center' }}
+        spacing={{ sm: 1 }}
         marginBottom={2}
       >
         <Typography variant="h5" fontWeight="bold">
@@ -251,28 +252,29 @@ function VehicleList() {
           />
         </ButtonGroup>
       </Stack>
-      <DataGrid
-        columns={columns}
-        rows={pagingVehicles?.data.items || []}
-        rowCount={rowCountState}
-        loading={isLoading}
-        pageSizeOptions={[5, 10, 20, 50, 100]}
-        paginationModel={paginationModel}
-        paginationMode="server"
-        onPaginationModelChange={setPaginationModel}
-        sx={{
-          backgroundColor: 'white',
-          width: '100%',
-        }}
-        slots={{
-          toolbar: (props) => (
-            <>
-              <GridToolbar {...props} />
-              <Divider />
-            </>
-          ),
-        }}
-      />
+        <DataGrid
+          columns={columns}
+          rows={pagingVehicles?.data.items || []}
+          rowCount={rowCountState}
+          loading={isLoading}
+          pageSizeOptions={[5, 10, 20, 50, 100]}
+          paginationModel={paginationModel}
+          paginationMode="server"
+          onPaginationModelChange={setPaginationModel}
+          sx={{
+            backgroundColor: 'white',
+            width: '100%',
+            height: 668,
+          }}
+          slots={{
+            toolbar: (props) => (
+              <>
+                <GridToolbar {...props} />
+                <Divider />
+              </>
+            ),
+          }}
+        />
     </Box>
   );
 }

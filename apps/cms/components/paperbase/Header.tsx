@@ -240,7 +240,7 @@ export function HeaderTitle({
       component="div"
       position="static"
       elevation={0}
-      sx={{ zIndex: 0, pl: 3.5, py: 2, bgcolor: '#fafafa' }}
+      sx={{ zIndex: 0, pl: 3.5, py: 1.5, bgcolor: '#fafafa' }}
     >
       <Toolbar>
         <Grid container alignItems="center" spacing={1}>
