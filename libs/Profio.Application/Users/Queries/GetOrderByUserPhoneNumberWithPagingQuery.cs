@@ -20,7 +20,7 @@ public sealed class GetOrderByUserPhoneNumberWithPagingQueryHandler : GetOrderWi
   protected override Expression<Func<Order, bool>> RequestFilter(GetOrderByUserPhoneNumberWithPagingQuery request)
     => x => (request.OrderEnumFilter.Status == null || x.Status == request.OrderEnumFilter.Status)
     && (x.Customer != null && x.Customer.Phone == request.Phone);
-  
+
 }
 public sealed class GetOrderByUserPhoneNumberWithPagingQueryValidator : GetOrderWithPagingQueryValidator<GetOrderByUserPhoneNumberWithPagingQuery>
 {
