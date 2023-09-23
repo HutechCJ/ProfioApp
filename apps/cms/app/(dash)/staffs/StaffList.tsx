@@ -4,8 +4,8 @@ import React from 'react';
 
 import Link from '@/components/Link';
 import LoadingButton from '@/components/LoadingButton';
-import { Box, Typography, Stack, ButtonGroup } from '@mui/material';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { Box, Typography, Stack, ButtonGroup, Divider } from '@mui/material';
+import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 
 import ReplayIcon from '@mui/icons-material/Replay';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
@@ -52,7 +52,7 @@ function StaffList() {
 
   React.useEffect(() => {
     setRowCountState((prevRowCountState) =>
-      rowCount !== undefined ? rowCount : prevRowCountState,
+      rowCount !== undefined ? rowCount : prevRowCountState
     );
   }, [rowCount, setRowCountState]);
 
@@ -167,6 +167,14 @@ function StaffList() {
         sx={{
           backgroundColor: 'white',
           width: '100%',
+        }}
+        slots={{
+          toolbar: (props) => (
+            <>
+              <GridToolbar {...props} />
+              <Divider />
+            </>
+          ),
         }}
       />
     </Box>

@@ -4,8 +4,8 @@ import React from 'react';
 
 import Link from '@/components/Link';
 import LoadingButton from '@/components/LoadingButton';
-import { Box, Typography, Stack, ButtonGroup, Chip } from '@mui/material';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { Box, Typography, Stack, ButtonGroup, Chip, Divider } from '@mui/material';
+import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 
 import ReplayIcon from '@mui/icons-material/Replay';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
@@ -240,6 +240,14 @@ function OrderList() {
         sx={{
           backgroundColor: 'white',
           width: '100%',
+        }}
+        slots={{
+          toolbar: (props) => (
+            <>
+              <GridToolbar {...props} />
+              <Divider />
+            </>
+          ),
         }}
       />
     </Box>
