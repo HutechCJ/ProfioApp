@@ -1,5 +1,5 @@
 let callback = function () {
-  let elements = document.getElementsByClassName("opblock-summary-description");
+  let elements = document.getElementsByClassName('opblock-summary-description');
 
   for (const summaryDescription of elements) {
     const match = summaryDescription.textContent.match(/\[(\w|\s)+\]\s/);
@@ -8,15 +8,18 @@ let callback = function () {
       continue;
     }
 
-    const trimmedTextContent = summaryDescription.textContent.replaceAll(match[0], "");
+    const trimmedTextContent = summaryDescription.textContent.replaceAll(
+      match[0],
+      '',
+    );
     summaryDescription.textContent = trimmedTextContent;
 
     const customTag = match[0].substring(1, match[0].length - 2);
     const summary = summaryDescription.parentElement;
-    const customTagElement = document.createElement("div");
+    const customTagElement = document.createElement('div');
 
     customTagElement.innerText = customTag;
-    customTagElement.className = "opblock-custom-tag";
+    customTagElement.className = 'opblock-custom-tag';
     summary.appendChild(customTagElement);
   }
 };
