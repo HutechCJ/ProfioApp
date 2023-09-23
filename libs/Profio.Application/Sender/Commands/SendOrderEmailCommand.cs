@@ -8,12 +8,14 @@ using Profio.Infrastructure.Email.FluentEmail;
 namespace Profio.Application.Sender.Commands;
 
 public sealed record SendOrderEmailCommand(OrderInfo OrderInfo, EmailType Type) : IRequest<Unit>;
-sealed class SendOrderEmailCommandHandler : IRequestHandler<SendOrderEmailCommand, Unit>
+
+public sealed class SendOrderEmailCommandHandler : IRequestHandler<SendOrderEmailCommand, Unit>
 {
   private readonly IEmailService _emailService;
 
   public SendOrderEmailCommandHandler(IEmailService emailService)
     => _emailService = emailService;
+
   public async Task<Unit> Handle(SendOrderEmailCommand request, CancellationToken cancellationToken)
   {
     await _emailService.SendEmailAsync(new()

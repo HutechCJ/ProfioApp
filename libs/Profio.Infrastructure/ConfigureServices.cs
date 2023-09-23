@@ -26,6 +26,8 @@ using Profio.Infrastructure.Versioning;
 using System.IO.Compression;
 using System.Net.Mime;
 using System.Text.Json.Serialization;
+using Profio.Infrastructure.Message;
+using Twilio.Clients;
 
 namespace Profio.Infrastructure;
 
@@ -97,6 +99,7 @@ public static class ConfigureServices
     services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
     services.AddScoped<ITokenService, TokenService>();
     services.AddScoped<IIdempotencyService, IdempotencyService>();
+    services.AddHttpClient<ITwilioRestClient, TwilioClient>();
 
     services.AddPostgres(builder.Configuration)
       .AddRedisCache(builder.Configuration)
