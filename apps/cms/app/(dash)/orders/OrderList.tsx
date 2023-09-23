@@ -161,7 +161,7 @@ function OrderList() {
       },
     },
     {
-      field: '',
+      field: 'actions',
       width: 360,
       headerName: 'ACTIONS',
       renderCell: (params) => {
@@ -238,6 +238,7 @@ function OrderList() {
         onPaginationModelChange={setPaginationModel}
         sx={{
           backgroundColor: 'white',
+          width: '100%',
         }}
       />
     </Box>
