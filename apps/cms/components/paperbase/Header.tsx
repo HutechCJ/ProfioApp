@@ -27,22 +27,29 @@ import Image from 'next/image';
 import Logo from '../../public/images/CJ_logo.png';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import HomeIcon from '@mui/icons-material/Home';
+import Link from 'next/link';
 
 export const lightColor = 'rgba(255, 255, 255, 0.7)';
 
 export interface HeaderProps {
   onDrawerToggle: () => void;
+  mainTitle?: string;
   title?: string;
   subtitle?: string;
 }
 
 export default function Header(props: HeaderProps) {
-  const { onDrawerToggle, title, subtitle } = props;
+  const { onDrawerToggle, mainTitle, title, subtitle } = props;
 
   return (
     <React.Fragment>
       <HeaderDefault onDrawerToggle={onDrawerToggle} />
-      <HeaderTitle title={title || 'Overview'} subtitle={subtitle || ''} />
+      <HeaderTitle
+        mainTitle={mainTitle || ''}
+        title={title || 'Overview'}
+        subtitle={subtitle || ''}
+      />
     </React.Fragment>
   );
 }
@@ -218,10 +225,12 @@ export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
 }
 
 export function HeaderTitle({
+  mainTitle,
   title,
   subtitle,
   items,
 }: {
+  mainTitle: string;
   title: string;
   subtitle?: string;
   items?: React.ReactNode[];
@@ -241,9 +250,29 @@ export function HeaderTitle({
                 <Image src={Logo} alt="CJ Logo" width={58} height={55} />
               </Box>
               <Stack>
-                <Typography color="black" variant="h5" component="h1">
-                  {title}
-                </Typography>
+                <Stack
+                  direction="row"
+                  alignContent="center"
+                  alignItems="center"
+                  justifyContent="center"
+                >
+                  {mainTitle && (
+                    <>
+                      <Typography color="black" variant="h5" component="h1">
+                        {mainTitle} |
+                      </Typography>
+                      <Link href={'/'}>
+                        <IconButton sx={{ '&:hover': { color: '#007dc3' } }}>
+                          <HomeIcon />
+                        </IconButton>
+                      </Link>
+                    </>
+                  )}
+
+                  <Typography color="gray" variant="h6">
+                    {title}
+                  </Typography>
+                </Stack>
                 <Typography color="gray" variant="body1" gutterBottom>
                   {subtitle}
                 </Typography>

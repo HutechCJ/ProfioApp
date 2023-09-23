@@ -18,6 +18,7 @@ export default function Paperbase({ children }: React.PropsWithChildren) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const isSmUp = useMediaQuery(theme.breakpoints.up('sm'));
   const pathname = usePathname() ?? '';
+  let idFromPathname = pathname.substring(pathname.lastIndexOf('/') + 1);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -28,6 +29,10 @@ export default function Paperbase({ children }: React.PropsWithChildren) {
     .map((cate) => cate.children.map((v) => ({ ...v, category: cate.id })))
     .flat()
     .find((child) => pathname.includes(child.href));
+
+  if (idFromPathname === headerTitle?.id.toLowerCase()) {
+    idFromPathname = '';
+  }
 
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh', width: '100%' }}>
@@ -52,14 +57,28 @@ export default function Paperbase({ children }: React.PropsWithChildren) {
       <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         <Header
           onDrawerToggle={handleDrawerToggle}
+          mainTitle={
+            headerTitle
+              ? idFromPathname
+                ? `${headerTitle.id.slice(0, -1)} Details`
+                : `${headerTitle.id}`
+              : undefined
+          }
           title={
             headerTitle
-              ? `${headerTitle.category} » ${headerTitle.id}`
+              ? `» ${headerTitle.category} » ${headerTitle.id}${
+                  idFromPathname ? ` » ${idFromPathname}` : ''
+                }`
               : undefined
           }
           subtitle={
             headerTitle
-              ? `List of ${headerTitle.id} managed by Profio`
+              ? idFromPathname
+                ? `Detailed information about ${headerTitle.id.slice(
+                    0,
+                    -1
+                  )} is managed by Profio`
+                : `List of ${headerTitle.id} managed by Profio`
               : undefined
           }
         />
