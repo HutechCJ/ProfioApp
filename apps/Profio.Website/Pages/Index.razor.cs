@@ -11,9 +11,9 @@ public partial class Index
   [Inject]
   private SweetAlertService Alert { get; set; } = default!;
 
-  public async Task Find()
+  public async Task FindAsync()
   {
-    if (string.IsNullOrWhiteSpace(PhoneNumber) || PhoneRegex().IsMatch(PhoneNumber) == false)
+    if (string.IsNullOrWhiteSpace(PhoneNumber) || !PhoneRegex().IsMatch(PhoneNumber))
     {
       await Alert.FireAsync("Error", "Invalid phone number!", SweetAlertIcon.Error);
       return;

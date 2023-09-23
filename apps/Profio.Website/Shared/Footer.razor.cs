@@ -11,7 +11,7 @@ public partial class Footer
   [Inject]
   private SweetAlertService Alert { get; set; } = default!;
 
-  public async Task SaveEmail()
+  public async Task SaveEmailAsync()
   {
     var path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "emails.csv");
 
