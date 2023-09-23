@@ -39,24 +39,24 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
     isError: hubsPathError,
   } = useGetOrderHubsPath(orderId);
 
-  const [map, setMap] = React.useState<any>(null);
+  const [map, setMap] = React.useState<google.maps.Map | null>(null);
   const [directionResponse, setDirectionResponse] =
     React.useState<google.maps.DirectionsResult | null>(null);
 
-  const onLoad = React.useCallback(function callback(map: any) {
+  const onLoad = React.useCallback(function callback(map: google.maps.Map) {
     const vietnam = new window.google.maps.LatLng(14.0583, 108.2772);
 
     setMap(map);
   }, []);
 
-  const onUnmount = React.useCallback(function callback(map: any) {
+  const onUnmount = React.useCallback(function callback(map: google.maps.Map) {
     setMap(null);
   }, []);
 
   const directionsCallback = React.useCallback(
     (
       result: google.maps.DirectionsResult | null,
-      status: google.maps.DirectionsStatus,
+      status: google.maps.DirectionsStatus
     ) => {
       console.log(result);
       if (result !== null) {
@@ -67,7 +67,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
         }
       }
     },
-    [],
+    []
   );
 
   const directionsResult = React.useMemo(() => {
@@ -79,6 +79,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
   React.useEffect(() => {
     (async () => {
       if (
+        map &&
         orderHubsPathApiRes &&
         orderHubsPathApiRes.data.items[0].location &&
         orderHubsPathApiRes.data.items[1].location
@@ -86,11 +87,11 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
         const bounds = new window.google.maps.LatLngBounds();
         const origin = new window.google.maps.LatLng(
           orderHubsPathApiRes.data.items[0].location.latitude,
-          orderHubsPathApiRes.data.items[0].location.longitude,
+          orderHubsPathApiRes.data.items[0].location.longitude
         );
         const destination = new window.google.maps.LatLng(
           orderHubsPathApiRes.data.items[1].location.latitude,
-          orderHubsPathApiRes.data.items[1].location.longitude,
+          orderHubsPathApiRes.data.items[1].location.longitude
         );
 
         bounds.extend(origin);
@@ -128,11 +129,11 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
                   options={{
                     origin: new window.google.maps.LatLng(
                       orderHubsPathApiRes.data.items[0].location.latitude,
-                      orderHubsPathApiRes.data.items[0].location.longitude,
+                      orderHubsPathApiRes.data.items[0].location.longitude
                     ),
                     destination: new window.google.maps.LatLng(
                       orderHubsPathApiRes.data.items[1].location.latitude,
-                      orderHubsPathApiRes.data.items[1].location.longitude,
+                      orderHubsPathApiRes.data.items[1].location.longitude
                     ),
                     travelMode: google.maps.TravelMode.DRIVING,
                   }}
