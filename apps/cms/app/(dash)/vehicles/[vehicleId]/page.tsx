@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import useGetVehicle from '@/features/vehicle/useGetVehicle';
 import { redirect } from 'next/navigation';
@@ -43,7 +43,7 @@ function Vehicle({ params }: { params: { vehicleId: string } }) {
     refetch: refetchVehicle,
   } = useGetVehicle(params.vehicleId);
 
-  const { refetch: refetchVehicles } = useGetVehicles({});
+  const { refetch: refetchVehicles } = useGetVehicles();
 
   const { mutate: deleteVehicle, isSuccess } = useDeleteVehicle();
 
@@ -52,7 +52,7 @@ function Vehicle({ params }: { params: { vehicleId: string } }) {
 
   const MySwal = withReactContent(Swal);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isSuccess) {
       refetchCountStatus();
       refetchCountType();
@@ -86,7 +86,7 @@ function Vehicle({ params }: { params: { vehicleId: string } }) {
         deleteVehicle(id);
         MySwal.fire({
           title: 'Deleted!',
-          text: 'Your file has been deleted.',
+          text: 'Your data has been deleted.',
           icon: 'success',
           confirmButtonColor: '#007dc3',
           confirmButtonText: 'OK',

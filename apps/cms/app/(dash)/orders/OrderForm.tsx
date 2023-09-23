@@ -44,11 +44,13 @@ interface OrderFormProps {
     startedDate?: string;
     expectedDeliveryTime?: string;
     status?: OrderStatus;
-    street?: string;
-    ward?: string;
-    city?: string;
-    province?: string;
-    zipCode?: string;
+    destinationAddress?: {
+      street?: string;
+      ward?: string;
+      city?: string;
+      province?: string;
+      zipCode?: string;
+    };
     destinationZipCode?: string;
     note?: string;
     distance?: number;
@@ -74,11 +76,19 @@ const OrderForm: React.FC<OrderFormProps> = ({
     startedDate: initialValue.startedDate || '',
     expectedDeliveryTime: initialValue.expectedDeliveryTime || '',
     status: initialValue.status || OrderStatus.Pending,
-    street: initialValue.street || '',
-    ward: initialValue.ward || '',
-    city: initialValue.city || '',
-    province: initialValue.province || '',
-    zipCode: initialValue.zipCode || '',
+    destinationAddress: {
+      street: initialValue.destinationAddress?.street || '',
+      ward: initialValue.destinationAddress?.ward || '',
+      city: initialValue.destinationAddress?.city || '',
+      province: initialValue.destinationAddress?.province || '',
+      zipCode: initialValue.destinationAddress?.zipCode || '',
+    } || {
+      street: '',
+      ward: '',
+      city: '',
+      province: '',
+      zipCode: '',
+    },
     destinationZipCode: initialValue.destinationZipCode || '',
     note: initialValue.note || '',
     distance: initialValue.distance || 0,
@@ -89,10 +99,22 @@ const OrderForm: React.FC<OrderFormProps> = ({
   const { refetch: refetchCount } = useCountByOrderStatus();
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setOrder({
-      ...order,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.name.includes('destinationAddress.')) {
+      const childName = e.target.name.split('.').pop();
+      if (!childName) return;
+      setOrder((o) => ({
+        ...o,
+        destinationAddress: {
+          ...o.destinationAddress,
+          [childName]: e.target.value,
+        },
+      }));
+    } else {
+      setOrder((o) => ({
+        ...o,
+        [e.target.name]: e.target.value,
+      }));
+    }
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -103,11 +125,19 @@ const OrderForm: React.FC<OrderFormProps> = ({
       startedDate: initialValue.startedDate || '',
       expectedDeliveryTime: initialValue.expectedDeliveryTime || '',
       status: initialValue.status || OrderStatus.Pending,
-      street: initialValue.street || '',
-      ward: initialValue.ward || '',
-      city: initialValue.city || '',
-      province: initialValue.province || '',
-      zipCode: initialValue.zipCode || '',
+      destinationAddress: {
+        street: initialValue.destinationAddress?.street || '',
+        ward: initialValue.destinationAddress?.ward || '',
+        city: initialValue.destinationAddress?.city || '',
+        province: initialValue.destinationAddress?.province || '',
+        zipCode: initialValue.destinationAddress?.zipCode || '',
+      } || {
+        street: '',
+        ward: '',
+        city: '',
+        province: '',
+        zipCode: '',
+      },
       destinationZipCode: initialValue.destinationZipCode || '',
       note: initialValue.note || '',
       distance: initialValue.distance || 0,
@@ -175,11 +205,11 @@ const OrderForm: React.FC<OrderFormProps> = ({
         required
         fullWidth
         variant="filled"
-        id="street"
-        name="street"
+        id="destinationAddress.street"
+        name="destinationAddress.street"
         label="Street • Destination Address"
         autoComplete="street"
-        value={order.street}
+        value={order.destinationAddress.street}
         onChange={handleChangeInput}
       />
       <TextField
@@ -187,11 +217,11 @@ const OrderForm: React.FC<OrderFormProps> = ({
         required
         fullWidth
         variant="filled"
-        id="ward"
-        name="ward"
+        id="destinationAddress.ward"
+        name="destinationAddress.ward"
         label="Ward • Destination Address"
         autoComplete="ward"
-        value={order.ward}
+        value={order.destinationAddress.ward}
         onChange={handleChangeInput}
       />
       <TextField
@@ -199,11 +229,11 @@ const OrderForm: React.FC<OrderFormProps> = ({
         required
         fullWidth
         variant="filled"
-        id="city"
-        name="city"
+        id="destinationAddress.city"
+        name="destinationAddress.city"
         label="City • Destination Address"
         autoComplete="city"
-        value={order.city}
+        value={order.destinationAddress.city}
         onChange={handleChangeInput}
       />
       <TextField
@@ -211,11 +241,11 @@ const OrderForm: React.FC<OrderFormProps> = ({
         required
         fullWidth
         variant="filled"
-        id="province"
-        name="province"
+        id="destinationAddress.province"
+        name="destinationAddress.province"
         label="Province • Destination Address"
         autoComplete="province"
-        value={order.province}
+        value={order.destinationAddress.province}
         onChange={handleChangeInput}
       />
       <TextField
@@ -223,11 +253,11 @@ const OrderForm: React.FC<OrderFormProps> = ({
         required
         fullWidth
         variant="filled"
-        id="zipCode"
-        name="zipCode"
+        id="destinationAddress.zipCode"
+        name="destinationAddress.zipCode"
         label="ZipCode • Destination Address"
         autoComplete="zipCode"
-        value={order.zipCode}
+        value={order.destinationAddress.zipCode}
         onChange={handleChangeInput}
       />
       <TextField

@@ -42,7 +42,7 @@ const ActionForList: React.FC<ActionForListProps> = ({
         handleDelete();
         MySwal.fire({
           title: 'Deleted!',
-          text: 'Your file has been deleted.',
+          text: 'Your data has been deleted.',
           icon: 'success',
           confirmButtonColor: '#007dc3',
           confirmButtonText: 'OK',

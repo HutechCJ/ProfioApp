@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 
 import Link from '@/components/Link';
 import LoadingButton from '@/components/LoadingButton';
@@ -49,7 +49,7 @@ function VehicleList() {
   const { refetch: refetchCountType } = useCountByVehicleType();
   const { refetch: refetchCountStatus } = useCountByVehicleStatus();
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (isSuccess) {
       refetchCountStatus();
       refetchCountType();

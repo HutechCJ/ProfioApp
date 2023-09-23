@@ -15,8 +15,9 @@ import useGetOrders from '@/features/order/useGetOrders';
 import FormDialog from '@/components/FormDialog';
 import AddOrder from './AddOrder';
 import EditOrder from './EditOrder';
-import DeleteOrder from './DeleteOrder';
 import ActionForList from '@/components/ActionForList';
+import useDeleteOrder from '@/features/order/useDeleteOrder';
+import useCountByOrderStatus from '@/features/order/useCountByOrderStatus';
 
 function OrderList() {
   const [paginationModel, setPaginationModel] = React.useState({
@@ -33,6 +34,18 @@ function OrderList() {
     PageIndex: paginationModel.page + 1,
     PageSize: paginationModel.pageSize,
   });
+
+  const { mutate: deleteOrder, isSuccess } = useDeleteOrder();
+
+  const { refetch: refetchCount } = useCountByOrderStatus();
+
+  React.useEffect(() => {
+    if (isSuccess) {
+      refetchCount();
+      refetch();
+    }
+  }, [isSuccess, refetchCount, refetch]);
+
 
   const rowCount = pagingOrders?.data.totalCount || 0;
 
@@ -167,15 +180,7 @@ function OrderList() {
                 params={{ orderId: orderId }}
               />
             )}
-            deleteComponentProps={(handleClose) => (
-              <DeleteOrder
-                onSuccess={() => {
-                  handleClose();
-                  refetch();
-                }}
-                params={{ orderId: orderId }}
-              />
-            )}
+            handleDelete={() => deleteOrder(orderId)}
           />
         );
       },

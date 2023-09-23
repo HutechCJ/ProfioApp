@@ -19,11 +19,13 @@ const AddOrder: React.FC<AddOrderProps> = ({ onSuccess }) => {
       expectedDeliveryTime: data.get('expectedDeliveryTime') as string,
       status:
         OrderStatus[parseInt(data.get('status') as string) as OrderStatus],
-      street: data.get('street') as string,
-      ward: data.get('ward') as string,
-      city: data.get('city') as string,
-      province: data.get('province') as string,
-      zipCode: data.get('zipCode') as string,
+      destinationAddress: {
+        street: data.get('destinationAddress.street') as string,
+        ward: data.get('destinationAddress.ward') as string,
+        city: data.get('destinationAddress.city') as string,
+        province: data.get('destinationAddress.province') as string,
+        zipCode: data.get('destinationAddress.zipCode') as string,
+      },
       destinationZipCode: data.get('destinationZipCode') as string,
       note: data.get('note') as string,
       distance: parseInt(data.get('distance') as string),
