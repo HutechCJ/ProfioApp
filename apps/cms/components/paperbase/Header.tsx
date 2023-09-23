@@ -47,7 +47,7 @@ export default function Header(props: HeaderProps) {
       <HeaderDefault onDrawerToggle={onDrawerToggle} />
       <HeaderTitle
         mainTitle={mainTitle || ''}
-        title={title || 'Overview'}
+        title={title || ''}
         subtitle={subtitle || ''}
       />
     </React.Fragment>
@@ -269,9 +269,15 @@ export function HeaderTitle({
                     </>
                   )}
 
-                  <Typography color="gray" variant="h6">
-                    {title}
-                  </Typography>
+                  {title ? (
+                    <Typography color="gray" variant="h6">
+                      {title}
+                    </Typography>
+                  ) : (
+                    <Typography color="black" variant="h5">
+                      Overview
+                    </Typography>
+                  )}
                 </Stack>
                 <Typography color="gray" variant="body1" gutterBottom>
                   {subtitle}
