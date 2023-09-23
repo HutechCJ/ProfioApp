@@ -4,7 +4,14 @@ import React from 'react';
 
 import Link from '@/components/Link';
 import LoadingButton from '@/components/LoadingButton';
-import { Box, Typography, Stack, ButtonGroup, Chip, Divider } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Stack,
+  ButtonGroup,
+  Chip,
+  Divider,
+} from '@mui/material';
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 
 import ReplayIcon from '@mui/icons-material/Replay';
@@ -27,6 +34,7 @@ import ActionForList from '@/components/ActionForList';
 import useDeleteVehicle from '@/features/vehicle/useDeleteVehicle';
 import useCountByVehicleType from '@/features/vehicle/useCountByVehicleType';
 import useCountByVehicleStatus from '@/features/vehicle/useCountByVehicleStatus';
+import CopyTextButton from '@/components/CopyTextButton';
 
 function VehicleList() {
   const [paginationModel, setPaginationModel] = React.useState({
@@ -63,7 +71,7 @@ function VehicleList() {
 
   React.useEffect(() => {
     setRowCountState((prevRowCountState) =>
-      rowCount !== undefined ? rowCount : prevRowCountState,
+      rowCount !== undefined ? rowCount : prevRowCountState
     );
   }, [rowCount, setRowCountState]);
 
@@ -71,18 +79,31 @@ function VehicleList() {
     {
       field: 'id',
       headerName: 'ID',
-      width: 280,
+      headerAlign: 'center',
+      align: 'center',
+      width: 120,
       renderCell(params) {
+        const maxLength = 6;
+        const truncatedValue =
+          params.value.length > maxLength
+            ? params.value.slice(0, 8) + '...'
+            : params.value;
+
         return (
-          <Link href={`/vehicles/${params.value}`}>
-            <Typography variant="button">{params.value}</Typography>
-          </Link>
+          <>
+            <CopyTextButton text={params.value} />
+            <Link href={`/vehicles/${params.value}`}>
+              <Typography variant="button">{truncatedValue}</Typography>
+            </Link>
+          </>
         );
       },
     },
     {
       field: 'status',
       headerName: 'STATUS',
+      headerAlign: 'center',
+      align: 'center',
       width: 120,
       renderCell(params) {
         const getColor = () => {
@@ -100,16 +121,22 @@ function VehicleList() {
       field: 'zipCodeCurrent',
       width: 150,
       headerName: 'ZIP CODE CURRENT',
+      headerAlign: 'center',
+      align: 'center',
     },
     {
       field: 'licensePlate',
       width: 150,
       headerName: 'LICENSE PLATE',
+      headerAlign: 'center',
+      align: 'center',
     },
     {
       field: 'type',
       width: 150,
       headerName: 'TYPE',
+      headerAlign: 'center',
+      align: 'center',
       renderCell(params) {
         const getColor = () => {
           const value = params.value as VehicleType;
@@ -136,8 +163,10 @@ function VehicleList() {
     },
     {
       field: 'staff',
-      width: 200,
+      width: 250,
       headerName: 'STAFF',
+      headerAlign: 'center',
+      align: 'center',
       valueGetter: (params) => {
         const { staff } = params.row;
         return `${staff?.name || 'Empty'}`;
@@ -155,6 +184,8 @@ function VehicleList() {
       field: 'actions',
       width: 320,
       headerName: 'ACTIONS',
+      headerAlign: 'center',
+      align: 'center',
       sortable: false,
       filterable: false,
       renderCell: (params) => {

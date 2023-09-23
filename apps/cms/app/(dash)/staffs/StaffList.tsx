@@ -18,11 +18,12 @@ import EditStaff from './EditStaff';
 import ActionForList from '@/components/ActionForList';
 import useCountByPosition from '@/features/staff/useCountByPosition';
 import useDeleteStaff from '@/features/staff/useDeleteStaff';
+import CopyTextButton from '@/components/CopyTextButton';
 
 function StaffList() {
   const [paginationModel, setPaginationModel] = React.useState({
     page: 0,
-    pageSize: 5,
+    pageSize: 10,
   });
 
   const {
@@ -60,12 +61,23 @@ function StaffList() {
     {
       field: 'id',
       headerName: 'ID',
-      width: 300,
+      headerAlign: 'center',
+      align: 'center',
+      width: 250,
       renderCell(params) {
+        const maxLength = 6;
+        const truncatedValue =
+          params.value.length > maxLength
+            ? params.value.slice(0, 8) + '...'
+            : params.value;
+
         return (
-          <Link href={`/staffs/${params.value}`}>
-            <Typography variant="button">{params.value}</Typography>
-          </Link>
+          <>
+            <CopyTextButton text={params.value} />
+            <Link href={`/staffs/${params.value}`}>
+              <Typography variant="button">{truncatedValue}</Typography>
+            </Link>
+          </>
         );
       },
     },
@@ -73,16 +85,22 @@ function StaffList() {
       field: 'name',
       width: 300,
       headerName: 'FULL NAME',
+      headerAlign: 'center',
+      align: 'center',
     },
     {
       field: 'phone',
       width: 250,
       headerName: 'PHONE',
+      headerAlign: 'center',
+      align: 'center',
     },
     {
       field: 'position',
-      width: 200,
+      width: 250,
       headerName: 'POSITION',
+      headerAlign: 'center',
+      align: 'center',
       valueGetter: (params) => {
         const { position } = params.row;
         return `${StaffPosition[position]}`;
@@ -92,6 +110,8 @@ function StaffList() {
       field: 'actions',
       width: 320,
       headerName: 'ACTIONS',
+      headerAlign: 'center',
+      align: 'center',
       renderCell: (params) => {
         const staffId = params.row.id;
         return (
