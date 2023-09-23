@@ -95,7 +95,7 @@ export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
     <React.Fragment>
       <AppBar color="primary" position="sticky" elevation={0}>
         <Toolbar>
-          <Grid container spacing={1} alignItems="center" my={1}>
+          <Grid container spacing={1} alignItems="center" py={2}>
             <Grid sx={{ display: { sm: 'none', xs: 'block' } }} item>
               <IconButton
                 color="inherit"
@@ -247,7 +247,7 @@ export function HeaderTitle({
           <Grid item xs>
             <Stack direction="row" alignItems="center">
               <Box sx={{ mx: 1.5 }}>
-                <Image src={Logo} alt="CJ Logo" width={58} height={55} />
+                <Image src={Logo} alt="CJ Logo" width={48} />
               </Box>
               <Stack>
                 <Stack

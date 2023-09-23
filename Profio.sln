@@ -17,7 +17,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Profio.Infrastructure", "li
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Profio.Proxy", "apps\Profio.Proxy\Profio.Proxy.csproj", "{F1A0FCD8-3787-492A-BAE7-86729392A7D6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Profio.Website", "apps\Profio.Website\Profio.Website.csproj", "{0BB8D599-5126-4278-A1B9-106F05116261}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Profio.Website", "apps\Profio.Website\Profio.Website.csproj", "{0BB8D599-5126-4278-A1B9-106F05116261}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

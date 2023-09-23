@@ -1,3 +1,5 @@
+@implements IDisposable
+
 <div class="container-fluid bg-dark">
   <div class="row py-2 px-lg-5">
     <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
@@ -30,15 +32,15 @@
   <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
     <a href="/" class="navbar-brand ml-lg-3">
       <h1 class="m-0 display-5 text-uppercase text-primary">
-        <img loading="lazy" src="images/logo.png" height="70px" alt="CJ Logo"/>
+        <img loading="lazy" src="images/logo.png" height="70" alt="CJ Logo"/>
       </h1>
     </a>
     <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
       <div class="navbar-nav m-auto py-0">
-        <a href="/" class="nav-item nav-link">Home</a>
-        <a href="/about" class="nav-item nav-link">About</a>
-        <a href="/service" class="nav-item nav-link">Service</a>
-        <a href="/contact" class="nav-item nav-link">Contact</a>
+        <a href="/" class="nav-item nav-link @IsActive("")">Home</a>
+        <a href="/about" class="nav-item nav-link @IsActive("about")">About</a>
+        <a href="/service" class="nav-item nav-link @IsActive("service")">Service</a>
+        <a href="/contact" class="nav-item nav-link @IsActive("contact")">Contact</a>
       </div>
     </div>
   </nav>
