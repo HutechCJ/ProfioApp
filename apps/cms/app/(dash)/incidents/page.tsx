@@ -59,12 +59,12 @@ const columns: GridColDef<Incident>[] = [
     headerName: 'Description',
   },
   {
-    field: 'orderHistory',
+    field: 'delivery',
     width: 200,
-    headerName: 'Order History',
+    headerName: 'Delivery',
     valueGetter: (params) => {
-      const { orderHistory } = params.row;
-      return orderHistory ? `${orderHistory.id}` : '';
+      const { delivery } = params.row;
+      return delivery ? `${delivery.id}` : '';
     },
   },
 ];
