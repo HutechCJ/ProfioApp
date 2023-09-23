@@ -89,7 +89,7 @@ function OrderList() {
     },
     {
       field: 'startedDate',
-      width: 170,
+      width: 175,
       headerName: 'STARTED DATE',
       valueGetter: (params) => {
         const { startedDate } = params.row;
@@ -132,7 +132,7 @@ function OrderList() {
     },
     {
       field: 'note',
-      width: 80,
+      width: 60,
       headerName: 'NOTE',
     },
     {
@@ -161,8 +161,10 @@ function OrderList() {
     },
     {
       field: 'actions',
-      width: 360,
+      width: 320,
       headerName: 'ACTIONS',
+      sortable: false,
+      filterable: false,
       renderCell: (params) => {
         const orderId = params.row.id;
         return (
@@ -187,7 +189,7 @@ function OrderList() {
   ];
 
   return (
-    <Box sx={{ paddingY: 4 }}>
+    <Box>
       <Stack
         direction="row"
         justifyContent="space-between"

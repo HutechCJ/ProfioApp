@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Container, Divider } from '@mui/material';
+import { Container } from '@mui/material';
 
 import VehicleList from './VehicleList';
 import VehicleStatisticsCard from './VehicleStatisticsCard';
@@ -17,9 +17,6 @@ const Vehicles = () => {
   return (
     <Container maxWidth="xl">
       <MainTabs tabs={tabs} />
-      {/* <VehicleStatisticsCard />
-      <Divider />
-      <VehicleList /> */}
     </Container>
   );
 };

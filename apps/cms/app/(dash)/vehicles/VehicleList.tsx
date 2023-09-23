@@ -153,7 +153,7 @@ function VehicleList() {
     },
     {
       field: 'actions',
-      width: 370,
+      width: 320,
       headerName: 'ACTIONS',
       sortable: false,
       filterable: false,
