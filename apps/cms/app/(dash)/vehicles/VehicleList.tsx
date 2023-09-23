@@ -113,7 +113,11 @@ function VehicleList() {
           return 'primary';
         };
         return (
-          <Chip color={getColor()} label={`${VehicleStatus[params.value]}`} />
+          <Chip
+            color={getColor()}
+            label={`${VehicleStatus[params.value]}`}
+            sx={{ width: 70 }}
+          />
         );
       },
     },
@@ -157,6 +161,7 @@ function VehicleList() {
             icon={getIcon()}
             color={getColor()}
             label={`${VehicleType[params.value]}`}
+            sx={{ width: 120 }}
           />
         );
       },
@@ -252,29 +257,29 @@ function VehicleList() {
           />
         </ButtonGroup>
       </Stack>
-        <DataGrid
-          columns={columns}
-          rows={pagingVehicles?.data.items || []}
-          rowCount={rowCountState}
-          loading={isLoading}
-          pageSizeOptions={[5, 10, 20, 50, 100]}
-          paginationModel={paginationModel}
-          paginationMode="server"
-          onPaginationModelChange={setPaginationModel}
-          sx={{
-            backgroundColor: 'white',
-            width: '100%',
-            height: 668,
-          }}
-          slots={{
-            toolbar: (props) => (
-              <>
-                <GridToolbar {...props} />
-                <Divider />
-              </>
-            ),
-          }}
-        />
+      <DataGrid
+        columns={columns}
+        rows={pagingVehicles?.data.items || []}
+        rowCount={rowCountState}
+        loading={isLoading}
+        pageSizeOptions={[5, 10, 20, 50, 100]}
+        paginationModel={paginationModel}
+        paginationMode="server"
+        onPaginationModelChange={setPaginationModel}
+        sx={{
+          backgroundColor: 'white',
+          width: '100%',
+          height: 668,
+        }}
+        slots={{
+          toolbar: (props) => (
+            <>
+              <GridToolbar {...props} />
+              <Divider />
+            </>
+          ),
+        }}
+      />
     </Box>
   );
 }

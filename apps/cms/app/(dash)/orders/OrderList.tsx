@@ -104,7 +104,7 @@ function OrderList() {
           return 'default';
         };
         return (
-          <Chip color={getColor()} label={`${OrderStatus[params.value]}`} />
+          <Chip color={getColor()} label={`${OrderStatus[params.value]}`} sx={{ width: 90 }} />
         );
       },
     },
