@@ -90,7 +90,7 @@ function StaffList() {
     },
     {
       field: 'actions',
-      width: 400,
+      width: 320,
       headerName: 'ACTIONS',
       renderCell: (params) => {
         const staffId = params.row.id;
@@ -116,7 +116,7 @@ function StaffList() {
   ];
 
   return (
-    <Box sx={{ paddingY: 4 }}>
+    <Box>
       <Stack
         direction="row"
         justifyContent="space-between"

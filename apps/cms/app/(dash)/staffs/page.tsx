@@ -2,17 +2,21 @@
 
 import React from 'react';
 
-import { Container, Divider } from '@mui/material';
+import { Container } from '@mui/material';
 
 import StaffList from '@/app/(dash)/staffs/StaffList';
 import StaffStatisticsCard from '@/app/(dash)/staffs/StaffStatisticsCard';
+import MainTabs from '@/components/MainTabs';
 
 const Staffs = () => {
+  const tabs = [
+    { label: 'LIST', content: <StaffList /> },
+    { label: 'STATISTICS', content: <StaffStatisticsCard /> },
+  ];
+
   return (
     <Container maxWidth="xl">
-      <StaffStatisticsCard />
-      <Divider />
-      <StaffList />
+      <MainTabs tabs={tabs} />
     </Container>
   );
 };

@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import { Container, Divider } from '@mui/material';
+import { Container } from '@mui/material';
 import OrderList from './OrderList';
 import OrderStatisticsCard from './OrderStatisticsCard';
 import MainTabs from '@/components/MainTabs';
