@@ -54,7 +54,14 @@ export default function Paperbase({ children }: React.PropsWithChildren) {
           sx={{ display: { sm: 'block', xs: 'none' } }}
         />
       </Box>
-      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+      <Box
+        sx={{
+          flexGrow: 1,
+          display: 'flex',
+          flexDirection: 'column',
+          width: { xs: `calc(100% - ${drawerWidth}px)` },
+        }}
+      >
         <Header
           onDrawerToggle={handleDrawerToggle}
           mainTitle={
@@ -85,7 +92,7 @@ export default function Paperbase({ children }: React.PropsWithChildren) {
         <Divider />
         <Box
           component="main"
-          sx={{ flex: 1, py: 1, px: 2, bgcolor: '#fafafa', overflow: 'auto' }}
+          sx={{ flex: 1, py: 1, px: 2, bgcolor: '#fafafa' }}
         >
           {children}
         </Box>
