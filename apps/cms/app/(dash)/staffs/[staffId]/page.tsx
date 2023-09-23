@@ -95,7 +95,13 @@ function Staff({ params }: { params: { staffId: string } }) {
 
   return (
     <Container maxWidth="xl">
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
+      <Stack
+        direction={{ sm: 'column', md: 'row' }}
+        justifyContent="space-between"
+        alignItems={{ sm: 'flex-start', md: 'center' }}
+        spacing={{ xs: 1 }}
+        mt={1}
+      >
         <Link href="/staffs">
           <Button
             variant="contained"
@@ -105,7 +111,7 @@ function Staff({ params }: { params: { staffId: string } }) {
             BACK TO LIST
           </Button>
         </Link>
-        <ButtonGroup variant="contained">
+        <ButtonGroup variant="text">
           <FormDialog
             buttonText="Edit"
             buttonColor="secondary"

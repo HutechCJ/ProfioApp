@@ -29,6 +29,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import HomeIcon from '@mui/icons-material/Home';
 import Link from 'next/link';
+import CopyTextButton from '../CopyTextButton';
 
 export const lightColor = 'rgba(255, 255, 255, 0.7)';
 
@@ -36,11 +37,12 @@ export interface HeaderProps {
   onDrawerToggle: () => void;
   mainTitle?: string;
   title?: string;
+  id?: string;
   subtitle?: string;
 }
 
 export default function Header(props: HeaderProps) {
-  const { onDrawerToggle, mainTitle, title, subtitle } = props;
+  const { onDrawerToggle, mainTitle, title, id, subtitle } = props;
 
   return (
     <React.Fragment>
@@ -48,6 +50,7 @@ export default function Header(props: HeaderProps) {
       <HeaderTitle
         mainTitle={mainTitle || ''}
         title={title || ''}
+        id={id}
         subtitle={subtitle || ''}
       />
     </React.Fragment>
@@ -227,11 +230,13 @@ export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
 export function HeaderTitle({
   mainTitle,
   title,
+  id,
   subtitle,
   items,
 }: {
   mainTitle: string;
   title: string;
+  id?: string;
   subtitle?: string;
   items?: React.ReactNode[];
 }) {
@@ -251,9 +256,9 @@ export function HeaderTitle({
               </Box>
               <Stack>
                 <Stack
-                  direction={{ sn: 'column', md: 'row' }}
+                  direction={{ md: 'column', lg: 'row' }}
                   alignContent="center"
-                  alignItems={{ sn: 'flex-start', md: 'center' }}
+                  alignItems={{ md: 'flex-start', lg: 'center' }}
                   justifyContent="center"
                 >
                   {mainTitle && (
@@ -271,7 +276,7 @@ export function HeaderTitle({
 
                   {title ? (
                     <Typography color="gray" variant="h6">
-                      {title}
+                      {title}{id && <CopyTextButton text={id} />}
                     </Typography>
                   ) : (
                     <Typography color="black" variant="h5">

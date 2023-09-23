@@ -78,6 +78,7 @@ export default function Paperbase({ children }: React.PropsWithChildren) {
                 }`
               : undefined
           }
+          id={idFromPathname}
           subtitle={
             headerTitle
               ? idFromPathname

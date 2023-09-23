@@ -20,7 +20,11 @@ const CopyTextButton: React.FC<CopyTextButtonProps> = ({ text = '' }) => {
 
   return (
     <>
-      <IconButton onClick={handleClick} size="medium">
+      <IconButton
+        onClick={handleClick}
+        size="medium"
+        sx={{ '&:hover': { color: '#007dc3' } }}
+      >
         <ContentCopyIcon sx={{ width: 15, height: 15 }} />
       </IconButton>
     </>
