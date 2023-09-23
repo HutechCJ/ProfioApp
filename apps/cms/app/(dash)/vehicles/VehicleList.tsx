@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import Link from '@/components/Link';
 import LoadingButton from '@/components/LoadingButton';
@@ -23,7 +23,6 @@ import useGetVehicles from '@/features/vehicle/useGetVehicles';
 import FormDialog from '@/components/FormDialog';
 import AddVehicle from './AddVehicle';
 import EditVehicle from './EditVehicle';
-import DeleteVehicle from './DeleteVehicle';
 import ActionForList from '@/components/ActionForList';
 import useDeleteVehicle from '@/features/vehicle/useDeleteVehicle';
 import useCountByVehicleType from '@/features/vehicle/useCountByVehicleType';
@@ -49,6 +48,14 @@ function VehicleList() {
 
   const { refetch: refetchCountType } = useCountByVehicleType();
   const { refetch: refetchCountStatus } = useCountByVehicleStatus();
+
+  useEffect(() => {
+    if (isSuccess) {
+      refetchCountStatus();
+      refetchCountType();
+      refetch();
+    }
+  }, [isSuccess, refetchCountStatus, refetchCountType, refetch]);
 
   const rowCount = pagingVehicles?.data.totalCount || 0;
 
@@ -166,24 +173,7 @@ function VehicleList() {
                 params={{ vehicleId: vehicleId }}
               />
             )}
-            // deleteComponentProps={(handleClose) => (
-            //   <DeleteVehicle
-            //     onSuccess={() => {
-            //       handleClose();
-            //       refetch();
-            //     }}
-            //     params={{ vehicleId: vehicleId }}
-            //   />
-            // )}
             handleDelete={() => deleteVehicle(vehicleId)}
-            isSuccess={isSuccess}
-            refetchActions={() => {
-              refetchCountType();
-              refetchCountStatus();
-            }}
-            onSuccess={() => {
-              refetch();
-            }}
           />
         );
       },

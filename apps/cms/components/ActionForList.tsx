@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { Button, Divider, Stack } from '@mui/material';
 import Link from '@/components/Link';
 
@@ -16,11 +16,7 @@ interface ActionForListProps {
   entity: string;
   detailsLink: string;
   editComponentProps: (handleClose: () => void) => any;
-  // deleteComponentProps: (handleClose: () => void) => any;
   handleDelete: any;
-  isSuccess: boolean;
-  onSuccess: () => void;
-  refetchActions: () => void;
 }
 
 const ActionForList: React.FC<ActionForListProps> = ({
@@ -28,11 +24,7 @@ const ActionForList: React.FC<ActionForListProps> = ({
   entity,
   detailsLink,
   editComponentProps,
-  // deleteComponentProps,
   handleDelete,
-  isSuccess,
-  onSuccess,
-  refetchActions,
 }) => {
   const MySwal = withReactContent(Swal);
 
@@ -42,8 +34,8 @@ const ActionForList: React.FC<ActionForListProps> = ({
       text: "You won't be able to revert this!",
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
+      confirmButtonColor: '#007dc3',
+      cancelButtonColor: '#d32f2f',
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
@@ -52,20 +44,12 @@ const ActionForList: React.FC<ActionForListProps> = ({
           title: 'Deleted!',
           text: 'Your file has been deleted.',
           icon: 'success',
-          confirmButtonColor: '#d33',
-          cancelButtonColor: '#3085d6',
+          confirmButtonColor: '#007dc3',
           confirmButtonText: 'OK',
         });
       }
     });
   };
-
-  useEffect(() => {
-    if (isSuccess) {
-      refetchActions();
-      onSuccess();
-    }
-  }, [isSuccess, refetchActions, onSuccess]);
 
   return (
     <div>
@@ -89,16 +73,6 @@ const ActionForList: React.FC<ActionForListProps> = ({
           dialogDescription={`ID: ${entityId}`}
           componentProps={editComponentProps}
         />
-
-        {/* <FormDialog
-          buttonText="Delete"
-          buttonVariant="text"
-          buttonColor="error"
-          buttonIcon={<DeleteIcon />}
-          dialogTitle={`Are you sure you want to delete this ${entity.toUpperCase()}?`}
-          dialogDescription={`ID: ${entityId}`}
-          componentProps={deleteComponentProps}
-        /> */}
 
         <Button
           onClick={deletionAction}
