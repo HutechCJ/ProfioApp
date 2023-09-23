@@ -58,7 +58,6 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
       result: google.maps.DirectionsResult | null,
       status: google.maps.DirectionsStatus,
     ) => {
-      console.log(result);
       if (result !== null) {
         if (status === 'OK') {
           setDirectionResponse(result);
