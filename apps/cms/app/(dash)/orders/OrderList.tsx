@@ -46,7 +46,6 @@ function OrderList() {
     }
   }, [isSuccess, refetchCount, refetch]);
 
-
   const rowCount = pagingOrders?.data.totalCount || 0;
 
   const [rowCountState, setRowCountState] = React.useState(rowCount);
