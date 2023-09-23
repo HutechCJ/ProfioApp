@@ -81,7 +81,7 @@ function VehicleList() {
       headerName: 'ID',
       headerAlign: 'center',
       align: 'center',
-      width: 120,
+      width: 150,
       renderCell(params) {
         const maxLength = 6;
         const truncatedValue =
@@ -119,7 +119,7 @@ function VehicleList() {
     },
     {
       field: 'zipCodeCurrent',
-      width: 150,
+      width: 200,
       headerName: 'ZIP CODE CURRENT',
       headerAlign: 'center',
       align: 'center',
@@ -163,7 +163,7 @@ function VehicleList() {
     },
     {
       field: 'staff',
-      width: 250,
+      width: 300,
       headerName: 'STAFF',
       headerAlign: 'center',
       align: 'center',
