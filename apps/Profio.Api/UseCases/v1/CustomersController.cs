@@ -39,6 +39,7 @@ public sealed class CustomersController : BaseEntityController<Customer, Custome
   [SwaggerOperation(summary: "Delete Customer")]
   public Task<ActionResult<ResultModel<CustomerDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteCustomerCommand(id));
+
   [HttpGet("{id:length(26)}")]
   [SwaggerOperation(summary: "Get Order List by Customer Id with Paging")]
   public async Task<ActionResult<ResultModel<IPagedList<CustomerDto>>>> Get(string id, [FromQuery] Criteria criteria, [FromQuery] OrderEnumFilter orderEnumFilter)
@@ -48,6 +49,7 @@ public sealed class CustomersController : BaseEntityController<Customer, Custome
   [SwaggerOperation(summary: "Get Order List By Phone number with Paging")]
   public async Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> GetOrderByPhoneNumber(string phone, [FromQuery] Criteria criteria, [FromQuery] OrderEnumFilter orderEnumFilter)
     => Ok(ResultModel<IPagedList<OrderDto>>.Create(await Mediator.Send(new GetOrderByCustomerPhoneNumberWithPagingQuery(phone, criteria, orderEnumFilter))));
+
   [HttpGet("{phone:length(10)}/orders/current")]
   [SwaggerOperation(summary: "Get Current Order List By Phone number with Paging")]
   public async Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> GetCurrentOrderByPhoneNumber(string phone, [FromQuery] Criteria criteria)
