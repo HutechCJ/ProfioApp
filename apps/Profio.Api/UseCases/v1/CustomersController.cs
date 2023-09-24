@@ -44,24 +44,4 @@ public sealed class CustomersController : BaseEntityController<Customer, Custome
   [SwaggerOperation(summary: "Get Order List by Customer Id with Paging")]
   public async Task<ActionResult<ResultModel<IPagedList<CustomerDto>>>> Get(string id, [FromQuery] Criteria criteria, [FromQuery] OrderEnumFilter orderEnumFilter)
     => Ok(ResultModel<IPagedList<OrderDto>>.Create(await Mediator.Send(new GetOrderByCustomerIdWithPagingQuery(id, criteria, orderEnumFilter))));
-
-  [HttpGet("{phone:length(10)}/orders")]
-  [SwaggerOperation(summary: "Get Order List By Phone number with Paging")]
-  public async Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> GetOrderByPhoneNumber(string phone, [FromQuery] Criteria criteria, [FromQuery] OrderEnumFilter orderEnumFilter)
-  {
-    var result = await Mediator.Send(new GetOrderByCustomerPhoneNumberWithPagingQuery(phone, criteria, orderEnumFilter));
-    if (result.Count == 0)
-      return NoContent();
-    return Ok(ResultModel<IPagedList<OrderDto>>.Create(result));
-  }
-
-  [HttpGet("{phone:length(10)}/orders/current")]
-  [SwaggerOperation(summary: "Get Current Order List By Phone number with Paging")]
-  public async Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> GetCurrentOrderByPhoneNumber(string phone, [FromQuery] Criteria criteria)
-  {
-    var result = await Mediator.Send(new GetCurrentOrderByCustomerPhoneNumberWithPagingQuery(phone, criteria));
-    if (result.Count == 0)
-      return NoContent();
-    return Ok(ResultModel<IPagedList<OrderDto>>.Create(result));
-  }
 }
