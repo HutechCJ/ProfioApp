@@ -46,6 +46,9 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
   const [map, setMap] = React.useState<google.maps.Map | null>(null);
   const [directionResponse, setDirectionResponse] =
     React.useState<google.maps.DirectionsResult | null>(null);
+  const [currentLocation, setCurrentLocation] = React.useState<
+    google.maps.LatLngLiteral | google.maps.LatLng | null
+  >(null);
 
   const onLoad = React.useCallback(function callback(map: google.maps.Map) {
     const vietnam = new window.google.maps.LatLng(14.0583, 108.2772);
@@ -106,8 +109,11 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
   }, [map, orderHubsPathApiRes]);
 
   React.useEffect(() => {
-    connection.on('SendLocation', (message) => {
+    connection.on('SendLocation', (message: VehicleLocation) => {
       console.log(message);
+      setCurrentLocation(
+        new window.google.maps.LatLng(message.latitude, message.longitude)
+      );
     });
   }, []);
 
@@ -156,12 +162,23 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
                       orderHubsPathApiRes.data.items[1].location.longitude
                     ),
                     travelMode: google.maps.TravelMode.DRIVING,
+                    waypoints: currentLocation
+                      ? [{ location: currentLocation }]
+                      : undefined,
                   }}
                   callback={directionsCallback}
                 />
               )}
             {directionsResult.directions && (
               <DirectionsRenderer directions={directionsResult.directions} />
+            )}
+            {currentLocation !== null && (
+              <Marker
+                position={currentLocation}
+                icon={'https://img.icons8.com/color/48/truck--v1.png'}
+                label={"Your Order"}
+                title={"Your Order Current Location"}
+              />
             )}
             {orderHubsPathApiRes.data.items.map((hub, i) => {
               return (

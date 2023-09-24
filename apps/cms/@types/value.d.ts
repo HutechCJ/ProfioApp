@@ -10,3 +10,5 @@ type Coordination = {
   latitude: number;
   longitude: number;
 };
+
+type VehicleLocation = Coordination & { id: string };
