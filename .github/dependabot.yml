@@ -3,24 +3,24 @@ updates:
   - package-ecosystem: "npm"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
   - package-ecosystem: "nuget"
     directory: "/apps/Profio.Api"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
   - package-ecosystem: "nuget"
     directory: "/apps/Profio.Api.Test"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
   - package-ecosystem: "nuget"
     directory: "/libs/Profio.Application"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
   - package-ecosystem: "nuget"
     directory: "/libs/Profio.Domain"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
   - package-ecosystem: "nuget"
     directory: "/libs/Profio.Infrastructure"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
