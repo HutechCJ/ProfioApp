@@ -23,6 +23,14 @@ import LoadingButton from '@/components/LoadingButton';
 export default function ChangePasswordCard() {
   const localStorage = useLocalStorage();
   const MySwal = withReactContent(Swal);
+  const { enqueueSnackbar } = useSnackbar();
+  const {
+    mutate: changePasswordMutation,
+    isSuccess,
+    isError,
+    error,
+    isLoading,
+  } = useChangePassword();
 
   const [formData, setFormData] = useState({
     oldPassword: '',
@@ -38,18 +46,50 @@ export default function ChangePasswordCard() {
     });
   };
 
-  const { enqueueSnackbar } = useSnackbar();
-  const {
-    mutate: changePasswordMutation,
-    isSuccess,
-    isError,
-    error,
-    isLoading
-  } = useChangePassword();
-
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
+  };
+
+  const handlePasswordChangeSuccess = () => {
+    enqueueSnackbar('Password changed successfully!', { variant: 'success' });
+
+    MySwal.fire({
+      title: 'Password Changed Successfully',
+      text: 'You must log in again after changing your password!',
+      icon: 'success',
+      confirmButtonColor: '#d33',
+      confirmButtonText: 'OK, I understand!',
+      allowOutsideClick: false,
+      allowEscapeKey: false,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch('/api/auth/logout', {
+          method: 'POST',
+        })
+          .then(() => {
+            localStorage.remove(StoreKeys.ACCESS_TOKEN);
+            window.location.reload();
+          })
+          .catch(console.error);
+      }
+    });
+
+    clearForm();
+  };
+
+  const handlePasswordChangeError = () => {
+    const mutationError = error as any;
+    if (
+      isError &&
+      mutationError?.response?.data?.password[0] === 'Incorrect password.'
+    ) {
+      enqueueSnackbar('Incorrect current password!', { variant: 'error' });
+    } else {
+      enqueueSnackbar('Password change failed. Please try again.', {
+        variant: 'error',
+      });
+    }
   };
 
   const handleSubmit = async (event: React.FormEvent) => {
@@ -82,59 +122,20 @@ export default function ChangePasswordCard() {
         errorMessage +=
           "Passwords must have at least one uppercase ('A'-'Z').\n";
       }
-      enqueueSnackbar(errorMessage, {
-        variant: 'error',
-      });
+
+      enqueueSnackbar(errorMessage, { variant: 'error' });
       return;
     }
 
     try {
       await changePasswordMutation(formData);
-      const mutationError = error as any;
       if (isSuccess) {
-        enqueueSnackbar('Password changed successfully!', {
-          variant: 'success',
-        });
-
-        MySwal.fire({
-          title: 'Password Changed Successfully',
-          text: 'You must log in again after changing your password!',
-          icon: 'success',
-          confirmButtonColor: '#d33',
-          confirmButtonText: 'OK, I understand!',
-          allowOutsideClick: false,
-          allowEscapeKey: false,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            fetch('/api/auth/logout', {
-              method: 'POST',
-            })
-              .then(() => {
-                localStorage.remove(StoreKeys.ACCESS_TOKEN);
-                window.location.reload();
-              })
-              .catch(console.error);
-          }
-        });
-
-        clearForm();
-      } else if (
-        isError &&
-        mutationError &&
-        mutationError.response?.data?.password[0] === 'Incorrect password.'
-      ) {
-        enqueueSnackbar('Incorrect current password!', {
-          variant: 'error',
-        });
+        handlePasswordChangeSuccess();
       } else {
-        enqueueSnackbar('Password change failed. Please try again.', {
-          variant: 'error',
-        });
+        handlePasswordChangeError();
       }
     } catch (error) {
-      enqueueSnackbar('Incorrect current password!', {
-        variant: 'error',
-      });
+      handlePasswordChangeError();
     }
   };
 

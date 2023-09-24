@@ -11,11 +11,11 @@ const Orders = () => {
   const tabs = [
     { label: 'LIST', content: <OrderList /> },
     { label: 'STATISTICS', content: <OrderStatisticsCard /> },
-    {
-      label: 'LOGS',
-      content:
-        'The service to view logs is currently unavailable. Coming soon!',
-    },
+    // {
+    //   label: 'LOGS',
+    //   content:
+    //     'The service to view logs is currently unavailable. Coming soon!',
+    // },
   ];
 
   return (

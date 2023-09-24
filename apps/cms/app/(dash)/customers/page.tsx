@@ -10,16 +10,16 @@ import MainTabs from '@/components/MainTabs';
 const Customers = () => {
   const tabs = [
     { label: 'LIST', content: <CustomerList /> },
-    {
-      label: 'STATISTICS',
-      content:
-        'The service to view statistics is currently unavailable. Coming soon!',
-    },
-    {
-      label: 'LOGS',
-      content:
-        'The service to view logs is currently unavailable. Coming soon!',
-    },
+    // {
+    //   label: 'STATISTICS',
+    //   content:
+    //     'The service to view statistics is currently unavailable. Coming soon!',
+    // },
+    // {
+    //   label: 'LOGS',
+    //   content:
+    //     'The service to view logs is currently unavailable. Coming soon!',
+    // },
   ];
 
   return (

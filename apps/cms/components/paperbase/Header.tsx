@@ -109,7 +109,7 @@ export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
                 <MenuIcon />
               </IconButton>
             </Grid>
-            <Grid item>
+            {/* <Grid item>
               <Box
                 sx={{
                   display: 'flex',
@@ -122,7 +122,7 @@ export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
                   <SearchIcon />
                 </IconButton>
               </Box>
-            </Grid>
+            </Grid> */}
             <Grid item xs />
             {/* <Grid item>
                         <Link
