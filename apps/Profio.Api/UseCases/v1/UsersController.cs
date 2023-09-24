@@ -5,6 +5,7 @@ using Profio.Application.Users;
 using Profio.Application.Users.Commands.ChangePassword;
 using Profio.Application.Users.Commands.Login;
 using Profio.Application.Users.Commands.Register;
+using Profio.Application.Users.Commands.UploadImage;
 using Profio.Application.Users.Queries;
 using Profio.Domain.Constants;
 using Profio.Domain.Identity;
@@ -63,4 +64,10 @@ public sealed class UsersController : BaseEntityController<ApplicationUser, User
   [Authorize(Roles = UserRole.Administrator)]
   public Task<ActionResult<ResultModel<IPagedList<UserDto>>>> GetUsers([FromQuery] Criteria criteria)
     => HandlePaginationQuery(new GetUserWithPagingQuery(criteria));
+
+  [HttpPut("upload-image")]
+  [SwaggerOperation(summary: "Upload Image")]
+  [AllowAnonymous]
+  public async Task<ActionResult<ResultModel<AccountDto>>> UploadImage([FromForm] UploadImageCommand uploadImageCommand)
+    => Ok(ResultModel<AccountDto>.Create(await Mediator.Send(uploadImageCommand)));
 }
