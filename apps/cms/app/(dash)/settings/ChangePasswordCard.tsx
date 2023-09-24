@@ -3,13 +3,13 @@
 import React, { useState } from 'react';
 import {
   TextField,
-  Button,
   Box,
   Card,
   CardHeader,
   CardContent,
   Divider,
   Grid,
+  Typography,
 } from '@mui/material';
 
 import { useSnackbar } from 'notistack';
@@ -26,7 +26,6 @@ export default function ChangePasswordCard() {
   const { enqueueSnackbar } = useSnackbar();
   const {
     mutate: changePasswordMutation,
-    isSuccess,
     isError,
     error,
     isLoading,
@@ -111,7 +110,7 @@ export default function ChangePasswordCard() {
 
       if (!/[^\w\s]/.test(formData.newPassword)) {
         errorMessage +=
-          'Passwords must have at least one non-alphanumeric character.\n';
+          'Passwords must have at least one non-alphanumeric characters.\n';
       }
 
       if (!/\d/.test(formData.newPassword)) {
@@ -129,7 +128,7 @@ export default function ChangePasswordCard() {
 
     try {
       await changePasswordMutation(formData);
-      if (isSuccess) {
+      if (!isError) {
         handlePasswordChangeSuccess();
       } else {
         handlePasswordChangeError();
@@ -140,7 +139,7 @@ export default function ChangePasswordCard() {
   };
 
   return (
-    <Card sx={{ height: 400 }}>
+    <Card sx={{ minHeight: 600 }}>
       <CardHeader
         title="Change Password"
         subheader={'You should change your password periodically!'}
@@ -181,6 +180,34 @@ export default function ChangePasswordCard() {
             fullWidth
             required
           />
+          <Box sx={{ mt: 1 }}>
+            <Typography variant="h6" gutterBottom>
+              Password requirements:
+            </Typography>
+            <Typography
+              variant="body1"
+              color="gray"
+              fontStyle={'italic'}
+              gutterBottom
+            >
+              Please follow this guide for a strong password
+            </Typography>
+            <Typography variant="body1" mx={2}>
+              • At least 6 characters
+            </Typography>
+            <Typography variant="body1" mx={2}>
+              • At least 1 special characters
+            </Typography>
+            <Typography variant="body1" mx={2}>
+              • At least 1 digit (0 - 9)
+            </Typography>
+            <Typography variant="body1" mx={2}>
+              • At least 1 uppercase (A - Z)
+            </Typography>
+            <Typography variant="body1" mx={2}>
+              • Recommend: Change it often!
+            </Typography>
+          </Box>
           <Grid
             container
             direction="row"
@@ -202,7 +229,7 @@ export default function ChangePasswordCard() {
                   !formData.confirmPassword
                 }
               >
-                SUBMIT
+                UPDATE PASSWORD
               </LoadingButton>
             </Grid>
             <Grid item xs={1}>
@@ -212,6 +239,11 @@ export default function ChangePasswordCard() {
                 color="error"
                 fullWidth
                 onClick={clearForm}
+                disabled={
+                  !formData.oldPassword &&
+                  !formData.newPassword &&
+                  !formData.confirmPassword
+                }
               >
                 CANCEL
               </LoadingButton>

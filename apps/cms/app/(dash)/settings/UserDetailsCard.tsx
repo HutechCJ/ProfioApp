@@ -12,62 +12,62 @@ import React from 'react';
 
 function UserDetailsCard() {
   const { data: user, isLoading } = useUser();
-  
+
   return (
-    <Card sx={{ height: 400 }}>
-      <CardHeader title="Your Profile" subheader={`ID: ${user?.id}`} />
-      <Divider />
-      {isLoading ? (
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            height: '35vh',
-          }}
-        >
-          <CircularProgress />
-        </Box>
-      ) : (
-        <CardContent>
-          <Box component="form" noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="dense"
-              fullWidth
-              variant="outlined"
-              id="user-username"
-              label="Username"
-              defaultValue={user?.userName}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-            <TextField
-              margin="dense"
-              fullWidth
-              variant="outlined"
-              id="user-email"
-              label="Email"
-              defaultValue={user?.email}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
-            <TextField
-              margin="dense"
-              fullWidth
-              variant="outlined"
-              id="user-fullName"
-              label="Full Name"
-              defaultValue={user?.fullName}
-              InputProps={{
-                readOnly: true,
-              }}
-            />
+      <Card sx={{ minHeight: 600 }}>
+        <CardHeader title="Your Profile" subheader={`ID: ${user?.id}`} />
+        <Divider />
+        {isLoading ? (
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: '35vh',
+            }}
+          >
+            <CircularProgress />
           </Box>
-        </CardContent>
-      )}
-    </Card>
+        ) : (
+          <CardContent>
+            <Box component="form" noValidate sx={{ mt: 1 }}>
+              <TextField
+                margin="dense"
+                fullWidth
+                variant="outlined"
+                id="user-username"
+                label="Username"
+                defaultValue={user?.userName}
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+              <TextField
+                margin="dense"
+                fullWidth
+                variant="outlined"
+                id="user-email"
+                label="Email"
+                defaultValue={user?.email}
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+              <TextField
+                margin="dense"
+                fullWidth
+                variant="outlined"
+                id="user-fullName"
+                label="Full Name"
+                defaultValue={user?.fullName}
+                InputProps={{
+                  readOnly: true,
+                }}
+              />
+            </Box>
+          </CardContent>
+        )}
+      </Card>
   );
 }
 
