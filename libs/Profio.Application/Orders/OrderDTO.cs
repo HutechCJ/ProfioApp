@@ -17,5 +17,5 @@ public sealed record OrderDto : BaseModel
   public string? Note { get; init; }
   public double? Distance { get; init; }
   public CustomerDto? Customer { get; init; }
-  public PhaseDto? PhaseDto { get; init; }
+  public PhaseDto? Phase { get; init; }
 }
