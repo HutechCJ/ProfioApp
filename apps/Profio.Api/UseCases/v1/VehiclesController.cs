@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Profio.Application.Deliveries;
 using Profio.Application.Hubs;
 using Profio.Application.Hubs.Queries;
+using Profio.Application.Orders;
 using Profio.Application.Vehicles;
 using Profio.Application.Vehicles.Commands;
 using Profio.Application.Vehicles.Queries;
@@ -75,6 +76,7 @@ public sealed class VehiclesController : BaseEntityController<Vehicle, VehicleDt
     await Mediator.Send(new VisitHubCommand(id, hubId));
     return NoContent();
   }
+
   [HttpPatch("{id:length(26)}/update-status")]
   [SwaggerOperation(summary: "Update Vehicle status")]
   public async Task<IActionResult> UpdateStatus([FromRoute] string id, [FromBody] UpdateVehicleStatusCommand command)
@@ -87,4 +89,14 @@ public sealed class VehiclesController : BaseEntityController<Vehicle, VehicleDt
     await Mediator.Send(command).ConfigureAwait(false);
     return NoContent();
   }
+
+  [HttpGet("{id:length(26)}/orders")]
+  [SwaggerOperation(summary: "Get Order List by Vehicle Id")]
+  public async Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> GetOrders(string id, [FromQuery] Criteria criteria)
+    => Ok(await Mediator.Send(new GetOrderByVehicleIdWithPagingQuery(id, criteria)));
+
+  [HttpGet("{id:length(26)}/orders/current")]
+  [SwaggerOperation(summary: "Get Current Order List by Vehicle Id")]
+  public async Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> GetCurrentOrders(string id, [FromQuery] Criteria criteria)
+    => Ok(await Mediator.Send(new GetCurrentOrderByVehicleIdWithPagingQuery(id, criteria)));
 }
