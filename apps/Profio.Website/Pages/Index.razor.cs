@@ -8,7 +8,7 @@ namespace Profio.Website.Pages;
 public partial class Index
 {
   private string PhoneNumber { get; set; } = default!;
-  private bool IsLoading {get; set;}
+  private bool IsLoading { get; set; }
 
   [Inject]
   private IConfiguration Configuration { get; set; } = default!;
