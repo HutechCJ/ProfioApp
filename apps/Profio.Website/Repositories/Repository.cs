@@ -12,7 +12,7 @@ public abstract class Repository
       => _httpClient = httpClientFactory.CreateClient("Profio Api");
 
   public async Task<TResult?> GetAsync<TResult>(string route)
-      => await DeserializeContent<TResult>(await _httpClient.GetAsync(route));
+      => await DeserializeContentAsync<TResult>(await _httpClient.GetAsync(route));
 
   public async Task<TResult?> PostAsync<TResult>(string route, object? body)
   {
@@ -20,7 +20,7 @@ public abstract class Repository
         JsonSerializer.Serialize(body),
         Encoding.UTF8,
         MediaTypeNames.Application.Json);
-    return await DeserializeContent<TResult>(await _httpClient.PostAsync(route, jsonContent));
+    return await DeserializeContentAsync<TResult>(await _httpClient.PostAsync(route, jsonContent));
   }
 
   public async Task<TResult?> PatchAsync<TResult>(string route, object? body)
@@ -29,7 +29,7 @@ public abstract class Repository
         JsonSerializer.Serialize(body),
         Encoding.UTF8,
         MediaTypeNames.Application.Json);
-    return await DeserializeContent<TResult>(await _httpClient.PatchAsync(route, jsonContent));
+    return await DeserializeContentAsync<TResult>(await _httpClient.PatchAsync(route, jsonContent));
   }
 
   public async Task<TResult?> PutAsync<TResult>(string route, object? body)
@@ -38,13 +38,13 @@ public abstract class Repository
         JsonSerializer.Serialize(body),
         Encoding.UTF8,
         MediaTypeNames.Application.Json);
-    return await DeserializeContent<TResult>(await _httpClient.PutAsync(route, jsonContent));
+    return await DeserializeContentAsync<TResult>(await _httpClient.PutAsync(route, jsonContent));
   }
 
   public async Task<TResult?> DeleteAsync<TResult>(string route)
-      => await DeserializeContent<TResult>(await _httpClient.DeleteAsync(route));
+      => await DeserializeContentAsync<TResult>(await _httpClient.DeleteAsync(route));
 
-  private static async Task<TResult?> DeserializeContent<TResult>(HttpResponseMessage response)
+  private static async Task<TResult?> DeserializeContentAsync<TResult>(HttpResponseMessage response)
   {
     try
     {
@@ -54,7 +54,7 @@ public abstract class Repository
       };
       return await JsonSerializer.DeserializeAsync<TResult>(await response.Content.ReadAsStreamAsync(), serializerOptions);
     }
-    catch (Exception)
+    catch (ArgumentException)
     {
       return default;
     }
