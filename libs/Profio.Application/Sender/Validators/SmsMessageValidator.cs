@@ -12,11 +12,6 @@ public class SmsMessageValidator : AbstractValidator<SmsMessage>
       .Length(10)
       .Matches("^[0-9]*$");
 
-    RuleFor(x => x.From)
-      .NotEmpty()
-      .Length(10)
-      .Matches("^[0-9]*$");
-
     RuleFor(x => x.Message)
       .MaximumLength(50)
       .NotEmpty();

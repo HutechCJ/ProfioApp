@@ -1,5 +1,6 @@
 using FluentValidation;
 using MediatR;
+using Microsoft.Extensions.Configuration;
 using Profio.Application.Sender.Validators;
 using Profio.Domain.Constants;
 using Profio.Domain.Contracts;
@@ -13,15 +14,20 @@ public sealed record SendSmsCommand(SmsMessage Message, SmsType Type) : IRequest
 public sealed class SendSmsCommandHandler : IRequestHandler<SendSmsCommand, Unit>
 {
   private readonly ITwilioRestClient _client;
+  private readonly IConfiguration _configuration;
 
-  public SendSmsCommandHandler(ITwilioRestClient client)
-    => _client = client;
+  public SendSmsCommandHandler(ITwilioRestClient client, IConfiguration configuration)
+  {
+    _client = client;
+    _configuration = configuration;
+  }
 
   public async Task<Unit> Handle(SendSmsCommand request, CancellationToken cancellationToken)
   {
+    var validVietNamePhoneNumber = $"+84{request.Message.To?[1..]}";
     await MessageResource.CreateAsync(
-      to: new(request.Message.To),
-      from: new(request.Message.From),
+      to: new(validVietNamePhoneNumber),
+      from: new(_configuration["Twilio:FromPhoneNumber"]),
       body: request.Type switch
       {
         SmsType.IncidentReported => $"Your order with id {request.Message.Message} has an incident",
@@ -40,5 +46,5 @@ public sealed class SendSmsCommandValidator : AbstractValidator<SendSmsCommand>
 {
   public SendSmsCommandValidator(SmsMessageValidator smsMessageValidator)
     => RuleFor(x => x.Message)
-      .SetValidator(smsMessageValidator);
+    .SetValidator(smsMessageValidator);
 }
