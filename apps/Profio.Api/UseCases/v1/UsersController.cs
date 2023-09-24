@@ -67,7 +67,7 @@ public sealed class UsersController : BaseEntityController<ApplicationUser, User
 
   [HttpPut("upload-image")]
   [SwaggerOperation(summary: "Upload Image")]
-  [AllowAnonymous]
+  [Obsolete("Deprecated")]
   public async Task<ActionResult<ResultModel<AccountDto>>> UploadImage([FromQuery] Guid userId, IFormFile file)
     => Ok(ResultModel<AccountDto>.Create(await Mediator.Send(new UploadImageCommand(userId, file))));
 }
