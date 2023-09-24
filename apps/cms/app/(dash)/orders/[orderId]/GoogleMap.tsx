@@ -110,7 +110,6 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
 
   React.useEffect(() => {
     connection.on('SendLocation', (message: VehicleLocation) => {
-      console.log(message);
       setCurrentLocation(
         new window.google.maps.LatLng(message.latitude, message.longitude),
       );
@@ -185,8 +184,8 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
                 <Marker
                   key={hub.id}
                   position={{
-                    lat: hub.location?.latitude || 0,
-                    lng: hub.location?.longitude || 0,
+                    lat: hub.location?.latitude ?? 0,
+                    lng: hub.location?.longitude ?? 0,
                   }}
                   // icon={`https://img.icons8.com/emoji/48/round-pushpin-emoji.png`}
                   title={`${hub.id}`}
