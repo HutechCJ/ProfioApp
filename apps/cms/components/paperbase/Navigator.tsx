@@ -159,39 +159,6 @@ export default function Navigator(props: DrawerProps) {
           </Box>
         ))}
 
-        <Box key="account" sx={{ bgcolor: '#101F33' }}>
-          <ListItem sx={{ py: 2, px: 3 }}>
-            <ListItemText sx={{ color: '#fff' }}>Account</ListItemText>
-          </ListItem>
-          <ListItem disablePadding key="Settings">
-            <ListItemButton
-              LinkComponent={Link}
-              href={'/settings'}
-              selected={false}
-              sx={item}
-            >
-              <ListItemIcon>
-                <SettingsIcon />
-              </ListItemIcon>
-              <ListItemText>Settings</ListItemText>
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding key="Logout">
-            <ListItemButton
-              LinkComponent={Link}
-              onClick={logout}
-              selected={false}
-              sx={item}
-            >
-              <ListItemIcon>
-                <LogoutIcon />
-              </ListItemIcon>
-              <ListItemText>Logout</ListItemText>
-            </ListItemButton>
-          </ListItem>
-          <Divider sx={{ mt: 2 }} />
-        </Box>
-
         <ListItem
           sx={{
             ...item,

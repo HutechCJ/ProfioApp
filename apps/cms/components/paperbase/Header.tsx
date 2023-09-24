@@ -3,7 +3,7 @@
 import useUser from '@/features/user/useUser';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { Divider, ListItemIcon, Menu, MenuItem } from '@mui/material';
+import { Divider, ListItemIcon, Menu, MenuItem, Skeleton } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
@@ -13,15 +13,15 @@ import Tabs from '@mui/material/Tabs';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-// import Settings from '@mui/icons-material/Settings';
+import Settings from '@mui/icons-material/Settings';
 import Logout from '@mui/icons-material/Logout';
 import * as React from 'react';
 import useLocalStorage from '@/common/hooks/useLocalStorage';
 import StoreKeys from '@/common/constants/storekeys';
 // import BedtimeIcon from '@mui/icons-material/Bedtime';
-import SearchIcon from '@mui/icons-material/Search';
+// import SearchIcon from '@mui/icons-material/Search';
 import { Box } from '@mui/material';
-import InputBase from '@mui/material/InputBase';
+// import InputBase from '@mui/material/InputBase';
 import { Stack } from '@mui/system';
 import Image from 'next/image';
 import Logo from '../../public/images/CJ_logo.png';
@@ -58,7 +58,7 @@ export default function Header(props: HeaderProps) {
 }
 
 export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
-  const { data: user } = useUser();
+  const { data: user, isLoading } = useUser();
   const localStorage = useLocalStorage();
   const MySwal = withReactContent(Swal);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -207,15 +207,25 @@ export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar /> {user?.fullName}
+          <Avatar />
+          {isLoading ? (
+            <Skeleton sx={{ bgcolor: 'grey.400' }} width={150} height={40} />
+          ) : (
+            user?.fullName
+          )}
         </MenuItem>
         <Divider />
-        {/* <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem> */}
+        <Link
+          href={'/settings'}
+          style={{ textDecoration: 'none', color: '#202020' }}
+        >
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <Settings fontSize="small" />
+            </ListItemIcon>
+            Settings
+          </MenuItem>
+        </Link>
         <MenuItem onClick={logout}>
           <ListItemIcon>
             <Logout fontSize="small" />
