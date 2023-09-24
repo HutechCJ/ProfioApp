@@ -12,8 +12,8 @@ public sealed class CustomerService : ICustomerService
     => _repository = repository;
 
   public Task<ResultModel<PagedListDto<OrderDto>>?> GetCurrentOrdersByPhoneAsync(string phone)
-    => _repository.GetAsync<ResultModel<PagedListDto<OrderDto>>?>($"/customers/{phone}/orders/current");
+    => _repository.GetAsync<ResultModel<PagedListDto<OrderDto>>?>($"/orders/lookup?phone={phone}&current=true");
 
   public Task<ResultModel<PagedListDto<OrderDto>>?> GetOrdersByPhoneAsync(string phone)
-    => _repository.GetAsync<ResultModel<PagedListDto<OrderDto>>?>($"/customers/{phone}/orders");
+    => _repository.GetAsync<ResultModel<PagedListDto<OrderDto>>?>($"/orders/lookup?phone={phone}");
 }
