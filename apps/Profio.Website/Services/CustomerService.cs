@@ -6,7 +6,7 @@ namespace Profio.Website.Services;
 
 public sealed class CustomerService : ICustomerService
 {
-  private readonly IRepository _repository; 
+  private readonly IRepository _repository;
 
   public CustomerService(IRepository repository)
     => _repository = repository;
