@@ -1,7 +1,7 @@
 'use client';
 
 import useGetOrderHubsPath from '@/features/order/useGetOrderHubsPath';
-import { Box } from '@mui/material';
+import { Box, Alert, Stack } from '@mui/material';
 import PlaceIcon from '@mui/icons-material/Place';
 import {
   DirectionsRenderer,
@@ -15,6 +15,7 @@ import {
 } from '@react-google-maps/api';
 import React from 'react';
 import useSignalR from '@/common/hooks/useSignalR';
+import { HubConnectionState } from '@microsoft/signalr';
 
 const containerStyle = {
   width: '100%',
@@ -40,9 +41,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
     isError: hubsPathError,
   } = useGetOrderHubsPath(orderId);
 
-  const { connection } = useSignalR(
-    `https://${process.env.NEXT_PUBLIC_HOSTNAME}/current-location?orderId=${orderId}`
-  );
+  const { connection } = useSignalR(`/ws/current-location?orderId=${orderId}`);
 
   const [map, setMap] = React.useState<google.maps.Map | null>(null);
   const [directionResponse, setDirectionResponse] =
@@ -113,15 +112,24 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
   }, []);
 
   return (
-    <Box
-      sx={{
-        width: '100%',
-      }}
-    >
-      {isLoaded &&
-        map &&
-        !directionsResult.directions &&
-        'Direction Service is not available at this time.'}
+    <Box>
+      <Stack sx={{ mb: 2 }} spacing={1}>
+        {isLoaded && map && !directionsResult.directions && (
+          <Alert severity="error">
+            Direction Service is not available at this time
+          </Alert>
+        )}
+        {connection.state !== HubConnectionState.Connected && (
+          <Alert
+            severity={
+              connection.state === HubConnectionState.Disconnected
+                ? 'error'
+                : 'warning'
+            }
+          >{`${HubConnectionState[connection.state]} to server`}</Alert>
+        )}
+      </Stack>
+
       {isLoaded && (
         <GoogleMap
           center={center}
@@ -154,7 +162,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
               <DirectionsRenderer directions={directionsResult.directions} />
             )}
             {orderHubsPathApiRes &&
-              orderHubsPathApiRes.data.items.map((hub) => {
+              orderHubsPathApiRes.data.items.map((hub, i) => {
                 return (
                   <Marker
                     key={hub.id}
@@ -164,7 +172,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
                     }}
                     // icon={`https://img.icons8.com/emoji/48/round-pushpin-emoji.png`}
                     title={`${hub.id}`}
-                    label={` ${hub.zipCode}`}
+                    label={`${i > 0 ? 'Next' : 'Previous'} Hub`}
                   />
                 );
               })}

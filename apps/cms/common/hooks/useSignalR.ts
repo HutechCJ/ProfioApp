@@ -13,7 +13,7 @@ function useSignalR(webSocketURI: string) {
 
   React.useEffect(() => {
     connection.start().then(() => {
-      console.log('WEBSOCKET CONNECTED');
+      console.log(`INITIALIZED WEBSOCKET CONNECTION TO ${webSocketURI}`);
     });
 
     return () => {
