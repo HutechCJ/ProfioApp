@@ -42,7 +42,6 @@
   - [📦 Services](#-services)
   - [🛠️ Setup](#️-setup)
   - [🚀 Running the application](#-running-the-application)
-  - [🧪 Testing the application](#-testing-the-application)
   - [🐳 Running services with Docker](#-running-services-with-docker)
 - [API development](#api-development)
 - [Open API](#open-api)
@@ -302,6 +301,9 @@
 	<li align="justify">
 		<b><a href="https://supabase.io/" target="_blank">Supabase</a></b> - Supabase is an open-source alternative to Firebase that adds real-time and RESTful APIs to your PostgreSQL database without any coding.
 	</li>
+	<li align="justify">
+		<b><a href="https://www.twilio.com/" target="_blank">Twilio</a></b> - Twilio is a cloud communications platform as a service company based in San Francisco, California.
+	</li>
 </ul>
 
 ## 🛠️ Setup
@@ -323,7 +325,7 @@ npm install --force
 For the CMS, navigate to the `apps/cms` directory and run the following command:
 
 ```bash
-npx nx serve cms
+npx nx serve cms --verbose
 ```
 
 It will open the CMS in your browser at [http://localhost:4200/](http://localhost:4200/).
@@ -331,7 +333,7 @@ It will open the CMS in your browser at [http://localhost:4200/](http://localhos
 For the API, navigate to the `apps/Profio.Api` directory and run the following command:
 
 ```bash
-npx nx serve Profio.Api
+npx nx serve Profio.Api --verbose
 ```
 
 It will open the API in your browser at [http://localhost:9023/](http://localhost:5023/).
@@ -339,15 +341,23 @@ It will open the API in your browser at [http://localhost:9023/](http://localhos
 For the Proxy, navigate to the `apps/Profio.Proxy` directory and run the following command:
 
 ```bash
-npx nx serve Profio.Proxy
+npx nx serve Profio.Proxy --verbose
 ```
 
 It will open the Proxy in your browser at [http://localhost:7221/](http://localhost:7221/).
 
+For the Web App, navigate to the `apps/Profio.Website` directory and run the following command:
+
+```bash
+npx nx serve Profio.Website --verbose
+```
+
+It will open the Web App in your browser at [http://localhost:5272/](http://localhost:5272/).
+
 For the Driver App, navigate to the `apps/profio-app` directory and run the following command:
 
 ```bash
-npx nx serve profio-app
+npx nx serve profio-app --verbose
 ```
 
 For running all applications, navigate to the root directory of the project and run the following command:
@@ -364,20 +374,6 @@ tye run --dashboard
 
 > **Warning**
 > All connections strings will be unavailable when this repository is public.
-
-## 🧪 Testing the application
-
-For the CMS, navigate to the `apps/cms-e2e` directory and run the following command:
-
-```bash
-npx nx e2e cms-e2e
-```
-
-For the API, navigate to the `apps/Profio.Api` directory and run the following command:
-
-```bash
-npx nx test Profio.Api
-```
 
 ## 🐳 Running services with Docker
 
