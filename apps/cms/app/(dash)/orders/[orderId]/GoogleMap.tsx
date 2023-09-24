@@ -14,6 +14,7 @@ import {
   MarkerProps,
 } from '@react-google-maps/api';
 import React from 'react';
+import useSignalR from '@/common/hooks/useSignalR';
 
 const containerStyle = {
   width: '100%',
@@ -39,6 +40,10 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
     isError: hubsPathError,
   } = useGetOrderHubsPath(orderId);
 
+  const { connection } = useSignalR(
+    `https://${process.env.NEXT_PUBLIC_HOSTNAME}/current-location?orderId=${orderId}`
+  );
+
   const [map, setMap] = React.useState<google.maps.Map | null>(null);
   const [directionResponse, setDirectionResponse] =
     React.useState<google.maps.DirectionsResult | null>(null);
@@ -56,7 +61,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
   const directionsCallback = React.useCallback(
     (
       result: google.maps.DirectionsResult | null,
-      status: google.maps.DirectionsStatus,
+      status: google.maps.DirectionsStatus
     ) => {
       if (result !== null) {
         if (status === 'OK') {
@@ -66,7 +71,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
         }
       }
     },
-    [],
+    []
   );
 
   const directionsResult = React.useMemo(() => {
@@ -86,11 +91,11 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
         const bounds = new window.google.maps.LatLngBounds();
         const origin = new window.google.maps.LatLng(
           orderHubsPathApiRes.data.items[0].location.latitude,
-          orderHubsPathApiRes.data.items[0].location.longitude,
+          orderHubsPathApiRes.data.items[0].location.longitude
         );
         const destination = new window.google.maps.LatLng(
           orderHubsPathApiRes.data.items[1].location.latitude,
-          orderHubsPathApiRes.data.items[1].location.longitude,
+          orderHubsPathApiRes.data.items[1].location.longitude
         );
 
         bounds.extend(origin);
@@ -100,6 +105,12 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
       }
     })();
   }, [map, orderHubsPathApiRes]);
+
+  React.useEffect(() => {
+    connection.on('SendLocation', (message) => {
+      console.log(message);
+    });
+  }, []);
 
   return (
     <Box
@@ -128,11 +139,11 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
                   options={{
                     origin: new window.google.maps.LatLng(
                       orderHubsPathApiRes.data.items[0].location.latitude,
-                      orderHubsPathApiRes.data.items[0].location.longitude,
+                      orderHubsPathApiRes.data.items[0].location.longitude
                     ),
                     destination: new window.google.maps.LatLng(
                       orderHubsPathApiRes.data.items[1].location.latitude,
-                      orderHubsPathApiRes.data.items[1].location.longitude,
+                      orderHubsPathApiRes.data.items[1].location.longitude
                     ),
                     travelMode: google.maps.TravelMode.DRIVING,
                   }}
