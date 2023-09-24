@@ -21,27 +21,21 @@ public partial class Index
 
     if (string.IsNullOrWhiteSpace(PhoneNumber) || !PhoneRegex().IsMatch(PhoneNumber))
     {
-      await Alert.FireAsync("Error", "Invalid phone number!", SweetAlertIcon.Error);
+      await Alert.FireAsync("Error", "Invalid phone number!", SweetAlertIcon.Info);
       IsLoading = false;
       return;
     }
 
     var currentOrderList = await CustomerService.GetCurrentOrdersByPhoneAsync(PhoneNumber);
     var orderList = await CustomerService.GetOrdersByPhoneAsync(PhoneNumber);
-    if (currentOrderList == null && orderList == null)
+
+    if (currentOrderList?.Data?.Items.Count == 0 && orderList?.Data?.Items.Count == 0)
     {
       await Alert.FireAsync("Error", "You don't have any orders!", SweetAlertIcon.Error);
       IsLoading = false;
       return;
     }
-    if (currentOrderList?.Data == null)
-    {
-      await Alert.FireAsync("Error", "Fetching orders failed!", SweetAlertIcon.Error);
-      IsLoading = false;
-      return;
-    }
 
-    await Alert.FireAsync("Oops", string.Join(",", currentOrderList.Data.Items.Select(x => x.Id).ToList()), SweetAlertIcon.Info);
     IsLoading = false;
   }
 
