@@ -156,17 +156,17 @@ function Customer({ params }: { params: { customerId: string } }) {
           >
             <Stack justifyContent="center" alignItems="center" spacing={1}>
               {gender == 0 && (
-                <Avatar sx={{ bgcolor: 'info', width: 100, height: 100 }}>
+                <Avatar sx={{ bgcolor: 'blue', width: 100, height: 100 }}>
                   <MaleIcon sx={{ width: 60, height: 60 }} />
                 </Avatar>
               )}
               {gender == 1 && (
-                <Avatar sx={{ bgcolor: 'success', width: 100, height: 100 }}>
+                <Avatar sx={{ bgcolor: 'green', width: 100, height: 100 }}>
                   <FemaleIcon sx={{ width: 60, height: 60 }} />
                 </Avatar>
               )}
               {gender == 2 && (
-                <Avatar sx={{ bgcolor: 'warning', width: 100, height: 100 }}>
+                <Avatar sx={{ bgcolor: 'orange', width: 100, height: 100 }}>
                   <MoreHorizIcon sx={{ width: 60, height: 60 }} />
                 </Avatar>
               )}
@@ -182,7 +182,7 @@ function Customer({ params }: { params: { customerId: string } }) {
               <Typography variant="h5" gutterBottom>
                 Email: <strong>{email}</strong>
               </Typography>
-              <Typography variant="body1" gutterBottom>
+              <Typography variant="h5" gutterBottom>
                 Address:{' '}
                 <strong>
                   {(() => {
