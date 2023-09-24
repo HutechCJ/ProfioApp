@@ -1,6 +1,7 @@
 using CurrieTechnologies.Razor.SweetAlert2;
 using Profio.Infrastructure.OpenTelemetry;
 using Profio.Website.Middleware;
+using Profio.Website.Services;
 using Serilog;
 using Spectre.Console;
 
@@ -13,7 +14,12 @@ try
   builder.Services.AddRazorPages();
   builder.Services.AddServerSideBlazor();
   builder.Services.AddSweetAlert2();
+  builder.Services.AddHttpClient("Profio Api", config =>
+    config.BaseAddress = new(builder.Configuration["ApiUrl"] ?? "https://localhost:9023/api/v1")
+  );
   builder.AddOpenTelemetry();
+
+  builder.Services.AddSingleton<ICustomerService, CustomerService>();
 
   var app = builder.Build();
 

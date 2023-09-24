@@ -24,9 +24,9 @@ public sealed class SendSmsCommandHandler : IRequestHandler<SendSmsCommand, Unit
 
   public async Task<Unit> Handle(SendSmsCommand request, CancellationToken cancellationToken)
   {
-    var validVietNamePhoneNumber = $"+84{request.Message.To?[1..]}";
+    var validPhoneNumber = $"+84{request.Message.To?[1..]}";
     await MessageResource.CreateAsync(
-      to: new(validVietNamePhoneNumber),
+      to: new(validPhoneNumber),
       from: new(_configuration["Twilio:FromPhoneNumber"]),
       body: request.Type switch
       {
