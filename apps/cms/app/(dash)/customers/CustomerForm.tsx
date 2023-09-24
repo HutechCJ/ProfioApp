@@ -83,10 +83,22 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
   const { enqueueSnackbar } = useSnackbar();
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCustomer({
-      ...customer,
-      [e.target.name]: e.target.value,
-    });
+    if (e.target.name.includes('address.')) {
+      const childName = e.target.name.split('.').pop();
+      if (!childName) return;
+      setCustomer((c) => ({
+        ...c,
+        address: {
+          ...c.address,
+          [childName]: e.target.value,
+        },
+      }));
+    } else {
+      setCustomer((c) => ({
+        ...c,
+        [e.target.name]: e.target.value,
+      }));
+    }
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {

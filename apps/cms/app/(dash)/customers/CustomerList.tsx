@@ -90,14 +90,14 @@ function CustomerList() {
     },
     {
       field: 'name',
-      width: 250,
+      width: 200,
       headerName: 'FULL NAME',
       headerAlign: 'center',
       align: 'center',
     },
     {
       field: 'phone',
-      width: 200,
+      width: 180,
       headerName: 'PHONE',
       headerAlign: 'center',
       align: 'center',
@@ -111,7 +111,7 @@ function CustomerList() {
     },
     {
       field: 'gender',
-      width: 250,
+      width: 200,
       headerName: 'GENDER',
       headerAlign: 'center',
       align: 'center',
@@ -136,6 +136,28 @@ function CustomerList() {
             sx={{ width: 100 }}
           />
         );
+      },
+    },
+    {
+      field: 'address',
+      width: 140,
+      headerName: 'ADDRESS',
+      headerAlign: 'center',
+      align: 'center',
+      valueGetter: (params) => {
+        const { address } = params.row;
+        if (address) {
+          const { street, ward, city, province } = address;
+          const addressParts = [];
+
+          if (street) addressParts.push(street);
+          if (ward) addressParts.push(ward);
+          if (city) addressParts.push(city);
+          if (province) addressParts.push(province);
+
+          return addressParts.join(', ');
+        }
+        return '';
       },
     },
     {
