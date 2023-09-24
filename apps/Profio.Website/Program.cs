@@ -18,7 +18,7 @@ try
   builder.AddOpenTelemetry();
   builder.Services.AddHttpClient("Api",
     config =>
-      config.BaseAddress = new(builder.Configuration["ApiUrl"] ?? "https://localhost:9023/api/v1")
+      config.BaseAddress = new("https://localhost:9023/api/v1/")
   );
 
   builder.Services.AddSingleton<IRepository, Repository>();

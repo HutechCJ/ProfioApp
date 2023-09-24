@@ -71,16 +71,5 @@ public sealed class OrdersController : BaseEntityController<Order, OrderDto, Get
   [HttpGet("lookup")]
   [SwaggerOperation(summary: "Get Order List By Phone number with Paging")]
   public async Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> GetOrderByPhoneNumber([FromQuery] string phone, [FromQuery] Criteria criteria, [FromQuery] OrderEnumFilter orderEnumFilter, [FromQuery] bool current)
-  {
-    IPagedList<OrderDto>? result;
-    if (current)
-    {
-      result = await Mediator.Send(new GetCurrentOrderByCustomerPhoneNumberWithPagingQuery(phone, criteria));
-    }
-    else
-    {
-      result = await Mediator.Send(new GetOrderByCustomerPhoneNumberWithPagingQuery(phone, criteria, orderEnumFilter));
-    }
-    return Ok(ResultModel<IPagedList<OrderDto>>.Create(result));
-  }
+    => Ok(ResultModel<IPagedList<OrderDto>>.Create(await Mediator.Send(new GetOrderByCustomerPhoneNumberWithPagingQuery(phone, criteria, orderEnumFilter, current))));
 }
