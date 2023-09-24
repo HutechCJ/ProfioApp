@@ -1,23 +1,19 @@
-using System.Net;
-using System.Text.RegularExpressions;
 using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Components;
+using Profio.Website.Data.Customers;
+using System.Text.RegularExpressions;
 
 namespace Profio.Website.Pages;
 
 public partial class Index
 {
   private string PhoneNumber { get; set; } = default!;
-  private bool IsLoading {get; set;}
-
-  [Inject]
-  private IConfiguration Configuration { get; set; } = default!;
+  private bool IsLoading { get; set; }
 
   [Inject]
   private SweetAlertService Alert { get; set; } = default!;
-
   [Inject]
-  private IHttpClientFactory ClientFactory { get; set; } = default!;
+  private ICustomerService CustomerService { get; set; } = default!;
 
   public async Task FindAsync()
   {
@@ -30,22 +26,22 @@ public partial class Index
       return;
     }
 
-    var order = new HttpRequestMessage(HttpMethod.Get, Configuration["ApiUrl"] + $"/customers/{PhoneNumber}/orders/current");
-
-    var history = new HttpRequestMessage(HttpMethod.Get, Configuration["ApiUrl"] + $"/customers/{PhoneNumber}/orders");
-
-    var client = ClientFactory.CreateClient();
-
-    var senderOrder = await client.SendAsync(order);
-    var senderHistory = await client.SendAsync(history);
-
-    if (senderOrder.StatusCode == HttpStatusCode.NoContent && senderHistory.StatusCode == HttpStatusCode.NoContent)
+    var currentOrderList = await CustomerService.GetCurrentOrdersByPhoneAsync(PhoneNumber);
+    var orderList = await CustomerService.GetOrdersByPhoneAsync(PhoneNumber);
+    if (currentOrderList == null && orderList == null)
     {
       await Alert.FireAsync("Error", "You don't have any orders!", SweetAlertIcon.Error);
+      IsLoading = false;
+      return;
+    }
+    if (currentOrderList?.Data == null)
+    {
+      await Alert.FireAsync("Error", "Fetching orders failed!", SweetAlertIcon.Error);
+      IsLoading = false;
       return;
     }
 
-    await Alert.FireAsync("Oops", "ABC", SweetAlertIcon.Info);
+    await Alert.FireAsync("Oops", string.Join(",", currentOrderList.Data.Items.Select(x => x.Id).ToList()), SweetAlertIcon.Info);
     IsLoading = false;
   }
 
