@@ -43,6 +43,10 @@ const nextConfig = {
         source: '/api-dev/:path*',
         destination: `${process.env.API_BASEURL}/:path*`,
       },
+      {
+        source: '/ws/:path*',
+        destination: `https://${process.env.SERVER_HOSTNAME}/:path*`,
+      },
     ];
   },
 };
