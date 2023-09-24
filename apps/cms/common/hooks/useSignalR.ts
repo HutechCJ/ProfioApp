@@ -9,7 +9,7 @@ function useSignalR(webSocketURI: string) {
         transport: HttpTransportType.WebSockets,
       })
       .withAutomaticReconnect()
-      .build()
+      .build(),
   );
 
   React.useEffect(() => {

@@ -63,7 +63,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
   const directionsCallback = React.useCallback(
     (
       result: google.maps.DirectionsResult | null,
-      status: google.maps.DirectionsStatus
+      status: google.maps.DirectionsStatus,
     ) => {
       if (result !== null) {
         if (status === 'OK') {
@@ -73,7 +73,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
         }
       }
     },
-    []
+    [],
   );
 
   const directionsResult = React.useMemo(() => {
@@ -93,11 +93,11 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
         const bounds = new window.google.maps.LatLngBounds();
         const origin = new window.google.maps.LatLng(
           orderHubsPathApiRes.data.items[0].location.latitude,
-          orderHubsPathApiRes.data.items[0].location.longitude
+          orderHubsPathApiRes.data.items[0].location.longitude,
         );
         const destination = new window.google.maps.LatLng(
           orderHubsPathApiRes.data.items[1].location.latitude,
-          orderHubsPathApiRes.data.items[1].location.longitude
+          orderHubsPathApiRes.data.items[1].location.longitude,
         );
 
         bounds.extend(origin);
@@ -112,7 +112,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
     connection.on('SendLocation', (message: VehicleLocation) => {
       console.log(message);
       setCurrentLocation(
-        new window.google.maps.LatLng(message.latitude, message.longitude)
+        new window.google.maps.LatLng(message.latitude, message.longitude),
       );
     });
   }, []);
@@ -155,11 +155,11 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
                   options={{
                     origin: new window.google.maps.LatLng(
                       orderHubsPathApiRes.data.items[0].location.latitude,
-                      orderHubsPathApiRes.data.items[0].location.longitude
+                      orderHubsPathApiRes.data.items[0].location.longitude,
                     ),
                     destination: new window.google.maps.LatLng(
                       orderHubsPathApiRes.data.items[1].location.latitude,
-                      orderHubsPathApiRes.data.items[1].location.longitude
+                      orderHubsPathApiRes.data.items[1].location.longitude,
                     ),
                     travelMode: google.maps.TravelMode.DRIVING,
                     waypoints: currentLocation
@@ -176,8 +176,8 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
               <Marker
                 position={currentLocation}
                 icon={'https://img.icons8.com/color/48/truck--v1.png'}
-                label={"Your Order"}
-                title={"Your Order Current Location"}
+                label={'Your Order'}
+                title={'Your Order Current Location'}
               />
             )}
             {orderHubsPathApiRes.data.items.map((hub, i) => {
