@@ -73,14 +73,7 @@ public static class ConfigureServices
     services.AddCors(options => options
       .AddDefaultPolicy(policy => policy
         .AllowAnyOrigin()
-        .WithMethods(
-          HttpMethods.Get,
-          HttpMethods.Post,
-          HttpMethods.Put,
-          HttpMethods.Patch,
-          HttpMethods.Delete,
-          HttpMethods.Options
-        )
+        .AllowAnyMethod()
         .AllowAnyHeader()));
 
     builder.AddApiVersioning();
