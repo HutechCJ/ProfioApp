@@ -22,8 +22,8 @@ class CustomerApiService extends HttpService {
     return this.post<Customer>(`/customers`, data);
   }
 
-  updateCustomer(id: string, data: UpdateCustomerData) {
-    return this.put(`/customers/${id}`, data);
+  updateCustomer(data: UpdateCustomerData) {
+    return this.put(`/customers/${data.id}`, data);
   }
 
   deleteCustomer(id: string) {
