@@ -5,6 +5,7 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import ErrorIcon from '@mui/icons-material/Error';
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import SettingsIcon from '@mui/icons-material/Settings';
 
 // Hard navigation routes
 const categories = [
@@ -35,6 +36,16 @@ const categories = [
       { id: 'Hubs', icon: <HubIcon />, href: 'hubs' },
       { id: 'Orders', icon: <InventoryIcon />, href: 'orders' },
       { id: 'Incidents', icon: <ErrorIcon />, href: 'incidents' },
+    ],
+  },
+  {
+    id: 'Account',
+    children: [
+      {
+        id: 'Settings',
+        icon: <SettingsIcon />,
+        href: 'settings',
+      },
     ],
   },
 ];

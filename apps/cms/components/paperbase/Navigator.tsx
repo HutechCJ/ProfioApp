@@ -127,14 +127,27 @@ export default function Navigator(props: DrawerProps) {
         </Box>
 
         <Box>
-          <ListItem sx={{ ...item, ...itemCategory }}>
-            <ListItemButton LinkComponent={Link} href={'/'}>
+          <ListItem
+            sx={{
+              color: 'rgba(255, 255, 255, 0.7)',
+              '&:hover, &:focus': {
+                bgcolor: 'rgba(255, 255, 255, 0.08)',
+              },
+            }}
+            disablePadding
+          >
+            <ListItemButton
+              LinkComponent={Link}
+              href={'/'}
+              sx={{ py: 2, px: 3 }}
+            >
               <ListItemIcon>
                 <HomeIcon />
               </ListItemIcon>
               <ListItemText>Overview</ListItemText>
             </ListItemButton>
           </ListItem>
+          <Divider />
         </Box>
 
         {categories.map(({ id, children }) => (
@@ -159,23 +172,30 @@ export default function Navigator(props: DrawerProps) {
           </Box>
         ))}
 
-        <ListItem
-          sx={{
-            ...item,
-            ...itemCategory,
-          }}
-        >
-          <ListItemButton
-            LinkComponent={Link}
-            href={'https://profio-document.onrender.com/'}
-            target="_blank"
+        <Box>
+          <ListItem
+            sx={{
+              color: 'rgba(255, 255, 255, 0.7)',
+              '&:hover, &:focus': {
+                bgcolor: 'rgba(255, 255, 255, 0.08)',
+              },
+            }}
+            disablePadding
           >
-            <ListItemIcon>
-              <AutoStoriesIcon />
-            </ListItemIcon>
-            <ListItemText>View Documentation</ListItemText>
-          </ListItemButton>
-        </ListItem>
+            <ListItemButton
+              LinkComponent={Link}
+              href={'https://profio-document.onrender.com/'}
+              target="_blank"
+              sx={{ py: 2, px: 3 }}
+            >
+              <ListItemIcon>
+                <AutoStoriesIcon />
+              </ListItemIcon>
+              <ListItemText>View Documentation</ListItemText>
+            </ListItemButton>
+          </ListItem>
+          <Divider />
+        </Box>
       </List>
     </Drawer>
   );
