@@ -111,6 +111,9 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
     });
   }, []);
 
+  if (!orderHubsPathApiRes || orderHubsPathApiRes.data.items.length <= 0)
+    return null;
+
   return (
     <Box>
       <Stack sx={{ mb: 2 }} spacing={1}>
@@ -140,8 +143,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
         >
           {/* Child components, such as markers, info windows, etc. */}
           <>
-            {orderHubsPathApiRes &&
-              orderHubsPathApiRes.data.items[0].location !== null &&
+            {orderHubsPathApiRes.data.items[0].location !== null &&
               orderHubsPathApiRes.data.items[1].location !== null && (
                 <DirectionsService
                   options={{
@@ -161,21 +163,20 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
             {directionsResult.directions && (
               <DirectionsRenderer directions={directionsResult.directions} />
             )}
-            {orderHubsPathApiRes &&
-              orderHubsPathApiRes.data.items.map((hub, i) => {
-                return (
-                  <Marker
-                    key={hub.id}
-                    position={{
-                      lat: hub.location?.latitude || 0,
-                      lng: hub.location?.longitude || 0,
-                    }}
-                    // icon={`https://img.icons8.com/emoji/48/round-pushpin-emoji.png`}
-                    title={`${hub.id}`}
-                    label={`${i > 0 ? 'Next' : 'Previous'} Hub`}
-                  />
-                );
-              })}
+            {orderHubsPathApiRes.data.items.map((hub, i) => {
+              return (
+                <Marker
+                  key={hub.id}
+                  position={{
+                    lat: hub.location?.latitude || 0,
+                    lng: hub.location?.longitude || 0,
+                  }}
+                  // icon={`https://img.icons8.com/emoji/48/round-pushpin-emoji.png`}
+                  title={`${hub.id}`}
+                  label={`${i > 0 ? 'Next' : 'Previous'} Hub`}
+                />
+              );
+            })}
           </>
         </GoogleMap>
       )}

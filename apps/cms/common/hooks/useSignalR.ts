@@ -8,12 +8,13 @@ function useSignalR(webSocketURI: string) {
         skipNegotiation: true,
         transport: HttpTransportType.WebSockets,
       })
+      .withAutomaticReconnect()
       .build()
   );
 
   React.useEffect(() => {
     connection.start().then(() => {
-      console.log(`INITIALIZED WEBSOCKET CONNECTION TO ${webSocketURI}`);
+      console.log(`INITIALIZED WEBSOCKET CONNECTION TO "${webSocketURI}"`);
     });
 
     return () => {
