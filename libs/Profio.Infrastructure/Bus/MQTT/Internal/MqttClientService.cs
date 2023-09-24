@@ -2,7 +2,9 @@ using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 using MQTTnet;
 using MQTTnet.Client;
+using Profio.Domain.Contracts;
 using Profio.Infrastructure.Hub;
+using System.Text.Json;
 
 namespace Profio.Infrastructure.Bus.MQTT.Internal;
 
@@ -10,8 +12,8 @@ public sealed class MqttClientService : IMqttClientService
 {
   private readonly IMqttClient _mqttClient;
   private readonly MqttClientOptions _options;
-  private readonly IHubContext<LocationHub, ILocationClient> _context;
   private readonly ILogger<MqttClientService> _logger;
+  private readonly IHubContext<LocationHub, ILocationClient> _context;
 
   public MqttClientService(
     MqttClientOptions options,
@@ -35,7 +37,18 @@ public sealed class MqttClientService : IMqttClientService
   private async Task HandleApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
   {
     _logger.LogInformation("The MQTT client received a message: {Message}", arg.ApplicationMessage.ConvertPayloadToString());
-    await _context.Clients.All.SendLocation(arg.ApplicationMessage.ConvertPayloadToString());
+    var payload = arg.ApplicationMessage.ConvertPayloadToString();
+    var jsonSerializeOptions = new JsonSerializerOptions
+    {
+      PropertyNamingPolicy = JsonNamingPolicy.CamelCase
+    };
+    var location = JsonSerializer.Deserialize<VehicleLocation>(payload, jsonSerializeOptions);
+    if (location is null)
+      return;
+    foreach (var orderId in location.OrderIds)
+    {
+      await _context.Clients.Group(orderId).SendLocation(location);
+    }
   }
 
   private async Task HandleDisconnectedAsync(MqttClientDisconnectedEventArgs arg)

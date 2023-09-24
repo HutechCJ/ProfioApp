@@ -4,8 +4,11 @@ using FluentValidation.Results;
 using LinqKit;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Profio.Application.Vehicles.Validators;
 using Profio.Domain.Identity;
 using Profio.Infrastructure.Auth;
+using Profio.Infrastructure.Exceptions;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Users.Commands.Register;
@@ -14,7 +17,7 @@ namespace Profio.Application.Users.Commands.Register;
   Title = "Register Request",
   Description = "A Representation of Register Account")]
 public sealed record RegisterCommand
-  (string Email, string FullName, string Password, string ConfirmPassword) : IRequest<AccountDto>;
+  (string Email, string FullName, string Password, string ConfirmPassword, string? StaffId) : IRequest<AccountDto>;
 
 public sealed class RegisterCommandHandler : IRequestHandler<RegisterCommand, AccountDto>
 {
@@ -44,7 +47,8 @@ public sealed class RegisterCommandHandler : IRequestHandler<RegisterCommand, Ac
     {
       UserName = request.Email,
       Email = request.Email,
-      FullName = request.FullName
+      FullName = request.FullName,
+      StaffId = request.StaffId,
     };
 
     var result = await _userManager.CreateAsync(user, request.Password);
@@ -54,7 +58,12 @@ public sealed class RegisterCommandHandler : IRequestHandler<RegisterCommand, Ac
       throw new ValidationException(failures);
     }
 
-    var dto = _mapper.Map<AccountDto>(user);
+    var newUser = await _userManager.Users
+      .AsNoTracking()
+      .Include(x => x.Staff)
+      .SingleOrDefaultAsync(x => x.Id == user.Id, cancellationToken) ?? throw new NotFoundException(typeof(ApplicationUser).Name, user.Id);
+
+    var dto = _mapper.Map<AccountDto>(newUser);
     dto.Token = _tokenService.CreateToken(user);
     return dto;
   }
@@ -62,8 +71,11 @@ public sealed class RegisterCommandHandler : IRequestHandler<RegisterCommand, Ac
 
 public sealed class RegisterCommandValidator : AbstractValidator<RegisterCommand>
 {
-  public RegisterCommandValidator()
+  public RegisterCommandValidator(StaffExistenceByIdValidator staffValidator)
   {
+    RuleFor(x => x.StaffId)
+      .SetValidator(staffValidator!);
+
     RuleFor(r => r.Email)
       .EmailAddress();
   }

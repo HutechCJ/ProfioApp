@@ -1,6 +1,8 @@
+using Profio.Domain.Contracts;
+
 namespace Profio.Infrastructure.Hub;
 
 public interface ILocationClient
 {
-  Task SendLocation(string message);
+  Task SendLocation(VehicleLocation location);
 }

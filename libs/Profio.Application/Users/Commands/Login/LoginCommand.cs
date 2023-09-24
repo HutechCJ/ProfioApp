@@ -1,6 +1,7 @@
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Profio.Domain.Identity;
 using Profio.Infrastructure.Auth;
 using Swashbuckle.AspNetCore.Annotations;
@@ -23,7 +24,9 @@ public sealed record LoginCommandHandler : IRequestHandler<LoginCommand, Account
 
   public async Task<AccountDto> Handle(LoginCommand request, CancellationToken cancellationToken)
   {
-    var user = await _userManager.FindByNameAsync(request.UserName)
+    var user = await _userManager.Users
+      .Include(x => x.Staff)
+      .SingleOrDefaultAsync(x => x.UserName != null && x.UserName.Equals(request.UserName), cancellationToken)
                ?? throw new UnauthorizedAccessException("User not found!");
     var isPasswordCorrect = await _userManager.CheckPasswordAsync(user, request.Password);
 
