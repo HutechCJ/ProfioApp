@@ -4,15 +4,16 @@ using Profio.Website.Repositories;
 
 namespace Profio.Website.Services;
 
-public sealed class CustomerService : Repository, ICustomerService
+public sealed class CustomerService : ICustomerService
 {
-  public CustomerService(IHttpClientFactory httpClientFactory) : base(httpClientFactory)
-  {
-  }
+  private readonly IRepository _repository;
+
+  public CustomerService(IRepository repository)
+    => _repository = repository;
 
   public Task<ResultModel<PagedListDto<OrderDto>>?> GetCurrentOrdersByPhoneAsync(string phone)
-    => GetAsync<ResultModel<PagedListDto<OrderDto>>?>($"customers/{phone}/orders/current");
+    => _repository.GetAsync<ResultModel<PagedListDto<OrderDto>>?>($"orders/lookup?phone={phone}&current=true");
 
   public Task<ResultModel<PagedListDto<OrderDto>>?> GetOrdersByPhoneAsync(string phone)
-    => GetAsync<ResultModel<PagedListDto<OrderDto>>?>($"customers/{phone}/orders");
+    => _repository.GetAsync<ResultModel<PagedListDto<OrderDto>>?>($"orders/lookup?phone={phone}");
 }
