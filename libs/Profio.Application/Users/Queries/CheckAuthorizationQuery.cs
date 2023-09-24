@@ -2,6 +2,7 @@ using AutoMapper;
 using FluentValidation.Results;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Profio.Domain.Identity;
 using Profio.Infrastructure.Auth;
 
@@ -21,7 +22,10 @@ public sealed class CheckAuthorizationQueryHandler : IRequestHandler<CheckAuthor
   {
     var failures = new List<ValidationFailure>();
 
-    var user = await _userManager.FindByNameAsync(_userAccessor.UserName)
+    var user = await _userManager.Users
+      .Include(x => x.Staff)
+      .SingleOrDefaultAsync(x => x.UserName != null && x.UserName.Equals(_userAccessor.UserName), cancellationToken)
+
       ?? throw new UnauthorizedAccessException(nameof(ApplicationUser));
 
     var dto = _mapper.Map<AccountDto>(user);

@@ -22,6 +22,7 @@ public static class HostingExtensions
     builder.Services.AddInfrastructureServices(builder);
     builder.Services.AddRateLimiting();
 
+
     builder.WebHost.ConfigureKestrel(options =>
     {
       options.AddServerHeader = false;

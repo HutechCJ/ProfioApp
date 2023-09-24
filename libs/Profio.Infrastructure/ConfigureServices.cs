@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -15,6 +16,7 @@ using Profio.Infrastructure.Hub;
 using Profio.Infrastructure.Jobs;
 using Profio.Infrastructure.Key;
 using Profio.Infrastructure.Logging;
+using Profio.Infrastructure.Message;
 using Profio.Infrastructure.Middleware;
 using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Persistence;
@@ -26,7 +28,6 @@ using Profio.Infrastructure.Versioning;
 using System.IO.Compression;
 using System.Net.Mime;
 using System.Text.Json.Serialization;
-using Profio.Infrastructure.Message;
 using Twilio.Clients;
 
 namespace Profio.Infrastructure;
@@ -69,6 +70,11 @@ public static class ConfigureServices
       .Configure<GzipCompressionProviderOptions>(options => options.Level = CompressionLevel.Optimal)
       .AddResponseCaching(options => options.MaximumBodySize = 1024)
       .AddRouting(options => options.LowercaseUrls = true);
+
+    services.Configure<FormOptions>(options =>
+    {
+      options.MultipartBodyLengthLimit = 60000000; // 60 MB
+    });
 
     services.AddCors(options => options
       .AddDefaultPolicy(policy => policy

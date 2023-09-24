@@ -51,7 +51,7 @@ public sealed class UsersController : BaseEntityController<ApplicationUser, User
 
   [HttpGet("{id:guid}")]
   [SwaggerOperation(summary: "Get User by Id")]
-  public Task<ActionResult<ResultModel<UserDto>>> GetUserById(Guid id)
+  public Task<ActionResult<ResultModel<UserDto>>> GetUserById(string id)
     => HandleGetByIdQuery(new(id));
 
   [HttpGet("check-authorization")]
@@ -67,7 +67,7 @@ public sealed class UsersController : BaseEntityController<ApplicationUser, User
 
   [HttpPut("upload-image")]
   [SwaggerOperation(summary: "Upload Image")]
-  [AllowAnonymous]
-  public async Task<ActionResult<ResultModel<AccountDto>>> UploadImage([FromForm] UploadImageCommand uploadImageCommand)
-    => Ok(ResultModel<AccountDto>.Create(await Mediator.Send(uploadImageCommand)));
+  [Obsolete("Deprecated")]
+  public async Task<ActionResult<ResultModel<AccountDto>>> UploadImage([FromQuery] Guid userId, IFormFile file)
+    => Ok(ResultModel<AccountDto>.Create(await Mediator.Send(new UploadImageCommand(userId, file))));
 }

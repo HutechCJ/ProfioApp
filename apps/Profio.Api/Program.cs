@@ -22,6 +22,10 @@ catch (Exception ex)
 {
   Log.Fatal(ex, "Unhandled exception");
 }
+catch (AggregateException ex)
+{
+  throw ex.Flatten();
+}
 finally
 {
   Log.Information("Shut down complete");
