@@ -58,7 +58,7 @@ export default function Header(props: HeaderProps) {
 }
 
 export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
-  const user = useUser();
+  const { data: user } = useUser();
   const localStorage = useLocalStorage();
   const MySwal = withReactContent(Swal);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -276,7 +276,8 @@ export function HeaderTitle({
 
                   {title ? (
                     <Typography color="gray" variant="h6">
-                      {title}{id && <CopyTextButton text={id} />}
+                      {title}
+                      {id && <CopyTextButton text={id} />}
                     </Typography>
                   ) : (
                     <Typography color="black" variant="h5">

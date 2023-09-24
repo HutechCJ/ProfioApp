@@ -3,11 +3,11 @@ import { useQuery } from '@tanstack/react-query';
 import userApi from './user.service';
 
 const useUser = () => {
-  const { data } = useQuery([`checkAuthorization`], {
+  const { data, isLoading } = useQuery([`checkAuthorization`], {
     queryFn: () => userApi.checkAuthorization(),
     keepPreviousData: true,
   });
 
-  return data?.data ?? null;
+  return { data: data?.data ?? null, isLoading };
 };
 export default useUser;
