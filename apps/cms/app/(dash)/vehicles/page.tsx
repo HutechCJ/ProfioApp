@@ -12,6 +12,11 @@ const Vehicles = () => {
   const tabs = [
     { label: 'LIST', content: <VehicleList /> },
     { label: 'STATISTICS', content: <VehicleStatisticsCard /> },
+    {
+      label: 'LOGS',
+      content:
+        'The service to view logs is currently unavailable. Coming soon!',
+    },
   ];
 
   return (

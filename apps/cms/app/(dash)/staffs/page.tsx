@@ -12,6 +12,11 @@ const Staffs = () => {
   const tabs = [
     { label: 'LIST', content: <StaffList /> },
     { label: 'STATISTICS', content: <StaffStatisticsCard /> },
+    {
+      label: 'LOGS',
+      content:
+        'The service to view logs is currently unavailable. Coming soon!',
+    },
   ];
 
   return (

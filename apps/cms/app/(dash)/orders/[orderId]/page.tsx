@@ -17,7 +17,6 @@ import {
   Grid,
 } from '@mui/material';
 
-import _ from 'lodash';
 import GoogleMapComponent from './GoogleMap';
 import OrderStepper from './OrderStepper';
 import Link from 'next/link';
