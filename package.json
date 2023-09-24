@@ -54,7 +54,7 @@
     "@nx/linter": "16.7.4",
     "@nx/react": "^16.7.4",
     "@nx/webpack": "^16.7.4",
-    "@nx/workspace": "16.7.4",
+    "@nx/workspace": "16.9.0",
     "@tanstack/react-query-devtools": "^4.32.6",
     "@testing-library/react": "14.0.0",
     "@types/google.maps": "^3.54.1",
