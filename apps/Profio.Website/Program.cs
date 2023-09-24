@@ -13,6 +13,7 @@ try
   builder.Services.AddRazorPages();
   builder.Services.AddServerSideBlazor();
   builder.Services.AddSweetAlert2();
+  builder.Services.AddHttpClient();
   builder.AddOpenTelemetry();
 
   var app = builder.Build();
