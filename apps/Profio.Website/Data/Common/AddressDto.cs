@@ -1,4 +1,4 @@
-namespace Profio.Website.Data.Common.Dtos;
+namespace Profio.Website.Data.Common;
 
 public sealed record AddressDto
 {

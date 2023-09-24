@@ -1,3 +1,3 @@
-namespace Profio.Website.Data.Common.Dtos;
+namespace Profio.Website.Data.Common;
 
 public record PagedListDto<TItem>(IList<TItem> Items);

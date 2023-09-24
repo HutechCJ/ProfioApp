@@ -1,5 +1,5 @@
 using Profio.Domain.Constants;
-using Profio.Website.Data.Common.Dtos;
+using Profio.Website.Data.Common;
 
 namespace Profio.Website.Data.Orders;
 

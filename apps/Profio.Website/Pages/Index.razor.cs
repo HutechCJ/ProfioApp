@@ -1,7 +1,7 @@
 using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Components;
-using Profio.Website.Data.Customers;
 using System.Text.RegularExpressions;
+using Profio.Website.Services;
 
 namespace Profio.Website.Pages;
 

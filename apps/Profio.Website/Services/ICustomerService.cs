@@ -1,7 +1,7 @@
-using Profio.Website.Data.Common.Dtos;
+using Profio.Website.Data.Common;
 using Profio.Website.Data.Orders;
 
-namespace Profio.Website.Data.Customers;
+namespace Profio.Website.Services;
 
 public interface ICustomerService
 {

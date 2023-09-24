@@ -1,4 +1,4 @@
-namespace Profio.Website.Data.Common.Dtos;
+namespace Profio.Website.Data.Common;
 
 public record ResultModel<T>(
   T? Data,
