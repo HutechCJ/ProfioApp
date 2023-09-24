@@ -14,8 +14,15 @@ import {
 
 import { useSnackbar } from 'notistack';
 import useChangePassword from '@/features/user/useChangePassword';
+import Swal from 'sweetalert2';
+import withReactContent from 'sweetalert2-react-content';
+import useLocalStorage from '@/common/hooks/useLocalStorage';
+import StoreKeys from '@/common/constants/storekeys';
 
 export default function ChangePasswordCard() {
+  const localStorage = useLocalStorage();
+  const MySwal = withReactContent(Swal);
+
   const [formData, setFormData] = useState({
     oldPassword: '',
     newPassword: '',
@@ -41,6 +48,28 @@ export default function ChangePasswordCard() {
     try {
       await changePasswordMutation(formData);
       enqueueSnackbar('Password changed successfully!', { variant: 'success' });
+
+      MySwal.fire({
+        title: 'Password Changed Successfully',
+        text: 'You must log in again after changing your password!',
+        icon: 'success',
+        confirmButtonColor: '#d33',
+        confirmButtonText: 'OK, I understand!',
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+      }).then((result) => {
+        if (result.isConfirmed) {
+          fetch('/api/auth/logout', {
+            method: 'POST',
+          })
+            .then(() => {
+              localStorage.remove(StoreKeys.ACCESS_TOKEN);
+              window.location.reload();
+            })
+            .catch(console.error);
+        }
+      });
+
       clearForm();
     } catch (error) {
       enqueueSnackbar('Password change failed. Please try again.', {
@@ -113,6 +142,11 @@ export default function ChangePasswordCard() {
                 color="primary"
                 size="large"
                 fullWidth
+                disabled={
+                  !formData.oldPassword ||
+                  !formData.newPassword ||
+                  !formData.confirmPassword
+                }
               >
                 SUBMIT
               </Button>

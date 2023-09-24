@@ -6,22 +6,13 @@ import {
   CardHeader,
   CircularProgress,
   Divider,
-  LinearProgress,
   TextField,
 } from '@mui/material';
 import React from 'react';
 
 function UserDetailsCard() {
   const { data: user, isLoading } = useUser();
-
-  //   if (isLoading) {
-  //     return (
-  //       <Box sx={{ width: '100%' }}>
-  //         <LinearProgress />
-  //       </Box>
-  //     );
-  //   }
-
+  
   return (
     <Card sx={{ height: 400 }}>
       <CardHeader title="Your Profile" subheader={`ID: ${user?.id}`} />
