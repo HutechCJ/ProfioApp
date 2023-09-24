@@ -3,14 +3,18 @@
 import React from 'react';
 
 import { Container } from '@mui/material';
-import OrderList from './OrderList';
-import OrderStatisticsCard from './OrderStatisticsCard';
+
+import CustomerList from '@/app/(dash)/customers/CustomerList';
 import MainTabs from '@/components/MainTabs';
 
-const Orders = () => {
+const Customers = () => {
   const tabs = [
-    { label: 'LIST', content: <OrderList /> },
-    { label: 'STATISTICS', content: <OrderStatisticsCard /> },
+    { label: 'LIST', content: <CustomerList /> },
+    // {
+    //   label: 'STATISTICS',
+    //   content:
+    //     'The service to view statistics is currently unavailable. Coming soon!',
+    // },
     // {
     //   label: 'LOGS',
     //   content:
@@ -25,4 +29,4 @@ const Orders = () => {
   );
 };
 
-export default Orders;
+export default Customers;

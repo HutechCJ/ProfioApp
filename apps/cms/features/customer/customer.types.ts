@@ -13,6 +13,10 @@ export enum Gender {
   Other,
 }
 
-export type CreateCustomerData = Omit<Customer, 'id'>;
+export type CreateCustomerData = Omit<Customer, 'id' | 'gender'> & {
+  gender: string;
+};
 
-export type UpdateCustomerData = Customer;
+export type UpdateCustomerData = Omit<Customer, 'gender'> & {
+  gender: string;
+};

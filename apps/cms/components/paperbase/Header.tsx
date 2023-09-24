@@ -3,7 +3,7 @@
 import useUser from '@/features/user/useUser';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
-import { Divider, ListItemIcon, Menu, MenuItem } from '@mui/material';
+import { Divider, ListItemIcon, Menu, MenuItem, Skeleton } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
 import Grid from '@mui/material/Grid';
@@ -18,37 +18,47 @@ import Logout from '@mui/icons-material/Logout';
 import * as React from 'react';
 import useLocalStorage from '@/common/hooks/useLocalStorage';
 import StoreKeys from '@/common/constants/storekeys';
-import BedtimeIcon from '@mui/icons-material/Bedtime';
-import SearchIcon from '@mui/icons-material/Search';
+// import BedtimeIcon from '@mui/icons-material/Bedtime';
+// import SearchIcon from '@mui/icons-material/Search';
 import { Box } from '@mui/material';
-import InputBase from '@mui/material/InputBase';
+// import InputBase from '@mui/material/InputBase';
 import { Stack } from '@mui/system';
 import Image from 'next/image';
 import Logo from '../../public/images/CJ_logo.png';
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
+import HomeIcon from '@mui/icons-material/Home';
+import Link from 'next/link';
+import CopyTextButton from '../CopyTextButton';
 
 export const lightColor = 'rgba(255, 255, 255, 0.7)';
 
 export interface HeaderProps {
   onDrawerToggle: () => void;
+  mainTitle?: string;
   title?: string;
+  id?: string;
   subtitle?: string;
 }
 
 export default function Header(props: HeaderProps) {
-  const { onDrawerToggle, title, subtitle } = props;
+  const { onDrawerToggle, mainTitle, title, id, subtitle } = props;
 
   return (
     <React.Fragment>
       <HeaderDefault onDrawerToggle={onDrawerToggle} />
-      <HeaderTitle title={title || 'Overview'} subtitle={subtitle || ''} />
+      <HeaderTitle
+        mainTitle={mainTitle || ''}
+        title={title || ''}
+        id={id}
+        subtitle={subtitle || ''}
+      />
     </React.Fragment>
   );
 }
 
 export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
-  const user = useUser();
+  const { data: user, isLoading } = useUser();
   const localStorage = useLocalStorage();
   const MySwal = withReactContent(Swal);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -99,7 +109,7 @@ export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
                 <MenuIcon />
               </IconButton>
             </Grid>
-            <Grid item>
+            {/* <Grid item>
               <Box
                 sx={{
                   display: 'flex',
@@ -112,7 +122,7 @@ export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
                   <SearchIcon />
                 </IconButton>
               </Box>
-            </Grid>
+            </Grid> */}
             <Grid item xs />
             {/* <Grid item>
                         <Link
@@ -197,15 +207,25 @@ export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClose}>
-          <Avatar /> {user?.fullName}
+          <Avatar />
+          {isLoading ? (
+            <Skeleton sx={{ bgcolor: 'grey.400' }} width={150} height={40} />
+          ) : (
+            user?.fullName
+          )}
         </MenuItem>
         <Divider />
-        {/* <MenuItem onClick={handleClose}>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem> */}
+        <Link
+          href={'/settings'}
+          style={{ textDecoration: 'none', color: '#202020' }}
+        >
+          <MenuItem onClick={handleClose}>
+            <ListItemIcon>
+              <Settings fontSize="small" />
+            </ListItemIcon>
+            Settings
+          </MenuItem>
+        </Link>
         <MenuItem onClick={logout}>
           <ListItemIcon>
             <Logout fontSize="small" />
@@ -218,11 +238,15 @@ export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
 }
 
 export function HeaderTitle({
+  mainTitle,
   title,
+  id,
   subtitle,
   items,
 }: {
+  mainTitle: string;
   title: string;
+  id?: string;
   subtitle?: string;
   items?: React.ReactNode[];
 }) {
@@ -231,7 +255,7 @@ export function HeaderTitle({
       component="div"
       position="static"
       elevation={0}
-      sx={{ zIndex: 0, pl: 3.5, py: 2, bgcolor: '#fafafa' }}
+      sx={{ zIndex: 0, pl: 3.5, py: 1.5, bgcolor: '#fafafa' }}
     >
       <Toolbar>
         <Grid container alignItems="center" spacing={1}>
@@ -241,9 +265,36 @@ export function HeaderTitle({
                 <Image src={Logo} alt="CJ Logo" width={48} />
               </Box>
               <Stack>
-                <Typography color="black" variant="h5" component="h1">
-                  {title}
-                </Typography>
+                <Stack
+                  direction={{ md: 'column', lg: 'row' }}
+                  alignContent="center"
+                  alignItems={{ md: 'flex-start', lg: 'center' }}
+                  justifyContent="center"
+                >
+                  {mainTitle && (
+                    <Stack direction="row">
+                      <Typography color="black" variant="h5" mt="3px">
+                        {mainTitle} |
+                      </Typography>
+                      <Link href={'/'}>
+                        <IconButton sx={{ '&:hover': { color: '#007dc3' } }}>
+                          <HomeIcon />
+                        </IconButton>
+                      </Link>
+                    </Stack>
+                  )}
+
+                  {title ? (
+                    <Typography color="gray" variant="h6">
+                      {title}
+                      {id && <CopyTextButton text={id} />}
+                    </Typography>
+                  ) : (
+                    <Typography color="black" variant="h5">
+                      Overview
+                    </Typography>
+                  )}
+                </Stack>
                 <Typography color="gray" variant="body1" gutterBottom>
                   {subtitle}
                 </Typography>

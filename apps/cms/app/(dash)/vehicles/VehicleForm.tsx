@@ -227,7 +227,7 @@ const VehicleForm: React.FC<VehicleFormProps> = ({
       <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
         {labelButton}
       </Button>
-      <Divider />
+      <Divider sx={{ mb: 2 }} />
       <StaffList />
     </Box>
   );

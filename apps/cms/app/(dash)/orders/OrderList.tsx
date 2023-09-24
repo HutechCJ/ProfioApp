@@ -4,8 +4,15 @@ import React from 'react';
 
 import Link from '@/components/Link';
 import LoadingButton from '@/components/LoadingButton';
-import { Box, Typography, Stack, ButtonGroup, Chip } from '@mui/material';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import {
+  Box,
+  Typography,
+  Stack,
+  ButtonGroup,
+  Chip,
+  Divider,
+} from '@mui/material';
+import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 
 import ReplayIcon from '@mui/icons-material/Replay';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
@@ -18,6 +25,7 @@ import EditOrder from './EditOrder';
 import ActionForList from '@/components/ActionForList';
 import useDeleteOrder from '@/features/order/useDeleteOrder';
 import useCountByOrderStatus from '@/features/order/useCountByOrderStatus';
+import CopyTextButton from '@/components/CopyTextButton';
 
 function OrderList() {
   const [paginationModel, setPaginationModel] = React.useState({
@@ -60,18 +68,31 @@ function OrderList() {
     {
       field: 'id',
       headerName: 'ID',
-      width: 240,
+      headerAlign: 'center',
+      align: 'center',
+      width: 100,
       renderCell(params) {
+        const maxLength = 6;
+        const truncatedValue =
+          params.value.length > maxLength
+            ? params.value.slice(0, 5) + '...'
+            : params.value;
+
         return (
-          <Link href={`/orders/${params.value}`}>
-            <Typography variant="button">{params.value}</Typography>
-          </Link>
+          <>
+            <CopyTextButton text={params.value} />
+            <Link href={`/orders/${params.value}`}>
+              <Typography variant="button">{truncatedValue}</Typography>
+            </Link>
+          </>
         );
       },
     },
     {
       field: 'status',
       headerName: 'STATUS',
+      headerAlign: 'center',
+      align: 'center',
       width: 110,
       renderCell(params) {
         const getColor = () => {
@@ -83,14 +104,20 @@ function OrderList() {
           return 'default';
         };
         return (
-          <Chip color={getColor()} label={`${OrderStatus[params.value]}`} />
+          <Chip
+            color={getColor()}
+            label={`${OrderStatus[params.value]}`}
+            sx={{ width: 90 }}
+          />
         );
       },
     },
     {
       field: 'startedDate',
-      width: 170,
+      width: 175,
       headerName: 'STARTED DATE',
+      headerAlign: 'center',
+      align: 'center',
       valueGetter: (params) => {
         const { startedDate } = params.row;
         return `${new Date(startedDate).toLocaleString()}`;
@@ -98,8 +125,10 @@ function OrderList() {
     },
     {
       field: 'expectedDeliveryTime',
-      width: 180,
+      width: 200,
       headerName: 'EXPECTED DELIVERY TIME',
+      headerAlign: 'center',
+      align: 'center',
       valueGetter: (params) => {
         const { expectedDeliveryTime } = params.row;
         return `${new Date(expectedDeliveryTime).toLocaleString()}`;
@@ -107,8 +136,10 @@ function OrderList() {
     },
     {
       field: 'destinationAddress',
-      width: 80,
+      width: 100,
       headerName: 'ADDRESS',
+      headerAlign: 'center',
+      align: 'center',
       valueGetter: (params) => {
         const { destinationAddress } = params.row;
         if (destinationAddress) {
@@ -127,23 +158,31 @@ function OrderList() {
     },
     {
       field: 'destinationZipCode',
-      width: 80,
+      width: 100,
       headerName: 'ZIP CODE',
+      headerAlign: 'center',
+      align: 'center',
     },
     {
       field: 'note',
-      width: 80,
+      width: 100,
       headerName: 'NOTE',
+      headerAlign: 'center',
+      align: 'center',
     },
     {
       field: 'distance',
-      width: 80,
+      width: 100,
       headerName: 'DISTANCE',
+      headerAlign: 'center',
+      align: 'center',
     },
     {
       field: 'customer',
       width: 100,
       headerName: 'CUSTOMER',
+      headerAlign: 'center',
+      align: 'center',
       valueGetter: (params) => {
         const { customer } = params.row;
         return `${customer?.name || 'Empty'}`;
@@ -161,8 +200,12 @@ function OrderList() {
     },
     {
       field: 'actions',
-      width: 360,
+      width: 320,
       headerName: 'ACTIONS',
+      headerAlign: 'center',
+      align: 'center',
+      sortable: false,
+      filterable: false,
       renderCell: (params) => {
         const orderId = params.row.id;
         return (
@@ -187,11 +230,12 @@ function OrderList() {
   ];
 
   return (
-    <Box sx={{ paddingY: 4 }}>
+    <Box>
       <Stack
-        direction="row"
+        direction={{ sm: 'column', md: 'row' }}
         justifyContent="space-between"
-        alignItems="center"
+        alignItems={{ sm: 'flex-start', md: 'center' }}
+        spacing={{ sm: 1 }}
         marginBottom={2}
       >
         <Typography variant="h5" fontWeight="bold">
@@ -238,6 +282,15 @@ function OrderList() {
         sx={{
           backgroundColor: 'white',
           width: '100%',
+          height: 668,
+        }}
+        slots={{
+          toolbar: (props) => (
+            <>
+              <GridToolbar {...props} />
+              <Divider />
+            </>
+          ),
         }}
       />
     </Box>

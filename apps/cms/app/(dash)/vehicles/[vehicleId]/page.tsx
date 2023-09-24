@@ -15,6 +15,7 @@ import {
   Button,
   Divider,
   Grid,
+  LinearProgress,
 } from '@mui/material';
 import Link from '@/components/Link';
 
@@ -34,6 +35,7 @@ import useGetVehicles from '@/features/vehicle/useGetVehicles';
 import useDeleteVehicle from '@/features/vehicle/useDeleteVehicle';
 import useCountByVehicleType from '@/features/vehicle/useCountByVehicleType';
 import useCountByVehicleStatus from '@/features/vehicle/useCountByVehicleStatus';
+import { Box } from '@mui/system';
 
 function Vehicle({ params }: { params: { vehicleId: string } }) {
   const {
@@ -62,7 +64,11 @@ function Vehicle({ params }: { params: { vehicleId: string } }) {
   }, [isSuccess, refetchCountStatus, refetchCountType, refetchVehicles]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Box sx={{ width: '100%' }}>
+        <LinearProgress />
+      </Box>
+    );
   }
 
   if (isError || !vehicleApiRes) {
@@ -97,7 +103,13 @@ function Vehicle({ params }: { params: { vehicleId: string } }) {
 
   return (
     <Container maxWidth="xl">
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
+      <Stack
+        direction={{ sm: 'column', md: 'row' }}
+        justifyContent="space-between"
+        alignItems={{ sm: 'flex-start', md: 'center' }}
+        spacing={{ xs: 1 }}
+        mt={1}
+      >
         <Link href="/vehicles">
           <Button
             variant="contained"
@@ -107,7 +119,7 @@ function Vehicle({ params }: { params: { vehicleId: string } }) {
             BACK TO LIST
           </Button>
         </Link>
-        <ButtonGroup variant="contained">
+        <ButtonGroup variant="text">
           <FormDialog
             buttonText="Edit"
             buttonColor="secondary"

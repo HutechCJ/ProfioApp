@@ -10,6 +10,12 @@ export type Password = {
   confirmPassword: string;
 };
 
+export type ChangePassword = {
+  oldPassword: string;
+  newPassword: string;
+  confirmPassword: string;
+};
+
 export type RegisterRequest = Omit<User, 'id'> & Password;
 
 export type LoginRequest = Pick<User, 'userName'> & Pick<Password, 'password'>;

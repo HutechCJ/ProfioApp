@@ -4,8 +4,8 @@ import React from 'react';
 
 import Link from '@/components/Link';
 import LoadingButton from '@/components/LoadingButton';
-import { Box, Typography, Stack, ButtonGroup } from '@mui/material';
-import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { Box, Typography, Stack, ButtonGroup, Divider } from '@mui/material';
+import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 
 import ReplayIcon from '@mui/icons-material/Replay';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
@@ -18,11 +18,12 @@ import EditStaff from './EditStaff';
 import ActionForList from '@/components/ActionForList';
 import useCountByPosition from '@/features/staff/useCountByPosition';
 import useDeleteStaff from '@/features/staff/useDeleteStaff';
+import CopyTextButton from '@/components/CopyTextButton';
 
 function StaffList() {
   const [paginationModel, setPaginationModel] = React.useState({
     page: 0,
-    pageSize: 5,
+    pageSize: 10,
   });
 
   const {
@@ -60,12 +61,23 @@ function StaffList() {
     {
       field: 'id',
       headerName: 'ID',
-      width: 300,
+      headerAlign: 'center',
+      align: 'center',
+      width: 250,
       renderCell(params) {
+        const maxLength = 6;
+        const truncatedValue =
+          params.value.length > maxLength
+            ? params.value.slice(0, 8) + '...'
+            : params.value;
+
         return (
-          <Link href={`/staffs/${params.value}`}>
-            <Typography variant="button">{params.value}</Typography>
-          </Link>
+          <>
+            <CopyTextButton text={params.value} />
+            <Link href={`/staffs/${params.value}`}>
+              <Typography variant="button">{truncatedValue}</Typography>
+            </Link>
+          </>
         );
       },
     },
@@ -73,16 +85,22 @@ function StaffList() {
       field: 'name',
       width: 300,
       headerName: 'FULL NAME',
+      headerAlign: 'center',
+      align: 'center',
     },
     {
       field: 'phone',
       width: 250,
       headerName: 'PHONE',
+      headerAlign: 'center',
+      align: 'center',
     },
     {
       field: 'position',
-      width: 200,
+      width: 250,
       headerName: 'POSITION',
+      headerAlign: 'center',
+      align: 'center',
       valueGetter: (params) => {
         const { position } = params.row;
         return `${StaffPosition[position]}`;
@@ -90,8 +108,10 @@ function StaffList() {
     },
     {
       field: 'actions',
-      width: 400,
+      width: 320,
       headerName: 'ACTIONS',
+      headerAlign: 'center',
+      align: 'center',
       renderCell: (params) => {
         const staffId = params.row.id;
         return (
@@ -116,11 +136,12 @@ function StaffList() {
   ];
 
   return (
-    <Box sx={{ paddingY: 4 }}>
+    <Box>
       <Stack
-        direction="row"
+        direction={{ sm: 'column', md: 'row' }}
         justifyContent="space-between"
-        alignItems="center"
+        alignItems={{ sm: 'flex-start', md: 'center' }}
+        spacing={{ sm: 1 }}
         marginBottom={2}
       >
         <Typography variant="h5" fontWeight="bold">
@@ -167,6 +188,15 @@ function StaffList() {
         sx={{
           backgroundColor: 'white',
           width: '100%',
+          height: 668,
+        }}
+        slots={{
+          toolbar: (props) => (
+            <>
+              <GridToolbar {...props} />
+              <Divider />
+            </>
+          ),
         }}
       />
     </Box>

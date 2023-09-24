@@ -11,9 +11,12 @@ import {
   AlertTitle,
   Stack,
   Button,
+  Divider,
+  Typography,
 } from '@mui/material';
 import { useSnackbar } from 'notistack';
 import useCountByOrderStatus from '@/features/order/useCountByOrderStatus';
+import CustomerList from '../customers/CustomerList';
 
 const statuses = [
   {
@@ -309,6 +312,9 @@ const OrderForm: React.FC<OrderFormProps> = ({
         value={order.customerId}
         onChange={handleChangeInput}
       />
+      <Typography variant="body2" fontStyle="italic" color="primary">
+        More information about the customer is below
+      </Typography>
       {isError && (
         <Alert severity="error" sx={{ mt: 2 }}>
           <AlertTitle>Error</AlertTitle>
@@ -330,6 +336,8 @@ const OrderForm: React.FC<OrderFormProps> = ({
       <Button type="submit" fullWidth variant="contained" sx={{ my: 2 }}>
         {labelButton}
       </Button>
+      <Divider sx={{ mb: 2 }} />
+      <CustomerList />
     </Box>
   );
 };

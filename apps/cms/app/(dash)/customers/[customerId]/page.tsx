@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-import useGetStaff from '@/features/staff/useGetStaff';
+import useGetCustomer from '@/features/customer/useGetCustomer';
 import { redirect } from 'next/navigation';
 import {
   Container,
@@ -19,56 +19,51 @@ import {
 import Link from '@/components/Link';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import MopedIcon from '@mui/icons-material/Moped';
-import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
-import InventoryIcon from '@mui/icons-material/Inventory';
+import MaleIcon from '@mui/icons-material/Male';
+import FemaleIcon from '@mui/icons-material/Female';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
-import { StaffPosition } from '@/features/staff/staff.types';
+import { Gender } from '@/features/customer/customer.types';
 import FormDialog from '@/components/FormDialog';
-import EditStaff from '../EditStaff';
+import EditCustomer from '../EditCustomer';
 
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
-import useGetStaffs from '@/features/staff/useGetStaffs';
-import useDeleteStaff from '@/features/staff/useDeleteStaff';
-import useCountByPosition from '@/features/staff/useCountByPosition';
+import useGetCustomers from '@/features/customer/useGetCustomers';
+import useDeleteCustomer from '@/features/customer/useDeleteCustomer';
 
-function Staff({ params }: { params: { staffId: string } }) {
+function Customer({ params }: { params: { customerId: string } }) {
   const {
-    data: staffApiRes,
+    data: customerApiRes,
     isLoading,
     isError,
     refetch,
-  } = useGetStaff(params.staffId);
+  } = useGetCustomer(params.customerId);
 
-  const { refetch: refetchStaffs } = useGetStaffs();
+  const { refetch: refetchCustomers } = useGetCustomers();
 
-  const { mutate: deleteStaff, isSuccess } = useDeleteStaff();
-
-  const { refetch: refetchCountByPosition } = useCountByPosition();
+  const { mutate: deleteCustomer, isSuccess } = useDeleteCustomer();
 
   const MySwal = withReactContent(Swal);
 
   React.useEffect(() => {
     if (isSuccess) {
-      refetchCountByPosition();
-      refetchStaffs();
-      redirect('/staffs');
+      refetchCustomers();
+      redirect('/customers');
     }
-  }, [isSuccess, refetchCountByPosition, refetchStaffs]);
+  }, [isSuccess, refetchCustomers]);
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  if (isError || !staffApiRes) {
+  if (isError || !customerApiRes) {
     return <div>There was an error!</div>;
   }
 
-  const { id, name, phone, position } = staffApiRes.data;
+  const { id, name, phone, email, gender, address } = customerApiRes.data;
 
   const handleDelete = () => {
     MySwal.fire({
@@ -81,7 +76,7 @@ function Staff({ params }: { params: { staffId: string } }) {
       confirmButtonText: 'Yes, delete it!',
     }).then((result) => {
       if (result.isConfirmed) {
-        deleteStaff(id);
+        deleteCustomer(id);
         MySwal.fire({
           title: 'Deleted!',
           text: 'Your data has been deleted.',
@@ -102,7 +97,7 @@ function Staff({ params }: { params: { staffId: string } }) {
         spacing={{ xs: 1 }}
         mt={1}
       >
-        <Link href="/staffs">
+        <Link href="/customers">
           <Button
             variant="contained"
             color="primary"
@@ -116,15 +111,15 @@ function Staff({ params }: { params: { staffId: string } }) {
             buttonText="Edit"
             buttonColor="secondary"
             buttonIcon={<EditIcon />}
-            dialogTitle="STAFF INFORMATION"
-            dialogDescription={`ID: ${params.staffId}`}
+            dialogTitle="CUSTOMER INFORMATION"
+            dialogDescription={`ID: ${params.customerId}`}
             componentProps={(handleClose) => (
-              <EditStaff
+              <EditCustomer
                 onSuccess={() => {
                   handleClose();
                   refetch();
                 }}
-                params={{ staffId: params.staffId }}
+                params={{ customerId: params.customerId }}
               />
             )}
           />
@@ -144,7 +139,7 @@ function Staff({ params }: { params: { staffId: string } }) {
         <CardHeader
           title={
             <Typography variant="h4" fontWeight="bold">
-              STAFF INFORMATION
+              CUSTOMER INFORMATION
             </Typography>
           }
           subheader={`ID: ${id}`}
@@ -160,27 +155,22 @@ function Staff({ params }: { params: { staffId: string } }) {
             spacing={4}
           >
             <Stack justifyContent="center" alignItems="center" spacing={1}>
-              {position == 0 && (
-                <Avatar sx={{ bgcolor: 'red', width: 100, height: 100 }}>
-                  <LocalShippingIcon sx={{ width: 60, height: 60 }} />
-                </Avatar>
-              )}
-              {position == 1 && (
+              {gender == 0 && (
                 <Avatar sx={{ bgcolor: 'blue', width: 100, height: 100 }}>
-                  <MopedIcon sx={{ width: 60, height: 60 }} />
+                  <MaleIcon sx={{ width: 60, height: 60 }} />
                 </Avatar>
               )}
-              {position == 2 && (
+              {gender == 1 && (
                 <Avatar sx={{ bgcolor: 'green', width: 100, height: 100 }}>
-                  <BusinessCenterIcon sx={{ width: 60, height: 60 }} />
+                  <FemaleIcon sx={{ width: 60, height: 60 }} />
                 </Avatar>
               )}
-              {position == 3 && (
-                <Avatar sx={{ bgcolor: 'brown', width: 100, height: 100 }}>
-                  <InventoryIcon sx={{ width: 60, height: 60 }} />
+              {gender == 2 && (
+                <Avatar sx={{ bgcolor: 'orange', width: 100, height: 100 }}>
+                  <MoreHorizIcon sx={{ width: 60, height: 60 }} />
                 </Avatar>
               )}
-              <Typography variant="h6">{StaffPosition[position]}</Typography>
+              <Typography variant="h6">{Gender[gender]}</Typography>
             </Stack>
             <Stack>
               <Typography variant="h5" gutterBottom>
@@ -188,6 +178,25 @@ function Staff({ params }: { params: { staffId: string } }) {
               </Typography>
               <Typography variant="h5" gutterBottom>
                 Phone: <strong>{phone}</strong>
+              </Typography>
+              <Typography variant="h5" gutterBottom>
+                Email: <strong>{email}</strong>
+              </Typography>
+              <Typography variant="h5" gutterBottom>
+                Address:{' '}
+                <strong>
+                  {(() => {
+                    const { street, ward, city, province } = address || {};
+                    const addressParts = [];
+
+                    if (street) addressParts.push(street);
+                    if (ward) addressParts.push(ward);
+                    if (city) addressParts.push(city);
+                    if (province) addressParts.push(province);
+
+                    return addressParts.join(', ');
+                  })()}
+                </strong>
               </Typography>
             </Stack>
           </Stack>
@@ -197,4 +206,4 @@ function Staff({ params }: { params: { staffId: string } }) {
   );
 }
 
-export default Staff;
+export default Customer;

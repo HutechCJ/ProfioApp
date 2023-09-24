@@ -17,7 +17,6 @@ import {
   Grid,
 } from '@mui/material';
 
-import _ from 'lodash';
 import GoogleMapComponent from './GoogleMap';
 import OrderStepper from './OrderStepper';
 import Link from 'next/link';
@@ -95,7 +94,13 @@ function Order({ params }: { params: { orderId: string } }) {
 
   return (
     <Container maxWidth="xl" sx={{ '& > :not(style)': { m: 2 } }}>
-      <Stack direction="row" justifyContent="space-between" alignItems="center">
+      <Stack
+        direction={{ sm: 'column', md: 'row' }}
+        justifyContent="space-between"
+        alignItems={{ sm: 'flex-start', md: 'center' }}
+        spacing={{ xs: 1 }}
+        mt={1}
+      >
         <Link href="/orders">
           <Button
             variant="contained"
@@ -105,7 +110,7 @@ function Order({ params }: { params: { orderId: string } }) {
             BACK TO LIST
           </Button>
         </Link>
-        <ButtonGroup variant="contained">
+        <ButtonGroup variant="text">
           <FormDialog
             buttonText="Edit"
             buttonColor="secondary"

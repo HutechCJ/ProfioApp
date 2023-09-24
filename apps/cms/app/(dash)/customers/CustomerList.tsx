@@ -9,63 +9,52 @@ import {
   Typography,
   Stack,
   ButtonGroup,
-  Chip,
   Divider,
+  Chip,
 } from '@mui/material';
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 
 import ReplayIcon from '@mui/icons-material/Replay';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import LocalShippingIcon from '@mui/icons-material/LocalShipping';
-import RvHookupIcon from '@mui/icons-material/RvHookup';
-import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
-import TwoWheelerIcon from '@mui/icons-material/TwoWheeler';
 
-import {
-  Vehicle,
-  VehicleType,
-  VehicleStatus,
-} from '@/features/vehicle/vehicle.types';
-import useGetVehicles from '@/features/vehicle/useGetVehicles';
+import { Customer, Gender } from '@/features/customer/customer.types';
+import useGetCustomers from '@/features/customer/useGetCustomers';
 import FormDialog from '@/components/FormDialog';
-import AddVehicle from './AddVehicle';
-import EditVehicle from './EditVehicle';
+import AddCustomer from './AddCustomer';
+import EditCustomer from './EditCustomer';
 import ActionForList from '@/components/ActionForList';
-import useDeleteVehicle from '@/features/vehicle/useDeleteVehicle';
-import useCountByVehicleType from '@/features/vehicle/useCountByVehicleType';
-import useCountByVehicleStatus from '@/features/vehicle/useCountByVehicleStatus';
+import useDeleteCustomer from '@/features/customer/useDeleteCustomer';
 import CopyTextButton from '@/components/CopyTextButton';
 
-function VehicleList() {
+import MaleIcon from '@mui/icons-material/Male';
+import FemaleIcon from '@mui/icons-material/Female';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+
+function CustomerList() {
   const [paginationModel, setPaginationModel] = React.useState({
     page: 0,
     pageSize: 10,
   });
 
   const {
-    data: pagingVehicles,
+    data: pagingCustomers,
     isLoading,
     refetch,
     remove,
-  } = useGetVehicles({
+  } = useGetCustomers({
     PageIndex: paginationModel.page + 1,
     PageSize: paginationModel.pageSize,
   });
 
-  const { mutate: deleteVehicle, isSuccess } = useDeleteVehicle();
-
-  const { refetch: refetchCountType } = useCountByVehicleType();
-  const { refetch: refetchCountStatus } = useCountByVehicleStatus();
+  const { mutate: deleteCustomer, isSuccess } = useDeleteCustomer();
 
   React.useEffect(() => {
     if (isSuccess) {
-      refetchCountStatus();
-      refetchCountType();
       refetch();
     }
-  }, [isSuccess, refetchCountStatus, refetchCountType, refetch]);
+  }, [isSuccess, refetch]);
 
-  const rowCount = pagingVehicles?.data.totalCount || 0;
+  const rowCount = pagingCustomers?.data.totalCount || 0;
 
   const [rowCountState, setRowCountState] = React.useState(rowCount);
 
@@ -75,13 +64,13 @@ function VehicleList() {
     );
   }, [rowCount, setRowCountState]);
 
-  const columns: GridColDef<Vehicle>[] = [
+  const columns: GridColDef<Customer>[] = [
     {
       field: 'id',
       headerName: 'ID',
       headerAlign: 'center',
       align: 'center',
-      width: 150,
+      width: 120,
       renderCell(params) {
         const maxLength = 6;
         const truncatedValue =
@@ -92,7 +81,7 @@ function VehicleList() {
         return (
           <>
             <CopyTextButton text={params.value} />
-            <Link href={`/vehicles/${params.value}`}>
+            <Link href={`/customers/${params.value}`}>
               <Typography variant="button">{truncatedValue}</Typography>
             </Link>
           </>
@@ -100,89 +89,75 @@ function VehicleList() {
       },
     },
     {
-      field: 'status',
-      headerName: 'STATUS',
-      headerAlign: 'center',
-      align: 'center',
-      width: 120,
-      renderCell(params) {
-        const getColor = () => {
-          const value = params.value as VehicleStatus;
-          if (value === VehicleStatus.Busy) return 'error';
-          if (value === VehicleStatus.Idle) return 'warning';
-          return 'primary';
-        };
-        return (
-          <Chip
-            color={getColor()}
-            label={`${VehicleStatus[params.value]}`}
-            sx={{ width: 70 }}
-          />
-        );
-      },
-    },
-    {
-      field: 'zipCodeCurrent',
+      field: 'name',
       width: 200,
-      headerName: 'ZIP CODE CURRENT',
+      headerName: 'FULL NAME',
       headerAlign: 'center',
       align: 'center',
     },
     {
-      field: 'licensePlate',
-      width: 150,
-      headerName: 'LICENSE PLATE',
+      field: 'phone',
+      width: 180,
+      headerName: 'PHONE',
       headerAlign: 'center',
       align: 'center',
     },
     {
-      field: 'type',
-      width: 150,
-      headerName: 'TYPE',
+      field: 'email',
+      width: 250,
+      headerName: 'EMAIL',
+      headerAlign: 'center',
+      align: 'center',
+    },
+    {
+      field: 'gender',
+      width: 200,
+      headerName: 'GENDER',
       headerAlign: 'center',
       align: 'center',
       renderCell(params) {
         const getColor = () => {
-          const value = params.value as VehicleType;
-          if (value === VehicleType.Trailer) return 'error';
-          if (value === VehicleType.Van) return 'warning';
-          if (value === VehicleType.Motorcycle) return 'secondary';
-          return 'primary';
+          const value = params.value as Gender;
+          if (value === Gender.Male) return 'info';
+          if (value === Gender.Female) return 'success';
+          return 'warning';
         };
         const getIcon = () => {
-          const value = params.value as VehicleType;
-          if (value === VehicleType.Trailer) return <RvHookupIcon />;
-          if (value === VehicleType.Van) return <AirportShuttleIcon />;
-          if (value === VehicleType.Motorcycle) return <TwoWheelerIcon />;
-          return <LocalShippingIcon />;
+          const value = params.value as Gender;
+          if (value === Gender.Male) return <MaleIcon />;
+          if (value === Gender.Female) return <FemaleIcon />;
+          return <MoreHorizIcon />;
         };
         return (
           <Chip
             icon={getIcon()}
             color={getColor()}
-            label={`${VehicleType[params.value]}`}
-            sx={{ width: 120 }}
+            label={`${Gender[params.value]}`}
+            sx={{ width: 100 }}
           />
         );
       },
     },
     {
-      field: 'staff',
-      width: 300,
-      headerName: 'STAFF',
+      field: 'address',
+      width: 140,
+      headerName: 'ADDRESS',
       headerAlign: 'center',
       align: 'center',
       valueGetter: (params) => {
-        const { staff } = params.row;
-        return `${staff?.name || 'Empty'}`;
-      },
-      renderCell(params) {
-        const { staff } = params.row;
-        return (
-          <Link href={`/staffs/${staff?.id}`} sx={{ color: 'black' }}>
-            <Typography variant="button">{staff?.name || 'Empty'}</Typography>
-          </Link>
-        );
+        const { address } = params.row;
+        if (address) {
+          const { street, ward, city, province } = address;
+          const addressParts = [];
+
+          if (street) addressParts.push(street);
+          if (ward) addressParts.push(ward);
+          if (city) addressParts.push(city);
+          if (province) addressParts.push(province);
+
+          return addressParts.join(', ');
+        }
+        return '';
       },
     },
     {
@@ -191,25 +166,23 @@ function VehicleList() {
       headerName: 'ACTIONS',
       headerAlign: 'center',
       align: 'center',
-      sortable: false,
-      filterable: false,
       renderCell: (params) => {
-        const vehicleId = params.row.id;
+        const customerId = params.row.id;
         return (
           <ActionForList
-            entityId={vehicleId}
-            entity="vehicle"
-            detailsLink={`/vehicles/${vehicleId}`}
+            entityId={customerId}
+            entity="customer"
+            detailsLink={`/customers/${customerId}`}
             editComponentProps={(handleClose) => (
-              <EditVehicle
+              <EditCustomer
                 onSuccess={() => {
                   handleClose();
                   refetch();
                 }}
-                params={{ vehicleId: vehicleId }}
+                params={{ customerId: customerId }}
               />
             )}
-            handleDelete={() => deleteVehicle(vehicleId)}
+            handleDelete={() => deleteCustomer(customerId)}
           />
         );
       },
@@ -226,7 +199,7 @@ function VehicleList() {
         marginBottom={2}
       >
         <Typography variant="h5" fontWeight="bold">
-          VEHICLE LIST
+          CUSTOMER LIST
         </Typography>
         <ButtonGroup variant="text" aria-label="button-group-reload-and-create">
           <LoadingButton
@@ -240,14 +213,14 @@ function VehicleList() {
             RELOAD
           </LoadingButton>
           <FormDialog
-            buttonText="ADD VEHICLE"
+            buttonText="ADD CUSTOMER"
             buttonVariant="contained"
             buttonColor="success"
             buttonIcon={<PersonAddIcon />}
-            dialogTitle="ADD VEHICLE"
-            dialogDescription="Please enter information for the vehicle"
+            dialogTitle="ADD CUSTOMER"
+            dialogDescription="Please enter information for the customer"
             componentProps={(handleClose) => (
-              <AddVehicle
+              <AddCustomer
                 onSuccess={() => {
                   refetch();
                   handleClose();
@@ -259,7 +232,7 @@ function VehicleList() {
       </Stack>
       <DataGrid
         columns={columns}
-        rows={pagingVehicles?.data.items || []}
+        rows={pagingCustomers?.data.items || []}
         rowCount={rowCountState}
         loading={isLoading}
         pageSizeOptions={[5, 10, 20, 50, 100]}
@@ -284,4 +257,4 @@ function VehicleList() {
   );
 }
 
-export default VehicleList;
+export default CustomerList;
