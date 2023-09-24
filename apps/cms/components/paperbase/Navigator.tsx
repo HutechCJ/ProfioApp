@@ -110,7 +110,6 @@ export default function Navigator(props: DrawerProps) {
                 <Avatar sx={{ width: 80, height: 80 }} />
                 {isLoading ? (
                   <Skeleton
-                    // animation="wave"
                     sx={{ bgcolor: 'grey.800' }}
                     width={150}
                     height={40}
