@@ -4,6 +4,7 @@ import HttpService from '@/common/services/http.service';
 import {
   AuthUser,
   AuthUserResponse,
+  ChangePassword,
   LoginRequest,
   RegisterRequest,
   User,
@@ -30,6 +31,10 @@ class UserApiService extends HttpService {
 
   checkAuthorization() {
     return this.get<User>('/users/check-authorization');
+  }
+
+  changePassword(data: ChangePassword) {
+    return this.post<AuthUser>('/users/change-password', data);
   }
 }
 
