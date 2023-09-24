@@ -1,12 +1,15 @@
 'use client';
 import { useQuery } from '@tanstack/react-query';
 import userApi from './user.service';
+import { getPagingQueryString } from '@/common/utils/string';
 
-const useGetUsers = () => {
-  const queryData = useQuery(['users/get'], {
-    queryFn: () => userApi.getUsers(),
-    keepPreviousData: true,
-  });
+const useGetUsers = (options?: Partial<PagingOptions>) => {
+  const queryData = useQuery(
+    [`users/get${options ? `?${getPagingQueryString(options)}` : ''}`],
+    {
+      queryFn: () => userApi.getUsers(options),
+    },
+  );
 
   return queryData;
 };

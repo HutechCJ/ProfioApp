@@ -30,7 +30,10 @@ export default function Paperbase({ children }: React.PropsWithChildren) {
     .flat()
     .find((child) => pathname.includes(child.href));
 
-  if (idFromPathname === headerTitle?.id.toLowerCase()) {
+  if (
+    idFromPathname === headerTitle?.id.toLowerCase() ||
+    idFromPathname === 'users'
+  ) {
     idFromPathname = '';
   }
 

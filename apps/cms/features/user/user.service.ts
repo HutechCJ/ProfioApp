@@ -8,6 +8,7 @@ import {
   RegisterRequest,
   User,
 } from './user.types';
+import { getPagingQueryString } from '@/common/utils/string';
 
 class UserApiService extends HttpService {
   register(data: RegisterRequest) {
@@ -22,8 +23,9 @@ class UserApiService extends HttpService {
     return this.get<User>(`/users/${id}`);
   }
 
-  getUsers() {
-    return this.get<Paging<User>>('/users/get-users');
+  getUsers(options?: Partial<PagingOptions>) {
+    const query = options ? getPagingQueryString(options) : '';
+    return this.get<Paging<User>>(`/users/get-users/${query}`);
   }
 
   checkAuthorization() {
