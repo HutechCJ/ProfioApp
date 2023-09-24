@@ -8,7 +8,7 @@ const useGetCustomers = (options?: Partial<PagingOptions>) => {
     [`customers/get${options ? `?${getPagingQueryString(options)}` : ''}`],
     {
       queryFn: () => customerApi.getCustomers(options),
-    }
+    },
   );
 
   return queryData;

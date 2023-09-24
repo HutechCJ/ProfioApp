@@ -60,7 +60,7 @@ function OrderList() {
 
   React.useEffect(() => {
     setRowCountState((prevRowCountState) =>
-      rowCount !== undefined ? rowCount : prevRowCountState
+      rowCount !== undefined ? rowCount : prevRowCountState,
     );
   }, [rowCount, setRowCountState]);
 
@@ -104,7 +104,11 @@ function OrderList() {
           return 'default';
         };
         return (
-          <Chip color={getColor()} label={`${OrderStatus[params.value]}`} sx={{ width: 90 }} />
+          <Chip
+            color={getColor()}
+            label={`${OrderStatus[params.value]}`}
+            sx={{ width: 90 }}
+          />
         );
       },
     },

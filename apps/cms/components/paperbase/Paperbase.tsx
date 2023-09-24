@@ -87,7 +87,7 @@ export default function Paperbase({ children }: React.PropsWithChildren) {
               ? idFromPathname
                 ? `Detailed information about ${headerTitle.id.slice(
                     0,
-                    -1
+                    -1,
                   )} is managed by Profio`
                 : `List of ${headerTitle.id} managed by Profio`
               : undefined

@@ -23,7 +23,7 @@ const categories = [
         icon: <AssignmentIndIcon />,
         href: 'customers',
       },
-    ]
+    ],
   },
   {
     id: 'Management',
