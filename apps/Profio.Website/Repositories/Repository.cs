@@ -4,12 +4,12 @@ using System.Text.Json;
 
 namespace Profio.Website.Repositories;
 
-public abstract class Repository
+public class Repository : IRepository
 {
   private readonly HttpClient _httpClient;
 
-  protected Repository(IHttpClientFactory httpClientFactory)
-      => _httpClient = httpClientFactory.CreateClient("Profio Api");
+  public Repository(IHttpClientFactory httpClientFactory)
+      => _httpClient = httpClientFactory.CreateClient("Api");
 
   public async Task<TResult?> GetAsync<TResult>(string route)
       => await DeserializeContentAsync<TResult>(await _httpClient.GetAsync(route));
