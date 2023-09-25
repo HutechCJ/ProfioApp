@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 using Profio.Domain.Constants;
+using Profio.Domain.Models;
 using Profio.Infrastructure.Key;
 using Profio.Infrastructure.System;
 using Swashbuckle.AspNetCore.Annotations;
@@ -23,13 +25,13 @@ public sealed class SystemController : BaseController
   [HttpGet]
   [SwaggerOperation(summary: "Get Platform's configuration")]
   [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-  public IActionResult GetPlatform()
-    => Ok(_config.GetPlatform(_env));
+  public ActionResult<ResultModel<JObject>> GetPlatform()
+    => Ok(ResultModel<JObject>.Create(_config.GetPlatform(_env)));
 
   [ApiKey]
   [HttpGet("status")]
   [SwaggerOperation(summary: "Get Platform's status",
     Description = "In development, Azure has been `BLOCKED` to access this endpoint")]
-  public IActionResult GetServerStatus()
-    => Ok(Extension.GetPlatformStatus(_env));
+  public ActionResult<ResultModel<JObject>> GetServerStatus()
+    => Ok(ResultModel<JObject>.Create(Extension.GetPlatformStatus(_env)));
 }

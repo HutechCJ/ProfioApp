@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Profio.Application.Sender.Commands;
 using Profio.Domain.Constants;
 using Profio.Domain.Contracts;
+using Profio.Domain.Models;
 using Profio.Infrastructure.Key;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -15,10 +16,10 @@ public sealed class SenderController : BaseController
 {
   [HttpPost("email/order")]
   [SwaggerOperation(summary: "Send Order Email")]
-  public async Task<IActionResult> SendEmail(OrderInfo order, [FromQuery] EmailType type)
+  public async Task<ActionResult<ResultModel<string>>> SendEmail(OrderInfo order, [FromQuery] EmailType type)
   {
     await Mediator.Send(new SendOrderEmailCommand(order, type));
-    return Ok("Send email successfully!");
+    return Ok(ResultModel<string>.Create("Send email successfully!"));
   }
 
   [HttpPost("sms")]
@@ -26,9 +27,9 @@ public sealed class SenderController : BaseController
     summary: "Send SMS",
     description: "If you choose the type of sms, the message must be the `Order Id`. Otherwise, you can send any message you want")]
   [ApiKey]
-  public async Task<IActionResult> SendSms(SmsMessage message, [FromQuery] SmsType type)
+  public async Task<ActionResult<ResultModel<string>>> SendSms(SmsMessage message, [FromQuery] SmsType type)
   {
     await Mediator.Send(new SendSmsCommand(message, type));
-    return Ok("Send sms successfully!");
+    return Ok(ResultModel<string>.Create("Send sms successfully!"));
   }
 }
