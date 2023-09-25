@@ -63,7 +63,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
   const directionsCallback = React.useCallback(
     (
       result: google.maps.DirectionsResult | null,
-      status: google.maps.DirectionsStatus
+      status: google.maps.DirectionsStatus,
     ) => {
       if (result !== null) {
         if (status === 'OK') {
@@ -73,7 +73,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
         }
       }
     },
-    []
+    [],
   );
 
   const trackCurrentOrderLocation = React.useCallback(() => {
@@ -101,11 +101,11 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
         const bounds = new window.google.maps.LatLngBounds();
         const origin = new window.google.maps.LatLng(
           orderHubsPathApiRes.data.items[0].location.latitude,
-          orderHubsPathApiRes.data.items[0].location.longitude
+          orderHubsPathApiRes.data.items[0].location.longitude,
         );
         const destination = new window.google.maps.LatLng(
           orderHubsPathApiRes.data.items[1].location.latitude,
-          orderHubsPathApiRes.data.items[1].location.longitude
+          orderHubsPathApiRes.data.items[1].location.longitude,
         );
 
         setDirectionsServiceOptions({
@@ -127,12 +127,12 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
       setOrderLocation((oldLocation) => {
         const newLocation = new window.google.maps.LatLng(
           message.latitude,
-          message.longitude
+          message.longitude,
         );
 
         if (oldLocation !== null) {
           setOrderLocationPolylines((oldPoly) =>
-            [...oldPoly, newLocation].slice(-10)
+            [...oldPoly, newLocation].slice(-10),
           );
         }
 
