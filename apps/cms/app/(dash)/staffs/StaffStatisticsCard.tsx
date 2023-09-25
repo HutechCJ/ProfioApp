@@ -45,7 +45,9 @@ const StaffStatisticsCard = () => {
 
   return (
     <Box sx={{ marginBottom: 2 }}>
-      <Typography variant="h5" fontWeight="bold" sx={{textAlign: "center"}}>STAFF STATISTICS</Typography>
+      <Typography variant="h5" fontWeight="bold" sx={{ textAlign: 'center' }}>
+        STAFF STATISTICS
+      </Typography>
       <Divider sx={{ my: 2 }} />
       <Box>
         <Grid
