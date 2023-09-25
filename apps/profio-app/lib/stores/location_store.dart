@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:profio_staff_client/api/base_api.dart';
 import 'package:profio_staff_client/enums/vehicle_type.dart';
 import 'package:profio_staff_client/managers/location_manager.dart';
+import 'package:profio_staff_client/models/vehicle_location.dart';
 import 'package:profio_staff_client/providers/mqtt_provider.dart';
 import 'package:profio_staff_client/stores/hub_store.dart';
 import 'package:profio_staff_client/stores/vehicle_store.dart';
@@ -35,7 +36,8 @@ abstract class LocationStoreBase with Store {
       selectedPosition = position;
 
   @action
-  void simulateVehicleMovement({String vehicleId = ''}) {
+  void simulateVehicleMovement(
+      {String vehicleId = '', VehicleLocation? vehicleLocation}) {
     if (!vehicleStore.hasSelectedVehicle) return;
     var vehicleSpeed = getVehicleSpeed(vehicleStore.selectedVehicle.type);
 
@@ -56,17 +58,18 @@ abstract class LocationStoreBase with Store {
     LocationManager.simulateCarMovement(
         mqttProvider, selectedPosition!, hubPosition, vehicleSpeed,
         onIntermediatePosition: (p) => {setCurrentLocation(p)},
-        vehicleId: vehicleId);
+        vehicleId: vehicleId,
+        vehicleLocation: vehicleLocation);
   }
 
   double getVehicleSpeed(VehicleType type) {
     switch (type) {
       case VehicleType.motorcycle:
-        return 0.004;
+        return 0.4;
       case VehicleType.truck:
       case VehicleType.trailer:
       case VehicleType.van:
-        return 0.006;
+        return 0.6;
     }
   }
 

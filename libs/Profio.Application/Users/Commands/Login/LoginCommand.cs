@@ -27,11 +27,11 @@ public sealed record LoginCommandHandler : IRequestHandler<LoginCommand, Account
     var user = await _userManager.Users
       .Include(x => x.Staff)
       .SingleOrDefaultAsync(x => x.UserName != null && x.UserName.Equals(request.UserName), cancellationToken)
-               ?? throw new UnauthorizedAccessException("User not found!");
+               ?? throw new UnauthorizedAccessException("Incorrect Email or Password!");
     var isPasswordCorrect = await _userManager.CheckPasswordAsync(user, request.Password);
 
     if (!isPasswordCorrect)
-      throw new UnauthorizedAccessException("Password not correct!");
+      throw new UnauthorizedAccessException("Incorrect Email or Password!");
 
     var dto = _mapper.Map<AccountDto>(user);
     dto.Token = _tokenService.CreateToken(user);

@@ -3,4 +3,5 @@ class Profio {
   static const String apiKey = '';
   static const String vehicleEndpoints = 'vehicles';
   static const String hubEndpoints = 'hubs';
+  static const String orderEndpoints = 'orders';
 }

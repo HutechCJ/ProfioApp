@@ -5,7 +5,6 @@ import React from 'react';
 import {
   Box,
   Card,
-  CardHeader,
   CardContent,
   Divider,
   Stack,
@@ -15,7 +14,7 @@ import {
   Paper,
 } from '@mui/material';
 
-import EvStationIcon from '@mui/icons-material/EvStation';
+// import EvStationIcon from '@mui/icons-material/EvStation';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import RvHookupIcon from '@mui/icons-material/RvHookup';
 import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
@@ -27,6 +26,8 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import Stat, { StatProps } from '../../../components/Stat';
 import useCountByVehicleType from '@/features/vehicle/useCountByVehicleType';
 import useCountByVehicleStatus from '@/features/vehicle/useCountByVehicleStatus';
+import VehicleTypePieChart from '@/components/charts/vehicle/VehicleTypePieChart';
+import VehicleStatusBarChart from '@/components/charts/vehicle/VehicleStatusBarChart';
 
 const VehicleStatisticsCard = () => {
   const {
@@ -56,25 +57,25 @@ const VehicleStatisticsCard = () => {
   const totalTrailers = countDataType?.data?.[1] || 0;
   const totalVans = countDataType?.data?.[2] || 0;
   const totalMotorcycles = countDataType?.data?.[3] || 0;
-  const totalVehicle =
-    totalTrucks + totalTrailers + totalVans + totalMotorcycles;
+  // const totalVehicle =
+  //   totalTrucks + totalTrailers + totalVans + totalMotorcycles;
 
   const totalIdle = countDataStatus?.data?.[0] || 0;
   const totalBusy = countDataStatus?.data?.[1] || 0;
   const totalOffline = countDataStatus?.data?.[2] || 0;
 
   return (
-    <Card sx={{ marginBottom: 4 }}>
-      <CardHeader title="VEHICLE" subheader="Statistics" />
-      <Divider />
-      <CardContent>
+    <Box sx={{ marginBottom: 2 }}>
+      <Typography variant="h5" fontWeight="bold" sx={{ textAlign: 'center' }}>
+        VEHICLE STATISTICS
+      </Typography>
+      <Divider sx={{ my: 2 }} />
+      <Box>
         <Grid
-          minHeight={128}
           container
           direction="row"
           spacing={2}
-          columns={{ xs: 1, sm: 3, md: 3 }}
-          mb={2}
+          columns={{ xs: 1, sm: 1, md: 3 }}
         >
           <Grid item xs={1}>
             <Box>
@@ -167,24 +168,21 @@ const VehicleStatisticsCard = () => {
           </Grid>
         </Grid>
 
-        <Divider />
-
         <Grid
-          minHeight={128}
           container
           direction="row"
           spacing={2}
-          columns={{ xs: 1, sm: 2, md: 5 }}
+          columns={{ xs: 1, sm: 2, md: 4 }}
           mt={1}
         >
-          <Grid item xs={1}>
+          {/* <Grid item xs={1}>
             <StatCard
               icon={<EvStationIcon />}
               iconColor="orange"
               value={totalVehicle}
               description="Total Vehicle"
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={1}>
             <StatCard
               icon={<LocalShippingIcon />}
@@ -218,8 +216,21 @@ const VehicleStatisticsCard = () => {
             />
           </Grid>
         </Grid>
-      </CardContent>
-    </Card>
+        <Grid
+          container
+          direction="row"
+          spacing={2}
+          columns={{ xs: 1, sm: 2, md: 4 }}
+        >
+          <Grid item xs={2}>
+            <VehicleTypePieChart />
+          </Grid>
+          <Grid item xs={2}>
+            <VehicleStatusBarChart />
+          </Grid>
+        </Grid>
+      </Box>
+    </Box>
   );
 };
 

@@ -2,15 +2,7 @@
 
 import React from 'react';
 
-import {
-  Box,
-  Card,
-  CardHeader,
-  CardContent,
-  Divider,
-  Grid,
-  LinearProgress,
-} from '@mui/material';
+import { Box, Divider, Grid, LinearProgress, Typography } from '@mui/material';
 
 import InventoryIcon from '@mui/icons-material/Inventory';
 import PauseCircleFilledIcon from '@mui/icons-material/PauseCircleFilled';
@@ -21,6 +13,7 @@ import CancelIcon from '@mui/icons-material/Cancel';
 
 import useCountByOrderStatus from '@/features/order/useCountByOrderStatus';
 import StatColorCard from '@/components/StatColorCard';
+import OrderStatusPieChart from '@/components/charts/order/OrderStatusPieChart';
 
 const OrderStatisticsCard = () => {
   const {
@@ -54,17 +47,17 @@ const OrderStatisticsCard = () => {
     totalCancelled;
 
   return (
-    <Card sx={{ marginBottom: 4 }}>
-      <CardHeader title="ORDER" subheader="Statistics" />
-      <Divider />
-      <CardContent>
+    <Box sx={{ marginBottom: 2 }}>
+      <Typography variant="h5" fontWeight="bold" sx={{ textAlign: 'center' }}>
+        ORDER STATISTICS
+      </Typography>
+      <Divider sx={{ my: 2 }} />
+      <Box>
         <Grid
-          minHeight={128}
           container
           direction="row"
           spacing={1}
-          columns={{ xs: 1, sm: 3, md: 6 }}
-          mb={2}
+          columns={{ xs: 1, sm: 2, md: 4 }}
         >
           <Grid item xs={1}>
             <StatColorCard
@@ -115,8 +108,18 @@ const OrderStatisticsCard = () => {
             />
           </Grid>
         </Grid>
-      </CardContent>
-    </Card>
+        <Grid
+          container
+          direction="row"
+          spacing={2}
+          columns={{ xs: 1, sm: 2, md: 4 }}
+        >
+          <Grid item xs={2}>
+            <OrderStatusPieChart />
+          </Grid>
+        </Grid>
+      </Box>
+    </Box>
   );
 };
 

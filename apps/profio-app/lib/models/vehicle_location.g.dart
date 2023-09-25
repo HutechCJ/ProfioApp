@@ -11,6 +11,10 @@ VehicleLocation _$VehicleLocationFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String,
       latitude: (json['latitude'] as num).toDouble(),
       longitude: (json['longitude'] as num).toDouble(),
+      orderIds: (json['orderIds'] as List<dynamic>?)
+              ?.map((e) => e as String)
+              .toList() ??
+          const [],
     );
 
 Map<String, dynamic> _$VehicleLocationToJson(VehicleLocation instance) =>
@@ -18,4 +22,5 @@ Map<String, dynamic> _$VehicleLocationToJson(VehicleLocation instance) =>
       'id': instance.id,
       'latitude': instance.latitude,
       'longitude': instance.longitude,
+      'orderIds': instance.orderIds,
     };
