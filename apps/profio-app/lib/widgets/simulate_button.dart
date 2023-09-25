@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:profio_staff_client/extensions/location_extension.dart';
 import 'package:profio_staff_client/models/vehicle_location.dart';
 import 'package:profio_staff_client/stores/location_store.dart';
 import 'package:profio_staff_client/stores/vehicle_store.dart';
@@ -58,7 +59,8 @@ class _SimulateButtonState extends State<SimulateButton> {
                 child: const Text('Stop simulate now')),
             ElevatedButton(
                 onPressed: () async {
-                  await locationStore.getCurrentLocation();
+                  await locationStore.setCurrentLocation(
+                      vehicleStore.startHub.location.toPosition());
                 },
                 child: const Text('Reset location'))
           ],

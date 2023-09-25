@@ -132,16 +132,31 @@ class LocationManager {
       // Update the startLocation for the next iteration
       startLocation = intermediatePosition;
 
-      // Check if the destination is reached
-      if (startLocation.latitude == endLocation.latitude &&
-          startLocation.longitude == endLocation.longitude) {
+      // Check if the vehicle has reached the end position or gone beyond it
+      final distanceToEnd =
+          calculateDistance(intermediatePosition, endLocation);
+      if (distanceToEnd <= distanceToTravel) {
         timer.cancel();
         print('Destination reached!');
+        // You may want to publish the final position here
+        await publishLocation(mqttProvider, endLocation,
+            vehicleId: vehicleId, vehicleLocation: vehicleLocation);
       } else {
         // Publish the intermediate position to MQTT
         await publishLocation(mqttProvider, intermediatePosition,
             vehicleId: vehicleId, vehicleLocation: vehicleLocation);
       }
+
+      // // Check if the destination is reached
+      // if (startLocation.latitude == endLocation.latitude &&
+      //     startLocation.longitude == endLocation.longitude) {
+      //   timer.cancel();
+      //   print('Destination reached!');
+      // } else {
+      //   // Publish the intermediate position to MQTT
+      //   await publishLocation(mqttProvider, intermediatePosition,
+      //       vehicleId: vehicleId, vehicleLocation: vehicleLocation);
+      // }
     });
   }
 
@@ -186,11 +201,17 @@ class LocationManager {
     final double bearing = atan2(sin(dLon) * cos(lat2),
         cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(dLon));
 
+    // Generate a random factor for randomness between -1.0 and 1.0
+    final randomness = (Random().nextDouble() * 50.0) - 1.0;
+
+    // Add randomness to the bearing
+    final double randomBearing = bearing + (randomness * (pi / 180.0));
+
     // Calculate the new latitude and longitude based on the given distance
     final double newLat = asin(sin(lat1) * cos(distance / earthRadius) +
-        cos(lat1) * sin(distance / earthRadius) * cos(bearing));
+        cos(lat1) * sin(distance / earthRadius) * cos(randomBearing));
     final double newLon = lon1 +
-        atan2(sin(bearing) * sin(distance / earthRadius) * cos(lat1),
+        atan2(sin(randomBearing) * sin(distance / earthRadius) * cos(lat1),
             cos(distance / earthRadius) - sin(lat1) * sin(newLat));
 
     // Convert the new latitude and longitude from radians to degrees
