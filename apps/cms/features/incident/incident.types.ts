@@ -14,6 +14,13 @@ export enum IncidentStatus {
   Closed,
 }
 
-export type CreateIncidentData = Omit<Incident, 'id' | 'delivery'>;
+export type CreateIncidentData = Omit<
+  Incident,
+  'id' | 'delivery' | 'status'
+> & {
+  status: string;
+};
 
-export type UpdateIncidentData = Incident;
+export type UpdateIncidentData = Omit<Incident, 'delivery' | 'status'> & {
+  status: string;
+};

@@ -9,7 +9,7 @@ const useGetIncidents = (options?: Partial<PagingOptions>) => {
     {
       queryFn: () => incidentApi.getIncidents(options),
       // keepPreviousData: true,
-    },
+    }
   );
 
   return queryData;

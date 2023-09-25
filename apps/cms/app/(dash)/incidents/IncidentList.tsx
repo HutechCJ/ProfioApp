@@ -16,27 +16,27 @@ import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 
 import ReplayIcon from '@mui/icons-material/Replay';
 
-import { Hub, HubStatus } from '@/features/hub/hub.types';
-import useGetHubs from '@/features/hub/useGetHubs';
+import { Incident, IncidentStatus } from '@/features/incident/incident.types';
+import useGetIncidents from '@/features/incident/useGetIncidents';
 import CopyTextButton from '@/components/CopyTextButton';
 
-function HubList() {
+function IncidentList() {
   const [paginationModel, setPaginationModel] = React.useState({
     page: 0,
     pageSize: 10,
   });
 
   const {
-    data: pagingHubs,
+    data: pagingIncidents,
     isLoading,
     refetch,
     remove,
-  } = useGetHubs({
+  } = useGetIncidents({
     PageIndex: paginationModel.page + 1,
     PageSize: paginationModel.pageSize,
   });
 
-  const rowCount = pagingHubs?.data.totalCount || 0;
+  const rowCount = pagingIncidents?.data.totalCount || 0;
 
   const [rowCountState, setRowCountState] = React.useState(rowCount);
 
@@ -46,7 +46,7 @@ function HubList() {
     );
   }, [rowCount, setRowCountState]);
 
-  const columns: GridColDef<Hub>[] = [
+  const columns: GridColDef<Incident>[] = [
     {
       field: 'id',
       headerName: 'ID',
@@ -63,8 +63,8 @@ function HubList() {
         return (
           <>
             <CopyTextButton text={params.value} />
-            {/* <Link href={`/hubs/${params.value}`}> */}
-              <Typography variant="button">{truncatedValue}</Typography>
+            {/* <Link href={`/incidents/${params.value}`}> */}
+            <Typography variant="button">{truncatedValue}</Typography>
             {/* </Link> */}
           </>
         );
@@ -75,43 +75,46 @@ function HubList() {
       headerName: 'Status',
       headerAlign: 'center',
       align: 'center',
-      width: 350,
+      width: 200,
       renderCell(params) {
         const getColor = () => {
-          const value = params.value as HubStatus;
-          if (value === HubStatus.Active) return 'success';
-          if (value === HubStatus.Broken) return 'error';
-          if (value === HubStatus.UnderMaintenance) return 'info';
-          if (value === HubStatus.Full) return 'warning';
+          const value = params.value as IncidentStatus;
+          if (value === IncidentStatus.InProgress) return 'warning';
+          if (value === IncidentStatus.Resolved) return 'success';
           return 'default';
         };
         return (
-          <Chip
-            color={getColor()}
-            label={`${HubStatus[params.value]}`}
-            sx={{ width: 90 }}
-          />
+          <Chip color={getColor()} label={`${IncidentStatus[params.value]}`} />
         );
       },
     },
     {
-      field: 'zipCode',
+      field: 'time',
+      width: 250,
+      headerName: 'Time',
+      headerAlign: 'center',
+      align: 'center',
+      valueGetter: (params) => {
+        const { time } = params.row;
+        return time ? `${new Date(time).toLocaleString()}` : '';
+      },
+    },
+    {
+      field: 'description',
       width: 400,
-      headerName: 'Zip Code',
+      headerName: 'Description',
       headerAlign: 'center',
       align: 'center',
     },
     {
-      field: 'location',
-      width: 400,
-      headerName: 'Location (Lat, Long)',
+      field: 'delivery',
+      width: 250,
+      headerName: 'Delivery',
       headerAlign: 'center',
       align: 'center',
       valueGetter: (params) => {
-        const { location: hubLocation } = params.row;
-        return hubLocation
-          ? `${hubLocation.latitude}, ${hubLocation.longitude}`
-          : '';
+        const { delivery } = params.row;
+        return delivery ? `${delivery.id}` : '';
       },
     },
   ];
@@ -126,7 +129,7 @@ function HubList() {
         marginBottom={2}
       >
         <Typography variant="h5" fontWeight="bold">
-          HUB LIST
+          INCIDENT LIST
         </Typography>
         <ButtonGroup variant="text" aria-label="button-group-reload-and-create">
           <LoadingButton
@@ -144,7 +147,7 @@ function HubList() {
       </Stack>
       <DataGrid
         columns={columns}
-        rows={pagingHubs?.data.items || []}
+        rows={pagingIncidents?.data.items || []}
         rowCount={rowCountState}
         loading={isLoading}
         pageSizeOptions={[5, 10, 20, 50, 100]}
@@ -169,4 +172,4 @@ function HubList() {
   );
 }
 
-export default HubList;
+export default IncidentList;
