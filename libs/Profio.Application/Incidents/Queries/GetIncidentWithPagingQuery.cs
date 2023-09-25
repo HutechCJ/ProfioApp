@@ -20,7 +20,7 @@ public sealed class GetIncidentWithPagingQueryHandler : GetWithPagingQueryHandle
     => i => i.Description != null && i.Description.ToLower().Contains(filter);
   protected override Expression<Func<Incident, bool>> RequestFilter(GetIncidentWithPagingQuery request)
     => x => request.IncidentEnumFilter.Status == null || x.Status == request.IncidentEnumFilter.Status;
-  
+
 }
 
 public sealed class
