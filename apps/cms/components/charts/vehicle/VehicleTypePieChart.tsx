@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { PieChart } from '@mui/x-charts/PieChart';
-import { Box, LinearProgress, Paper, Stack, Typography } from '@mui/material';
+import { Box, CircularProgress, Paper, Stack, Typography } from '@mui/material';
 import useCountByVehicleType from '@/features/vehicle/useCountByVehicleType';
 
 function VehicleTypePieChart() {
@@ -11,14 +11,6 @@ function VehicleTypePieChart() {
     isLoading: isLoadingType,
     isError: isErrorType,
   } = useCountByVehicleType();
-
-  if (isLoadingType) {
-    return (
-      <Box sx={{ width: '100%' }}>
-        <LinearProgress />
-      </Box>
-    );
-  }
 
   if (isErrorType) {
     return <p>Error loading vehicle data.</p>;
@@ -38,39 +30,53 @@ function VehicleTypePieChart() {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        pt: 2,
+        p: 2,
+        my: 2,
       }}
     >
-      <Stack alignItems="center">
-        <Typography variant="h6" fontWeight="bold">
-          Type Of Vehicle
-        </Typography>
-        <Typography variant="body1" color="gray">
-          Total: {totalVehicle}
-        </Typography>
-        <PieChart
-          series={[
-            {
-              data: [
-                { id: 0, value: totalTrucks, label: 'Truck' },
-                { id: 1, value: totalTrailers, label: 'Trailers' },
-                { id: 2, value: totalVans, label: 'Vans' },
-                { id: 3, value: totalMotorcycles, label: 'Motorcycles' },
-              ],
-              innerRadius: 30,
-              outerRadius: 120,
-              paddingAngle: 2,
-              cornerRadius: 5,
-              startAngle: 0,
-              endAngle: 360,
-              cx: 150,
-              cy: 150,
-            },
-          ]}
-          width={400}
-          height={300}
-        />
-      </Stack>
+      {isLoadingType ? (
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            height: '35vh',
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      ) : (
+        <Stack alignItems="center">
+          <Typography variant="h6" fontWeight="bold">
+            Type Of Vehicle
+          </Typography>
+          <Typography variant="body1" color="gray">
+            Total: {totalVehicle}
+          </Typography>
+          <PieChart
+            series={[
+              {
+                data: [
+                  { id: 0, value: totalTrucks, label: 'Truck' },
+                  { id: 1, value: totalTrailers, label: 'Trailers' },
+                  { id: 2, value: totalVans, label: 'Vans' },
+                  { id: 3, value: totalMotorcycles, label: 'Motors' },
+                ],
+                innerRadius: 30,
+                outerRadius: 120,
+                paddingAngle: 2,
+                cornerRadius: 5,
+                startAngle: 0,
+                endAngle: 360,
+                cx: 150,
+                cy: 150,
+              },
+            ]}
+            width={400}
+            height={300}
+          />
+        </Stack>
+      )}
     </Paper>
   );
 }
