@@ -15,7 +15,7 @@ import {
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 
 import ReplayIcon from '@mui/icons-material/Replay';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 import { Order, OrderStatus } from '@/features/order/order.types';
 import useGetOrders from '@/features/order/useGetOrders';
@@ -249,6 +249,7 @@ function OrderList() {
             }}
             variant="contained"
             startIcon={<ReplayIcon />}
+            loading={isLoading}
           >
             RELOAD
           </LoadingButton>
@@ -256,7 +257,7 @@ function OrderList() {
             buttonText="ADD ORDER"
             buttonVariant="contained"
             buttonColor="success"
-            buttonIcon={<PersonAddIcon />}
+            buttonIcon={<AddCircleIcon />}
             dialogTitle="ADD ORDER"
             dialogDescription="Please enter information for the order"
             componentProps={(handleClose) => (

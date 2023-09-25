@@ -15,7 +15,7 @@ import {
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 
 import ReplayIcon from '@mui/icons-material/Replay';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import RvHookupIcon from '@mui/icons-material/RvHookup';
 import AirportShuttleIcon from '@mui/icons-material/AirportShuttle';
@@ -236,6 +236,7 @@ function VehicleList() {
             }}
             variant="contained"
             startIcon={<ReplayIcon />}
+            loading={isLoading}
           >
             RELOAD
           </LoadingButton>
@@ -243,7 +244,7 @@ function VehicleList() {
             buttonText="ADD VEHICLE"
             buttonVariant="contained"
             buttonColor="success"
-            buttonIcon={<PersonAddIcon />}
+            buttonIcon={<AddCircleIcon />}
             dialogTitle="ADD VEHICLE"
             dialogDescription="Please enter information for the vehicle"
             componentProps={(handleClose) => (
