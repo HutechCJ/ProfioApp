@@ -132,16 +132,31 @@ class LocationManager {
       // Update the startLocation for the next iteration
       startLocation = intermediatePosition;
 
-      // Check if the destination is reached
-      if (startLocation.latitude == endLocation.latitude &&
-          startLocation.longitude == endLocation.longitude) {
+      // Check if the vehicle has reached the end position or gone beyond it
+      final distanceToEnd =
+          calculateDistance(intermediatePosition, endLocation);
+      if (distanceToEnd <= distanceToTravel) {
         timer.cancel();
         print('Destination reached!');
+        // You may want to publish the final position here
+        await publishLocation(mqttProvider, endLocation,
+            vehicleId: vehicleId, vehicleLocation: vehicleLocation);
       } else {
         // Publish the intermediate position to MQTT
         await publishLocation(mqttProvider, intermediatePosition,
             vehicleId: vehicleId, vehicleLocation: vehicleLocation);
       }
+
+      // // Check if the destination is reached
+      // if (startLocation.latitude == endLocation.latitude &&
+      //     startLocation.longitude == endLocation.longitude) {
+      //   timer.cancel();
+      //   print('Destination reached!');
+      // } else {
+      //   // Publish the intermediate position to MQTT
+      //   await publishLocation(mqttProvider, intermediatePosition,
+      //       vehicleId: vehicleId, vehicleLocation: vehicleLocation);
+      // }
     });
   }
 
