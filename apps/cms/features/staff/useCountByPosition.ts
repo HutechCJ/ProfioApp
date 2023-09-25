@@ -3,7 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import staffApi from './staff.service';
 
 const useCountByPosition = () => {
-  const queryData = useQuery([`users/count`], {
+  const queryData = useQuery([`users/staff/countByPosition`], {
     queryFn: () => staffApi.countByPosition(),
     keepPreviousData: true,
   });
