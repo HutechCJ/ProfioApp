@@ -18,8 +18,8 @@ class HubApiService extends HttpService {
     return this.post<Hub>(`/hubs`, data);
   }
 
-  updateHub(id: string, data: UpdateHubData) {
-    return this.put(`/hubs/${id}`, data);
+  updateHub(data: UpdateHubData) {
+    return this.put(`/hubs/${data.id}`, data);
   }
 
   deleteHub(id: string) {

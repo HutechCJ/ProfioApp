@@ -9,7 +9,7 @@ const useGetHubs = (options?: Partial<PagingOptions>) => {
     {
       queryFn: () => hubApi.getHubs(options),
       // keepPreviousData: true,
-    },
+    }
   );
 
   return queryData;

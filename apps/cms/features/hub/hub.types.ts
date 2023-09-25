@@ -13,10 +13,10 @@ export enum HubStatus {
   Full,
 }
 
-export type CreateHubData = Omit<Hub, 'id' | 'staff'> & {
-  staffId: string;
+export type CreateHubData = Omit<Hub, 'id' | 'status'> & {
+  status: string;
 };
 
-export type UpdateHubData = Omit<Hub, 'staff'> & {
-  staffId: string;
+export type UpdateHubData = Omit<Hub, 'status'> & {
+  status: string;
 };
