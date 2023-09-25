@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace Profio.Website.Repositories;
 
-public class Repository : IRepository
+public sealed class Repository : IRepository
 {
   private readonly HttpClient _httpClient;
 

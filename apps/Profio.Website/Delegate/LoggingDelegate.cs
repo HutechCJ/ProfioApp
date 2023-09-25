@@ -1,6 +1,6 @@
 namespace Profio.Website.Delegate;
 
-public class LoggingDelegate : DelegatingHandler
+public sealed class LoggingDelegate : DelegatingHandler
 {
   private readonly ILogger<LoggingDelegate> _logger;
 

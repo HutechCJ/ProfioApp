@@ -1,6 +1,7 @@
 using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Components;
 using System.Text.RegularExpressions;
+using Profio.Website.Cache;
 using Profio.Website.Services;
 
 namespace Profio.Website.Pages;
@@ -18,6 +19,9 @@ public partial class Index
 
   [Inject]
   private NavigationManager NavigationManager { get; set; } = default!;
+
+  [Inject]
+  private ICacheService CacheService { get; set; } = default!;
 
   public async Task FindAsync()
   {
@@ -40,10 +44,13 @@ public partial class Index
         IsLoading = false;
         return;
       case > 0:
+        await CacheService.GetOrSetAsync($"order-{PhoneNumber}", () => CustomerService.GetCurrentOrdersByPhoneAsync(PhoneNumber));
+        await CacheService.GetOrSetAsync($"history-{PhoneNumber}", () => CustomerService.GetOrdersByPhoneAsync(PhoneNumber));
         NavigationManager.NavigateTo($"/order/{PhoneNumber}");
         IsLoading = false;
         return;
       default:
+        await CacheService.GetOrSetAsync($"history-{PhoneNumber}", () => CustomerService.GetOrdersByPhoneAsync(PhoneNumber));
         NavigationManager.NavigateTo($"/history/{PhoneNumber}");
         IsLoading = false;
         break;

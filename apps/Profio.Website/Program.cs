@@ -1,6 +1,8 @@
 using CurrieTechnologies.Razor.SweetAlert2;
 using MudBlazor.Services;
+using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.OpenTelemetry;
+using Profio.Website.Cache;
 using Profio.Website.Delegate;
 using Profio.Website.Middleware;
 using Profio.Website.Repositories;
@@ -19,7 +21,8 @@ try
   builder.Services.AddSweetAlert2();
   builder.AddOpenTelemetry();
   builder.Services.AddMudServices();
-
+  builder.Services.AddMemoryCache();
+  builder.AddSerilog("Profio.Website");
   builder.Services.AddTransient<RetryDelegate>();
   builder.Services.AddTransient<LoggingDelegate>();
 
@@ -31,6 +34,7 @@ try
     .AddHttpMessageHandler<LoggingDelegate>();
 
   builder.Services.AddSingleton<IRepository, Repository>();
+  builder.Services.AddSingleton<ICacheService, CacheService>();
   builder.Services.AddTransient<ICustomerService, CustomerService>();
 
   var app = builder.Build();

@@ -13,4 +13,9 @@ public sealed record OrderDto
   public required string? DestinationZipCode { get; init; }
   public string? Note { get; init; }
   public double? Distance { get; init; }
+  public string Address =>
+    (!string.IsNullOrEmpty(DestinationAddress?.Street) ? DestinationAddress?.Street + ", " : "")
+    + (!string.IsNullOrEmpty(DestinationAddress?.Ward) ? DestinationAddress?.Ward + ", " : "")
+    + (!string.IsNullOrEmpty(DestinationAddress?.City) ? DestinationAddress?.City + ", " : "")
+    + (!string.IsNullOrEmpty(DestinationAddress?.Province) ? DestinationAddress?.Province + ", " : "");
 }

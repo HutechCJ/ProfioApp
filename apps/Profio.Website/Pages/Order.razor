@@ -1,21 +1,8 @@
 @page "/order/{PhoneNumber}"
+@using MudBlazor
+@using Profio.Website.Data.Orders
 
 <PageTitle>Order</PageTitle>
-
-@if (IsLoading)
-{
-  <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
-    <div class="container text-center py-5">
-      <div class="row justify-content-center">
-        <div class="col-lg-6">
-          <div class="input-group-append justify-content-center">
-            <div class="loader"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-}
 
 @if (!Valid)
 {
@@ -48,3 +35,19 @@
   </div>
 }
 
+<MudDataGrid Items="@Orders"
+             Loading="@IsLoading"
+             LoadingProgressColor="Color.Info"
+             SortMode="SortMode.Multiple"
+             ReadOnly="true"
+             Hover="true"
+             Striped="true"
+             Bordered="true">
+  <Columns>
+    <PropertyColumn Property="x => x.Id" Title="Id"/>
+    <PropertyColumn Property="x => x.StartedDate" Title="Started Date"/>
+    <PropertyColumn Property="x => x.ExpectedDeliveryTime" Title="ExpectedDelivery Time"/>
+    <PropertyColumn Property="x => x.Status" Title="Status"/>
+    <PropertyColumn Property="x => x.Address" Title="Address" />
+  </Columns>
+</MudDataGrid>

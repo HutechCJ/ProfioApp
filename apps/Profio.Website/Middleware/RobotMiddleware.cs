@@ -1,6 +1,6 @@
 namespace Profio.Website.Middleware;
 
-public class RobotsTxtMiddleware
+public sealed class RobotsTxtMiddleware
 {
   private readonly RequestDelegate _next;
 

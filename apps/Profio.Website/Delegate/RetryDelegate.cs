@@ -3,7 +3,7 @@ using Polly.Retry;
 
 namespace Profio.Website.Delegate;
 
-public class RetryDelegate : DelegatingHandler
+public sealed class RetryDelegate : DelegatingHandler
 {
   private readonly AsyncRetryPolicy<HttpResponseMessage> _retryPolicy
     = Policy<HttpResponseMessage>
