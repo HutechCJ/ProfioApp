@@ -3,9 +3,9 @@ using EntityFrameworkCore.Repository.Interfaces;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Profio.Domain.Exceptions;
 using Profio.Domain.Interfaces;
 using Profio.Infrastructure.Abstractions.CQRS.Events.Commands;
-using Profio.Infrastructure.Exceptions;
 
 namespace Profio.Infrastructure.Abstractions.CQRS.Handlers.Command;
 

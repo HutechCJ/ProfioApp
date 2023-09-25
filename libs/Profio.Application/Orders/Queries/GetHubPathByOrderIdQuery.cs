@@ -6,11 +6,11 @@ using Microsoft.EntityFrameworkCore;
 using Profio.Application.Hubs;
 using Profio.Application.Orders.Validators;
 using Profio.Domain.Entities;
+using Profio.Domain.Exceptions;
 using Profio.Domain.Specifications;
 using Profio.Domain.ValueObjects;
 using Profio.Infrastructure.Abstractions.CQRS.Events.Queries;
 using Profio.Infrastructure.Abstractions.CQRS.Validators;
-using Profio.Infrastructure.Exceptions;
 using Profio.Infrastructure.Persistence;
 
 namespace Profio.Application.Orders.Queries;

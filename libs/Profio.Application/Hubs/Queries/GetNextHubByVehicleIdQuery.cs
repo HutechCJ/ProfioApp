@@ -5,7 +5,7 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Profio.Application.Vehicles.Validators;
 using Profio.Domain.Entities;
-using Profio.Infrastructure.Exceptions;
+using Profio.Domain.Exceptions;
 using Profio.Infrastructure.Persistence;
 
 namespace Profio.Application.Hubs.Queries;

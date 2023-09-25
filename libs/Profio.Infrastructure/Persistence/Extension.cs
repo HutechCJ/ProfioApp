@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
-using Profio.Infrastructure.Exceptions;
+using Profio.Domain.Exceptions;
 using Profio.Infrastructure.Persistence.Optimization;
 
 namespace Profio.Infrastructure.Persistence;

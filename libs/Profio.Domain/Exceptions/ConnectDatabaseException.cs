@@ -1,4 +1,4 @@
-namespace Profio.Infrastructure.Exceptions;
+namespace Profio.Domain.Exceptions;
 
 public sealed class ConnectDatabaseException : Exception
 {
