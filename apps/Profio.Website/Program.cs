@@ -1,4 +1,5 @@
 using CurrieTechnologies.Razor.SweetAlert2;
+using MudBlazor.Services;
 using Profio.Infrastructure.OpenTelemetry;
 using Profio.Website.Delegate;
 using Profio.Website.Middleware;
@@ -17,6 +18,7 @@ try
   builder.Services.AddServerSideBlazor();
   builder.Services.AddSweetAlert2();
   builder.AddOpenTelemetry();
+  builder.Services.AddMudServices();
 
   builder.Services.AddTransient<RetryDelegate>();
   builder.Services.AddTransient<LoggingDelegate>();
