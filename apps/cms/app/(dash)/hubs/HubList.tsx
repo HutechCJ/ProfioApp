@@ -42,7 +42,7 @@ function HubList() {
 
   React.useEffect(() => {
     setRowCountState((prevRowCountState) =>
-      rowCount !== undefined ? rowCount : prevRowCountState
+      rowCount !== undefined ? rowCount : prevRowCountState,
     );
   }, [rowCount, setRowCountState]);
 
@@ -64,7 +64,7 @@ function HubList() {
           <>
             <CopyTextButton text={params.value} />
             {/* <Link href={`/hubs/${params.value}`}> */}
-              <Typography variant="button">{truncatedValue}</Typography>
+            <Typography variant="button">{truncatedValue}</Typography>
             {/* </Link> */}
           </>
         );
