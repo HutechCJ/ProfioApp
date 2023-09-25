@@ -54,7 +54,7 @@ function StaffPositionPieChart() {
               {
                 data: [
                   {
-                    id: 'Drivers',
+                    id: 0,
                     value: totalDrivers,
                     label: 'Drivers',
                     color: 'red',
