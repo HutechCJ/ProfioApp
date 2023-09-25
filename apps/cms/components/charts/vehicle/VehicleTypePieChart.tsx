@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { PieChart } from '@mui/x-charts/PieChart';
+import { PieChart, pieArcClasses } from '@mui/x-charts/PieChart';
 import { Box, CircularProgress, Paper, Stack, Typography } from '@mui/material';
 import useCountByVehicleType from '@/features/vehicle/useCountByVehicleType';
 
@@ -48,7 +48,7 @@ function VehicleTypePieChart() {
       ) : (
         <Stack alignItems="center">
           <Typography variant="h6" fontWeight="bold">
-            Type Of Vehicle
+            Vehicle
           </Typography>
           <Typography variant="body1" color="gray">
             Total: {totalVehicle}
@@ -57,10 +57,30 @@ function VehicleTypePieChart() {
             series={[
               {
                 data: [
-                  { id: 0, value: totalTrucks, label: 'Truck' },
-                  { id: 1, value: totalTrailers, label: 'Trailers' },
-                  { id: 2, value: totalVans, label: 'Vans' },
-                  { id: 3, value: totalMotorcycles, label: 'Motors' },
+                  {
+                    id: 0,
+                    value: totalTrucks,
+                    label: 'Truck',
+                    color: '#009be5',
+                  },
+                  {
+                    id: 1,
+                    value: totalTrailers,
+                    label: 'Trailers',
+                    color: '#d32f2f',
+                  },
+                  {
+                    id: 2,
+                    value: totalVans,
+                    label: 'Vans',
+                    color: '#ed6c02',
+                  },
+                  {
+                    id: 3,
+                    value: totalMotorcycles,
+                    label: 'Motors',
+                    color: '#9c27b0',
+                  },
                 ],
                 innerRadius: 30,
                 outerRadius: 120,
@@ -70,10 +90,17 @@ function VehicleTypePieChart() {
                 endAngle: 360,
                 cx: 150,
                 cy: 150,
+                highlightScope: { faded: 'global', highlighted: 'item' },
+                faded: { innerRadius: 30, additionalRadius: -30 },
               },
             ]}
             width={400}
             height={300}
+            sx={{
+              [`& .${pieArcClasses.faded}`]: {
+                fill: 'gray',
+              },
+            }}
           />
         </Stack>
       )}

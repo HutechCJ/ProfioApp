@@ -2,8 +2,11 @@ import { Container, Divider, Grid } from '@mui/material';
 import OverviewStatsCard from './OverviewStats';
 import UserGreeting from './UserGreeting';
 import VehicleTypePieChart from '@/components/charts/vehicle/VehicleTypePieChart';
-import VehicleStatusBarChart from '@/components/charts/vehicle/VehicleStatusBarChart';
+// import VehicleStatusBarChart from '@/components/charts/vehicle/VehicleStatusBarChart';
 import StaffPositionPieChart from '@/components/charts/staff/StaffPositionPieChart';
+import OrderStatusPieChart from '@/components/charts/order/OrderStatusPieChart';
+import StaffStatisticsCard from './staffs/StaffStatisticsCard';
+import OrderStatisticsCard from './orders/OrderStatisticsCard';
 
 export default function Index() {
   return (
@@ -19,14 +22,17 @@ export default function Index() {
         columns={{ xs: 1, sm: 1, md: 2, xl: 3 }}
       >
         <Grid item xs={1}>
+          <OrderStatusPieChart />
+        </Grid>
+        <Grid item xs={1}>
           <StaffPositionPieChart />
         </Grid>
         <Grid item xs={1}>
           <VehicleTypePieChart />
         </Grid>
-        <Grid item xs={1}>
+        {/* <Grid item xs={1}>
           <VehicleStatusBarChart />
-        </Grid>
+        </Grid> */}
       </Grid>
     </Container>
   );

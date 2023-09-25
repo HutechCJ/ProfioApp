@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { PieChart } from '@mui/x-charts/PieChart';
+import { PieChart, pieArcClasses } from '@mui/x-charts/PieChart';
 import { Box, CircularProgress, Paper, Stack, Typography } from '@mui/material';
 import useCountByPosition from '@/features/staff/useCountByPosition';
 
@@ -53,11 +53,32 @@ function StaffPositionPieChart() {
             series={[
               {
                 data: [
-                  { id: 0, value: totalDrivers, label: 'Drivers' },
-                  { id: 1, value: totalShippers, label: 'Shippers' },
-                  { id: 2, value: totalOfficers, label: 'Officers' },
-                  { id: 3, value: totalStokers, label: 'Stokers' },
+                  {
+                    id: 'Drivers',
+                    value: totalDrivers,
+                    label: 'Drivers',
+                    color: 'red',
+                  },
+                  {
+                    id: 1,
+                    value: totalShippers,
+                    label: 'Shippers',
+                    color: 'blue',
+                  },
+                  {
+                    id: 2,
+                    value: totalOfficers,
+                    label: 'Officers',
+                    color: 'green',
+                  },
+                  {
+                    id: 3,
+                    value: totalStokers,
+                    label: 'Stokers',
+                    color: 'brown',
+                  },
                 ],
+                id: 'x',
                 innerRadius: 30,
                 outerRadius: 120,
                 paddingAngle: 2,
@@ -66,10 +87,17 @@ function StaffPositionPieChart() {
                 endAngle: 360,
                 cx: 150,
                 cy: 150,
+                highlightScope: { faded: 'global', highlighted: 'item' },
+                faded: { innerRadius: 30, additionalRadius: -30 },
               },
             ]}
             width={400}
             height={300}
+            sx={{
+              [`& .${pieArcClasses.faded}`]: {
+                fill: 'gray',
+              },
+            }}
           />
         </Stack>
       )}
