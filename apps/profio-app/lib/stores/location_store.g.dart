@@ -55,11 +55,13 @@ mixin _$LocationStore on LocationStoreBase, Store {
       ActionController(name: 'LocationStoreBase', context: context);
 
   @override
-  void simulateVehicleMovement({String vehicleId = ''}) {
+  void simulateVehicleMovement(
+      {String vehicleId = '', VehicleLocation? vehicleLocation}) {
     final _$actionInfo = _$LocationStoreBaseActionController.startAction(
         name: 'LocationStoreBase.simulateVehicleMovement');
     try {
-      return super.simulateVehicleMovement(vehicleId: vehicleId);
+      return super.simulateVehicleMovement(
+          vehicleId: vehicleId, vehicleLocation: vehicleLocation);
     } finally {
       _$LocationStoreBaseActionController.endAction(_$actionInfo);
     }

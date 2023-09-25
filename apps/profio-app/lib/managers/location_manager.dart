@@ -67,14 +67,27 @@ class LocationManager {
 
   static Future<void> publishLocation(
       MqttProvider mqttProvider, Position position,
-      {String vehicleId = ''}) async {
+      {String vehicleId = '', VehicleLocation? vehicleLocation}) async {
     const pubTopic = locationTopic;
     final builder = MqttClientPayloadBuilder();
-    final location = VehicleLocation(
-        id: vehicleId,
-        latitude: position.latitude,
-        longitude: position.longitude);
-    builder.addString(jsonEncode(location.toJson()));
+    if (vehicleLocation != null) {
+      if (vehicleId != '') {
+        vehicleLocation.id = vehicleId;
+      }
+      vehicleLocation.latitude = position.latitude;
+      vehicleLocation.longitude = position.longitude;
+      builder.addString(jsonEncode(vehicleLocation.toJson()));
+    } else {
+      final location = VehicleLocation(
+          id: vehicleId,
+          latitude: position.latitude,
+          longitude: position.longitude,
+          orderIds: [
+            "01HB0Q3XZ5K80BR907M6R05K5A",
+            "01HAR5JFN6Y30YSXSDK2964S3D"
+          ]);
+      builder.addString(jsonEncode(location.toJson()));
+    }
 
     print('MqttProvider::Publishing our topic');
     mqttProvider.publish(pubTopic, MqttQos.exactlyOnce, builder);
@@ -82,7 +95,9 @@ class LocationManager {
 
   static void simulateCarMovement(MqttProvider mqttProvider,
       Position startLocation, Position endLocation, double vehicleSpeed,
-      {Function(Position)? onIntermediatePosition, String vehicleId = ''}) {
+      {Function(Position)? onIntermediatePosition,
+      String vehicleId = '',
+      VehicleLocation? vehicleLocation}) {
     const pubTopic = locationTopic;
 
     // Calculate the total distance between start and end locations
@@ -125,7 +140,7 @@ class LocationManager {
       } else {
         // Publish the intermediate position to MQTT
         await publishLocation(mqttProvider, intermediatePosition,
-            vehicleId: vehicleId);
+            vehicleId: vehicleId, vehicleLocation: vehicleLocation);
       }
     });
   }
