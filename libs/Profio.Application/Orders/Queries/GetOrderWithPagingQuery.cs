@@ -19,7 +19,7 @@ public class GetOrderWithPagingQueryHandler<TQuery> : GetWithPagingQueryHandler<
   }
   protected override Expression<Func<Order, bool>> Filter(string filter)
     => c
-      => (c.DestinationZipCode != null && c.DestinationZipCode.ToLower().Contains(filter))
+      => (c.DestinationZipCode.ToLower().Contains(filter))
       || (c.Note != null && c.Note.ToLower().Contains(filter))
       || (c.DestinationAddress != null
     && ((c.DestinationAddress.Street != null && c.DestinationAddress.Street.ToLower().Contains(filter))

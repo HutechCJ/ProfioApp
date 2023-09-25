@@ -37,9 +37,9 @@ public sealed class GetAvailableVehicleByOrderIdWithPagingQueryHandler : IReques
     var order = await _applicationDbContext.Orders
       .Include(x => x.Customer)
       .SingleOrDefaultAsync(x => x.Id == request.OrderId, cancellationToken: cancellationToken)
-      ?? throw new NotFoundException(typeof(Order).Name, request.OrderId);
+      ?? throw new NotFoundException(nameof(Order), request.OrderId);
 
-    var customerZipCode = order.Customer?.Address?.ZipCode ?? throw new NotFoundException(typeof(Address).Name);
+    var customerZipCode = order.Customer?.Address?.ZipCode ?? throw new NotFoundException(nameof(Address));
 
     var query = (IMultipleResultQuery<Vehicle>)_vehicleRepository
       .MultipleResultQuery()

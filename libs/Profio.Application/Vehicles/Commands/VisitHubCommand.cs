@@ -40,11 +40,9 @@ public sealed class VisitHubCommandHandler : IRequestHandler<VisitHubCommand, Un
         .ThenInclude(d => d.Order)
         .Where(v => v.Id == request.VehicleId)
         .FirstOrDefaultAsync(cancellationToken) ??
-      throw new NotFoundException(typeof(Vehicle).Name, request.VehicleId);
+      throw new NotFoundException(nameof(Vehicle), request.VehicleId);
 
-    var nextDelivery = vehicle.Deliveries
-        .OrderByDescending(d => d.DeliveryDate)
-        .FirstOrDefault() ?? throw new NotFoundException(typeof(Delivery).Name);
+    var nextDelivery = vehicle.Deliveries.MaxBy(d => d.DeliveryDate) ?? throw new NotFoundException(nameof(Delivery));
 
     if (nextDelivery.Order == null)
       return Unit.Value;

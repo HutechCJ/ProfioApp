@@ -4,6 +4,6 @@ using Profio.Infrastructure.Abstractions.CQRS;
 
 namespace Profio.Application.Phases;
 
-public class PhaseProfile : EntityProfileBase<Phase, PhaseDto, CreatePhaseCommand, UpdatePhaseCommand>
+public sealed class PhaseProfile : EntityProfileBase<Phase, PhaseDto, CreatePhaseCommand, UpdatePhaseCommand>
 {
 }

@@ -9,7 +9,7 @@ namespace Profio.Application.Phases.Commands;
 
 public sealed record DeletePhaseCommand(object Id) : DeleteCommandBase<PhaseDto>(Id);
 
-sealed class DeletePhaseCommandHandler : DeleteCommandHandlerBase<DeletePhaseCommand, PhaseDto, Phase>
+public sealed class DeletePhaseCommandHandler : DeleteCommandHandlerBase<DeletePhaseCommand, PhaseDto, Phase>
 {
   public DeletePhaseCommandHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {

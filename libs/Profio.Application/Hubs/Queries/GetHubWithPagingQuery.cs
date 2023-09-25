@@ -19,8 +19,8 @@ public sealed class GetHubWithPagingQueryHandler : GetWithPagingQueryHandler<Get
 
   protected override Expression<Func<Hub, bool>> Filter(string filter)
     => h
-      => (h.Name != null && h.Name.ToLower().Contains(filter))
-      || (h.ZipCode != null && h.ZipCode.ToLower().Contains(filter))
+      => (h.Name.ToLower().Contains(filter))
+      || (h.ZipCode.ToLower().Contains(filter))
       || (h.Address != null && ((h.Address.Street != null
         && h.Address.Street.ToLower().Contains(filter))
       || (h.Address.Province != null

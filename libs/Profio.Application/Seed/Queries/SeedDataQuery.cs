@@ -90,10 +90,7 @@ public sealed class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
         order.CustomerId = customerIds[new Random().Next(0, customerIds.Count)];
         var zipCode = hubZipCodes[new Random().Next(0, hubZipCodes.Count)];
         order.DestinationZipCode = zipCode;
-        if (order.DestinationZipCode != null)
-        {
-          order.DestinationAddress!.ZipCode = zipCode;
-        }
+        order.DestinationAddress!.ZipCode = zipCode;
       }
       await _context.AddRangeAsync(orders);
       await _context.SaveChangesAsync();

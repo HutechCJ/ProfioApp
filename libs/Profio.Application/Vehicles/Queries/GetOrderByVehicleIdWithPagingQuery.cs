@@ -11,14 +11,15 @@ using System.Linq.Expressions;
 namespace Profio.Application.Vehicles.Queries;
 
 public sealed record GetOrderByVehicleIdWithPagingQuery(string VehicleId, Criteria Criteria) : GetWithPagingQueryBase<OrderDto>(Criteria);
-sealed class GetOrderByVehicleIdWithPagingQueryHandler : GetWithPagingQueryHandler<GetOrderByVehicleIdWithPagingQuery, OrderDto, Order>
+
+public sealed class GetOrderByVehicleIdWithPagingQueryHandler : GetWithPagingQueryHandler<GetOrderByVehicleIdWithPagingQuery, OrderDto, Order>
 {
   public GetOrderByVehicleIdWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
   protected override Expression<Func<Order, bool>> Filter(string filter)
     => c
-      => (c.DestinationZipCode != null && c.DestinationZipCode.ToLower().Contains(filter))
+      => (c.DestinationZipCode.ToLower().Contains(filter))
       || (c.Note != null && c.Note.ToLower().Contains(filter))
       || (c.DestinationAddress != null
     && ((c.DestinationAddress.Street != null && c.DestinationAddress.Street.ToLower().Contains(filter))

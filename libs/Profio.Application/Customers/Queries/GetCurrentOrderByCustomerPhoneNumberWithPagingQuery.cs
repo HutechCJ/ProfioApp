@@ -19,7 +19,7 @@ public sealed class GetCurrentOrderByCustomerPhoneNumberWithPagingQueryHandler :
   }
 
   protected override Expression<Func<Order, bool>> RequestFilter(GetCurrentOrderByCustomerPhoneNumberWithPagingQuery request)
-    => x => new OrderStatus[] { OrderStatus.Pending, OrderStatus.InProgress, OrderStatus.Received }.Contains(x.Status)
+    => x => new[] { OrderStatus.Pending, OrderStatus.InProgress, OrderStatus.Received }.Contains(x.Status)
     && (x.Customer != null && x.Customer.Phone == request.Phone);
 
 }

@@ -13,7 +13,8 @@ public sealed record CreatePhaseCommand : CreateCommandBase
   public int Order { get; set; } = 1;
   public string? RouteId { get; set; }
 };
-sealed class CreatePhaseCommandHandler : CreateCommandHandlerBase<CreatePhaseCommand, Phase>
+
+public sealed class CreatePhaseCommandHandler : CreateCommandHandlerBase<CreatePhaseCommand, Phase>
 {
   public CreatePhaseCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {

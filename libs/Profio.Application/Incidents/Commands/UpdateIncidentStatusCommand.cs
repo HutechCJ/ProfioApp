@@ -8,7 +8,7 @@ public sealed record UpdateIncidentStatusCommand(object Id) : IRequest<Unit>
 {
   public required IncidentStatus Status { get; set; }
 }
-sealed class UpdateIncidentStatusCommandHandler : IRequestHandler<UpdateIncidentStatusCommand, Unit>
+public sealed class UpdateIncidentStatusCommandHandler : IRequestHandler<UpdateIncidentStatusCommand, Unit>
 {
   private readonly ISender _sender;
 

@@ -61,7 +61,7 @@ public sealed class RegisterCommandHandler : IRequestHandler<RegisterCommand, Ac
     var newUser = await _userManager.Users
       .AsNoTracking()
       .Include(x => x.Staff)
-      .SingleOrDefaultAsync(x => x.Id == user.Id, cancellationToken) ?? throw new NotFoundException(typeof(ApplicationUser).Name, user.Id);
+      .SingleOrDefaultAsync(x => x.Id == user.Id, cancellationToken) ?? throw new NotFoundException(nameof(ApplicationUser), user.Id);
 
     var dto = _mapper.Map<AccountDto>(newUser);
     dto.Token = _tokenService.CreateToken(user);

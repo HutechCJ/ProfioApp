@@ -22,21 +22,19 @@ public sealed class GetDestinationAddressByVehicleIdQueryHandler : IRequestHandl
         .ThenInclude(o => o!.Customer)
         .Where(v => v.Id == request.VehicleId)
         .FirstOrDefaultAsync(cancellationToken) ??
-      throw new NotFoundException(typeof(Vehicle).Name, request.VehicleId);
+      throw new NotFoundException(nameof(Vehicle), request.VehicleId);
 
-    var nextDelivery = vehicle.Deliveries
-        .OrderByDescending(d => d.DeliveryDate)
-        .FirstOrDefault()
-        ?? throw new NotFoundException(typeof(Delivery).Name);
+    var nextDelivery = vehicle.Deliveries.MaxBy(d => d.DeliveryDate)
+        ?? throw new NotFoundException(nameof(Delivery));
 
     var order = nextDelivery.Order
-      ?? throw new NotFoundException(typeof(Order).Name);
+      ?? throw new NotFoundException(nameof(Order));
 
     var customer = order.Customer
-      ?? throw new NotFoundException(typeof(Customer).Name);
+      ?? throw new NotFoundException(nameof(Customer));
 
     var address = customer.Address
-      ?? throw new NotFoundException(typeof(Address).Name);
+      ?? throw new NotFoundException(nameof(Address));
 
     return address;
   }

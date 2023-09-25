@@ -8,7 +8,7 @@ public sealed record UpdateHubStatusCommand(object Id) : IRequest<Unit>
 {
   public HubStatus? Status { get; set; }
 }
-sealed class UpdateHubStatusCommandHandler : IRequestHandler<UpdateHubStatusCommand, Unit>
+public sealed class UpdateHubStatusCommandHandler : IRequestHandler<UpdateHubStatusCommand, Unit>
 {
   private readonly ISender _sender;
 

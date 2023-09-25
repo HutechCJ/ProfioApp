@@ -14,7 +14,7 @@ public sealed record UpdatePhaseCommand(object Id) : UpdateCommandBase(Id)
   public int? Order { get; set; }
   public string? RouteId { get; set; }
 }
-sealed class UpdatePhaseCommandHandler : UpdateCommandHandlerBase<UpdatePhaseCommand, Phase>
+public sealed class UpdatePhaseCommandHandler : UpdateCommandHandlerBase<UpdatePhaseCommand, Phase>
 {
   public UpdatePhaseCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {

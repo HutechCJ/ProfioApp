@@ -10,7 +10,7 @@ namespace Profio.Application.Phases.Queries;
 
 public sealed record GetPhaseWithPagingQuery(Criteria Criteria) : GetWithPagingQueryBase<PhaseDto>(Criteria);
 
-sealed class GetPhaseWithPagingQueryHandler : GetWithPagingQueryHandler<GetPhaseWithPagingQuery, PhaseDto, Phase>
+public sealed class GetPhaseWithPagingQueryHandler : GetWithPagingQueryHandler<GetPhaseWithPagingQuery, PhaseDto, Phase>
 {
   public GetPhaseWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {

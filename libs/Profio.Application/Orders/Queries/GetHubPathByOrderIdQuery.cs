@@ -31,17 +31,17 @@ public sealed class GetHubPathByOrderIdQueryHandler : IRequestHandler<GetHubPath
   {
     var order = await _applicationDbContext.Orders
       .Include(x => x.Customer)
-      .FirstOrDefaultAsync(x => x.Id == request.OrderId, cancellationToken) ?? throw new NotFoundException(typeof(Order).Name, request.OrderId);
+      .FirstOrDefaultAsync(x => x.Id == request.OrderId, cancellationToken) ?? throw new NotFoundException(nameof(Order), request.OrderId);
 
-    var customerZipCode = order.Customer?.Address?.ZipCode ?? throw new NotFoundException(typeof(Address).Name);
+    var customerZipCode = order.Customer?.Address?.ZipCode ?? throw new NotFoundException(nameof(Address));
 
     var destinationZipCode = order.DestinationZipCode;
 
     var startHub = await _applicationDbContext.Hubs
-      .FirstOrDefaultAsync(x => x.ZipCode == customerZipCode, cancellationToken) ?? throw new NotFoundException(typeof(Hub).Name, customerZipCode);
+      .FirstOrDefaultAsync(x => x.ZipCode == customerZipCode, cancellationToken) ?? throw new NotFoundException(nameof(Hub), customerZipCode);
 
     var endHub = await _applicationDbContext.Hubs
-      .FirstOrDefaultAsync(x => x.ZipCode == destinationZipCode, cancellationToken) ?? throw new NotFoundException(typeof(Hub).Name, destinationZipCode);
+      .FirstOrDefaultAsync(x => x.ZipCode == destinationZipCode, cancellationToken) ?? throw new NotFoundException(nameof(Hub), destinationZipCode);
 
     IList<HubDto> path = new List<HubDto>
     {
