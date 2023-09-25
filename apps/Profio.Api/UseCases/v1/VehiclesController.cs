@@ -99,4 +99,10 @@ public sealed class VehiclesController : BaseEntityController<Vehicle, VehicleDt
   [SwaggerOperation(summary: "Get Current Order List by Vehicle Id")]
   public async Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> GetCurrentOrders(string id, [FromQuery] Criteria criteria)
     => Ok(await Mediator.Send(new GetCurrentOrderByVehicleIdWithPagingQuery(id, criteria)));
+
+  [HttpGet("{id:length(26)}/hubs/path")]
+  [SwaggerOperation(summary: "Get Hub path by Vehicle Id")]
+  public async Task<ActionResult<ResultModel<IPagedList<HubDto>>>> GetHubPath(string id, [FromQuery] Criteria criteria)
+    => Ok(ResultModel<IPagedList<HubDto>>.Create(await Mediator.Send(new GetHubPathByVehicleIdQuery(id, criteria))));
+
 }
