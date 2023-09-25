@@ -2,52 +2,41 @@
 
 import React from 'react';
 
-import Link from '@/components/Link';
+// import Link from '@/components/Link';
 import LoadingButton from '@/components/LoadingButton';
-import { Box, Typography, Stack, ButtonGroup, Divider } from '@mui/material';
+import {
+  Box,
+  Typography,
+  Stack,
+  ButtonGroup,
+  Divider,
+  Chip,
+} from '@mui/material';
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid';
 
 import ReplayIcon from '@mui/icons-material/Replay';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
-import { Staff, StaffPosition } from '@/features/staff/staff.types';
-import useGetStaffs from '@/features/staff/useGetStaffs';
-import FormDialog from '@/components/FormDialog';
-import AddStaff from './AddStaff';
-import EditStaff from './EditStaff';
-import ActionForList from '@/components/ActionForList';
-import useCountByPosition from '@/features/staff/useCountByPosition';
-import useDeleteStaff from '@/features/staff/useDeleteStaff';
+import { Incident, IncidentStatus } from '@/features/incident/incident.types';
+import useGetIncidents from '@/features/incident/useGetIncidents';
 import CopyTextButton from '@/components/CopyTextButton';
 
-function StaffList() {
+function IncidentList() {
   const [paginationModel, setPaginationModel] = React.useState({
     page: 0,
     pageSize: 10,
   });
 
   const {
-    data: pagingStaffs,
+    data: pagingIncidents,
     isLoading,
     refetch,
     remove,
-  } = useGetStaffs({
+  } = useGetIncidents({
     PageIndex: paginationModel.page + 1,
     PageSize: paginationModel.pageSize,
   });
 
-  const { mutate: deleteStaff, isSuccess } = useDeleteStaff();
-
-  const { refetch: refetchCountByPosition } = useCountByPosition();
-
-  React.useEffect(() => {
-    if (isSuccess) {
-      refetchCountByPosition();
-      refetch();
-    }
-  }, [isSuccess, refetchCountByPosition, refetch]);
-
-  const rowCount = pagingStaffs?.data.totalCount || 0;
+  const rowCount = pagingIncidents?.data.totalCount || 0;
 
   const [rowCountState, setRowCountState] = React.useState(rowCount);
 
@@ -57,7 +46,7 @@ function StaffList() {
     );
   }, [rowCount, setRowCountState]);
 
-  const columns: GridColDef<Staff>[] = [
+  const columns: GridColDef<Incident>[] = [
     {
       field: 'id',
       headerName: 'ID',
@@ -74,63 +63,58 @@ function StaffList() {
         return (
           <>
             <CopyTextButton text={params.value} />
-            <Link href={`/staffs/${params.value}`}>
-              <Typography variant="button">{truncatedValue}</Typography>
-            </Link>
+            {/* <Link href={`/incidents/${params.value}`}> */}
+            <Typography variant="button">{truncatedValue}</Typography>
+            {/* </Link> */}
           </>
         );
       },
     },
     {
-      field: 'name',
-      width: 300,
-      headerName: 'FULL NAME',
+      field: 'status',
+      headerName: 'Status',
       headerAlign: 'center',
       align: 'center',
-    },
-    {
-      field: 'phone',
-      width: 250,
-      headerName: 'PHONE',
-      headerAlign: 'center',
-      align: 'center',
-    },
-    {
-      field: 'position',
-      width: 250,
-      headerName: 'POSITION',
-      headerAlign: 'center',
-      align: 'center',
-      valueGetter: (params) => {
-        const { position } = params.row;
-        return `${StaffPosition[position]}`;
+      width: 200,
+      renderCell(params) {
+        const getColor = () => {
+          const value = params.value as IncidentStatus;
+          if (value === IncidentStatus.InProgress) return 'warning';
+          if (value === IncidentStatus.Resolved) return 'success';
+          return 'default';
+        };
+        return (
+          <Chip color={getColor()} label={`${IncidentStatus[params.value]}`} />
+        );
       },
     },
     {
-      field: 'actions',
-      width: 320,
-      headerName: 'ACTIONS',
+      field: 'time',
+      width: 250,
+      headerName: 'Time',
       headerAlign: 'center',
       align: 'center',
-      renderCell: (params) => {
-        const staffId = params.row.id;
-        return (
-          <ActionForList
-            entityId={staffId}
-            entity="staff"
-            detailsLink={`/staffs/${staffId}`}
-            editComponentProps={(handleClose) => (
-              <EditStaff
-                onSuccess={() => {
-                  handleClose();
-                  refetch();
-                }}
-                params={{ staffId: staffId }}
-              />
-            )}
-            handleDelete={() => deleteStaff(staffId)}
-          />
-        );
+      valueGetter: (params) => {
+        const { time } = params.row;
+        return time ? `${new Date(time).toLocaleString()}` : '';
+      },
+    },
+    {
+      field: 'description',
+      width: 400,
+      headerName: 'Description',
+      headerAlign: 'center',
+      align: 'center',
+    },
+    {
+      field: 'delivery',
+      width: 250,
+      headerName: 'Delivery',
+      headerAlign: 'center',
+      align: 'center',
+      valueGetter: (params) => {
+        const { delivery } = params.row;
+        return delivery ? `${delivery.id}` : '';
       },
     },
   ];
@@ -145,7 +129,7 @@ function StaffList() {
         marginBottom={2}
       >
         <Typography variant="h5" fontWeight="bold">
-          STAFF LIST
+          INCIDENT LIST
         </Typography>
         <ButtonGroup variant="text" aria-label="button-group-reload-and-create">
           <LoadingButton
@@ -159,27 +143,11 @@ function StaffList() {
           >
             RELOAD
           </LoadingButton>
-          <FormDialog
-            buttonText="ADD STAFF"
-            buttonVariant="contained"
-            buttonColor="success"
-            buttonIcon={<PersonAddIcon />}
-            dialogTitle="ADD STAFF"
-            dialogDescription="Please enter information for the staff"
-            componentProps={(handleClose) => (
-              <AddStaff
-                onSuccess={() => {
-                  refetch();
-                  handleClose();
-                }}
-              />
-            )}
-          />
         </ButtonGroup>
       </Stack>
       <DataGrid
         columns={columns}
-        rows={pagingStaffs?.data.items || []}
+        rows={pagingIncidents?.data.items || []}
         rowCount={rowCountState}
         loading={isLoading}
         pageSizeOptions={[5, 10, 20, 50, 100]}
@@ -204,4 +172,4 @@ function StaffList() {
   );
 }
 
-export default StaffList;
+export default IncidentList;

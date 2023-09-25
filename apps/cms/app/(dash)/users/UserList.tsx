@@ -206,6 +206,7 @@ function UserList() {
             }}
             variant="contained"
             startIcon={<ReplayIcon />}
+            loading={isLoading}
           >
             RELOAD
           </LoadingButton>
