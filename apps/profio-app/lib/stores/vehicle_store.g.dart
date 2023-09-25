@@ -49,12 +49,52 @@ mixin _$VehicleStore on VehicleStoreBase, Store {
     });
   }
 
+  late final _$startHubAtom =
+      Atom(name: 'VehicleStoreBase.startHub', context: context);
+
+  @override
+  Hub get startHub {
+    _$startHubAtom.reportRead();
+    return super.startHub;
+  }
+
+  @override
+  set startHub(Hub value) {
+    _$startHubAtom.reportWrite(value, super.startHub, () {
+      super.startHub = value;
+    });
+  }
+
+  late final _$endHubAtom =
+      Atom(name: 'VehicleStoreBase.endHub', context: context);
+
+  @override
+  Hub get endHub {
+    _$endHubAtom.reportRead();
+    return super.endHub;
+  }
+
+  @override
+  set endHub(Hub value) {
+    _$endHubAtom.reportWrite(value, super.endHub, () {
+      super.endHub = value;
+    });
+  }
+
   late final _$fetchVehiclesAsyncAction =
       AsyncAction('VehicleStoreBase.fetchVehicles', context: context);
 
   @override
   Future<void> fetchVehicles() {
     return _$fetchVehiclesAsyncAction.run(() => super.fetchVehicles());
+  }
+
+  late final _$fetchHubPathAsyncAction =
+      AsyncAction('VehicleStoreBase.fetchHubPath', context: context);
+
+  @override
+  Future<void> fetchHubPath() {
+    return _$fetchHubPathAsyncAction.run(() => super.fetchHubPath());
   }
 
   late final _$visitAsyncAction =
@@ -84,6 +124,8 @@ mixin _$VehicleStore on VehicleStoreBase, Store {
     return '''
 vehicleList: ${vehicleList},
 selectedVehicle: ${selectedVehicle},
+startHub: ${startHub},
+endHub: ${endHub},
 hasSelectedVehicle: ${hasSelectedVehicle}
     ''';
   }

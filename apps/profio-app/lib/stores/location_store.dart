@@ -9,7 +9,6 @@ import 'package:profio_staff_client/models/vehicle_location.dart';
 import 'package:profio_staff_client/providers/mqtt_provider.dart';
 import 'package:profio_staff_client/stores/hub_store.dart';
 import 'package:profio_staff_client/stores/vehicle_store.dart';
-import 'package:profio_staff_client/widgets/vehicle_list.dart';
 import 'package:provider/provider.dart';
 
 part 'location_store.g.dart';
