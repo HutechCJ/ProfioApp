@@ -15,6 +15,8 @@ import {
   Button,
   Divider,
   Avatar,
+  Box,
+  LinearProgress,
 } from '@mui/material';
 import Link from '@/components/Link';
 
@@ -61,7 +63,11 @@ function Staff({ params }: { params: { staffId: string } }) {
   }, [isSuccess, refetchCountByPosition, refetchStaffs]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Box sx={{ width: '100%' }}>
+        <LinearProgress />
+      </Box>
+    );
   }
 
   if (isError || !staffApiRes) {

@@ -15,6 +15,8 @@ import {
   Button,
   Divider,
   Avatar,
+  Box,
+  LinearProgress,
 } from '@mui/material';
 import Link from '@/components/Link';
 
@@ -56,7 +58,11 @@ function Customer({ params }: { params: { customerId: string } }) {
   }, [isSuccess, refetchCustomers]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <Box sx={{ width: '100%' }}>
+        <LinearProgress />
+      </Box>
+    );
   }
 
   if (isError || !customerApiRes) {

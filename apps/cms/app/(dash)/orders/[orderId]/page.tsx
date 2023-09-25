@@ -15,6 +15,8 @@ import {
   CardContent,
   ButtonGroup,
   Grid,
+  Box,
+  LinearProgress,
 } from '@mui/material';
 
 import GoogleMapComponent from './GoogleMap';
@@ -62,7 +64,11 @@ function Order({ params }: { params: { orderId: string } }) {
   }, [isSuccess, refetchCount, refetchOrders]);
 
   if (orderLoading) {
-    return 'Loading...';
+    return (
+      <Box sx={{ width: '100%' }}>
+        <LinearProgress />
+      </Box>
+    );
   }
 
   if (!orderApiRes || orderError) {
