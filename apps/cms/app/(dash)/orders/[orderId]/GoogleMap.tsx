@@ -199,13 +199,18 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
                 />
               )}
             {directionsResult.directions && (
-              <DirectionsRenderer directions={directionsResult.directions} />
+              <DirectionsRenderer
+                options={{
+                  suppressMarkers: true,
+                }}
+                directions={directionsResult.directions}
+              />
             )}
             {orderLocation !== null && (
               <Marker
                 position={orderLocation}
                 icon={'https://img.icons8.com/color/48/truck--v1.png'}
-                label={'Your Order'}
+                // label={'Your Order'}
                 title={'Your Order Current Location'}
               />
             )}
@@ -226,9 +231,13 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
                     lat: hub.location?.latitude ?? 0,
                     lng: hub.location?.longitude ?? 0,
                   }}
-                  // icon={`https://img.icons8.com/emoji/48/round-pushpin-emoji.png`}
+                  icon={`${
+                    i > 0
+                      ? 'https://img.icons8.com/stickers/48/marker-b.png'
+                      : 'https://img.icons8.com/stickers/48/marker-a.png'
+                  }`}
                   title={`${hub.id}`}
-                  label={`${i > 0 ? 'Next' : 'Previous'} Hub`}
+                  // label={`${i > 0 ? 'N' : 'P'} Hub`}
                 />
               );
             })}
