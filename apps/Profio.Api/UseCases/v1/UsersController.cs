@@ -51,11 +51,11 @@ public sealed class UsersController : BaseEntityController<ApplicationUser, User
 
   [HttpGet("{id:guid}")]
   [SwaggerOperation(summary: "Get User by Id")]
-  public Task<ActionResult<ResultModel<UserDto>>> GetUserById(string id)
-    => HandleGetByIdQuery(new(id));
+  public Task<ActionResult<ResultModel<UserDto>>> GetUserById(Guid id)
+    => HandleGetByIdQuery(new(id.ToString()));
 
   [HttpGet("check-authorization")]
-  [SwaggerOperation(summary: "Check user's autherization status")]
+  [SwaggerOperation(summary: "Check user's authorization status")]
   public async Task<ActionResult<ResultModel<AccountDto>>> CheckAuthorization()
     => Ok(ResultModel<AccountDto>.Create(await Mediator.Send(new CheckAuthorizationQuery())));
 
@@ -68,6 +68,6 @@ public sealed class UsersController : BaseEntityController<ApplicationUser, User
   [HttpPut("upload-image")]
   [SwaggerOperation(summary: "Upload Image")]
   [Obsolete("Deprecated")]
-  public async Task<ActionResult<ResultModel<AccountDto>>> UploadImage([FromQuery] Guid userId, IFormFile file)
-    => Ok(ResultModel<AccountDto>.Create(await Mediator.Send(new UploadImageCommand(userId, file))));
+  public async Task<ActionResult<ResultModel<AccountDto>>> UploadImage([FromForm] UploadImageCommand uploadImageCommand)
+    => Ok(ResultModel<string>.Create(await Mediator.Send(uploadImageCommand)));
 }
