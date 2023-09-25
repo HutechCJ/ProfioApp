@@ -2,16 +2,12 @@
 
 import useGetOrderHubsPath from '@/features/order/useGetOrderHubsPath';
 import { Box, Alert, Stack } from '@mui/material';
-import PlaceIcon from '@mui/icons-material/Place';
 import {
   DirectionsRenderer,
   DirectionsService,
   GoogleMap,
   Marker,
   useJsApiLoader,
-  InfoBox,
-  InfoWindow,
-  MarkerProps,
 } from '@react-google-maps/api';
 import React from 'react';
 import useSignalR from '@/common/hooks/useSignalR';
@@ -57,8 +53,6 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
     });
 
   const onLoad = React.useCallback(function callback(map: google.maps.Map) {
-    const vietnam = new window.google.maps.LatLng(14.0583, 108.2772);
-
     setMap(map);
   }, []);
 
@@ -124,7 +118,12 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
     });
   }, []);
 
-  if (!orderHubsPathApiRes || orderHubsPathApiRes.data.items.length <= 0)
+  if (
+    !orderHubsPathApiRes ||
+    orderHubsPathApiRes.data.items.length <= 0 ||
+    hubsPathLoading ||
+    hubsPathError
+  )
     return null;
 
   return (
