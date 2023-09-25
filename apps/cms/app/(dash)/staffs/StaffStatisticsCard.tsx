@@ -4,9 +4,6 @@ import React from 'react';
 
 import {
   Box,
-  Card,
-  CardHeader,
-  CardContent,
   Divider,
   LinearProgress,
   Grid,
@@ -14,7 +11,7 @@ import {
   Typography,
 } from '@mui/material';
 
-import PeopleIcon from '@mui/icons-material/People';
+// import PeopleIcon from '@mui/icons-material/People';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import MopedIcon from '@mui/icons-material/Moped';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
