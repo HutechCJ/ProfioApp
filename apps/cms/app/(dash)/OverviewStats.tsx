@@ -1,7 +1,6 @@
 'use client';
 
 import Stat, { StatProps } from '@/components/Stat';
-import ErrorIcon from '@mui/icons-material/Error';
 import InventoryIcon from '@mui/icons-material/Inventory';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import PeopleIcon from '@mui/icons-material/People';
@@ -15,7 +14,7 @@ function OverviewStatsCard() {
     data: counterRes,
     isLoading,
     isError,
-  } = useEntitiesCounter(['order', 'incident', 'staff', 'delivery', 'vehicle']);
+  } = useEntitiesCounter(['order', 'staff', 'delivery', 'vehicle']);
 
   if (isLoading) {
     return (
@@ -35,7 +34,7 @@ function OverviewStatsCard() {
       container
       direction="row"
       spacing={1}
-      columns={{ xs: 1, sm: 2, md: 5 }}
+      columns={{ xs: 1, sm: 1, md: 2, xl: 4 }}
     >
       <Grid item xs={1}>
         <Link href="/orders" sx={{ textDecoration: 'none' }}>
@@ -44,16 +43,6 @@ function OverviewStatsCard() {
             iconColor="success.main"
             value={counterRes.data.order}
             description="Orders"
-          />
-        </Link>
-      </Grid>
-      <Grid item xs={1}>
-        <Link href="/incidents" sx={{ textDecoration: 'none' }}>
-          <StatCard
-            icon={<ErrorIcon />}
-            iconColor="red"
-            value={counterRes.data.incident}
-            description="Incidents"
           />
         </Link>
       </Grid>
