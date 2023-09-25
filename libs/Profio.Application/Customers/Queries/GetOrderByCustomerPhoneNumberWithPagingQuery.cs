@@ -19,9 +19,8 @@ public sealed class GetOrderByCustomerPhoneNumberWithPagingQueryHandler : GetOrd
   }
 
   protected override Expression<Func<Order, bool>> RequestFilter(GetOrderByCustomerPhoneNumberWithPagingQuery request)
-    => x => (!request.Current || new OrderStatus[] { OrderStatus.Pending, OrderStatus.InProgress, OrderStatus.Received }.Contains(x.Status)) && (request.OrderEnumFilter.Status == null || x.Status == request.OrderEnumFilter.Status)
-        && (x.Customer != null && x.Customer.Phone == request.Phone);
-
+    => x => (!request.Current || new[] { OrderStatus.Pending, OrderStatus.InProgress, OrderStatus.Completed }.Contains(x.Status)) && (request.OrderEnumFilter.Status == null || x.Status == request.OrderEnumFilter.Status)
+      && (x.Customer != null && x.Customer.Phone == request.Phone);
 }
 public sealed class GetOrderByCustomerPhoneNumberWithPagingQueryValidator : GetOrderWithPagingQueryValidator<GetOrderByCustomerPhoneNumberWithPagingQuery>
 {
