@@ -1,4 +1,4 @@
-import { Staff } from "../staff/staff.types";
+import { Staff } from '../staff/staff.types';
 
 export type User = {
   id: string;
@@ -6,7 +6,7 @@ export type User = {
   email: string;
   fullName: string;
   // image
-  staff: Nullable<Staff>
+  staff: Nullable<Staff>;
 };
 
 export type Password = {

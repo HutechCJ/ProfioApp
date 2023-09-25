@@ -25,7 +25,9 @@ export default function Settings() {
     <Container maxWidth={'xl'}>
       <Card>
         <CardHeader
-          avatar={<Avatar alt="Avatar" src="" sx={{ width: 100, height: 100 }} />}
+          avatar={
+            <Avatar alt="Avatar" src="" sx={{ width: 100, height: 100 }} />
+          }
           // action={
           //   <Link href={`/staffs/${user?.staff?.id}`} sx={{ color: 'black' }}>
           //     <Typography>
