@@ -1,13 +1,14 @@
 'use client';
 
 import useGetOrderHubsPath from '@/features/order/useGetOrderHubsPath';
-import { Box, Alert, Stack } from '@mui/material';
+import { Box, Alert, Stack, Button } from '@mui/material';
 import {
   DirectionsRenderer,
   DirectionsService,
   GoogleMap,
   Marker,
   useJsApiLoader,
+  Polyline,
 } from '@react-google-maps/api';
 import React from 'react';
 import useSignalR from '@/common/hooks/useSignalR';
@@ -47,6 +48,9 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
   >(null);
   const [directionsServiceOptions, setDirectionsServiceOptions] =
     React.useState<google.maps.DirectionsRequest | null>(null);
+  const [orderLocationPolylines, setOrderLocationPolylines] = React.useState<
+    google.maps.LatLng[]
+  >([]);
 
   const onLoad = React.useCallback(function callback(map: google.maps.Map) {
     setMap(map);
@@ -71,6 +75,14 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
     },
     []
   );
+
+  const trackCurrentOrderLocation = React.useCallback(() => {
+    if (!map || !orderLocation) return;
+    const bounds = new google.maps.LatLngBounds(orderLocation);
+    map.fitBounds(bounds);
+    map.setCenter(orderLocation);
+    map.setZoom(8);
+  }, [map, orderLocation]);
 
   const directionsResult = React.useMemo(() => {
     return {
@@ -112,11 +124,30 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
 
   React.useEffect(() => {
     connection.on('SendLocation', (message: VehicleLocation) => {
-      setOrderLocation(
-        new window.google.maps.LatLng(message.latitude, message.longitude)
-      );
+      setOrderLocation((oldLocation) => {
+        const newLocation = new window.google.maps.LatLng(
+          message.latitude,
+          message.longitude
+        );
+
+        if (oldLocation !== null) {
+          setOrderLocationPolylines((oldPoly) =>
+            [...oldPoly, newLocation].slice(-10)
+          );
+        }
+
+        return newLocation;
+      });
+
+      if (orderLocationPolylines.length < 1) {
+        trackCurrentOrderLocation();
+      }
     });
-  }, []);
+
+    return () => {
+      connection.off('SendLocation');
+    };
+  }, [map]);
 
   if (
     !orderHubsPathApiRes ||
@@ -143,8 +174,12 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
             }
           >{`${HubConnectionState[connection.state]} to server`}</Alert>
         )}
+        {orderLocation && (
+          <Button variant="contained" onClick={trackCurrentOrderLocation}>
+            Find order location
+          </Button>
+        )}
       </Stack>
-
       {isLoaded && (
         <GoogleMap
           center={center}
@@ -174,6 +209,15 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
                 title={'Your Order Current Location'}
               />
             )}
+            <Polyline
+              options={{
+                geodesic: true,
+                strokeColor: '#FF0000',
+                strokeOpacity: 1.0,
+                strokeWeight: 2,
+              }}
+              path={orderLocationPolylines}
+            />
             {orderHubsPathApiRes.data.items.map((hub, i) => {
               return (
                 <Marker
