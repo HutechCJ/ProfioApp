@@ -1,10 +1,11 @@
+using System.Text.Json;
 using Microsoft.AspNetCore.Components;
 using Profio.Website.Services;
 using System.Text.RegularExpressions;
-using EntityFrameworkCore.Repository.Collections;
+using CurrieTechnologies.Razor.SweetAlert2;
 using Profio.Website.Cache;
 using Profio.Website.Data.Orders;
-using Profio.Website.Data.Common;
+using Radzen;
 
 namespace Profio.Website.Pages;
 
@@ -12,8 +13,10 @@ public partial class Order
 {
   private bool Valid { get; set; }
   private bool IsLoading { get; set; }
+  private int Count { get; set; }
+  private int Progress { get; set; }
 
-  private IList<OrderDto> Orders { get; set; } = default!;
+  private ODataEnumerable<OrderDto>? Orders { get; set; }
 
   [Parameter]
   public string? PhoneNumber { get; set; }
@@ -26,6 +29,9 @@ public partial class Order
 
   [Inject]
   private ILogger<Order> Logger { get; set; } = default!;
+
+  [Inject]
+  private SweetAlertService Alert { get; set; } = default!;
 
   protected override async Task OnInitializedAsync()
   {
@@ -50,10 +56,20 @@ public partial class Order
 
     Logger.LogInformation("Current order list: {0}", currentOrderList?.Data?.Items);
 
-    Orders = currentOrderList?.Data?.Items ?? throw new InvalidOperationException();
+    Orders = currentOrderList?.Data?.Items.AsODataEnumerable();
+
+    Count = Orders?.Count() ?? 0;
 
     IsLoading = false;
     Valid = true;
+  }
+
+  public async Task OrderDetails(string orderId)
+  {
+    await Alert.FireAsync("Order Details", JsonSerializer.Serialize(Orders?.FirstOrDefault(order => order.Id == orderId), new JsonSerializerOptions
+    {
+      WriteIndented = true
+    }), SweetAlertIcon.Info);
   }
 
   [GeneratedRegex("^\\d{10}$")]

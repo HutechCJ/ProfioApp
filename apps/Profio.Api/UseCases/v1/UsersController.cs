@@ -33,7 +33,7 @@ public sealed class UsersController : BaseEntityController<ApplicationUser, User
     Response.Cookies.Append("USER-TOKEN", result.Token!, new()
     {
       HttpOnly = true,
-      Expires = result.TokenExpire,
+      Expires = result.TokenExpire
     });
 
     return Ok(ResultModel<AccountDto>.Create(result));
@@ -68,6 +68,6 @@ public sealed class UsersController : BaseEntityController<ApplicationUser, User
   [HttpPut("upload-image")]
   [SwaggerOperation(summary: "Upload Image")]
   [Obsolete("Deprecated")]
-  public async Task<ActionResult<ResultModel<AccountDto>>> UploadImage([FromForm] UploadImageCommand uploadImageCommand)
+  public async Task<ActionResult<ResultModel<string>>> UploadImage([FromForm] UploadImageCommand uploadImageCommand)
     => Ok(ResultModel<string>.Create(await Mediator.Send(uploadImageCommand)));
 }

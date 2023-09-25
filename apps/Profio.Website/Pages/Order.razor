@@ -1,6 +1,6 @@
 @page "/order/{PhoneNumber}"
-@using MudBlazor
 @using Profio.Website.Data.Orders
+@using Profio.Domain.Constants
 
 <PageTitle>Order</PageTitle>
 
@@ -34,20 +34,99 @@
     </div>
   </div>
 }
+else
+{
+  <div class="jumbotron jumbotron-fluid mb-5">
+    <div class="container text-center py-5">
+      <h1 class="text-white display-3">Lookup</h1>
+      <div class="d-inline-flex align-items-center text-white">
+        <p class="m-0">
+          <a class="text-white" href="/">Home</a>
+        </p>
+        <i class="fa fa-circle px-3"></i>
+        <p class="m-0">Current Order</p>
+      </div>
+    </div>
+  </div>
 
-<MudDataGrid Items="@Orders"
-             Loading="@IsLoading"
-             LoadingProgressColor="Color.Info"
-             SortMode="SortMode.Multiple"
-             ReadOnly="true"
-             Hover="true"
-             Striped="true"
-             Bordered="true">
-  <Columns>
-    <PropertyColumn Property="x => x.Id" Title="Id"/>
-    <PropertyColumn Property="x => x.StartedDate" Title="Started Date"/>
-    <PropertyColumn Property="x => x.ExpectedDeliveryTime" Title="ExpectedDelivery Time"/>
-    <PropertyColumn Property="x => x.Status" Title="Status"/>
-    <PropertyColumn Property="x => x.Address" Title="Address" />
-  </Columns>
-</MudDataGrid>
+  <RadzenDataList AllowVirtualization="true" Style="height:400px;overflow:auto;"
+                  WrapItems="false" AllowPaging="false" IsLoading=@IsLoading LoadData=@OnInitializedAsync
+                  Data="@Orders" Count=@Count TItem="OrderDto"
+                  PageSize="5"
+                  PagerHorizontalAlign="HorizontalAlign.Left"
+                  ShowPagingSummary="true">
+    <Template Context="order">
+      <RadzenCard Style="width: 100%; padding: 0;">
+        <RadzenRow Gap="0">
+          <RadzenColumn Size="12" SizeLG="3" Class="rz-p-4 product-title position-relative">
+            <RadzenText TextStyle="TextStyle.H6"
+                        TagName="TagName.H5"
+                        Style="top: 50%;"
+                        class="rz-color-info position-absolute">
+              @($"{string.Join("", "#", order.Id[..15], "...")}")
+            </RadzenText>
+          </RadzenColumn>
+          <RadzenColumn Size="12" SizeLG="7" Class="rz-p-4">
+            <RadzenRow Gap="0">
+              <RadzenColumn Size="12" SizeMD="6" SizeLG="2">
+                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Start</RadzenText>
+                <RadzenText TextStyle="TextStyle.Body2">@($"{order.StartedDate:dd/MM/yyyy}")</RadzenText>
+              </RadzenColumn>
+              <RadzenColumn Size="12" SizeMD="6" SizeLG="2">
+                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Expected</RadzenText>
+                <RadzenText TextStyle="TextStyle.Body2">
+                  @($"{order.ExpectedDeliveryTime:dd/MM/yyyy}")
+                </RadzenText>
+              </RadzenColumn>
+              <RadzenColumn Size="12" SizeMD="6" SizeLG="2">
+                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Zip Code</RadzenText>
+                <RadzenText TextStyle="TextStyle.Body2">@(order.DestinationZipCode)</RadzenText>
+              </RadzenColumn>
+              <RadzenColumn Size="12" SizeMD="6" SizeLG="5">
+                <RadzenText TextStyle="TextStyle.H6" TagName="TagName.H5" Class="rz-mb-0">Distance</RadzenText>
+                <RadzenText TextStyle="TextStyle.Body2">@(order.Distance)</RadzenText>
+              </RadzenColumn>
+              <RadzenColumn Size="12" SizeMD="6" SizeLG="3" Class="rz-text-align-start rz-text-align-lg-end">
+                <RadzenBadge BadgeStyle="@(order.Status switch
+                                         {
+                                           OrderStatus.Pending => BadgeStyle.Info,
+                                           OrderStatus.InProgress => BadgeStyle.Light,
+                                           OrderStatus.Completed => BadgeStyle.Primary,
+                                           OrderStatus.Cancelled => BadgeStyle.Danger,
+                                           _ => BadgeStyle.Success
+                                           })"
+                             Shade="Shade.Lighter"
+                             class="price-badge"
+                             Text=@(order.Status.ToString())/>
+              </RadzenColumn>
+            </RadzenRow>
+          </RadzenColumn>
+          <RadzenColumn Size="12" SizeLG="2" Class="rz-p-4">
+            <RadzenProgressBarCircular ProgressBarStyle="ProgressBarStyle.Primary"
+                                       Value="@(order.Status switch
+                                              {
+                                                OrderStatus.Pending => 25,
+                                                OrderStatus.InProgress => 50,
+                                                OrderStatus.Completed => 75,
+                                                OrderStatus.Cancelled => 0,
+                                                _ => 100})" />
+          </RadzenColumn>
+        </RadzenRow>
+      </RadzenCard>
+    </Template>
+  </RadzenDataList>
+
+  <style>
+        .product-title {
+            min-height: 72px;
+            background-color: var(--rz-info-lighter);
+        }
+
+        .price-badge {
+            font-size: 16px;
+            font-weight: bold;
+            line-height: 20px;
+            padding: 8px;
+        }
+  </style>
+}

@@ -1,5 +1,4 @@
 using CurrieTechnologies.Razor.SweetAlert2;
-using MudBlazor.Services;
 using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.OpenTelemetry;
 using Profio.Website.Cache;
@@ -7,6 +6,7 @@ using Profio.Website.Delegate;
 using Profio.Website.Middleware;
 using Profio.Website.Repositories;
 using Profio.Website.Services;
+using Radzen;
 using Serilog;
 using Spectre.Console;
 
@@ -20,8 +20,8 @@ try
   builder.Services.AddServerSideBlazor();
   builder.Services.AddSweetAlert2();
   builder.AddOpenTelemetry();
-  builder.Services.AddMudServices();
   builder.Services.AddMemoryCache();
+  builder.Services.AddRadzenComponents();
   builder.AddSerilog("Profio.Website");
   builder.Services.AddTransient<RetryDelegate>();
   builder.Services.AddTransient<LoggingDelegate>();
