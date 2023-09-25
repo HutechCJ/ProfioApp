@@ -46,11 +46,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
     google.maps.LatLngLiteral | google.maps.LatLng | null
   >(null);
   const [directionsServiceOptions, setDirectionsServiceOptions] =
-    React.useState<google.maps.DirectionsRequest>({
-      destination: '',
-      origin: '',
-      travelMode: google.maps.TravelMode.DRIVING,
-    });
+    React.useState<google.maps.DirectionsRequest | null>(null);
 
   const onLoad = React.useCallback(function callback(map: google.maps.Map) {
     setMap(map);
@@ -100,7 +96,11 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
           orderHubsPathApiRes.data.items[1].location.longitude
         );
 
-        setDirectionsServiceOptions((o) => ({ ...o, origin, destination }));
+        setDirectionsServiceOptions({
+          origin,
+          destination,
+          travelMode: google.maps.TravelMode.DRIVING,
+        });
 
         bounds.extend(origin);
         bounds.extend(destination);
@@ -155,7 +155,8 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
         >
           {/* Child components, such as markers, info windows, etc. */}
           <>
-            {orderHubsPathApiRes.data.items[0].location !== null &&
+            {directionsServiceOptions &&
+              orderHubsPathApiRes.data.items[0].location !== null &&
               orderHubsPathApiRes.data.items[1].location !== null && (
                 <DirectionsService
                   options={directionsServiceOptions}
