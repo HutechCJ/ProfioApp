@@ -139,7 +139,7 @@ export default function ChangePasswordCard() {
   };
 
   return (
-    <Card sx={{ minHeight: 600 }}>
+    <Card sx={{ minHeight: 634 }}>
       <CardHeader
         title="Change Password"
         subheader={'You should change your password periodically!'}

@@ -1,5 +1,6 @@
 using CurrieTechnologies.Razor.SweetAlert2;
 using Profio.Infrastructure.OpenTelemetry;
+using Profio.Website.Delegate;
 using Profio.Website.Middleware;
 using Profio.Website.Repositories;
 using Profio.Website.Services;
@@ -16,13 +17,19 @@ try
   builder.Services.AddServerSideBlazor();
   builder.Services.AddSweetAlert2();
   builder.AddOpenTelemetry();
+
+  builder.Services.AddTransient<RetryDelegate>();
+  builder.Services.AddTransient<LoggingDelegate>();
+
   builder.Services.AddHttpClient("Api",
     config =>
       config.BaseAddress = new(builder.Configuration["ApiUrl"] ?? "https://localhost:9023/api/v1/")
-  );
+  )
+    .AddHttpMessageHandler<RetryDelegate>()
+    .AddHttpMessageHandler<LoggingDelegate>();
 
   builder.Services.AddSingleton<IRepository, Repository>();
-  builder.Services.AddSingleton<ICustomerService, CustomerService>();
+  builder.Services.AddTransient<ICustomerService, CustomerService>();
 
   var app = builder.Build();
 
