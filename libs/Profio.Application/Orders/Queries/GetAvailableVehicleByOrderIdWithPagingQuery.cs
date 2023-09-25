@@ -11,10 +11,10 @@ using Profio.Application.Orders.Validators;
 using Profio.Application.Vehicles;
 using Profio.Domain.Constants;
 using Profio.Domain.Entities;
+using Profio.Domain.Exceptions;
 using Profio.Domain.Specifications;
 using Profio.Infrastructure.Abstractions.CQRS;
 using Profio.Infrastructure.Abstractions.CQRS.Events.Queries;
-using Profio.Infrastructure.Exceptions;
 using Profio.Infrastructure.Persistence;
 
 namespace Profio.Application.Orders.Queries;

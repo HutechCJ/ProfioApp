@@ -1,8 +1,8 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Profio.Domain.Entities;
+using Profio.Domain.Exceptions;
 using Profio.Domain.ValueObjects;
-using Profio.Infrastructure.Exceptions;
 using Profio.Infrastructure.Persistence;
 
 namespace Profio.Application.Hubs.Queries;

@@ -12,8 +12,12 @@ public partial class Index
 
   [Inject]
   private SweetAlertService Alert { get; set; } = default!;
+
   [Inject]
   private ICustomerService CustomerService { get; set; } = default!;
+
+  [Inject]
+  private NavigationManager NavigationManager { get; set; } = default!;
 
   public async Task FindAsync()
   {
@@ -29,14 +33,21 @@ public partial class Index
     var currentOrderList = await CustomerService.GetCurrentOrdersByPhoneAsync(PhoneNumber);
     var orderList = await CustomerService.GetOrdersByPhoneAsync(PhoneNumber);
 
-    if (currentOrderList?.Data?.Items.Count == 0 && orderList?.Data?.Items.Count == 0)
+    switch (currentOrderList?.Data?.Items.Count)
     {
-      await Alert.FireAsync("Error", "You don't have any orders!", SweetAlertIcon.Error);
-      IsLoading = false;
-      return;
+      case 0 when orderList?.Data?.Items.Count == 0:
+        await Alert.FireAsync("Error", "You don't have any orders!", SweetAlertIcon.Error);
+        IsLoading = false;
+        return;
+      case > 0:
+        NavigationManager.NavigateTo($"/order/{PhoneNumber}");
+        IsLoading = false;
+        return;
+      default:
+        NavigationManager.NavigateTo($"/history/{PhoneNumber}");
+        IsLoading = false;
+        break;
     }
-
-    IsLoading = false;
   }
 
   [GeneratedRegex("^\\d{10}$")]

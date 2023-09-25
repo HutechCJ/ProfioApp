@@ -2,8 +2,8 @@ using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Profio.Domain.Exceptions;
 using Profio.Domain.Models;
-using Profio.Infrastructure.Exceptions;
 
 namespace Profio.Infrastructure.Filters;
 

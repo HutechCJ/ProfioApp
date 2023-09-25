@@ -30,7 +30,7 @@
         <p>
           We provide comprehensive logistics solutions for air freight services
         </p>
-        <a class="border-bottom text-decoration-none" href="#">Read More</a>
+        <a class="border-bottom text-decoration-none" href="https://www.cjlogistics.com/en/business/business">Read More</a>
       </div>
       <div class="col-lg-3 col-md-6 text-center mb-5">
         <div class="d-flex align-items-center justify-content-center bg-primary mb-4 p-4">
@@ -40,7 +40,7 @@
         <p>
           We provide full logistics services, from global freight to supply chain consulting
         </p>
-        <a class="border-bottom text-decoration-none" href="#">Read More</a>
+        <a class="border-bottom text-decoration-none" href="https://www.cjlogistics.com/en/business/stevedoring">Read More</a>
       </div>
       <div class="col-lg-3 col-md-6 text-center mb-5">
         <div class="d-flex align-items-center justify-content-center bg-primary mb-4 p-4">
@@ -50,7 +50,7 @@
         <p>
           We're experts in logistics and supply chain, offering global freight and consulting
         </p>
-        <a class="border-bottom text-decoration-none" href="#">
+        <a class="border-bottom text-decoration-none" href="https://www.cjlogistics.com/en/business/forwarding">
           Read More
         </a>
       </div>
@@ -62,7 +62,7 @@
         <p>
           Count on us for worldwide logistics, including freight and supply chain consulting
         </p>
-        <a class="border-bottom text-decoration-none" href="#">Read More</a>
+        <a class="border-bottom text-decoration-none" href="https://www.cjlogistics.com/en/business/contract-logistics">Read More</a>
       </div>
     </div>
     <img loading="lazy" src="images/business.png" class="w-100" alt="service" />
@@ -95,15 +95,23 @@
       </div>
       <div class="col-lg-5">
         <div class="bg-primary py-5 px-4 px-sm-5">
-          <form class="py-5">
+          <EditForm class="py-5" @onsubmit="SendMessage">
             <div class="form-group">
-              <input type="text" class="form-control border-0 p-4" placeholder="Your Name" required="required"/>
+              <input type="text"
+                     class="form-control border-0 p-4"
+                     placeholder="Your Name"
+                     required="required"
+                     @bind="Name"/>
             </div>
             <div class="form-group">
-              <input type="email" class="form-control border-0 p-4" placeholder="Your Email" required="required"/>
+              <input type="email"
+                     class="form-control border-0 p-4"
+                     placeholder="Your Email"
+                     required="required"
+                     @bind="Email"/>
             </div>
             <div class="form-group">
-              <select class="custom-select border-0 px-4" style="height: 47px;">
+              <select class="custom-select border-0 px-4" style="height: 47px;" @bind="OptionService">
                 <option selected>Select A Service</option>
                 <option value="1">Air Freight</option>
                 <option value="2">Ocean Freight</option>
@@ -114,7 +122,7 @@
             <div>
               <button class="btn btn-dark btn-block border-0 py-3" type="submit">Get A Quote</button>
             </div>
-          </form>
+          </EditForm>
         </div>
       </div>
     </div>

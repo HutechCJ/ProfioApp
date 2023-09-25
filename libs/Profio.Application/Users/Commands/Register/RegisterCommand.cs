@@ -6,9 +6,9 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Profio.Application.Vehicles.Validators;
+using Profio.Domain.Exceptions;
 using Profio.Domain.Identity;
 using Profio.Infrastructure.Auth;
-using Profio.Infrastructure.Exceptions;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Users.Commands.Register;
