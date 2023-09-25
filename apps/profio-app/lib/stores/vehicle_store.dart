@@ -88,8 +88,8 @@ abstract class VehicleStoreBase with Store {
 
   Future<List<Order>> fetchOrders() async {
     if (hasSelectedVehicle) {
-      var data = await _baseAPI
-          .fetchData('${Profio.baseUrl}/v1/${Profio.orderEndpoints}');
+      var data = await _baseAPI.fetchData(
+          '${Profio.baseUrl}/v1/${Profio.vehicleEndpoints}/${selectedVehicle.id}/${Profio.orderEndpoints}/current');
       var result = ResultModel.fromJson(data.object);
       var paging = Paging.fromJson(result.data);
       var orders = paging.items.map((item) => Order.fromJson(item)).toList();
