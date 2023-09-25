@@ -5,8 +5,6 @@ import VehicleTypePieChart from '@/components/charts/vehicle/VehicleTypePieChart
 // import VehicleStatusBarChart from '@/components/charts/vehicle/VehicleStatusBarChart';
 import StaffPositionPieChart from '@/components/charts/staff/StaffPositionPieChart';
 import OrderStatusPieChart from '@/components/charts/order/OrderStatusPieChart';
-import StaffStatisticsCard from './staffs/StaffStatisticsCard';
-import OrderStatisticsCard from './orders/OrderStatisticsCard';
 
 export default function Index() {
   return (
