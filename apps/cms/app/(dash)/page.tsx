@@ -13,7 +13,6 @@ export default function Index() {
     <Container maxWidth="xl">
       <UserGreeting />
       <OverviewStatsCard />
-      <Divider sx={{ marginY: 2 }} />
       <Grid
         minHeight={128}
         container
