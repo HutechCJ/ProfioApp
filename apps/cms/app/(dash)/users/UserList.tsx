@@ -24,6 +24,8 @@ import { User } from '@/features/user/user.types';
 
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
 import FormDialog from '@/components/FormDialog';
+import Link from '@/components/Link';
+import { StaffPosition } from '@/features/staff/staff.types';
 
 function UserList() {
   const [paginationModel, setPaginationModel] = React.useState({
@@ -47,7 +49,7 @@ function UserList() {
 
   React.useEffect(() => {
     setRowCountState((prevRowCountState) =>
-      rowCount !== undefined ? rowCount : prevRowCountState,
+      rowCount !== undefined ? rowCount : prevRowCountState
     );
   }, [rowCount, setRowCountState]);
 
@@ -56,13 +58,19 @@ function UserList() {
       field: 'id',
       headerName: 'ID',
       headerAlign: 'center',
-      width: 350,
+      align: 'center',
+      width: 100,
       renderCell(params) {
+        const maxLength = 6;
+        const truncatedValue =
+          params.value.length > maxLength
+            ? params.value.slice(0, 5) + '...'
+            : params.value;
         return (
           <>
             <CopyTextButton text={params.value} />
             {/* <Link href={`/users/${params.value}`}> */}
-            <Typography variant="button">{params.value}</Typography>
+            <Typography variant="button">{truncatedValue}</Typography>
             {/* </Link> */}
           </>
         );
@@ -70,7 +78,7 @@ function UserList() {
     },
     {
       field: 'userName',
-      width: 300,
+      width: 250,
       headerName: 'USERNAME',
       headerAlign: 'center',
       align: 'center',
@@ -88,6 +96,27 @@ function UserList() {
       headerName: 'FULL NAME',
       headerAlign: 'center',
       align: 'center',
+    },
+    {
+      field: 'staff',
+      width: 250,
+      headerName: 'STAFF POSITION',
+      headerAlign: 'center',
+      align: 'center',
+      valueGetter: (params) => {
+        const { staff } = params.row;
+        return staff?.position ? StaffPosition[staff.position] : null;
+      },
+      renderCell(params) {
+        const { staff } = params.row;
+        return (
+          <Link href={`/staffs/${staff?.id}`} sx={{ color: 'black' }}>
+            <Typography variant="button">
+              {staff?.position ? StaffPosition[staff.position] : null}
+            </Typography>
+          </Link>
+        );
+      },
     },
     {
       field: 'accessLevel',

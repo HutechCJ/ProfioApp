@@ -1,3 +1,5 @@
+import CopyTextButton from '@/components/CopyTextButton';
+import { StaffPosition } from '@/features/staff/staff.types';
 import useUser from '@/features/user/useUser';
 import {
   Box,
@@ -7,6 +9,7 @@ import {
   CircularProgress,
   Divider,
   TextField,
+  Typography,
 } from '@mui/material';
 import React from 'react';
 
@@ -14,8 +17,17 @@ function UserDetailsCard() {
   const { data: user, isLoading } = useUser();
 
   return (
-    <Card sx={{ minHeight: 600 }}>
-      <CardHeader title="Your Profile" subheader={`ID: ${user?.id}`} />
+    <Card sx={{ minHeight: 634 }}>
+      <CardHeader
+        title="Your Profile"
+        subheader={`ID: ${user?.id.toUpperCase()}`}
+        action={
+          <CopyTextButton
+            text={user?.id.toUpperCase()}
+            titleTooltip="Copy ID"
+          />
+        }
+      />
       <Divider />
       {isLoading ? (
         <Box
@@ -60,6 +72,51 @@ function UserDetailsCard() {
               id="user-fullName"
               label="Full Name"
               defaultValue={user?.fullName}
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+            <Divider sx={{ my: 1 }} />
+            <Typography variant="h6">
+              Information of staff working at Profio:
+            </Typography>
+            <Typography variant="body1" color="gray" gutterBottom>
+              ID: {user?.staff?.id}
+              {user?.staff?.id && <CopyTextButton text={user?.staff?.id} />}
+            </Typography>
+            <TextField
+              margin="dense"
+              fullWidth
+              variant="outlined"
+              id="user-staff-fullName"
+              label="Staff's Full Name"
+              defaultValue={user?.staff?.name || 'Needs to be updated!'}
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+            <TextField
+              margin="dense"
+              fullWidth
+              variant="outlined"
+              id="user-staff-phone"
+              label="Phone"
+              defaultValue={user?.staff?.phone || 'Needs to be updated!'}
+              InputProps={{
+                readOnly: true,
+              }}
+            />
+            <TextField
+              margin="dense"
+              fullWidth
+              variant="outlined"
+              id="user-staff-position"
+              label="Position"
+              defaultValue={
+                user?.staff?.position
+                  ? StaffPosition[user.staff.position]
+                  : 'Needs to be updated!'
+              }
               InputProps={{
                 readOnly: true,
               }}

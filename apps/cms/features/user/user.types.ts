@@ -1,8 +1,12 @@
+import { Staff } from "../staff/staff.types";
+
 export type User = {
   id: string;
   userName: string;
   email: string;
   fullName: string;
+  // image
+  staff: Nullable<Staff>
 };
 
 export type Password = {
