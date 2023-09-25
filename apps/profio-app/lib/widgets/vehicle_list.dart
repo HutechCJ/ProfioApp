@@ -37,8 +37,9 @@ class _VehicleListState extends State<VehicleList> {
           value: vehicleStore.hasSelectedVehicle
               ? vehicleStore.selectedVehicle
               : null, // The currently selected vehicle
-          onChanged: (newValue) {
+          onChanged: (newValue) async {
             vehicleStore.setVehicle(newValue!);
+            await vehicleStore.fetchHubPath();
           },
           items: vehicleStore.vehicleList.map((Vehicle vehicle) {
             return DropdownMenuItem<Vehicle>(
