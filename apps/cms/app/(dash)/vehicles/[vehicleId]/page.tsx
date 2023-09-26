@@ -166,7 +166,7 @@ function Vehicle({ params }: { params: { vehicleId: string } }) {
             container
             direction="row"
             spacing={2}
-            columns={{ xs: 1, sm: 1, md: 3 }}
+            columns={{ xs: 1, sm: 1, md: 2, xl: 3 }}
           >
             <Grid item xs={1}>
               <VehicleStatusCard status={status} />

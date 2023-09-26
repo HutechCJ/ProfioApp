@@ -34,8 +34,7 @@ const VehicleStatusCard: React.FC<VehicleStatusCardProps> = ({ status }) => {
     <Box>
       <Card
         sx={{
-          minHeight: 80,
-          height: 200,
+          minHeight: 240,
           bgcolor: statuses.find((s) => s.value === status)?.color || '#e2e2e2',
           display: 'flex',
           justifyContent: 'center',

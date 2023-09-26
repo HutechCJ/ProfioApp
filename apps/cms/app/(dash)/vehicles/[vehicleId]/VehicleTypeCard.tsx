@@ -46,8 +46,7 @@ const VehicleTypeCard: React.FC<VehicleTypeCardProps> = ({
     <Box>
       <Card
         sx={{
-          minHeight: 80,
-          height: 200,
+          minHeight: 240,
           bgcolor: types.find((s) => s.value === type)?.color || '#e2e2e2',
           display: 'flex',
           justifyContent: 'center',

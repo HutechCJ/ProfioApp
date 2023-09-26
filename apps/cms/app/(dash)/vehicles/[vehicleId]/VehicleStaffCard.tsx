@@ -16,8 +16,7 @@ const VehicleStaffCard: React.FC<VehicleStaffCardProps> = ({ staff }) => {
       <Link href={`/staffs/${staff?.id}`} sx={{ textDecoration: 'none' }}>
         <Card
           sx={{
-            minHeight: 80,
-            height: 200,
+            minHeight: 240,
             bgcolor: '#e3e3e3',
             display: 'flex',
             justifyContent: 'center',
