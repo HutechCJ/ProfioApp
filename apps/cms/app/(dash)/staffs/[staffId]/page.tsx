@@ -2,41 +2,40 @@
 
 import React from 'react';
 
+import Link from '@/components/Link';
 import useGetStaff from '@/features/staff/useGetStaff';
-import { redirect } from 'next/navigation';
 import {
-  Container,
-  Card,
-  CardHeader,
-  CardContent,
-  Typography,
-  Stack,
-  ButtonGroup,
-  Button,
-  Divider,
   Avatar,
   Box,
+  Button,
+  ButtonGroup,
+  Card,
+  CardContent,
+  CardHeader,
+  Container,
+  Divider,
   LinearProgress,
+  Stack,
+  Typography,
 } from '@mui/material';
-import Link from '@/components/Link';
+import { redirect } from 'next/navigation';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import InventoryIcon from '@mui/icons-material/Inventory';
 import LocalShippingIcon from '@mui/icons-material/LocalShipping';
 import MopedIcon from '@mui/icons-material/Moped';
-import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
-import InventoryIcon from '@mui/icons-material/Inventory';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 
-import { StaffPosition } from '@/features/staff/staff.types';
 import FormDialog from '@/components/FormDialog';
+import { StaffPosition } from '@/features/staff/staff.types';
 import EditStaff from '../EditStaff';
 
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-import useGetStaffs from '@/features/staff/useGetStaffs';
-import useDeleteStaff from '@/features/staff/useDeleteStaff';
+import useSwal from '@/common/hooks/useSwal';
 import useCountByPosition from '@/features/staff/useCountByPosition';
+import useDeleteStaff from '@/features/staff/useDeleteStaff';
+import useGetStaffs from '@/features/staff/useGetStaffs';
 
 function Staff({ params }: { params: { staffId: string } }) {
   const {
@@ -52,7 +51,7 @@ function Staff({ params }: { params: { staffId: string } }) {
 
   const { refetch: refetchCountByPosition } = useCountByPosition();
 
-  const MySwal = withReactContent(Swal);
+  const MySwal = useSwal();
 
   React.useEffect(() => {
     if (isSuccess) {
