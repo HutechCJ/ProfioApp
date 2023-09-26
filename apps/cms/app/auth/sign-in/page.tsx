@@ -47,14 +47,16 @@ function SignIn() {
   }, [isSuccess, enqueueSnackbar]);
 
   return (
-    <Container
+    <Box
       sx={{
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between',
         minHeight: '100vh',
+        width: '100vw',
         position: 'relative',
+        bgcolor: 'white',
       }}
     >
       <Box
@@ -72,7 +74,7 @@ function SignIn() {
           alignItems="center"
           spacing={2}
         >
-          <Image src={Logo} alt="CJ Logo" width={80} height={80} />
+          <Image src={Logo} alt="CJ Logo" width={90} height={80} />
           <Typography variant="h3" fontWeight="bold">
             Profio Application
           </Typography>
@@ -139,7 +141,7 @@ function SignIn() {
       >
         <Copyright />
       </Box>
-    </Container>
+    </Box>
   );
 }
 
