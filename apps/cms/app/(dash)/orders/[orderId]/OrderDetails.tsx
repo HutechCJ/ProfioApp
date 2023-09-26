@@ -160,7 +160,7 @@ function OrderDetails({ params }: { params: { orderId: string } }) {
             container
             direction="row"
             spacing={1}
-            columns={{ xs: 1, sm: 6, md: 12 }}
+            columns={{ xs: 1, sm: 6, md: 6, xl: 12 }}
             mb={2}
           >
             <Grid item xs={3}>

@@ -16,8 +16,7 @@ const OrderCustomerCard: React.FC<OrderCustomerCardProps> = ({ customer }) => {
       <Link href={`/customers/${customer?.id}`} sx={{ textDecoration: 'none' }}>
         <Card
           sx={{
-            minHeight: 80,
-            height: 230,
+            height: 290,
             bgcolor: '#e3e3e3',
             display: 'flex',
             justifyContent: 'center',

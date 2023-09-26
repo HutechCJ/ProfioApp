@@ -23,8 +23,7 @@ const OrderDetailsCard: React.FC<OrderDetailsCardProps> = ({
     <Box>
       <Card
         sx={{
-          minHeight: 80,
-          height: 230,
+          minHeight: 290,
           bgcolor: '#e3e3e3',
           display: 'flex',
           justifyContent: 'flex-start',

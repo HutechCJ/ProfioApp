@@ -46,8 +46,7 @@ const OrderStatusCard: React.FC<OrderStatusCardProps> = ({ status }) => {
     <Box>
       <Card
         sx={{
-          minHeight: 80,
-          height: 230,
+          minHeight: 290,
           bgcolor: statuses.find((s) => s.value === status)?.color || '#e2e2e2',
           display: 'flex',
           justifyContent: 'center',
