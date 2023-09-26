@@ -63,7 +63,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
   const directionsCallback = React.useCallback(
     (
       result: google.maps.DirectionsResult | null,
-      status: google.maps.DirectionsStatus,
+      status: google.maps.DirectionsStatus
     ) => {
       if (result !== null) {
         if (status === 'OK') {
@@ -73,7 +73,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
         }
       }
     },
-    [],
+    []
   );
 
   const trackCurrentOrderLocation = React.useCallback(() => {
@@ -100,11 +100,11 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
       const bounds = new window.google.maps.LatLngBounds();
       const origin = new window.google.maps.LatLng(
         orderHubsPathApiRes.data.items[0].location.latitude,
-        orderHubsPathApiRes.data.items[0].location.longitude,
+        orderHubsPathApiRes.data.items[0].location.longitude
       );
       const destination = new window.google.maps.LatLng(
         orderHubsPathApiRes.data.items[1].location.latitude,
-        orderHubsPathApiRes.data.items[1].location.longitude,
+        orderHubsPathApiRes.data.items[1].location.longitude
       );
 
       setDirectionsServiceOptions({
@@ -125,27 +125,21 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
       setOrderLocation((oldLocation) => {
         const newLocation = new window.google.maps.LatLng(
           message.latitude,
-          message.longitude,
+          message.longitude
         );
 
         if (oldLocation !== null) {
-          setOrderLocationPolylines((oldPoly) =>
-            [...oldPoly, newLocation].slice(-10),
-          );
+          setOrderLocationPolylines((oldPoly) => [...oldPoly, newLocation]);
         }
 
         return newLocation;
       });
-
-      if (orderLocationPolylines.length < 1) {
-        trackCurrentOrderLocation();
-      }
     });
 
     return () => {
       connection.off('SendLocation');
     };
-  }, [map]);
+  }, [connection, map]);
 
   if (
     !orderHubsPathApiRes ||
@@ -186,7 +180,6 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
           onLoad={onLoad}
           onUnmount={onUnmount}
         >
-          {/* Child components, such as markers, info windows, etc. */}
           <>
             {directionsServiceOptions &&
               orderHubsPathApiRes.data.items[0].location !== null &&
@@ -208,7 +201,6 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
               <Marker
                 position={orderLocation}
                 icon={'https://img.icons8.com/color/48/truck--v1.png'}
-                // label={'Your Order'}
                 title={'Your Order Current Location'}
               />
             )}
@@ -235,7 +227,6 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
                       : 'https://img.icons8.com/stickers/48/marker-a.png'
                   }`}
                   title={`${hub.id}`}
-                  // label={`${i > 0 ? 'N' : 'P'} Hub`}
                 />
               );
             })}
