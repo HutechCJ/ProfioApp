@@ -45,7 +45,7 @@ function OrderStepper({ order }: { order: Order }) {
   // }
 
   return (
-    <Card>
+    <Card sx={{ my: 2 }}>
       <CardContent>
         <Stepper
           activeStep={
