@@ -5,6 +5,8 @@ using MQTTnet.Client;
 using Profio.Domain.Contracts;
 using Profio.Infrastructure.Hub;
 using System.Text.Json;
+using System.Timers;
+using Timer = System.Timers.Timer;
 
 namespace Profio.Infrastructure.Bus.MQTT.Internal;
 
@@ -14,6 +16,9 @@ public sealed class MqttClientService : IMqttClientService
   private readonly MqttClientOptions _options;
   private readonly ILogger<MqttClientService> _logger;
   private readonly IHubContext<LocationHub, ILocationClient> _context;
+  private readonly Timer _locationSendTimer;
+  private readonly Dictionary<string, VehicleLocation> _latestVehicleLocations = new();
+  private readonly object _lockObject = new();
 
   public MqttClientService(
     MqttClientOptions options,
@@ -24,6 +29,11 @@ public sealed class MqttClientService : IMqttClientService
     _mqttClient = new MqttFactory().CreateMqttClient();
     _logger = logger;
     _context = context;
+
+    _locationSendTimer = new Timer(10000);
+    _locationSendTimer.Elapsed += HandleLocationSendTimerElapsed;
+    _locationSendTimer.Start();
+
     ConfigureMqttClient();
   }
 
@@ -34,7 +44,7 @@ public sealed class MqttClientService : IMqttClientService
     _mqttClient.ApplicationMessageReceivedAsync += HandleApplicationMessageReceivedAsync;
   }
 
-  private async Task HandleApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
+  private Task HandleApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
   {
     _logger.LogInformation("The MQTT client received a message: {Message}", arg.ApplicationMessage.ConvertPayloadToString());
     var payload = arg.ApplicationMessage.ConvertPayloadToString();
@@ -44,11 +54,40 @@ public sealed class MqttClientService : IMqttClientService
     };
     var location = JsonSerializer.Deserialize<VehicleLocation>(payload, jsonSerializeOptions);
     if (location is null)
-      return;
-    foreach (var orderId in location.OrderIds)
+      return Task.CompletedTask;
+
+    lock (_lockObject)
     {
-      await _context.Clients.Group(orderId).SendLocation(location);
+      if (!string.IsNullOrEmpty(location.Id))
+      {
+        _latestVehicleLocations[location.Id] = location;
+      }
     }
+
+    return Task.CompletedTask;
+  }
+
+  private async void HandleLocationSendTimerElapsed(object? sender, ElapsedEventArgs e)
+  {
+    await SendLocation();
+  }
+
+  private Task SendLocation()
+  {
+    var tasks = new List<Task>();
+    lock (_lockObject)
+    {
+      foreach (var location in _latestVehicleLocations.Values)
+      {
+        foreach (var orderId in location.OrderIds)
+        {
+          tasks.Add(_context.Clients.Group(orderId).SendLocation(location));
+        }
+      }
+
+      _latestVehicleLocations.Clear();
+    }
+    return Task.WhenAll(tasks);
   }
 
   private async Task HandleDisconnectedAsync(MqttClientDisconnectedEventArgs arg)
