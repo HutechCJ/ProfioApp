@@ -49,16 +49,16 @@
           "contentVersion": "1.0.0.0",
           "resources": [
             {
+              "apiVersion": "2018-10-01",
+              "location": "[parameters('resourceLocation')]",
+              "name": "ProfioWebsite",
               "sku": {
                 "name": "Free_F1",
                 "tier": "Free",
                 "size": "F1",
                 "capacity": 1
               },
-              "location": "[parameters('resourceLocation')]",
-              "name": "ProfioWebsite",
-              "type": "Microsoft.SignalRService/SignalR",
-              "apiVersion": "2018-10-01"
+              "type": "Microsoft.SignalRService/SignalR"
             }
           ]
         }

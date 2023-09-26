@@ -82,7 +82,7 @@
 
   <ItemGroup>
     <PackageReference Include="FirebaseAdmin" Version="2.4.0" />
-    <PackageReference Include="HtmlSanitizer" Version="8.0.692" />
+    <PackageReference Include="HtmlSanitizer" Version="8.0.718" />
     <PackageReference Include="MediatR" Version="12.1.1" />
     <PackageReference Include="Polly" Version="7.2.4" />
     <PackageReference Include="Spectre.Console" Version="0.47.0" />
@@ -105,8 +105,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.0.0" />
-    <PackageReference Include="Azure.Identity" Version="1.6.0" />
+    <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.2.2" />
+    <PackageReference Include="Azure.Identity" Version="1.10.1" />
   </ItemGroup>
 
   <ItemGroup>
