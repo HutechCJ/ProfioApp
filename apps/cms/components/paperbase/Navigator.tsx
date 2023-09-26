@@ -19,10 +19,6 @@ import Image from 'next/image';
 import Logo from '../../public/images/CJ_logo.png';
 import { categories } from '../navItems';
 
-import StoreKeys from '@/common/constants/storekeys';
-import useLocalStorage from '@/common/hooks/useLocalStorage';
-import useSwal from '@/common/hooks/useSwal';
-
 const item = {
   py: '2px',
   px: 3,
@@ -42,31 +38,6 @@ export default function Navigator(props: DrawerProps) {
   // const pathname = usePathname();
   const { ...other } = props;
   const { data: user, isLoading } = useUser();
-  const localStorage = useLocalStorage();
-  const MySwal = useSwal();
-
-  const logout = () => {
-    MySwal.fire({
-      title: 'Are you sure you want to logout?',
-      text: 'You will be logged out of the system!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#d33',
-      cancelButtonColor: '#3085d6',
-      confirmButtonText: 'Logout',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        fetch('/api/auth/logout', {
-          method: 'POST',
-        })
-          .then(() => {
-            localStorage.remove(StoreKeys.ACCESS_TOKEN);
-            window.location.reload();
-          })
-          .catch(console.error);
-      }
-    });
-  };
 
   return (
     <Drawer variant="permanent" {...other}>
