@@ -41,7 +41,8 @@ public partial class Index
     {
       case 0 when orderList?.Data?.Items.Count == 0:
         await Alert.FireAsync("Error", "You don't have any orders!", SweetAlertIcon.Error);
-        break;
+        IsLoading = false;
+        return;
       case > 0:
         await CacheService.GetOrSetAsync($"order-{PhoneNumber}",
           () => CustomerService.GetCurrentOrdersByPhoneAsync(PhoneNumber)).ConfigureAwait(false);
