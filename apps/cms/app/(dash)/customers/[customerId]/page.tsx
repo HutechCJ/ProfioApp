@@ -2,39 +2,38 @@
 
 import React from 'react';
 
+import Link from '@/components/Link';
 import useGetCustomer from '@/features/customer/useGetCustomer';
-import { redirect } from 'next/navigation';
 import {
-  Container,
-  Card,
-  CardHeader,
-  CardContent,
-  Typography,
-  Stack,
-  ButtonGroup,
-  Button,
-  Divider,
   Avatar,
   Box,
+  Button,
+  ButtonGroup,
+  Card,
+  CardContent,
+  CardHeader,
+  Container,
+  Divider,
   LinearProgress,
+  Stack,
+  Typography,
 } from '@mui/material';
-import Link from '@/components/Link';
+import { redirect } from 'next/navigation';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import MaleIcon from '@mui/icons-material/Male';
-import FemaleIcon from '@mui/icons-material/Female';
-import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import FemaleIcon from '@mui/icons-material/Female';
+import MaleIcon from '@mui/icons-material/Male';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 
-import { Gender } from '@/features/customer/customer.types';
 import FormDialog from '@/components/FormDialog';
+import { Gender } from '@/features/customer/customer.types';
 import EditCustomer from '../EditCustomer';
 
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-import useGetCustomers from '@/features/customer/useGetCustomers';
+import useSwal from '@/common/hooks/useSwal';
 import useDeleteCustomer from '@/features/customer/useDeleteCustomer';
+import useGetCustomers from '@/features/customer/useGetCustomers';
 
 function Customer({ params }: { params: { customerId: string } }) {
   const {
@@ -48,7 +47,7 @@ function Customer({ params }: { params: { customerId: string } }) {
 
   const { mutate: deleteCustomer, isSuccess } = useDeleteCustomer();
 
-  const MySwal = withReactContent(Swal);
+  const MySwal = useSwal();
 
   React.useEffect(() => {
     if (isSuccess) {

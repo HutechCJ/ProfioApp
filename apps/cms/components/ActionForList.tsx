@@ -1,15 +1,14 @@
 'use client';
 
-import React from 'react';
-import { Button, Divider, Stack } from '@mui/material';
 import Link from '@/components/Link';
+import { Button, Divider, Stack } from '@mui/material';
+import React from 'react';
 
-import InfoIcon from '@mui/icons-material/Info';
-import EditIcon from '@mui/icons-material/Edit';
+import useSwal from '@/common/hooks/useSwal';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import InfoIcon from '@mui/icons-material/Info';
 import FormDialog from './FormDialog';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 
 interface ActionForListProps {
   entityId: string;
@@ -26,7 +25,7 @@ const ActionForList: React.FC<ActionForListProps> = ({
   editComponentProps,
   handleDelete,
 }) => {
-  const MySwal = withReactContent(Swal);
+  const MySwal = useSwal();
 
   const deletionAction = () => {
     MySwal.fire({

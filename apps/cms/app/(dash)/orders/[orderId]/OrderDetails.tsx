@@ -5,35 +5,34 @@ import React from 'react';
 
 import useGetOrder from '@/features/order/useGetOrder';
 import {
-  Stack,
+  Box,
   Button,
-  Typography,
+  ButtonGroup,
   Card,
+  CardContent,
   CardHeader,
   Divider,
-  CardContent,
-  ButtonGroup,
   Grid,
-  Box,
   LinearProgress,
+  Stack,
+  Typography,
 } from '@mui/material';
 
-import Link from 'next/link';
 import FormDialog from '@/components/FormDialog';
-import EditOrder from '../EditOrder';
+import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import OrderStatusCard from './OrderStatusCard';
+import EditOrder from '../EditOrder';
 import OrderCustomerCard from './OrderCustomerCard';
 import OrderDetailsCard from './OrderDetailsCard';
+import OrderStatusCard from './OrderStatusCard';
 
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
-import useDeleteOrder from '@/features/order/useDeleteOrder';
 import useCountByOrderStatus from '@/features/order/useCountByOrderStatus';
+import useDeleteOrder from '@/features/order/useDeleteOrder';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
+import useSwal from '@/common/hooks/useSwal';
 import useGetOrders from '@/features/order/useGetOrders';
 
 function OrderDetails({ params }: { params: { orderId: string } }) {
@@ -50,7 +49,7 @@ function OrderDetails({ params }: { params: { orderId: string } }) {
 
   const { refetch: refetchCount } = useCountByOrderStatus();
 
-  const MySwal = withReactContent(Swal);
+  const MySwal = useSwal();
 
   React.useEffect(() => {
     if (isSuccess) {

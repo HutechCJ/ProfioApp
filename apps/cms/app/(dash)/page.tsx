@@ -17,6 +17,7 @@ export default function Index() {
         direction="row"
         spacing={1}
         columns={{ xs: 1, sm: 1, md: 2, xl: 3 }}
+        mb={2}
       >
         <Grid item xs={1}>
           <OrderStatusPieChart />
