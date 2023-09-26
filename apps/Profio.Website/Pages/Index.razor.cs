@@ -41,16 +41,15 @@ public partial class Index
     {
       case 0 when orderList?.Data?.Items.Count == 0:
         await Alert.FireAsync("Error", "You don't have any orders!", SweetAlertIcon.Error);
-        return;
+        break;
       case > 0:
-        await Task.WhenAll(
-          CacheService.GetOrSetAsync($"order-{PhoneNumber}",
-            () => CustomerService.GetCurrentOrdersByPhoneAsync(PhoneNumber)),
-          CacheService.GetOrSetAsync($"history-{PhoneNumber}", () => CustomerService.GetOrdersByPhoneAsync(PhoneNumber))
-        );
-        return;
+        await CacheService.GetOrSetAsync($"order-{PhoneNumber}",
+          () => CustomerService.GetCurrentOrdersByPhoneAsync(PhoneNumber)).ConfigureAwait(false);
+        await CacheService.GetOrSetAsync($"history-{PhoneNumber}",
+          () => CustomerService.GetOrdersByPhoneAsync(PhoneNumber)).ConfigureAwait(false);
+        break;
       default:
-        await CacheService.GetOrSetAsync($"history-{PhoneNumber}", () => CustomerService.GetOrdersByPhoneAsync(PhoneNumber));
+        await CacheService.GetOrSetAsync($"history-{PhoneNumber}", () => CustomerService.GetOrdersByPhoneAsync(PhoneNumber)).ConfigureAwait(false); ;
         break;
     }
 
