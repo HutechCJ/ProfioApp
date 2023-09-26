@@ -2,39 +2,38 @@
 
 import React from 'react';
 
+import Link from '@/components/Link';
 import useGetVehicle from '@/features/vehicle/useGetVehicle';
-import { redirect } from 'next/navigation';
 import {
-  Container,
-  Card,
-  CardHeader,
-  CardContent,
-  Typography,
-  Stack,
-  ButtonGroup,
   Button,
+  ButtonGroup,
+  Card,
+  CardContent,
+  CardHeader,
+  Container,
   Divider,
   Grid,
   LinearProgress,
+  Stack,
+  Typography,
 } from '@mui/material';
-import Link from '@/components/Link';
+import { redirect } from 'next/navigation';
 
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 import FormDialog from '@/components/FormDialog';
 import EditVehicle from '../EditVehicle';
+import VehicleStaffCard from './VehicleStaffCard';
 import VehicleStatusCard from './VehicleStatusCard';
 import VehicleTypeCard from './VehicleTypeCard';
-import VehicleStaffCard from './VehicleStaffCard';
 
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-import useGetVehicles from '@/features/vehicle/useGetVehicles';
-import useDeleteVehicle from '@/features/vehicle/useDeleteVehicle';
-import useCountByVehicleType from '@/features/vehicle/useCountByVehicleType';
+import useSwal from '@/common/hooks/useSwal';
 import useCountByVehicleStatus from '@/features/vehicle/useCountByVehicleStatus';
+import useCountByVehicleType from '@/features/vehicle/useCountByVehicleType';
+import useDeleteVehicle from '@/features/vehicle/useDeleteVehicle';
+import useGetVehicles from '@/features/vehicle/useGetVehicles';
 import { Box } from '@mui/system';
 
 function Vehicle({ params }: { params: { vehicleId: string } }) {
@@ -52,7 +51,7 @@ function Vehicle({ params }: { params: { vehicleId: string } }) {
   const { refetch: refetchCountType } = useCountByVehicleType();
   const { refetch: refetchCountStatus } = useCountByVehicleStatus();
 
-  const MySwal = withReactContent(Swal);
+  const MySwal = useSwal();
 
   React.useEffect(() => {
     if (isSuccess) {

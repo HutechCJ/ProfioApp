@@ -1,28 +1,27 @@
 'use client';
 
-import React, { useState } from 'react';
 import {
-  TextField,
   Box,
   Card,
-  CardHeader,
   CardContent,
+  CardHeader,
   Divider,
   Grid,
+  TextField,
   Typography,
 } from '@mui/material';
+import React, { useState } from 'react';
 
-import { useSnackbar } from 'notistack';
-import useChangePassword from '@/features/user/useChangePassword';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-import useLocalStorage from '@/common/hooks/useLocalStorage';
 import StoreKeys from '@/common/constants/storekeys';
+import useLocalStorage from '@/common/hooks/useLocalStorage';
+import useSwal from '@/common/hooks/useSwal';
 import LoadingButton from '@/components/LoadingButton';
+import useChangePassword from '@/features/user/useChangePassword';
+import { useSnackbar } from 'notistack';
 
 export default function ChangePasswordCard() {
   const localStorage = useLocalStorage();
-  const MySwal = withReactContent(Swal);
+  const MySwal = useSwal();
   const { enqueueSnackbar } = useSnackbar();
   const {
     mutate: changePasswordMutation,

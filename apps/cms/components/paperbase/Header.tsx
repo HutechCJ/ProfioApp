@@ -1,8 +1,12 @@
 'use client';
 
+import StoreKeys from '@/common/constants/storekeys';
+import useLocalStorage from '@/common/hooks/useLocalStorage';
 import useUser from '@/features/user/useUser';
+import Logout from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 import NotificationsIcon from '@mui/icons-material/Notifications';
+import Settings from '@mui/icons-material/Settings';
 import { Divider, ListItemIcon, Menu, MenuItem, Skeleton } from '@mui/material';
 import AppBar from '@mui/material/AppBar';
 import Avatar from '@mui/material/Avatar';
@@ -13,22 +17,17 @@ import Tabs from '@mui/material/Tabs';
 import Toolbar from '@mui/material/Toolbar';
 import Tooltip from '@mui/material/Tooltip';
 import Typography from '@mui/material/Typography';
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
 import * as React from 'react';
-import useLocalStorage from '@/common/hooks/useLocalStorage';
-import StoreKeys from '@/common/constants/storekeys';
 // import BedtimeIcon from '@mui/icons-material/Bedtime';
 // import SearchIcon from '@mui/icons-material/Search';
 import { Box } from '@mui/material';
 // import InputBase from '@mui/material/InputBase';
+import useSwal from '@/common/hooks/useSwal';
+import HomeIcon from '@mui/icons-material/Home';
 import { Stack } from '@mui/system';
 import Image from 'next/image';
-import Logo from '../../public/images/CJ_logo.png';
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
-import HomeIcon from '@mui/icons-material/Home';
 import Link from 'next/link';
+import Logo from '../../public/images/CJ_logo.png';
 import CopyTextButton from '../CopyTextButton';
 
 export const lightColor = 'rgba(255, 255, 255, 0.7)';
@@ -60,7 +59,7 @@ export default function Header(props: HeaderProps) {
 export function HeaderDefault({ onDrawerToggle }: HeaderProps) {
   const { data: user, isLoading } = useUser();
   const localStorage = useLocalStorage();
-  const MySwal = withReactContent(Swal);
+  const MySwal = useSwal();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {

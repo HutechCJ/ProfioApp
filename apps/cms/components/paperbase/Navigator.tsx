@@ -19,13 +19,9 @@ import Image from 'next/image';
 import Logo from '../../public/images/CJ_logo.png';
 import { categories } from '../navItems';
 
-import SettingsIcon from '@mui/icons-material/Settings';
-import LogoutIcon from '@mui/icons-material/Logout';
-
-import Swal from 'sweetalert2';
-import withReactContent from 'sweetalert2-react-content';
 import StoreKeys from '@/common/constants/storekeys';
 import useLocalStorage from '@/common/hooks/useLocalStorage';
+import useSwal from '@/common/hooks/useSwal';
 
 const item = {
   py: '2px',
@@ -47,7 +43,7 @@ export default function Navigator(props: DrawerProps) {
   const { ...other } = props;
   const { data: user, isLoading } = useUser();
   const localStorage = useLocalStorage();
-  const MySwal = withReactContent(Swal);
+  const MySwal = useSwal();
 
   const logout = () => {
     MySwal.fire({
