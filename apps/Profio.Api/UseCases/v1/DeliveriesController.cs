@@ -7,6 +7,7 @@ using Profio.Application.OrderHistories;
 using Profio.Domain.Entities;
 using Profio.Domain.Models;
 using Profio.Domain.Specifications;
+using Profio.Infrastructure.Key;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Api.UseCases.v1;
@@ -44,6 +45,15 @@ public sealed class DeliveriesController : BaseEntityController<Delivery, Delive
   [SwaggerOperation(summary: "Get Delivery count")]
   public async Task<ActionResult<ResultModel<int>>> GetCount()
     => Ok(ResultModel<int>.Create(await Mediator.Send(new GetDeliveryCountQuery())));
+
+  [HttpDelete("purge")]
+  [SwaggerOperation(summary: "Purge Delivery")]
+  [ApiKey]
+  public async Task<IActionResult> Purge()
+  {
+    await Mediator.Send(new PurgeDeliveryCommand());
+    return NoContent();
+  }
 
   [Obsolete("Deprecated")]
   [HttpGet("{id:length(26)}/orderhistories")]

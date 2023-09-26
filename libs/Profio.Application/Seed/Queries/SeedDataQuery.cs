@@ -140,28 +140,26 @@ public sealed class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
     if (!await _context.Deliveries.AnyAsync())
     {
       var deliveries = new List<Delivery>();
-      var orders = await _context.Orders
-        .Include(x => x.Customer)
+      var vehicles = await _context.Vehicles
         .ToListAsync();
-      var vehicleDictionary = await _context.Vehicles
-        .GroupBy(x => x.ZipCodeCurrent ?? "None")
+      var orderDictionary = await _context.Orders
+        .GroupBy(x => x.Customer != null ? x.Customer.Address != null ? x.Customer.Address.ZipCode ?? "None" : "None" : "None")
         .ToDictionaryAsync(x => x.Key, x => x.First().Id);
-      foreach (var order in orders)
+      foreach (var vehicle in vehicles)
       {
-        var customerZipCode = order.Customer?.Address?.ZipCode;
-        if (customerZipCode == null)
+        if (vehicle.ZipCodeCurrent is null)
         {
           continue;
         }
-        var isGettable = vehicleDictionary.TryGetValue(customerZipCode, out var vehicleId);
+        var isGettable = orderDictionary.TryGetValue(vehicle.ZipCodeCurrent, out var orderId);
         if (!isGettable)
         {
           continue;
         }
         var delivery = new Delivery
         {
-          OrderId = order.Id,
-          VehicleId = vehicleId
+          OrderId = orderId,
+          VehicleId = vehicle.Id
         };
         deliveries.Add(delivery);
       }
