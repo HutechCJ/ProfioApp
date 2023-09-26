@@ -19,7 +19,6 @@ import Image from 'next/image';
 import Logo from '../../public/images/CJ_logo.png';
 import { categories } from '../navItems';
 
-
 import StoreKeys from '@/common/constants/storekeys';
 import useLocalStorage from '@/common/hooks/useLocalStorage';
 import useSwal from '@/common/hooks/useSwal';
