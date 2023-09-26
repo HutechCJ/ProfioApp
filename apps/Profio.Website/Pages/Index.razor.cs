@@ -41,20 +41,21 @@ public partial class Index
     {
       case 0 when orderList?.Data?.Items.Count == 0:
         await Alert.FireAsync("Error", "You don't have any orders!", SweetAlertIcon.Error);
-        IsLoading = false;
         return;
       case > 0:
-        await CacheService.GetOrSetAsync($"order-{PhoneNumber}", () => CustomerService.GetCurrentOrdersByPhoneAsync(PhoneNumber));
-        await CacheService.GetOrSetAsync($"history-{PhoneNumber}", () => CustomerService.GetOrdersByPhoneAsync(PhoneNumber));
-        NavigationManager.NavigateTo($"/order/{PhoneNumber}");
-        IsLoading = false;
+        await Task.WhenAll(
+          CacheService.GetOrSetAsync($"order-{PhoneNumber}",
+            () => CustomerService.GetCurrentOrdersByPhoneAsync(PhoneNumber)),
+          CacheService.GetOrSetAsync($"history-{PhoneNumber}", () => CustomerService.GetOrdersByPhoneAsync(PhoneNumber))
+        );
         return;
       default:
         await CacheService.GetOrSetAsync($"history-{PhoneNumber}", () => CustomerService.GetOrdersByPhoneAsync(PhoneNumber));
-        NavigationManager.NavigateTo($"/history/{PhoneNumber}");
-        IsLoading = false;
         break;
     }
+
+    IsLoading = false;
+    NavigationManager.NavigateTo($"/lookup/{PhoneNumber}");
   }
 
   [GeneratedRegex("^\\d{10}$")]

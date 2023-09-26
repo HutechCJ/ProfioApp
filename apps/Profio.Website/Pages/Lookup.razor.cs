@@ -4,16 +4,22 @@ using System.Text.RegularExpressions;
 using Profio.Website.Cache;
 using Profio.Website.Data.Orders;
 using Radzen;
+using Radzen.Blazor;
+using AngleSharp.Browser.Dom;
 
 namespace Profio.Website.Pages;
 
-public partial class Order
+public partial class Lookup
 {
   private bool Valid { get; set; }
   private bool IsLoading { get; set; }
-  private int Count { get; set; }
+  private int CountOrders { get; set; }
+  private int CountHistory { get; set; }
 
   private ODataEnumerable<OrderDto>? Orders { get; set; }
+  private RadzenDataGrid<OrderDto> Grid { get; set; } = default!;
+  private IEnumerable<OrderDto>? History { get; set; } = default!;
+  private IList<OrderDto> SelectedOrders { get; set; } = default!;
 
   [Parameter]
   public string? PhoneNumber { get; set; }
@@ -25,7 +31,7 @@ public partial class Order
   private ICacheService CacheService { get; set; } = default!;
 
   [Inject]
-  private ILogger<Order> Logger { get; set; } = default!;
+  private ILogger<Lookup> Logger { get; set; } = default!;
 
   protected override async Task OnInitializedAsync()
   {
@@ -41,7 +47,9 @@ public partial class Order
 
     var currentOrderList = await CacheService.GetOrSetAsync($"order-{PhoneNumber}", () => CustomerService.GetCurrentOrdersByPhoneAsync(PhoneNumber));
 
-    if (currentOrderList?.Data?.Items.Count == 0)
+    var orderList = await CacheService.GetOrSetAsync($"history-{PhoneNumber}", () => CustomerService.GetOrdersByPhoneAsync(PhoneNumber));
+
+    if (orderList?.Data?.Items.Count == 0)
     {
       IsLoading = false;
       Valid = false;
@@ -52,7 +60,11 @@ public partial class Order
 
     Orders = currentOrderList?.Data?.Items.AsODataEnumerable();
 
-    Count = Orders?.Count() ?? 0;
+    History = orderList?.Data?.Items.AsODataEnumerable();
+
+    CountOrders = Orders?.Count() ?? 0;
+
+    CountHistory = History?.Count() ?? 0;
 
     IsLoading = false;
     Valid = true;

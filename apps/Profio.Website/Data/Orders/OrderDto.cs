@@ -6,7 +6,7 @@ namespace Profio.Website.Data.Orders;
 public sealed record OrderDto
 {
   public required string Id { get; init; }
-  public DateTime StartedDate { get; init; }
+  public DateTime StartedDate { get; set; }
   public DateTime? ExpectedDeliveryTime { get; init; }
   public OrderStatus Status { get; init; }
   public AddressDto? DestinationAddress { get; init; }
