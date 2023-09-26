@@ -26,6 +26,7 @@ public sealed class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
     await StaffSeeding();
     await VehicleSeeding();
     await OrderSeeding();
+    await DeliverySeeding();
     return "Seeding Success";
   }
 
@@ -61,7 +62,7 @@ public sealed class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
     {
       var json = await File.ReadAllTextAsync(PathSeed.CustomerData);
       var customers = JsonSerializer.Deserialize<List<Customer>>(json)!;
-      var hubZipCodes = _context.Hubs.Select(x => x.ZipCode).ToList();
+      var hubZipCodes = await _context.Hubs.Select(x => x.ZipCode).ToListAsync();
       foreach (var customer in customers)
       {
         var zipCode = hubZipCodes[new Random().Next(0, hubZipCodes.Count)];
@@ -83,8 +84,8 @@ public sealed class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
     {
       var json = await File.ReadAllTextAsync(PathSeed.OrderData);
       var orders = JsonSerializer.Deserialize<List<Order>>(json)!;
-      var customerIds = _context.Customers.Select(x => x.Id).ToList();
-      var hubZipCodes = _context.Hubs.Select(x => x.ZipCode).ToList();
+      var customerIds = await _context.Customers.Select(x => x.Id).ToListAsync();
+      var hubZipCodes = await _context.Hubs.Select(x => x.ZipCode).ToListAsync();
       foreach (var order in orders)
       {
         order.CustomerId = customerIds[new Random().Next(0, customerIds.Count)];
@@ -105,10 +106,10 @@ public sealed class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
     {
       var json = await File.ReadAllTextAsync(PathSeed.VehicleData);
       var vehicles = JsonSerializer.Deserialize<List<Vehicle>>(json)!;
-      var staffIds = _context.Staffs
+      var staffIds = await _context.Staffs
         .Where(x => x.Position == Position.Driver || x.Position == Position.Shipper)
-        .Select(x => x.Id).ToList();
-      var hubZipCodes = _context.Hubs.Select(x => x.ZipCode).ToList();
+        .Select(x => x.Id).ToListAsync();
+      var hubZipCodes = await _context.Hubs.Select(x => x.ZipCode).ToListAsync();
       foreach (var vehicle in vehicles)
       {
         vehicle.StaffId = staffIds[new Random().Next(0, staffIds.Count)];
@@ -131,6 +132,43 @@ public sealed class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
       await _context.SaveChangesAsync();
       var staffList = await _context.Staffs.ToListAsync();
       _logger.LogInformation("Added staff logging {staffList}", JsonSerializer.Serialize(staffList));
+    }
+  }
+
+  private async Task DeliverySeeding()
+  {
+    if (!await _context.Deliveries.AnyAsync())
+    {
+      var deliveries = new List<Delivery>();
+      var orders = await _context.Orders
+        .Include(x => x.Customer)
+        .ToListAsync();
+      var vehicleDictionary = await _context.Vehicles
+        .GroupBy(x => x.ZipCodeCurrent ?? "None")
+        .ToDictionaryAsync(x => x.Key, x => x.First().Id);
+      foreach (var order in orders)
+      {
+        var customerZipCode = order.Customer?.Address?.ZipCode;
+        if (customerZipCode == null)
+        {
+          continue;
+        }
+        var isGettable = vehicleDictionary.TryGetValue(customerZipCode, out var vehicleId);
+        if (!isGettable)
+        {
+          continue;
+        }
+        var delivery = new Delivery
+        {
+          OrderId = order.Id,
+          VehicleId = vehicleId
+        };
+        deliveries.Add(delivery);
+      }
+      await _context.AddRangeAsync(deliveries);
+      await _context.SaveChangesAsync();
+      var deliveryList = await _context.Deliveries.ToListAsync();
+      _logger.LogInformation("Added delivery logging {deliveryList}", JsonSerializer.Serialize(deliveryList));
     }
   }
 }
