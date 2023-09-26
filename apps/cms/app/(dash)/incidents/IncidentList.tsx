@@ -72,7 +72,7 @@ function IncidentList() {
     },
     {
       field: 'status',
-      headerName: 'Status',
+      headerName: 'STATUS',
       headerAlign: 'center',
       align: 'center',
       width: 200,
@@ -91,7 +91,7 @@ function IncidentList() {
     {
       field: 'time',
       width: 250,
-      headerName: 'Time',
+      headerName: 'TIME',
       headerAlign: 'center',
       align: 'center',
       valueGetter: (params) => {
@@ -102,14 +102,14 @@ function IncidentList() {
     {
       field: 'description',
       width: 400,
-      headerName: 'Description',
+      headerName: 'DESCRIPTION',
       headerAlign: 'center',
       align: 'center',
     },
     {
       field: 'delivery',
       width: 250,
-      headerName: 'Delivery',
+      headerName: 'DELIVERY',
       headerAlign: 'center',
       align: 'center',
       valueGetter: (params) => {

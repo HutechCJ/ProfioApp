@@ -59,7 +59,7 @@ function UserList() {
       headerName: 'ID',
       headerAlign: 'center',
       align: 'center',
-      width: 100,
+      width: 150,
       renderCell(params) {
         const maxLength = 6;
         const truncatedValue =
@@ -120,7 +120,7 @@ function UserList() {
     },
     {
       field: 'accessLevel',
-      width: 320,
+      width: 300,
       headerName: 'ACCESS LEVEL',
       headerAlign: 'center',
       align: 'center',

@@ -42,7 +42,7 @@ function HubList() {
 
   React.useEffect(() => {
     setRowCountState((prevRowCountState) =>
-      rowCount !== undefined ? rowCount : prevRowCountState,
+      rowCount !== undefined ? rowCount : prevRowCountState
     );
   }, [rowCount, setRowCountState]);
 
@@ -72,7 +72,7 @@ function HubList() {
     },
     {
       field: 'status',
-      headerName: 'Status',
+      headerName: 'STATUS',
       headerAlign: 'center',
       align: 'center',
       width: 350,
@@ -97,14 +97,14 @@ function HubList() {
     {
       field: 'zipCode',
       width: 400,
-      headerName: 'Zip Code',
+      headerName: 'ZIP CODE',
       headerAlign: 'center',
       align: 'center',
     },
     {
       field: 'location',
       width: 400,
-      headerName: 'Location (Lat, Long)',
+      headerName: 'LOCATION (LAT, LONG)',
       headerAlign: 'center',
       align: 'center',
       valueGetter: (params) => {
