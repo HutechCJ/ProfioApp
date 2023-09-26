@@ -28,7 +28,6 @@ public static class Extension
         .EnableSensitiveDataLogging()
         .EnableDetailedErrors()
         .UseExceptionProcessor()
-        .UseSnakeCaseNamingConvention()
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
       options.UseModel(ApplicationDbContextModel.Instance);
       options.UseTriggers(o => o.AddAssemblyTriggers());

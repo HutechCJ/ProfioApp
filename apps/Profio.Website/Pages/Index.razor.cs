@@ -49,7 +49,7 @@ public partial class Index
           () => CustomerService.GetOrdersByPhoneAsync(PhoneNumber)).ConfigureAwait(false);
         break;
       default:
-        await CacheService.GetOrSetAsync($"history-{PhoneNumber}", () => CustomerService.GetOrdersByPhoneAsync(PhoneNumber)).ConfigureAwait(false); ;
+        await CacheService.GetOrSetAsync($"history-{PhoneNumber}", () => CustomerService.GetOrdersByPhoneAsync(PhoneNumber)).ConfigureAwait(false);
         break;
     }
 
