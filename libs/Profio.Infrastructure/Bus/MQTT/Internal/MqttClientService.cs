@@ -20,7 +20,7 @@ public sealed class MqttClientService : IMqttClientService
   private readonly IRedisCacheService _redisCacheService;
   private readonly Timer _locationSendTimer;
   private readonly Dictionary<string, VehicleLocation> _latestVehicleLocations = new();
-  private readonly object _lockObject = new();
+  private readonly SemaphoreSlim _lockObject = new(1, 1);
 
   public MqttClientService(
     MqttClientOptions options,
@@ -47,7 +47,7 @@ public sealed class MqttClientService : IMqttClientService
     _mqttClient.ApplicationMessageReceivedAsync += HandleApplicationMessageReceivedAsync;
   }
 
-  private Task HandleApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
+  private async Task HandleApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
   {
     _logger.LogInformation("The MQTT client received a message: {Message}", arg.ApplicationMessage.ConvertPayloadToString());
     var payload = arg.ApplicationMessage.ConvertPayloadToString();
@@ -57,19 +57,22 @@ public sealed class MqttClientService : IMqttClientService
     };
     var location = JsonSerializer.Deserialize<VehicleLocation>(payload, jsonSerializeOptions);
     if (location is null)
-      return Task.CompletedTask;
+      return;
 
-    lock (_lockObject)
+    await _lockObject.WaitAsync();
+
+    try
     {
-      if (!string.IsNullOrEmpty(location.Id))
-      {
-        _latestVehicleLocations[location.Id] = location;
-        _redisCacheService.Remove($"latest_location_{location.Id}");
-        _redisCacheService.GetOrSet($"latest_location_{location.Id}", () => location, TimeSpan.FromMinutes(10));
-      }
+      if (string.IsNullOrEmpty(location.Id))
+        return;
+      _latestVehicleLocations[location.Id] = location;
+      _redisCacheService.Remove($"latest_location_{location.Id}");
+      _redisCacheService.GetOrSet($"latest_location_{location.Id}", () => location, TimeSpan.FromMinutes(10));
     }
-
-    return Task.CompletedTask;
+    finally
+    {
+      _lockObject.Release();
+    }
   }
 
   private async void HandleLocationSendTimerElapsed(object? sender, ElapsedEventArgs e)
@@ -77,22 +80,23 @@ public sealed class MqttClientService : IMqttClientService
     await SendLocation();
   }
 
-  private Task SendLocation()
+  private async Task SendLocation()
   {
     var tasks = new List<Task>();
-    lock (_lockObject)
+    await _lockObject.WaitAsync();
+
+    try
     {
-      foreach (var location in _latestVehicleLocations.Values)
-      {
-        foreach (var orderId in location.OrderIds)
-        {
-          tasks.Add(_context.Clients.Group(orderId).SendLocation(location));
-        }
-      }
+      tasks.AddRange(from location in _latestVehicleLocations.Values from orderId in location.OrderIds select _context.Clients.Group(orderId).SendLocation(location));
 
       _latestVehicleLocations.Clear();
     }
-    return Task.WhenAll(tasks);
+    finally
+    {
+      _lockObject.Release();
+    }
+
+    await Task.WhenAll(tasks);
   }
 
   private async Task HandleDisconnectedAsync(MqttClientDisconnectedEventArgs arg)

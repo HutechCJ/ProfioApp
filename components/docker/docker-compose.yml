@@ -119,8 +119,16 @@ services:
       KC_DB_USERNAME: admin
       KC_DB_PASSWORD: fGw6Zlku4UIm9cWyZg3loncQUd30MCbC
       KC_DB_SCHEMA: autenticacion
+      KC_HEALTH_ENABLED: 'true'
+      KC_HTTP_ENABLED: 'true'
+      KC_METRICS_ENABLED: 'true'
+      KC_HTTP_RELATIVE_PATH: '/'
     ports:
       - '8090:8080'
+      - '8787:8787'
+    volumes:
+      - ./identity/realm-export.json:/opt/keycloak/data/import/realm-export.json
+      - ./identity/themes/profio/theme:/opt/keycloak/themes
     networks:
       - profio-bridge
 

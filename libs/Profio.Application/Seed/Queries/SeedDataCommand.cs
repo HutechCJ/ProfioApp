@@ -66,7 +66,7 @@ public sealed class SeedDataHandler : IRequestHandler<SeedDataCommand, string>
       foreach (var customer in customers)
       {
         var zipCode = hubZipCodes[new Random().Next(0, hubZipCodes.Count)];
-        if (customer.Address != null)
+        if (customer.Address is { })
         {
           customer.Address.ZipCode = zipCode;
         }
