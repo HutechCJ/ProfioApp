@@ -20,7 +20,6 @@ public static class Extension
 
     var redisCacheOption = new RedisCache();
     var redisCacheSection = config.GetSection(nameof(RedisCache));
-
     redisCacheSection.Bind(redisCacheOption);
     services.Configure<RedisCache>(redisCacheSection);
     setupAction?.Invoke(redisCacheOption);

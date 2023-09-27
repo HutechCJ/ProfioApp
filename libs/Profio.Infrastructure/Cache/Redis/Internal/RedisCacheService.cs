@@ -50,20 +50,22 @@ public sealed class RedisCacheService : IRedisCacheService
   }
 
   public T GetOrSet<T>(string key, Func<T> valueFactory)
-  => GetOrSet(key, valueFactory,
+  => GetOrSet($"{_redisCacheOption.Prefix}:{key}", valueFactory,
       TimeSpan.FromSeconds(_redisCacheOption.RedisDefaultSlidingExpirationInSecond));
 
   public T GetOrSet<T>(string key, Func<T> valueFactory, TimeSpan expiration)
   {
+    var keyWithPrefix = $"{_redisCacheOption.Prefix}:{key}";
+
     ArgumentException.ThrowIfNullOrEmpty(key, nameof(key));
 
-    var cachedValue = Database.StringGet(key);
+    var cachedValue = Database.StringGet(keyWithPrefix);
     if (!string.IsNullOrEmpty(cachedValue))
       return GetByteToObject<T>(cachedValue);
 
     var newValue = valueFactory();
     if (newValue is { })
-      Database.StringSet(key, JsonConvert.SerializeObject(newValue), expiration);
+      Database.StringSet(keyWithPrefix, JsonConvert.SerializeObject(newValue), expiration);
 
     return newValue;
   }
