@@ -37,6 +37,11 @@
 - [Overview](#overview)
 - [Tentative technologies](#tentative-technologies)
 - [Building blocks](#building-blocks)
+- [Screenshots](#screenshots)
+  - [Website: Home page](#website-home-page)
+  - [Website: Lookup page](#website-lookup-page)
+  - [Website: Contact page](#website-contact-page)
+  - [CMS: Login](#cms-login)
 - [Getting Started](#getting-started)
   - [💻 Infrastructure](#-infrastructure)
   - [📦 Services](#-services)
@@ -53,6 +58,8 @@
   - [📊 Monitoring](#-monitoring)
   - [📈 Tracing](#-tracing)
   - [📝 Logging](#-logging)
+  - [📦 Database Management](#-database-management)
+  - [🔒 Identity Server](#-identity-server)
 - [Contributing](#contributing)
 - [Contributors](#contributors)
 - [Support and Organization](#support-and-organization)
@@ -99,7 +106,7 @@
 
 # Building blocks
 
-<img loading="lazy" src="./assets/img/building-blocks.png" width="100%" alt="Building Blocks">
+<img loading="lazy" src="./assets/img/block.png" width="100%" alt="Building Blocks">
 
 <table>
   <thead>
@@ -109,7 +116,7 @@
   </thead>
   <tbody>
 		<tr>
-			<td><b>Client</b></td>
+			<td><b>CMS</b></td>
 			<td>
 				<p align="justify">
 					It will show the information of orders, vehicles, drivers, and 	other information related to the transportation process. It will also provide a dashboard for managers to monitor the transportation process.
@@ -118,6 +125,19 @@
 			<td>
 				<p align="justify">
 					Next.js
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td><b>Customer Website</b></td>
+			<td>
+				<p align="justify">
+					It will provide pages for customers look up the information of orders. It will also provide a table for customers to see the history of orders.
+				</p>
+			</td>
+			<td>
+				<p align="justify">
+					Blazor Server
 				</p>
 			</td>
 		</tr>
@@ -227,6 +247,27 @@
 		</tr>
   </tbody>
 </table>
+
+# Screenshots
+
+## Website: Home page
+
+<img loading="lazy" src="./assets/img/cus-homepage.png" width="100%" alt="Homepage">
+
+## Website: Lookup page
+
+<img loading="lazy" src="./assets/img/cus-lookup.png" width="100%" alt="Lookup">
+
+## Website: Contact page
+
+<img loading="lazy" src="./assets/img/cus-contact.png" width="100%" alt="Contact">
+
+## CMS: Login
+
+<img loading="lazy" src="./assets/img/cms-login.png" width="100%" alt="Login">
+
+> **Note**
+> If you want to see more, please visit the `Getting Started` section below.
 
 # Getting Started
 
@@ -353,6 +394,14 @@ npx nx serve Profio.Website --verbose
 ```
 
 It will open the Web App in your browser at [http://localhost:5272/](http://localhost:5272/).
+
+For the documentation, navigate to the `apps/docs` directory and run the following command:
+
+```bash
+npx nx serve docs --verbose
+```
+
+It will open the documentation in your browser at [http://localhost:3000/](http://localhost:3000/).
 
 For the Driver App, navigate to the `apps/profio-app` directory and run the following command:
 
@@ -484,6 +533,22 @@ We set up the <b>seq</b> service to collect and analyze logs.
 </p>
 
 <img loading="lazy" src="./assets/img/seq.jpg" width="100%" alt="seq">
+
+## 📦 Database Management
+
+<p align="justify">
+For the database management service, We have used the <b>PgAdmin</b> service to manage the PostgreSQL database.
+</p>
+
+<img loading="lazy" src="./assets/img/pg4admin.png" width="100%" alt="pg4admin">
+
+## 🔒 Identity Server
+
+<p align="justify">
+For the identity server, We have used the <b>Keycloak</b> service to manage the users. With SSO, you can log in to multiple applications with a single account. You can also use Keycloak to manage the users of your applications.
+</p>
+
+<img loading="lazy" src="./assets/img/keycloak.png" width="100%" alt="keycloak">
 
 # Contributing
 
