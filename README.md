@@ -99,7 +99,8 @@
 - [PostgreSQL](https://www.postgresql.org/)
 - [MQTT Broker](https://www.emqx.io/)
 - [DeepSource](https://deepsource.io/)
-- [CircleCI](https://circleci.com/)
+- [Github Action](https://github.com/features/actions)
+- [Keycloak](https://www.keycloak.org/)
 - [K8s](https://kubernetes.io/), [Helm](https://helm.sh/)
 - [OpenTelemetry](https://opentelemetry.io/)
 - [Grafana](https://grafana.com/), [Prometheus](https://prometheus.io/), [Jaeger](https://www.jaegertracing.io/), [Seq](https://datalust.co/seq)
@@ -177,6 +178,19 @@
 			<td>
 				<p align="justify">
 					EMQX
+				</p>
+			</td>
+		</tr>
+		<tr>
+			<td><b>Identity Server</b></td>
+			<td>
+				<p align="justify">
+					It will manage the users of the application. It will also provide a dashboard for managers to manage the users. We have set up the SSO for the application.
+				</p>
+			</td>
+			<td>
+				<p align="justify">
+					Keycloak
 				</p>
 			</td>
 		</tr>
