@@ -60,6 +60,8 @@ abstract class LocationStoreBase with Store {
         onIntermediatePosition: (p) => {setCurrentLocation(p)},
         vehicleId: vehicleId,
         vehicleLocation: vehicleLocation);
+
+    // LocationManager.simulateDirections(mqttProvider, routePoints, vehicleSpeed);
   }
 
   double getVehicleSpeed(VehicleType type) {
@@ -79,35 +81,28 @@ abstract class LocationStoreBase with Store {
 
   Future<Map<String, dynamic>> getDirections(
       String origin, String destination) async {
-    final String url =
-        'https://maps.googleapis.com/maps/api/directions/json?origin=$origin&destination=$destination&key=$key';
+    var result = await LocationManager.getDirections(origin, destination);
+    return result;
 
-    var response = await _baseAPI.fetchData(url);
-    var json = response.object;
+    // final String url =
+    //     'https://maps.googleapis.com/maps/api/directions/json?origin=$origin&destination=$destination&key=$key';
 
-    // var mockResults = {
-    //   'bounds_ne': {"lat": 11.1723978, "lng": 106.7017798},
-    //   'bounds_sw': {"lat": 10.7761223, "lng": 106.3984619},
-    //   'start_location': {"lat": 11.1723834, "lng": 106.3991713},
-    //   'end_location': {"lat": 10.7761223, "lng": 106.7008669},
+    // var response = await _baseAPI.fetchData(url);
+    // var json = response.object;
+
+    // var results = {
+    //   'bounds_ne': json['routes'][0]['bounds']['northeast'],
+    //   'bounds_sw': json['routes'][0]['bounds']['southwest'],
+    //   'start_location': json['routes'][0]['legs'][0]['start_location'],
+    //   'end_location': json['routes'][0]['legs'][0]['end_location'],
     //   'polyline': json['routes'][0]['overview_polyline']['points'],
     //   'polyline_decoded': PolylinePoints()
     //       .decodePolyline(json['routes'][0]['overview_polyline']['points']),
     // };
 
-    var results = {
-      'bounds_ne': json['routes'][0]['bounds']['northeast'],
-      'bounds_sw': json['routes'][0]['bounds']['southwest'],
-      'start_location': json['routes'][0]['legs'][0]['start_location'],
-      'end_location': json['routes'][0]['legs'][0]['end_location'],
-      'polyline': json['routes'][0]['overview_polyline']['points'],
-      'polyline_decoded': PolylinePoints()
-          .decodePolyline(json['routes'][0]['overview_polyline']['points']),
-    };
+    // print(results);
 
-    print(results);
-
-    return results;
+    // return results;
   }
 
   void onInit(BuildContext context) {

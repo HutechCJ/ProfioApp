@@ -4,6 +4,7 @@ import 'dart:math';
 
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:profio_staff_client/api/base_api.dart';
 import 'package:profio_staff_client/models/vehicle_location.dart';
@@ -13,6 +14,7 @@ class LocationManager {
   static const String locationTopic = '/location';
   static bool stopSimulation = false;
   static Map<String, dynamic>? cachedDirections;
+  static List<LatLng> routePoints = [];
 
   static Future<Map<String, dynamic>> getDirections(
       String origin, String destination) async {
@@ -32,12 +34,17 @@ class LocationManager {
       'polyline_decoded': PolylinePoints()
           .decodePolyline(json['routes'][0]['overview_polyline']['points']),
     };
+    for (var point in results['polyline_decoded']) {
+      routePoints.add(LatLng(point.latitude, point.longitude));
+    }
 
     // Cache the directions data
     cachedDirections = results;
 
     return results;
   }
+
+  List<LatLng> get currentRoutePoints => routePoints;
 
   static Future<Position> getPosition() async {
     bool serviceEnabled;
@@ -233,6 +240,139 @@ class LocationManager {
     );
 
     return newPosition;
+  }
+
+  static void simulateDirections(
+      MqttProvider mqttProvider, List<LatLng> routePoints, double vehicleSpeed,
+      {Function(Position)? onIntermediatePosition,
+      String vehicleId = '',
+      VehicleLocation? vehicleLocation}) {
+    const pubTopic = locationTopic;
+
+    // Calculate the total distance of the route
+    double totalDistance = 0;
+    for (int i = 0; i < routePoints.length - 1; i++) {
+      totalDistance += calculateDistance(
+        Position(
+            latitude: routePoints[i].latitude,
+            longitude: routePoints[i].longitude,
+            accuracy: 0,
+            altitude: 0,
+            heading: 0,
+            speed: 0,
+            speedAccuracy: 0,
+            timestamp: null,
+            floor: 0,
+            isMocked: false),
+        Position(
+            latitude: routePoints[i + 1].latitude,
+            longitude: routePoints[i + 1].longitude,
+            accuracy: 0,
+            altitude: 0,
+            heading: 0,
+            speed: 0,
+            speedAccuracy: 0,
+            timestamp: null,
+            floor: 0,
+            isMocked: false),
+      );
+    }
+
+    // Timer interval (adjust as needed)
+    const timerInterval = Duration(seconds: 1);
+    int currentRouteIndex = 0;
+    double currentDistance = 0;
+
+    Timer.periodic(timerInterval, (timer) async {
+      if (stopSimulation) {
+        timer.cancel();
+        print('Simulation stopped.');
+        stopSimulation = false;
+        return;
+      }
+
+      // Calculate the distance to travel in this time interval
+      final distanceToTravel = vehicleSpeed * timerInterval.inSeconds;
+
+      while (currentRouteIndex < routePoints.length - 1) {
+        // Calculate the distance to the next point
+        final distanceToNextPoint = calculateDistance(
+          Position(
+              latitude: routePoints[currentRouteIndex].latitude,
+              longitude: routePoints[currentRouteIndex].longitude,
+              accuracy: 0,
+              altitude: 0,
+              heading: 0,
+              speed: 0,
+              speedAccuracy: 0,
+              timestamp: null,
+              floor: 0,
+              isMocked: false),
+          Position(
+              latitude: routePoints[currentRouteIndex + 1].latitude,
+              longitude: routePoints[currentRouteIndex + 1].longitude,
+              accuracy: 0,
+              altitude: 0,
+              heading: 0,
+              speed: 0,
+              speedAccuracy: 0,
+              timestamp: null,
+              floor: 0,
+              isMocked: false),
+        );
+
+        if (currentDistance + distanceToNextPoint <= distanceToTravel) {
+          // Move to the next point
+          currentDistance += distanceToNextPoint;
+          currentRouteIndex++;
+        } else {
+          // Calculate the intermediate position between the current and next points
+          final ratio =
+              (distanceToTravel - currentDistance) / distanceToNextPoint;
+          final intermediatePosition = Position(
+              latitude: routePoints[currentRouteIndex].latitude +
+                  (routePoints[currentRouteIndex + 1].latitude -
+                          routePoints[currentRouteIndex].latitude) *
+                      ratio,
+              longitude: routePoints[currentRouteIndex].longitude +
+                  (routePoints[currentRouteIndex + 1].longitude -
+                          routePoints[currentRouteIndex].longitude) *
+                      ratio,
+              accuracy: 0,
+              altitude: 0,
+              heading: 0,
+              speed: 0,
+              speedAccuracy: 0,
+              timestamp: null,
+              floor: 0,
+              isMocked: false);
+
+          // Publish the intermediate position (simulating vehicle movement)
+          print(
+              'Intermediate Position: ${intermediatePosition.latitude}, ${intermediatePosition.longitude}');
+
+          onIntermediatePosition?.call(intermediatePosition);
+
+          // Update the current distance
+          currentDistance = 0;
+
+          // Check if the vehicle has reached the end of the route
+          if (currentRouteIndex == routePoints.length - 1) {
+            timer.cancel();
+            print('Destination reached!');
+            // You may want to publish the final position here
+            await publishLocation(mqttProvider, intermediatePosition,
+                vehicleId: vehicleId, vehicleLocation: vehicleLocation);
+          } else {
+            // Publish the intermediate position to MQTT
+            await publishLocation(mqttProvider, intermediatePosition,
+                vehicleId: vehicleId, vehicleLocation: vehicleLocation);
+          }
+
+          break; // Exit the loop to wait for the next timer tick
+        }
+      }
+    });
   }
 
   static void stopCarSimulation() {
