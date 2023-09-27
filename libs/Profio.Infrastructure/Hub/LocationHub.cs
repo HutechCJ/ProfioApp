@@ -36,7 +36,7 @@ public sealed class LocationHub : Hub<ILocationClient>
       if (!string.IsNullOrEmpty(vehicleId))
       {
         var latestLocation = _redisCacheService.GetOrSet<VehicleLocation>(
-          key: "latest_location_" + vehicleId,
+          key: $"latest_location_{vehicleId}",
           valueFactory: () => null!,
           TimeSpan.FromMinutes(10));
         await Clients.Group(orderId!).SendLocation(latestLocation);

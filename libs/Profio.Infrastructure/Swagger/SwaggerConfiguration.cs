@@ -45,6 +45,7 @@ public static class SwaggerConfiguration
           description.GroupName.ToUpperInvariant());
       c.DisplayRequestDuration();
       c.EnableValidator();
+      c.EnableTryItOutByDefault();
     });
 
     return app;

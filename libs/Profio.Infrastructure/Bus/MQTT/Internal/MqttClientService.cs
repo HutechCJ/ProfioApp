@@ -64,8 +64,8 @@ public sealed class MqttClientService : IMqttClientService
       if (!string.IsNullOrEmpty(location.Id))
       {
         _latestVehicleLocations[location.Id] = location;
-        _redisCacheService.Remove("latest_location_" + location.Id);
-        _redisCacheService.GetOrSet("latest_location_" + location.Id, () => location, TimeSpan.FromMinutes(10));
+        _redisCacheService.Remove($"latest_location_{location.Id}");
+        _redisCacheService.GetOrSet($"latest_location_{location.Id}", () => location, TimeSpan.FromMinutes(10));
       }
     }
 
