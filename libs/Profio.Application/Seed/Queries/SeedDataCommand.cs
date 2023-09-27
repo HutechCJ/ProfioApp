@@ -8,9 +8,9 @@ using System.Text.Json;
 
 namespace Profio.Application.Seed.Queries;
 
-public sealed record SeedDataQuery : IRequest<string>;
+public sealed record SeedDataCommand : IRequest<string>;
 
-public sealed class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
+public sealed class SeedDataHandler : IRequestHandler<SeedDataCommand, string>
 {
   private readonly ApplicationDbContext _context;
   private readonly ILogger<SeedDataHandler> _logger;
@@ -18,7 +18,7 @@ public sealed class SeedDataHandler : IRequestHandler<SeedDataQuery, string>
   public SeedDataHandler(ApplicationDbContext context, ILogger<SeedDataHandler> logger)
     => (_context, _logger) = (context, logger);
 
-  public async Task<string> Handle(SeedDataQuery request, CancellationToken cancellationToken)
+  public async Task<string> Handle(SeedDataCommand request, CancellationToken cancellationToken)
   {
     await HubSeeding();
     await RouteSeeding();
