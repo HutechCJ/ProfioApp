@@ -39,7 +39,10 @@ public sealed class LocationHub : Hub<ILocationClient>
           key: $"latest_location_{vehicleId}",
           valueFactory: () => null!,
           TimeSpan.FromMinutes(10));
-        await Clients.Group(orderId!).SendLocation(latestLocation);
+        if (latestLocation != null)
+        {
+          await Clients.Group(orderId!).SendLocation(latestLocation);
+        }
       }
     }
 
