@@ -20,8 +20,9 @@ public static class Extension
 
     var redisCacheOption = new RedisCache();
     var redisCacheSection = config.GetSection(nameof(RedisCache));
-
+    Console.WriteLine($"Before Bind: {redisCacheOption.Url}");
     redisCacheSection.Bind(redisCacheOption);
+    Console.WriteLine($"After Bind: {redisCacheOption.Url}");
     services.Configure<RedisCache>(redisCacheSection);
     setupAction?.Invoke(redisCacheOption);
 

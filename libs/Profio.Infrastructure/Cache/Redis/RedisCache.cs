@@ -17,6 +17,6 @@ public sealed class RedisCache
   {
     return string.IsNullOrEmpty(Password)
       ? Url
-      : $"{Url},password={Password},ssl={Ssl},abortConnect=False";
+      : $"{Url},password={Password},abortConnect=False";
   }
 }

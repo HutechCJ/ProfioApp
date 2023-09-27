@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using MQTTnet;
 using MQTTnet.Client;
 using Profio.Domain.Contracts;
+using Profio.Infrastructure.Cache.Redis;
 using Profio.Infrastructure.Hub;
 using System.Text.Json;
 using System.Timers;
@@ -16,6 +17,7 @@ public sealed class MqttClientService : IMqttClientService
   private readonly MqttClientOptions _options;
   private readonly ILogger<MqttClientService> _logger;
   private readonly IHubContext<LocationHub, ILocationClient> _context;
+  private readonly IRedisCacheService _redisCacheService;
   private readonly Timer _locationSendTimer;
   private readonly Dictionary<string, VehicleLocation> _latestVehicleLocations = new();
   private readonly object _lockObject = new();
@@ -23,13 +25,14 @@ public sealed class MqttClientService : IMqttClientService
   public MqttClientService(
     MqttClientOptions options,
     ILogger<MqttClientService> logger,
-    IHubContext<LocationHub, ILocationClient> context)
+    IHubContext<LocationHub, ILocationClient> context,
+    IRedisCacheService redisCacheService)
   {
     _options = options;
     _mqttClient = new MqttFactory().CreateMqttClient();
     _logger = logger;
     _context = context;
-
+    _redisCacheService = redisCacheService;
     _locationSendTimer = new Timer(10000);
     _locationSendTimer.Elapsed += HandleLocationSendTimerElapsed;
     _locationSendTimer.Start();
@@ -61,6 +64,8 @@ public sealed class MqttClientService : IMqttClientService
       if (!string.IsNullOrEmpty(location.Id))
       {
         _latestVehicleLocations[location.Id] = location;
+        _redisCacheService.Remove("latest_location_" + location.Id);
+        _redisCacheService.GetOrSet("latest_location_" + location.Id, () => location, TimeSpan.FromMinutes(10));
       }
     }
 
