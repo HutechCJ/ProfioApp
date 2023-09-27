@@ -12,13 +12,13 @@ namespace Profio.Api.UseCases.v1;
 public sealed class SeedController : BaseController
 {
   [ApiKey]
-  [HttpPost]
+  [HttpPost("data")]
   [SwaggerOperation(summary: "Seed Data")]
   public async Task<ActionResult<ResultModel<string>>> SeedData()
     => Ok(ResultModel<string>.Create(await Mediator.Send(new SeedDataCommand())));
 
   [ApiKey]
-  [HttpPost]
+  [HttpPost("plate")]
   [SwaggerOperation(summary: "Seed License Plate")]
   public async Task<ActionResult<ResultModel<string>>> SeedLicensePlate()
     => Ok(ResultModel<string>.Create(await Mediator.Send(new SeedLicensePlateCommand())));
