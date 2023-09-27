@@ -90,6 +90,40 @@ services:
     networks:
       - profio-bridge
 
+  # pgAdmin
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=info@hutech.edu.vn
+      - PGADMIN_DEFAULT_PASSWORD=Hutech@123
+    ports:
+      - '5050:80'
+    networks:
+      - profio-bridge
+
+  # Keycloak
+  keycloak:
+    image: quay.io/keycloak/keycloak:22.0.3
+    container_name: keycloak
+    command: ['start-dev --import-realm']
+    restart: always
+    environment:
+      JAVA_OPTS_APPEND: -Dkeycloak.profile.feature.upload_scripts=enabled
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_PROXY: passthrough
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://dpg-cjl2klfv9s6c73arft2g-a.singapore-postgres.render.com:5432/profio
+      KC_DB_USERNAME: admin
+      KC_DB_PASSWORD: fGw6Zlku4UIm9cWyZg3loncQUd30MCbC
+      KC_DB_SCHEMA: autenticacion
+    ports:
+      - '8090:8080'
+    networks:
+      - profio-bridge
+
 networks:
   profio-bridge:
     driver: bridge
