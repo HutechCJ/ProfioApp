@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
                   await SharedPreferences.getInstance();
               preferences.clear();
             },
-            child: const Text('Clear Shared preference')),
+            child: const Text('Clear the Direction cache')),
         const SizedBox(
           height: 50,
         ),

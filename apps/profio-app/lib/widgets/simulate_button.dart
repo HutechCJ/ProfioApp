@@ -49,18 +49,18 @@ class _SimulateButtonState extends State<SimulateButton> {
                       vehicleId: vehicleStore.selectedVehicle.id,
                       vehicleLocation: vehicleLocation);
                 },
-                child: const Text('Simulate now')),
+                child: const Text('RUN!')),
             ElevatedButton(
                 onPressed: () {
                   locationStore.stopSimulation();
                 },
-                child: const Text('Stop simulate now')),
+                child: const Text('STOP!')),
             ElevatedButton(
                 onPressed: () async {
                   await locationStore.setCurrentLocation(
                       vehicleStore.startHub.location.toPosition());
                 },
-                child: const Text('Reset location'))
+                child: const Text('Return to start hub'))
           ],
         );
       },

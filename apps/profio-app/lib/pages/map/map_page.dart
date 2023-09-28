@@ -143,7 +143,7 @@ class _MapPageState extends State<MapPage> {
           // ),
           Expanded(
             child: GoogleMap(
-              myLocationEnabled: true,
+              myLocationButtonEnabled: false,
               mapType: MapType.normal,
               initialCameraPosition: _cameraPosition,
               markers: _markers,
