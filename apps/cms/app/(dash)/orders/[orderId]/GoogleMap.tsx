@@ -181,22 +181,22 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
           onUnmount={onUnmount}
         >
           <>
-            {directionsServiceOptions &&
+            {/* {directionsServiceOptions &&
               orderHubsPathApiRes.data.items[0].location !== null &&
               orderHubsPathApiRes.data.items[1].location !== null && (
                 <DirectionsService
                   options={directionsServiceOptions}
                   callback={directionsCallback}
                 />
-              )}
-            {directionsResult.directions && (
+              )} */}
+            {/* {directionsResult.directions && (
               <DirectionsRenderer
                 options={{
                   suppressMarkers: true,
                 }}
                 directions={directionsResult.directions}
               />
-            )}
+            )} */}
             {orderLocation !== null && (
               <Marker
                 position={orderLocation}
@@ -204,7 +204,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
                 title={'Your Order Current Location'}
               />
             )}
-            <Polyline
+            {/* <Polyline
               options={{
                 geodesic: true,
                 strokeColor: '#FF0000',
@@ -212,7 +212,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
                 strokeWeight: 2,
               }}
               path={orderLocationPolylines}
-            />
+            /> */}
             {orderHubsPathApiRes.data.items.map((hub, i) => {
               return (
                 <Marker

@@ -108,7 +108,10 @@ class LocationManager {
     const pubTopic = locationTopic;
 
     // Calculate the total distance between start and end locations
-    final totalDistance = calculateDistance(startLocation, endLocation);
+    final totalDistance = calculateDistance(
+      LatLng(startLocation.latitude, startLocation.longitude),
+      LatLng(endLocation.latitude, endLocation.longitude),
+    );
 
     // Calculate the time to travel the entire distance at the given speed
     final totalTime = totalDistance / vehicleSpeed;
@@ -140,8 +143,10 @@ class LocationManager {
       startLocation = intermediatePosition;
 
       // Check if the vehicle has reached the end position or gone beyond it
-      final distanceToEnd =
-          calculateDistance(intermediatePosition, endLocation);
+      final distanceToEnd = calculateDistance(
+        LatLng(intermediatePosition.latitude, intermediatePosition.longitude),
+        LatLng(endLocation.latitude, endLocation.longitude),
+      );
       if (distanceToEnd <= distanceToTravel) {
         timer.cancel();
         print('Destination reached!');
@@ -167,7 +172,7 @@ class LocationManager {
     });
   }
 
-  static double calculateDistance(Position position1, Position position2) {
+  static double calculateDistance(LatLng position1, LatLng position2) {
     const double earthRadius = 6371; // Radius of the Earth in kilometers
 
     // Convert latitude and longitude from degrees to radians
@@ -253,28 +258,8 @@ class LocationManager {
     double totalDistance = 0;
     for (int i = 0; i < routePoints.length - 1; i++) {
       totalDistance += calculateDistance(
-        Position(
-            latitude: routePoints[i].latitude,
-            longitude: routePoints[i].longitude,
-            accuracy: 0,
-            altitude: 0,
-            heading: 0,
-            speed: 0,
-            speedAccuracy: 0,
-            timestamp: null,
-            floor: 0,
-            isMocked: false),
-        Position(
-            latitude: routePoints[i + 1].latitude,
-            longitude: routePoints[i + 1].longitude,
-            accuracy: 0,
-            altitude: 0,
-            heading: 0,
-            speed: 0,
-            speedAccuracy: 0,
-            timestamp: null,
-            floor: 0,
-            isMocked: false),
+        LatLng(routePoints[i].latitude, routePoints[i].longitude),
+        LatLng(routePoints[i + 1].latitude, routePoints[i + 1].longitude),
       );
     }
 
@@ -297,28 +282,10 @@ class LocationManager {
       while (currentRouteIndex < routePoints.length - 1) {
         // Calculate the distance to the next point
         final distanceToNextPoint = calculateDistance(
-          Position(
-              latitude: routePoints[currentRouteIndex].latitude,
-              longitude: routePoints[currentRouteIndex].longitude,
-              accuracy: 0,
-              altitude: 0,
-              heading: 0,
-              speed: 0,
-              speedAccuracy: 0,
-              timestamp: null,
-              floor: 0,
-              isMocked: false),
-          Position(
-              latitude: routePoints[currentRouteIndex + 1].latitude,
-              longitude: routePoints[currentRouteIndex + 1].longitude,
-              accuracy: 0,
-              altitude: 0,
-              heading: 0,
-              speed: 0,
-              speedAccuracy: 0,
-              timestamp: null,
-              floor: 0,
-              isMocked: false),
+          LatLng(routePoints[currentRouteIndex].latitude,
+              routePoints[currentRouteIndex].longitude),
+          LatLng(routePoints[currentRouteIndex + 1].latitude,
+              routePoints[currentRouteIndex + 1].longitude),
         );
 
         if (currentDistance + distanceToNextPoint <= distanceToTravel) {

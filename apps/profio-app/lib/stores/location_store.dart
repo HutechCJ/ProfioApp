@@ -55,13 +55,17 @@ abstract class LocationStoreBase with Store {
 
     if (!hasSelectedPosition) return;
 
-    LocationManager.simulateCarMovement(
-        mqttProvider, selectedPosition!, hubPosition, vehicleSpeed,
-        onIntermediatePosition: (p) => {setCurrentLocation(p)},
-        vehicleId: vehicleId,
-        vehicleLocation: vehicleLocation);
+    // LocationManager.simulateCarMovement(
+    //     mqttProvider, selectedPosition!, hubPosition, vehicleSpeed,
+    //     onIntermediatePosition: (p) => {setCurrentLocation(p)},
+    //     vehicleId: vehicleId,
+    //     vehicleLocation: vehicleLocation);
 
-    // LocationManager.simulateDirections(mqttProvider, routePoints, vehicleSpeed);
+    LocationManager.simulateDirections(
+        mqttProvider, LocationManager.routePoints, vehicleSpeed,
+        vehicleId: vehicleId,
+        vehicleLocation: vehicleLocation,
+        onIntermediatePosition: (p) => setCurrentLocation(p));
   }
 
   double getVehicleSpeed(VehicleType type) {
