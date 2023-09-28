@@ -1,92 +1,56 @@
-version: '2'
+version: '3.9'
 services:
-  # Collector
-  otel-collector:
-    image: otel/opentelemetry-collector-contrib-dev:latest
-    container_name: opentelemetry-collector
-    restart: always
-    command: ['--config=/etc/otel-collector-config.yaml']
-    volumes:
-      - ./otel-collector-config.yaml:/etc/otel-collector-config.yaml
-    ports:
-      - '8888:8888' # Prometheus metrics exposed by the collector
-      - '8889:8889' # Prometheus exporter metrics
-      - '13133:13133' # health_check extension
-      - '4317:4317' # OTLP gRPC receiver
-      - '55679:55679' # zpages extension
-    depends_on:
-      - jaeger-all-in-one
-      - zipkin-all-in-one
-    networks:
-      - profio-bridge
-
-  # Grafana
-  grafana:
-    image: grafana/grafana
-    container_name: grafana
-    restart: always
-    ports:
-      - '3000:3000'
-    networks:
-      - profio-bridge
-
-  # Zipkin
-  zipkin-all-in-one:
-    image: openzipkin/zipkin:latest
-    container_name: zipkin-all-in-one
-    ports:
-      - '9411:9411'
-    networks:
-      - profio-bridge
-
-  # Jaeger
-  jaeger-all-in-one:
-    image: jaegertracing/all-in-one:latest
-    container_name: jaeger-all-in-one
-    restart: always
-    ports:
-      - '16686:16686'
-      - '14268'
-      - '14250'
-    networks:
-      - profio-bridge
-
-  # Prometheus
-  prometheus:
-    image: prom/prometheus:latest
-    container_name: prometheus
-    restart: always
-    volumes:
-      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
-    environment:
-      - TZ=Asia/Ho_Chi_Minh
-    ports:
-      - '9090:9090'
-    networks:
-      - profio-bridge
-
-  # seq
-  seq:
-    image: datalust/seq:latest
-    container_name: seq
-    restart: on-failure
-    ports:
-      - '5341:80'
-    environment:
-      - ACCEPT_EULA=Y
-    networks:
-      - profio-bridge
-
-  # portainer
-  portainer:
-    image: portainer/portainer-ce:latest
-    container_name: portainer
-    ports:
-      - 9443:9443
-    volumes:
-      - data:/data
-      - /var/run/docker.sock:/var/run/docker.sock
+  # nginx
+  nginx:
+    image: nginx:lastest
+    container_name: nginx
     restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx/templates:/etc/nginx/templates
+      - ./nginx/configuration/custom_proxy_settings.conf:/etc/nginx/conf.d/custom_proxy_settings.conf
+    networks:
+      - profio-bridge
+
+  # yarp
+  yarp:
+    image: ghcr.io/hutechcj/profio-proxy:latest
+    container_name: yarp
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    networks:
+      - profio-bridge
+
+  # api
+  api:
+    image: ghcr.io/hutechcj/profio-api:latest
+    container_name: api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    networks:
+      - profio-bridge
+
+  # web
+  web:
+    image: ghcr.io/hutechcj/profio-web:latest
+    container_name: web
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+    networks:
+      - profio-bridge
+
+  # cms
+  cms:
+    image: ghcr.io/hutechcj/profio-cms:latest
+    container_name: cms
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
     networks:
       - profio-bridge
 
@@ -135,6 +99,3 @@ services:
 networks:
   profio-bridge:
     driver: bridge
-
-volumes:
-  data:

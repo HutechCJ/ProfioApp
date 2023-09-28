@@ -1,0 +1,62 @@
+server {
+	server_name api.profio.dev;
+
+	location / {
+		proxy_pass http://api;
+  }
+}
+
+server {
+	server_name proxy.profio.dev;
+
+	location / {
+		proxy_pass http://proxy;
+  }
+}
+
+server {
+	server_name cms;
+
+	location / {
+		proxy_pass http://cms;
+  }
+}
+
+server {
+	server_name profio;
+
+	location / {
+		proxy_pass http://profio;
+  }
+}
+
+server {
+  server_name identity;
+  large_client_header_buffers 8 32k;
+  location / {
+    proxy_pass http://identity;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  }
+}
+
+server {
+  server_name grafana;
+
+  # Docker DNS
+  resolver 127.0.0.1;
+
+  location / {
+    set $docker_grafana_host "grafana";
+		proxy_pass http://$docker_grafana_host:3000;
+  }
+}
+
+server {
+  server_name pgadmin.profio.dev;
+  location / {
+	proxy_pass http://pgadmin;
+  }
+}
