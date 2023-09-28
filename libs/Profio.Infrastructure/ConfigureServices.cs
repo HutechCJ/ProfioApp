@@ -108,7 +108,7 @@ public static class ConfigureServices
     services.AddMqttBus(builder.Configuration);
     services.AddStorage(builder.Configuration);
 
-    services.AddApplicationIdentity(builder);
+    services.AddApplicationIdentity(builder, builder.Configuration);
 
     services.AddApiKey();
   }

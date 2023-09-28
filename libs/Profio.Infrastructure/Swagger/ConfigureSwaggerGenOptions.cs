@@ -103,6 +103,42 @@ public sealed class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOpt
       }
     });
 
+    if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+    {
+      options.AddSecurityDefinition("OAuth2", new()
+      {
+        Type = SecuritySchemeType.OAuth2,
+        Description = "OAuth2 Authorization Code Flow. SSO with `Keycloak`.",
+        Flows = new()
+        {
+          Implicit = new()
+          {
+            AuthorizationUrl = new("http://localhost:8090/auth/realms/master/protocol/openid-connect/token"),
+            Scopes = new Dictionary<string, string>
+            {
+              { "readAccess", "Access read operations" },
+              { "writeAccess", "Access write operations" }
+            }
+          }
+        }
+      });
+
+      options.AddSecurityRequirement(new()
+      {
+        {
+          new()
+          {
+            Reference = new()
+            {
+              Type = ReferenceType.SecurityScheme,
+              Id = "OAuth2"
+            }
+          },
+          new List<string>()
+        }
+      });
+    }
+
     options.ResolveConflictingActions(apiDescription => apiDescription.First());
     options.EnableAnnotations();
   }
