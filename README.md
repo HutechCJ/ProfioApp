@@ -38,10 +38,10 @@
 - [Tentative technologies](#tentative-technologies)
 - [Building blocks](#building-blocks)
 - [Screenshots](#screenshots)
-  - [Website: Home page](#website-home-page)
-  - [Website: Lookup page](#website-lookup-page)
-  - [Website: Contact page](#website-contact-page)
-  - [CMS: Login](#cms-login)
+  - [Home page](#home-page)
+  - [Lookup page](#lookup-page)
+  - [Contact page](#contact-page)
+  - [Login page](#login-page)
 - [Getting Started](#getting-started)
   - [💻 Infrastructure](#-infrastructure)
   - [📦 Services](#-services)
@@ -264,19 +264,19 @@
 
 # Screenshots
 
-## Website: Home page
+## Home page
 
 <img loading="lazy" src="./assets/img/cus-homepage.png" width="100%" alt="Homepage">
 
-## Website: Lookup page
+## Lookup page
 
 <img loading="lazy" src="./assets/img/cus-lookup.png" width="100%" alt="Lookup">
 
-## Website: Contact page
+## Contact page
 
 <img loading="lazy" src="./assets/img/cus-contact.png" width="100%" alt="Contact">
 
-## CMS: Login
+## Login page
 
 <img loading="lazy" src="./assets/img/cms-login.png" width="100%" alt="Login">
 
