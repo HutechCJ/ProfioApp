@@ -115,8 +115,8 @@ class _MapPageState extends State<MapPage> {
                     '${hubStore.selectedHub.location.latitude},${hubStore.selectedHub.location.longitude}',
                   );
                   _goToPlace(
-                    directions['start_location']['lat'],
-                    directions['start_location']['lng'],
+                    directions['end_location']['lat'],
+                    directions['end_location']['lng'],
                     directions['bounds_ne'],
                     directions['bounds_sw'],
                   );
