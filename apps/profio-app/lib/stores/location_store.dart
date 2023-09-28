@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mobx/mobx.dart';
+import 'package:mqtt_client/mqtt_client.dart';
 import 'package:profio_staff_client/api/base_api.dart';
 import 'package:profio_staff_client/enums/vehicle_type.dart';
 import 'package:profio_staff_client/managers/location_manager.dart';
@@ -55,6 +56,11 @@ abstract class LocationStoreBase with Store {
 
     if (!hasSelectedPosition) return;
 
+    if (mqttProvider.client.connectionStatus!.state !=
+        MqttConnectionState.connected) {
+      mqttProvider.connect();
+    }
+
     // LocationManager.simulateCarMovement(
     //     mqttProvider, selectedPosition!, hubPosition, vehicleSpeed,
     //     onIntermediatePosition: (p) => {setCurrentLocation(p)},
@@ -87,26 +93,6 @@ abstract class LocationStoreBase with Store {
       String origin, String destination) async {
     var result = await LocationManager.getDirections(origin, destination);
     return result;
-
-    // final String url =
-    //     'https://maps.googleapis.com/maps/api/directions/json?origin=$origin&destination=$destination&key=$key';
-
-    // var response = await _baseAPI.fetchData(url);
-    // var json = response.object;
-
-    // var results = {
-    //   'bounds_ne': json['routes'][0]['bounds']['northeast'],
-    //   'bounds_sw': json['routes'][0]['bounds']['southwest'],
-    //   'start_location': json['routes'][0]['legs'][0]['start_location'],
-    //   'end_location': json['routes'][0]['legs'][0]['end_location'],
-    //   'polyline': json['routes'][0]['overview_polyline']['points'],
-    //   'polyline_decoded': PolylinePoints()
-    //       .decodePolyline(json['routes'][0]['overview_polyline']['points']),
-    // };
-
-    // print(results);
-
-    // return results;
   }
 
   void onInit(BuildContext context) {
