@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:profio_staff_client/extensions/location_extension.dart';
 import 'package:profio_staff_client/models/vehicle_location.dart';
 import 'package:profio_staff_client/stores/location_store.dart';
@@ -34,10 +35,7 @@ class _SimulateButtonState extends State<SimulateButton> {
       builder: (context) {
         return Column(
           children: [
-            Text(
-                'Latitude: ${locationStore.hasSelectedPosition ? locationStore.selectedPosition!.latitude.toString() : 'xxx'}'),
-            Text(
-                'Longtitude: ${locationStore.hasSelectedPosition ? locationStore.selectedPosition!.longitude.toString() : 'xxx'}'),
+            _buildPositionInfo(locationStore.selectedPosition),
             ElevatedButton(
                 onPressed: () async {
                   var vehicleLocation = VehicleLocation(
@@ -66,6 +64,15 @@ class _SimulateButtonState extends State<SimulateButton> {
           ],
         );
       },
+    );
+  }
+
+  Widget _buildPositionInfo(Position? selectedPosition) {
+    return Column(
+      children: [
+        Text('Latitude: ${selectedPosition?.latitude ?? 'xxx'}'),
+        Text('Longitude: ${selectedPosition?.longitude ?? 'xxx'}'),
+      ],
     );
   }
 }

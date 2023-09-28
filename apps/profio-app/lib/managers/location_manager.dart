@@ -9,6 +9,7 @@ import 'package:mqtt_client/mqtt_client.dart';
 import 'package:profio_staff_client/api/base_api.dart';
 import 'package:profio_staff_client/models/vehicle_location.dart';
 import 'package:profio_staff_client/providers/mqtt_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LocationManager {
   static const String locationTopic = '/location';
@@ -19,12 +20,26 @@ class LocationManager {
   static Future<Map<String, dynamic>> getDirections(
       String origin, String destination) async {
     const String key = 'AIzaSyDAW0v16XSZI3GdNte36gFHDynsed4-cz0';
-    final String url =
-        'https://maps.googleapis.com/maps/api/directions/json?origin=$origin&destination=$destination&key=$key';
 
-    var response = await BaseAPI().fetchData(url);
-    var json = response.object;
+    final SharedPreferences preferences = await SharedPreferences.getInstance();
+    var jsonString = preferences.getString('direction_result');
 
+    dynamic json;
+
+    if (jsonString == null) {
+      try {
+        final String url =
+            'https://maps.googleapis.com/maps/api/directions/json?origin=$origin&destination=$destination&key=$key';
+
+        var response = await BaseAPI().fetchData(url);
+        json = response.object;
+        preferences.setString('direction_result', jsonEncode(json));
+      } catch (e) {
+        preferences.remove('direction_result');
+      }
+    } else {
+      json = jsonDecode(jsonString);
+    }
     var results = {
       'bounds_ne': json['routes'][0]['bounds']['northeast'],
       'bounds_sw': json['routes'][0]['bounds']['southwest'],
@@ -34,14 +49,17 @@ class LocationManager {
       'polyline_decoded': PolylinePoints()
           .decodePolyline(json['routes'][0]['overview_polyline']['points']),
     };
-    for (var point in results['polyline_decoded']) {
-      routePoints.add(LatLng(point.latitude, point.longitude));
+
+    if (routePoints.isEmpty) {
+      for (var point in results['polyline_decoded']) {
+        routePoints.add(LatLng(point.latitude, point.longitude));
+      }
     }
 
-    // Cache the directions data
     cachedDirections = results;
-
     return results;
+
+    // Cache the directions data
   }
 
   List<LatLng> get currentRoutePoints => routePoints;
