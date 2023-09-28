@@ -29,7 +29,18 @@ public sealed class Address : ValueObject
   }
 
   public override string ToString()
-    => $"{Street}, {Ward}, {City}, {Province}, {ZipCode}";
+  {
+    var components = new List<string?>
+    {
+      Street, Ward, City, Province, ZipCode
+    };
+
+    var nonEmptyComponents = components
+      .Where(c => !string.IsNullOrWhiteSpace(c))
+      .ToList();
+
+    return string.Join(", ", nonEmptyComponents);
+  }
 
   protected override IEnumerable<object?> GetEqualityComponents()
   {

@@ -33,10 +33,9 @@ public sealed class MqttClientService : IMqttClientService
     _logger = logger;
     _context = context;
     _redisCacheService = redisCacheService;
-    _locationSendTimer = new Timer(10000);
+    _locationSendTimer = new(10000);
     _locationSendTimer.Elapsed += HandleLocationSendTimerElapsed;
     _locationSendTimer.Start();
-
     ConfigureMqttClient();
   }
 
@@ -56,7 +55,8 @@ public sealed class MqttClientService : IMqttClientService
       PropertyNamingPolicy = JsonNamingPolicy.CamelCase
     };
     var location = JsonSerializer.Deserialize<VehicleLocation>(payload, jsonSerializeOptions);
-    if (location is null)
+
+    if (location is null || string.IsNullOrEmpty(location.Id))
       return;
 
     await _lockObject.WaitAsync();
@@ -87,7 +87,9 @@ public sealed class MqttClientService : IMqttClientService
 
     try
     {
-      tasks.AddRange(from location in _latestVehicleLocations.Values from orderId in location.OrderIds select _context.Clients.Group(orderId).SendLocation(location));
+      tasks.AddRange(from location in _latestVehicleLocations.Values
+                     from orderId in location.OrderIds
+                     select _context.Clients.Group(orderId).SendLocation(location));
 
       _latestVehicleLocations.Clear();
     }
