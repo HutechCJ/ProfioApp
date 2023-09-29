@@ -6,5 +6,5 @@ public static class GuidHelper
 {
   [DebuggerStepThrough]
   public static Guid NewGuid(string? guid = default)
-    =>string.IsNullOrWhiteSpace(guid) ? Guid.NewGuid() : new(guid);
+    => string.IsNullOrWhiteSpace(guid) ? Guid.NewGuid() : new(guid);
 }
