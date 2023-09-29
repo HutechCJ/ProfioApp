@@ -3,14 +3,13 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
 using Profio.Domain.Identity;
 using Profio.Infrastructure.Persistence;
 using System.Text;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace Profio.Infrastructure.Auth;
 
@@ -83,24 +82,24 @@ public static class Extensions
           };
         });
 
-    if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-    {
-      services.AddAuthentication()
-        .AddOpenIdConnect(options =>
-      {
-        options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        options.Authority = configuration.GetSection("OAuth2")["ServerRealm"];
-        options.ClientId = configuration.GetSection("OAuth2")["ClientId"];
-        options.ClientSecret = configuration.GetSection("OAuth2")["ClientSecret"];
-        options.MetadataAddress = configuration.GetSection("OAuth2")["Metadata"];
-        options.RequireHttpsMetadata = true;
-        options.GetClaimsFromUserInfoEndpoint = true;
-        options.Scope.Add("openid");
-        options.Scope.Add("profile");
-        options.SaveTokens = true;
-        options.ResponseType = OpenIdConnectResponseType.Code;
-      });
-    }
+    //if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
+    //{
+    //  services.AddAuthentication()
+    //    .AddOpenIdConnect(options =>
+    //  {
+    //    options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    //    options.Authority = configuration.GetSection("OAuth2")["ServerRealm"];
+    //    options.ClientId = configuration.GetSection("OAuth2")["ClientId"];
+    //    options.ClientSecret = configuration.GetSection("OAuth2")["ClientSecret"];
+    //    options.MetadataAddress = configuration.GetSection("OAuth2")["Metadata"];
+    //    options.RequireHttpsMetadata = true;
+    //    options.GetClaimsFromUserInfoEndpoint = true;
+    //    options.Scope.Add("openid");
+    //    options.Scope.Add("profile");
+    //    options.SaveTokens = true;
+    //    options.ResponseType = OpenIdConnectResponseType.Code;
+    //  });
+    //}
 
     services.AddScoped<IUserAccessor, UserAccessor>();
   }

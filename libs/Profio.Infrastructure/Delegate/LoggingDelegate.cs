@@ -1,4 +1,6 @@
-namespace Profio.Website.Delegate;
+using Microsoft.Extensions.Logging;
+
+namespace Profio.Infrastructure.Delegate;
 
 public sealed class LoggingDelegate : DelegatingHandler
 {

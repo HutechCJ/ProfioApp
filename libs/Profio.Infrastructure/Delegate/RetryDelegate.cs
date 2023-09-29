@@ -1,7 +1,7 @@
 using Polly;
 using Polly.Retry;
 
-namespace Profio.Website.Delegate;
+namespace Profio.Infrastructure.Delegate;
 
 public sealed class RetryDelegate : DelegatingHandler
 {

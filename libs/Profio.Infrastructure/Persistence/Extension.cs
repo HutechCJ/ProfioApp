@@ -40,8 +40,6 @@ public static class Extension
     services.AddUnitOfWork();
     services.AddUnitOfWork<ApplicationDbContext>();
 
-    //services.AddScoped<IAfterSaveTrigger<Delivery>, AfterCreateDeliveryTrigger>();
-
     return services;
   }
 

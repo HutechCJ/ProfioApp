@@ -1,8 +1,8 @@
 using CurrieTechnologies.Razor.SweetAlert2;
+using Profio.Infrastructure.Http;
 using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.OpenTelemetry;
 using Profio.Website.Cache;
-using Profio.Website.Delegate;
 using Profio.Website.Middleware;
 using Profio.Website.Repositories;
 using Profio.Website.Services;
@@ -23,15 +23,7 @@ try
   builder.Services.AddMemoryCache();
   builder.Services.AddRadzenComponents();
   builder.AddSerilog("Profio.Website");
-  builder.Services.AddTransient<RetryDelegate>();
-  builder.Services.AddTransient<LoggingDelegate>();
-
-  builder.Services.AddHttpClient("Api",
-    config =>
-      config.BaseAddress = new(builder.Configuration["ApiUrl"] ?? "https://localhost:9023/api/v1/")
-  )
-    .AddHttpMessageHandler<RetryDelegate>()
-    .AddHttpMessageHandler<LoggingDelegate>();
+  builder.AddHttpRestClient();
 
   builder.Services.AddSingleton<IRepository, Repository>();
   builder.Services.AddSingleton<ICacheService, CacheService>();

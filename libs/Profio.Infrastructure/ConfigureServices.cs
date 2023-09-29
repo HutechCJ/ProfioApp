@@ -12,6 +12,7 @@ using Profio.Infrastructure.Cache;
 using Profio.Infrastructure.Email;
 using Profio.Infrastructure.Filters;
 using Profio.Infrastructure.HealthCheck;
+using Profio.Infrastructure.Http;
 using Profio.Infrastructure.Hub;
 using Profio.Infrastructure.Jobs;
 using Profio.Infrastructure.Key;
@@ -89,6 +90,7 @@ public static class ConfigureServices
     builder.AddHangFire();
     builder.AddSocketHub();
     builder.AddLuceneSearch();
+    builder.AddHttpRestClient();
 
     services
       .AddProblemDetails()

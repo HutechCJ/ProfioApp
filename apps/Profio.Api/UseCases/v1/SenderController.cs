@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Profio.Application.Sender.Commands;
 using Profio.Domain.Constants;
@@ -11,7 +10,7 @@ namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
 [SwaggerTag("The Email Sender")]
-[Authorize]
+[ApiKey]
 public sealed class SenderController : BaseController
 {
   [HttpPost("email/order")]
@@ -26,7 +25,6 @@ public sealed class SenderController : BaseController
   [SwaggerOperation(
     summary: "Send SMS",
     description: "If you choose the type of sms, the message must be the `Order Id`. Otherwise, you can send any message you want")]
-  [ApiKey]
   public async Task<ActionResult<ResultModel<string>>> SendSms(SmsMessage message, [FromQuery] SmsType type)
   {
     await Mediator.Send(new SendSmsCommand(message, type));
