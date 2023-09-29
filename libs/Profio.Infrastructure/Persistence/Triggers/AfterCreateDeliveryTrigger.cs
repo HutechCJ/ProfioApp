@@ -22,11 +22,7 @@ public sealed class AfterCreateDeliveryTrigger : IAfterSaveTrigger<Delivery>
       var hub = await _applicationDbContext.Hubs
         .FirstOrDefaultAsync(x => x.ZipCode == order.DestinationZipCode, cancellationToken);
       if (hub is null) return;
-      var orderHistory = new OrderHistory
-      {
-        Delivery = context.Entity,
-        Hub = hub
-      };
+
       order.Status = OrderStatus.InProgress;
       _applicationDbContext.Orders.Update(order);
       await _applicationDbContext.SaveChangesAsync(cancellationToken);

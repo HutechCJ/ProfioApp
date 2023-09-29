@@ -73,9 +73,8 @@ public static class ConfigureServices
       .AddRouting(options => options.LowercaseUrls = true);
 
     services.Configure<FormOptions>(options =>
-    {
-      options.MultipartBodyLengthLimit = 60000000; // 60 MB
-    });
+      options.MultipartBodyLengthLimit = 50000000
+    );
 
     services.AddCors(options => options
       .AddDefaultPolicy(policy => policy

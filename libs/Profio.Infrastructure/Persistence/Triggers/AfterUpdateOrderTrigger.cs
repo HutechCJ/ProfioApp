@@ -11,16 +11,11 @@ public sealed class AfterUpdateOrderTrigger : IAfterSaveTrigger<Order>
   private readonly ApplicationDbContext _applicationDbContext;
   private readonly IHttpClientFactory _httpClientFactory;
 
-  public AfterUpdateOrderTrigger(ApplicationDbContext applicationDbContext, IHttpClientFactory httpClientFactory)
-  {
-    _applicationDbContext = applicationDbContext;
-    _httpClientFactory = httpClientFactory;
-  }
+  public AfterUpdateOrderTrigger(ApplicationDbContext applicationDbContext, IHttpClientFactory httpClientFactory) => (_applicationDbContext, _httpClientFactory) = (applicationDbContext, httpClientFactory);
 
   public async Task AfterSave(ITriggerContext<Order> context, CancellationToken cancellationToken)
   {
-    if (context.UnmodifiedEntity is null
-      || context.Entity is null) return;
+    if (context.UnmodifiedEntity is null) return;
 
     var unmodifiedOrder = await _applicationDbContext.Orders
       .SingleOrDefaultAsync(x => x.Id == context.UnmodifiedEntity.Id, cancellationToken);
@@ -35,9 +30,6 @@ public sealed class AfterUpdateOrderTrigger : IAfterSaveTrigger<Order>
     if (!IsValid(context, unmodifiedOrder, modifiedOrder)) return;
 
     var client = _httpClientFactory.CreateClient("Api");
-
-    client.DefaultRequestHeaders
-      .Add("X-API-Key", "profioonPJKusU2QCjlSM3GwAAkwtjmnZFlpSuzJBhBzeS3AwF4qAFD7YkWMLA28");
 
     var orderInfo = new OrderInfo
     {
@@ -57,12 +49,12 @@ public sealed class AfterUpdateOrderTrigger : IAfterSaveTrigger<Order>
 
   private static bool IsValid(ITriggerContext<Order> context, Order unmodified, Order modified)
     => context.ChangeType == ChangeType.Modified
-        && unmodified.Status != modified.Status
-        && modified.Customer is
-        { Phone: { Length: 10 }, Name: { Length: > 0 }, Email: { Length: > 0 } }
-        && modified.Customer is { }
-        && modified.Customer.Address is { Province: { } }
-        && modified.DestinationAddress is { Province: { } };
+       && unmodified.Status != modified.Status
+       && modified is { Customer:
+         { Phone.Length: 10, Name.Length: > 0, Email.Length: > 0, Address.Province: { }
+         },
+         DestinationAddress.Province: { }
+       };
 
 
   private static EmailType GetEmailType(OrderStatus status)
