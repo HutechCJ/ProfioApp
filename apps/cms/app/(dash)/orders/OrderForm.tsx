@@ -182,12 +182,12 @@ const OrderForm: React.FC<OrderFormProps> = ({
     }
   }, [
     isSuccess,
-    enqueueSnackbar,
-    onSuccess,
-    refetchCount,
+    // enqueueSnackbar,
+    // onSuccess,
+    // refetchCount,
     isSuccessAddOrder,
     dataResponseFromAddOrder,
-    sendEmailOrder,
+    // sendEmailOrder,
   ]);
 
   return (
