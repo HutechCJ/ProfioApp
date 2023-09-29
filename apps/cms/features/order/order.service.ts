@@ -1,7 +1,12 @@
 'use client';
 
 import { getPagingQueryString } from '@/common/utils/string';
-import { CreateOrderData, EmailOrderData, Order, UpdateOrderData } from './order.types';
+import {
+  CreateOrderData,
+  EmailOrderData,
+  Order,
+  UpdateOrderData,
+} from './order.types';
 import HttpService from '@/common/services/http.service';
 import { Hub } from '../hub/hub.types';
 import { Delivery } from '../delivery/delivery.types';
