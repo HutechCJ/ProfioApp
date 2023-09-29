@@ -1,7 +1,7 @@
 'use client';
 
 import { getPagingQueryString } from '@/common/utils/string';
-import { CreateOrderData, Order, UpdateOrderData } from './order.types';
+import { CreateOrderData, EmailOrderData, Order, UpdateOrderData } from './order.types';
 import HttpService from '@/common/services/http.service';
 import { Hub } from '../hub/hub.types';
 import { Delivery } from '../delivery/delivery.types';
@@ -38,6 +38,10 @@ class OrderApiService extends HttpService {
 
   deleteOrder(id: string) {
     return this.delete<Order>(`/orders/${id}`);
+  }
+
+  senderEmailOrder(data: EmailOrderData) {
+    return this.post(`/sender/email/order`, data);
   }
 }
 

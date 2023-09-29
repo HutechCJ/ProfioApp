@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 
-import { OrderStatus } from '@/features/order/order.types';
+import { Order, OrderStatus } from '@/features/order/order.types';
 import {
   TextField,
   MenuItem,
@@ -17,6 +17,7 @@ import {
 import { useSnackbar } from 'notistack';
 import useCountByOrderStatus from '@/features/order/useCountByOrderStatus';
 import CustomerList from '../customers/CustomerList';
+import useSenderEmailOrder from '@/features/order/useSenderEmailOrder';
 
 const statuses = [
   {
@@ -64,6 +65,8 @@ interface OrderFormProps {
   isSuccess: boolean;
   onSuccess: () => void;
   labelButton: string;
+  isSuccessAddOrder?: boolean;
+  dataResponseFromAddOrder?: ApiResponse<Order>;
 }
 
 const OrderForm: React.FC<OrderFormProps> = ({
@@ -74,6 +77,8 @@ const OrderForm: React.FC<OrderFormProps> = ({
   isSuccess,
   onSuccess,
   labelButton,
+  isSuccessAddOrder,
+  dataResponseFromAddOrder,
 }) => {
   const [order, setOrder] = useState({
     startedDate: initialValue.startedDate || '',
@@ -100,6 +105,8 @@ const OrderForm: React.FC<OrderFormProps> = ({
 
   const { enqueueSnackbar } = useSnackbar();
   const { refetch: refetchCount } = useCountByOrderStatus();
+
+  const { mutate: sendEmailOrder } = useSenderEmailOrder();
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name.includes('destinationAddress.')) {
@@ -156,7 +163,32 @@ const OrderForm: React.FC<OrderFormProps> = ({
       refetchCount();
       onSuccess();
     }
-  }, [isSuccess, enqueueSnackbar, onSuccess, refetchCount]);
+    if (isSuccessAddOrder && dataResponseFromAddOrder) {
+      const orderId = dataResponseFromAddOrder.data.id;
+      const customerName = dataResponseFromAddOrder.data.customer?.name || '';
+      const email = 'nhthai.dev@gmail.com';
+      const phone = '0856028897';
+      const from = 'CJ Profio';
+      const to = 'nhthai.dev@gmail.com';
+
+      sendEmailOrder({
+        id: orderId,
+        customerName: customerName,
+        email: email,
+        phone: phone,
+        from: from,
+        to: to,
+      });
+    }
+  }, [
+    isSuccess,
+    enqueueSnackbar,
+    onSuccess,
+    refetchCount,
+    isSuccessAddOrder,
+    dataResponseFromAddOrder,
+    sendEmailOrder,
+  ]);
 
   return (
     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
