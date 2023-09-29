@@ -8,7 +8,7 @@ public class AuthenticationDelegate : DelegatingHandler
 
   public AuthenticationDelegate(IConfiguration configuration)
     => _configuration = configuration;
-  
+
   protected override async Task<HttpResponseMessage> SendAsync(
     HttpRequestMessage request,
     CancellationToken cancellationToken)

@@ -50,8 +50,11 @@ public sealed class AfterUpdateOrderTrigger : IAfterSaveTrigger<Order>
   private static bool IsValid(ITriggerContext<Order> context, Order unmodified, Order modified)
     => context.ChangeType == ChangeType.Modified
        && unmodified.Status != modified.Status
-       && modified is { Customer:
-         { Phone.Length: 10, Name.Length: > 0, Email.Length: > 0, Address.Province: { }
+       && modified is
+       {
+         Customer:
+         {
+           Phone.Length: 10, Name.Length: > 0, Email.Length: > 0, Address.Province: { }
          },
          DestinationAddress.Province: { }
        };
