@@ -28,6 +28,7 @@ using Profio.Infrastructure.Versioning;
 using System.IO.Compression;
 using System.Net.Mime;
 using System.Text.Json.Serialization;
+using Microsoft.Extensions.Logging;
 using Profio.Infrastructure.Jobs;
 using Twilio.Clients;
 
@@ -101,6 +102,9 @@ public static class ConfigureServices
     services.AddScoped<ITokenService, TokenService>();
     services.AddScoped<IIdempotencyService, IdempotencyService>();
     services.AddHttpClient<ITwilioRestClient, TwilioClient>();
+
+    services.AddScoped<ClientIpCheckActionFilter>(container => new ClientIpCheckActionFilter(
+      container.GetRequiredService<ILogger<ClientIpCheckActionFilter>>(), builder.Configuration["AdminSafeList"]));
 
     services.AddPostgres(builder.Configuration)
       .AddRedisCache(builder.Configuration)
