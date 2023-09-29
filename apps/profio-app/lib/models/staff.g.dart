@@ -24,4 +24,6 @@ Map<String, dynamic> _$StaffToJson(Staff instance) => <String, dynamic>{
 const _$StaffPositionEnumMap = {
   StaffPosition.driver: 0,
   StaffPosition.shipper: 1,
+  StaffPosition.officer: 2,
+  StaffPosition.stoker: 3,
 };

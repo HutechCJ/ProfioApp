@@ -5,5 +5,9 @@ enum StaffPosition {
   @JsonValue(0)
   driver,
   @JsonValue(1)
-  shipper
+  shipper,
+  @JsonValue(2)
+  officer,
+  @JsonValue(3)
+  stoker
 }

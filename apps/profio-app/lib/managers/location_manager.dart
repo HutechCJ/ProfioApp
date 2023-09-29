@@ -24,6 +24,8 @@ class LocationManager {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     var jsonString = preferences.getString('direction_result');
 
+    print('Origin: ' + origin);
+    print('Destination: ' + destination);
     dynamic json;
 
     if (jsonString == null) {
@@ -32,14 +34,18 @@ class LocationManager {
             'https://maps.googleapis.com/maps/api/directions/json?origin=$origin&destination=$destination&key=$key';
 
         var response = await BaseAPI().fetchData(url);
+
         json = response.object;
+        print('Stored json: ' + json.toString());
         preferences.setString('direction_result', jsonEncode(json));
       } catch (e) {
         preferences.remove('direction_result');
+        rethrow;
       }
     } else {
       json = jsonDecode(jsonString);
     }
+    print('Json: ' + json.toString());
     var results = {
       'bounds_ne': json['routes'][0]['bounds']['northeast'],
       'bounds_sw': json['routes'][0]['bounds']['southwest'],
