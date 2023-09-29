@@ -103,7 +103,7 @@ public static class ConfigureServices
     services.AddScoped<IIdempotencyService, IdempotencyService>();
     services.AddHttpClient<ITwilioRestClient, TwilioClient>();
 
-    services.AddScoped<ClientIpCheckActionFilter>(container => new ClientIpCheckActionFilter(
+    services.AddScoped<ClientIpCheckActionFilter>(container => new(
       container.GetRequiredService<ILogger<ClientIpCheckActionFilter>>(), builder.Configuration["AdminSafeList"]));
 
     services.AddPostgres(builder.Configuration)
