@@ -36,7 +36,7 @@ class _HubInfoState extends State<HubInfo> {
               onPressed: () {
                 hubStore.getNextHub(vehicleStore.selectedVehicle.id);
               },
-              child: const Text('Get next hub'))
+              child: const Text('Next Hub'))
         ],
       );
     });

@@ -53,7 +53,7 @@ class _MQTTConnectionButtonState extends State<MQTTConnectionButton> {
             onPressed: () async {
               await connectToMQTT();
             },
-            child: const Text('Connect to MQTT Broker'),
+            child: const Text('Connect'),
           ),
         ],
       ),

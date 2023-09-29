@@ -5,6 +5,7 @@ import 'package:profio_staff_client/widgets/mqtt_connection_button.dart';
 import 'package:profio_staff_client/widgets/simulate_button.dart';
 import 'package:profio_staff_client/widgets/vehicle_list.dart';
 import 'package:profio_staff_client/widgets/visit_button.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -19,17 +20,24 @@ class HomePage extends StatelessWidget {
           Navigator.pushNamed(context, RouteManager.map);
         },
       ),
-      body: const Column(children: [
-        Expanded(
+      body: Column(children: [
+        const Expanded(
           child: MQTTConnectionButton(),
         ),
-        VehicleList(),
-        HubInfo(),
-        VisitButton(),
-        SizedBox(
-          height: 100,
+        const VehicleList(),
+        const HubInfo(),
+        const VisitButton(),
+        ElevatedButton(
+            onPressed: () async {
+              final SharedPreferences preferences =
+                  await SharedPreferences.getInstance();
+              preferences.clear();
+            },
+            child: const Text('Clear the Direction cache')),
+        const SizedBox(
+          height: 50,
         ),
-        Expanded(child: SimulateButton()),
+        const Expanded(child: SimulateButton()),
       ]),
     );
   }
