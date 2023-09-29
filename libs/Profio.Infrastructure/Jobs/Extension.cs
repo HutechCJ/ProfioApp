@@ -9,13 +9,6 @@ public static class Extension
   {
     builder.Services.AddQuartz(options =>
       {
-        options.UseSimpleTypeLoader();
-        options.UseInMemoryStore();
-        options.UseDefaultThreadPool(tp =>
-        {
-          tp.MaxConcurrency = 10;
-        });
-
         var jobKey = new JobKey(nameof(StoredHistoryJob));
 
         options.AddJob<StoredHistoryJob>(jobKey)
@@ -30,9 +23,8 @@ public static class Extension
       });
 
     builder.Services.AddQuartzHostedService(options =>
-    {
-      options.WaitForJobsToComplete = true;
-    });
+      options.WaitForJobsToComplete = true
+    );
   }
 
 }

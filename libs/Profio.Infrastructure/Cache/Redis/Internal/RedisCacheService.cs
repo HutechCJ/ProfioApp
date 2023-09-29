@@ -7,7 +7,11 @@ namespace Profio.Infrastructure.Cache.Redis.Internal;
 
 public sealed class RedisCacheService : IRedisCacheService
 {
-  private const string GetKeysLuaScript = "return redis.call('KEYS', @pattern)";
+  private const string GetKeysLuaScript = """
+                                              local pattern = ARGV[1]
+                                              local keys = redis.call('KEYS', pattern)
+                                              return keys
+                                          """;
 
   private const string ClearCacheLuaScript = """
                                              
@@ -50,8 +54,21 @@ public sealed class RedisCacheService : IRedisCacheService
   }
 
   public T GetOrSet<T>(string key, Func<T> valueFactory)
-  => GetOrSet($"{_redisCacheOption.Prefix}:{key}", valueFactory,
+    => GetOrSet($"{_redisCacheOption.Prefix}:{key}", valueFactory,
       TimeSpan.FromSeconds(_redisCacheOption.RedisDefaultSlidingExpirationInSecond));
+
+  public T? Get<T>(string key)
+  {
+    var keyWithPrefix = $"{_redisCacheOption.Prefix}:{key}";
+
+    ArgumentException.ThrowIfNullOrEmpty(key, nameof(key));
+
+    var cachedValue = Database.StringGet(keyWithPrefix);
+    if (!string.IsNullOrEmpty(cachedValue))
+      return GetByteToObject<T>(cachedValue);
+
+    return default;
+  }
 
   public T GetOrSet<T>(string key, Func<T> valueFactory, TimeSpan expiration)
   {
