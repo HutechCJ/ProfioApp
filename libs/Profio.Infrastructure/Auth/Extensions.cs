@@ -10,6 +10,7 @@ using Microsoft.Net.Http.Headers;
 using Profio.Domain.Identity;
 using Profio.Infrastructure.Persistence;
 using System.Text;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace Profio.Infrastructure.Auth;
 
@@ -82,25 +83,40 @@ public static class Extensions
           };
         });
 
-    //if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development")
-    //{
-    //  services.AddAuthentication()
-    //    .AddOpenIdConnect(options =>
-    //  {
-    //    options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    //    options.Authority = configuration.GetSection("OAuth2")["ServerRealm"];
-    //    options.ClientId = configuration.GetSection("OAuth2")["ClientId"];
-    //    options.ClientSecret = configuration.GetSection("OAuth2")["ClientSecret"];
-    //    options.MetadataAddress = configuration.GetSection("OAuth2")["Metadata"];
-    //    options.RequireHttpsMetadata = true;
-    //    options.GetClaimsFromUserInfoEndpoint = true;
-    //    options.Scope.Add("openid");
-    //    options.Scope.Add("profile");
-    //    options.SaveTokens = true;
-    //    options.ResponseType = OpenIdConnectResponseType.Code;
-    //  });
-    //}
+    if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
+        && IsHostWorking(configuration.GetSection("OAuth2")["ServerRealm"]))
+    {
+      services.AddAuthentication()
+        .AddOpenIdConnect(options =>
+      {
+        options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+        options.Authority = configuration.GetSection("OAuth2")["ServerRealm"];
+        options.ClientId = configuration.GetSection("OAuth2")["ClientId"];
+        options.ClientSecret = configuration.GetSection("OAuth2")["ClientSecret"];
+        options.MetadataAddress = configuration.GetSection("OAuth2")["Metadata"];
+        options.RequireHttpsMetadata = true;
+        options.GetClaimsFromUserInfoEndpoint = true;
+        options.Scope.Add("openid");
+        options.Scope.Add("profile");
+        options.SaveTokens = true;
+        options.ResponseType = OpenIdConnectResponseType.Code;
+      });
+    }
 
     services.AddScoped<IUserAccessor, UserAccessor>();
+  }
+
+  private static bool IsHostWorking(string? host)
+  {
+    try
+    {
+      using var client = new HttpClient();
+      var response = client.GetAsync(host).Result;
+      return response.IsSuccessStatusCode;
+    }
+    catch
+    {
+      return false;
+    }
   }
 }
