@@ -540,6 +540,12 @@ For the tracing service, We have used the <b>Jaeger</b> service to collect and a
 
 <img loading="lazy" src="./assets/img/Jaeger.png" width="100%" alt="Jaeger">
 
+<p align="justify">
+We also set up the <b>Zipkin</b> service to collect and analyze traces.
+</p>
+
+<img loading="lazy" src="./assets/img/Zipkin.png" width="100%" alt="Zipkin">
+
 ## 📝 Logging
 
 <p align="justify">
