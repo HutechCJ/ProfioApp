@@ -11,7 +11,13 @@ interface AddOrderProps {
 }
 
 const AddOrder: React.FC<AddOrderProps> = ({ onSuccess }) => {
-  const { mutate: createOrder, error, isError, isSuccess } = useCreateOrder();
+  const {
+    mutate: createOrder,
+    error,
+    isError,
+    isSuccess,
+    data,
+  } = useCreateOrder();
 
   const handleAddOrder = (data: FormData) => {
     createOrder({
@@ -42,6 +48,8 @@ const AddOrder: React.FC<AddOrderProps> = ({ onSuccess }) => {
       isSuccess={isSuccess}
       onSuccess={onSuccess}
       labelButton="SUBMIT"
+      isSuccessAddOrder={isSuccess}
+      dataResponseFromAddOrder={data}
     />
   );
 };

@@ -29,3 +29,12 @@ export type UpdateOrderData = Omit<Order, 'status' | 'customer'> & {
   status: string;
   customerId: string;
 };
+
+export type EmailOrderData = {
+  id: string;
+  customerName: string;
+  email: string;
+  phone: string;
+  from: string;
+  to: string;
+};

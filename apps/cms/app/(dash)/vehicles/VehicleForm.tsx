@@ -121,10 +121,10 @@ const VehicleForm: React.FC<VehicleFormProps> = ({
     }
   }, [
     isSuccess,
-    enqueueSnackbar,
-    onSuccess,
-    refetchCountType,
-    refetchCountStatus,
+    // enqueueSnackbar,
+    // onSuccess,
+    // refetchCountType,
+    // refetchCountStatus,
   ]);
 
   return (

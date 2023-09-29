@@ -133,7 +133,11 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
       });
       onSuccess();
     }
-  }, [isSuccess, enqueueSnackbar, onSuccess]);
+  }, [
+    isSuccess,
+    // enqueueSnackbar,
+    // onSuccess
+  ]);
 
   return (
     <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
