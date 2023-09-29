@@ -2,6 +2,7 @@ namespace Profio.Infrastructure.Cache.Redis;
 
 public interface IRedisCacheService
 {
+  T? Get<T>(string key);
   public T GetOrSet<T>(string key, Func<T> valueFactory);
 
   public T GetOrSet<T>(string key, Func<T> valueFactory, TimeSpan expiration);

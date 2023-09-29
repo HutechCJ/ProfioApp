@@ -37,8 +37,7 @@ public sealed class LocationHub : Hub<ILocationClient>
       {
         var latestLocation = _redisCacheService.GetOrSet<VehicleLocation>(
           key: $"latest_location_{vehicleId}",
-          valueFactory: () => null!,
-          TimeSpan.FromMinutes(1));
+          valueFactory: () => null!);
         await Clients.Group(orderId!).SendLocation(latestLocation);
       }
     }
