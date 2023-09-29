@@ -48,7 +48,8 @@ public sealed class MqttClientService : IMqttClientService
 
   private async Task HandleApplicationMessageReceivedAsync(MqttApplicationMessageReceivedEventArgs arg)
   {
-    _logger.LogInformation("The MQTT client received a message: {Message}", arg.ApplicationMessage.ConvertPayloadToString());
+    _logger.LogInformation("The MQTT client received a message: {Message}",
+      arg.ApplicationMessage.ConvertPayloadToString());
     var payload = arg.ApplicationMessage.ConvertPayloadToString();
     var jsonSerializeOptions = new JsonSerializerOptions
     {
@@ -67,7 +68,8 @@ public sealed class MqttClientService : IMqttClientService
         return;
       _latestVehicleLocations[location.Id] = location;
       _redisCacheService.Remove($"latest_location_{location.Id}");
-      _redisCacheService.GetOrSet($"latest_location_{location.Id}", () => location, TimeSpan.FromMinutes(10));
+      _redisCacheService.GetOrSet($"latest_location_{location.Id}", () => location, TimeSpan.FromMinutes(1));
+      _redisCacheService.GetOrSet($"stored_location_{location.Id}", () => location, TimeSpan.FromMinutes(30));
     }
     finally
     {

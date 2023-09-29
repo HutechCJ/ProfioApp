@@ -14,7 +14,6 @@ using Profio.Infrastructure.Filters;
 using Profio.Infrastructure.HealthCheck;
 using Profio.Infrastructure.Http;
 using Profio.Infrastructure.Hub;
-using Profio.Infrastructure.Jobs;
 using Profio.Infrastructure.Key;
 using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.Message;
@@ -29,6 +28,7 @@ using Profio.Infrastructure.Versioning;
 using System.IO.Compression;
 using System.Net.Mime;
 using System.Text.Json.Serialization;
+using Profio.Infrastructure.Jobs;
 using Twilio.Clients;
 
 namespace Profio.Infrastructure;
@@ -86,10 +86,11 @@ public static class ConfigureServices
     builder.AddSerilog("Profio Api");
     builder.AddOpenTelemetry();
     builder.AddHealthCheck();
-    builder.AddHangFire();
     builder.AddSocketHub();
     builder.AddLuceneSearch();
     builder.AddHttpRestClient();
+
+    builder.AddBackgroundJob();
 
     services
       .AddProblemDetails()
@@ -132,7 +133,6 @@ public static class ConfigureServices
       .UseMiddleware<TimeOutMiddleware>()
       .UseMiddleware<XssProtectionMiddleware>();
 
-    app.UseHangFire();
     app.MapLocationHub();
 
     app

@@ -22,7 +22,6 @@ public static class Extension
       .AddRabbitMQ("amqps://hfzbnoni:03X2irdDUlSBV7D4SoQ4NFNZZ2YglnEh@octopus.rmq3.cloudamqp.com/hfzbnoni",
         name: "RabbitMq",
         tags: new[] { "message broker" })
-      .AddHangfire(_ => { }, name: "HangFire", tags: new[] { "jobs" })
       .AddSignalRHub(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
         ? "https://localhost:9023/current-location"
         : $"https://{Environment.ExpandEnvironmentVariables("%WEBSITE_SITE_NAME%")}.azurewebsites.net/current-location",

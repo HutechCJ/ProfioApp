@@ -38,11 +38,8 @@ public sealed class LocationHub : Hub<ILocationClient>
         var latestLocation = _redisCacheService.GetOrSet<VehicleLocation>(
           key: $"latest_location_{vehicleId}",
           valueFactory: () => null!,
-          TimeSpan.FromMinutes(10));
-        if (latestLocation != null)
-        {
-          await Clients.Group(orderId!).SendLocation(latestLocation);
-        }
+          TimeSpan.FromMinutes(1));
+        await Clients.Group(orderId!).SendLocation(latestLocation);
       }
     }
 
@@ -70,15 +67,5 @@ public sealed class LocationHub : Hub<ILocationClient>
       .FirstOrDefaultAsync();
 
     return result;
-  }
-
-  public async Task SendMessage(VehicleLocation currentLocation)
-  {
-    var orderIds = await _context.Orders
-      .Where(x => x.Deliveries != null && x.Deliveries.Any(d => d.VehicleId == currentLocation.Id))
-      .Select(x => x.Id)
-      .ToListAsync();
-    _logger.LogInformation("Client send message: {ConnectionId}", Context.ConnectionId);
-    await Clients.All.SendLocation(currentLocation);
   }
 }

@@ -1,33 +1,38 @@
-using Hangfire;
-using Hangfire.Redis.StackExchange;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.Extensions.Configuration;
+using Quartz;
 
 namespace Profio.Infrastructure.Jobs;
 
 public static class Extension
 {
-  public static void AddHangFire(this WebApplicationBuilder builder)
+  public static void AddBackgroundJob(this WebApplicationBuilder builder)
   {
-    builder.Services.AddHangfire(cfg =>
-      cfg
-        .SetDataCompatibilityLevel(CompatibilityLevel.Version_180)
-        .UseSimpleAssemblyNameTypeSerializer()
-        .UseDefaultTypeSerializer()
-        .UseRecommendedSerializerSettings()
-        .UseRedisStorage(builder.Configuration.GetConnectionString("Redis"))
-    );
+    builder.Services.AddQuartz(options =>
+      {
+      options.UseSimpleTypeLoader();
+      options.UseInMemoryStore();
+      options.UseDefaultThreadPool(tp =>
+      {
+        tp.MaxConcurrency = 10;
+      });
 
-    builder.Services.AddHangfireServer();
-  }
+      var jobKey = new JobKey(nameof(StoredHistoryJob));
 
-  public static void UseHangFire(this WebApplication app)
-  {
-    app.UseHangfireDashboard();
-    app.UseHangfireDashboard("/jobs", new()
+      options.AddJob<StoredHistoryJob>(jobKey)
+        .AddTrigger(
+          trigger => trigger
+            .ForJob(jobKey)
+            .WithSimpleSchedule(schedule => schedule
+              .WithIntervalInMinutes(25)
+              .RepeatForever()
+            )
+        );
+      });
+
+    builder.Services.AddQuartzHostedService(options =>
     {
-      Authorization = new[] { new HangFireAuthorizationFilter() },
-      IgnoreAntiforgeryToken = true
+      options.WaitForJobsToComplete = true;
     });
   }
+
 }
