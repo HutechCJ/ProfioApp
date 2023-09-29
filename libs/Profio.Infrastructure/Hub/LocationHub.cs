@@ -54,17 +54,14 @@ public sealed class LocationHub : Hub<ILocationClient>
       _logger.LogInformation("Client disconnected: {ConnectionId} - Group {Group}", Context.ConnectionId, orderId);
       await Groups.RemoveFromGroupAsync(Context.ConnectionId, orderId!);
     }
+
     await base.OnDisconnectedAsync(exception);
   }
 
   private async Task<string?> GetVehicleIdForOrderAsync(StringValues orderId)
-  {
-    var result = await _context.Deliveries
+    => await _context.Deliveries
       .Where(x => x.OrderId == orderId.ToString())
       .OrderByDescending(x => x.DeliveryDate)
       .Select(x => x.Id)
       .FirstOrDefaultAsync();
-
-    return result;
-  }
 }

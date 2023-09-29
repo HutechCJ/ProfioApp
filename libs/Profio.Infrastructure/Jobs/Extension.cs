@@ -16,16 +16,15 @@ public static class Extension
             trigger => trigger
               .ForJob(jobKey)
               .WithSimpleSchedule(schedule => schedule
-                .WithIntervalInSeconds(10)
+                .WithIntervalInMinutes(25)
                 .RepeatForever()
               )
           );
       });
 
     builder.Services.AddQuartzHostedService(options =>
-    {
-      options.WaitForJobsToComplete = true;
-    });
+      options.WaitForJobsToComplete = true
+    );
   }
 
 }
