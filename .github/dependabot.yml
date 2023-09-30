@@ -9,7 +9,11 @@ updates:
     schedule:
       interval: "monthly"
   - package-ecosystem: "nuget"
-    directory: "/apps/Profio.Api.Test"
+    directory: "/apps/Profio.Proxy"
+    schedule:
+      interval: "monthly"
+  - package-ecosystem: "nuget"
+    directory: "/apps/Profio.Website"
     schedule:
       interval: "monthly"
   - package-ecosystem: "nuget"
