@@ -12,9 +12,6 @@
 		<a href="https://profioapp.azurewebsites.net/ " target="_blank">
 			<img loading="lazy" src="https://img.shields.io/badge/azure-%230072C6.svg?logo=microsoftazure&logoColor=white" alt="Azure">
 		</a>
-		<a href="https://app.netlify.com/sites/profio-cms/deploys" target="_blank">
-			<img loading="lazy" src="https://api.netlify.com/api/v1/badges/13578c8b-da65-45bc-a65f-d0cac54da258/deploy-status" alt="Netlify">
-		</a>
     <a href="https://gitpod.io/new/#https://github.com/HutechCJ/ProfioApp" target="_blank">
 			<img loading="lazy" src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod" alt="Gitpod">
 		</a>
@@ -44,7 +41,7 @@
   - [📦 Services](#-services)
   - [🛠️ Setup](#️-setup)
   - [🚀 Running the application](#-running-the-application)
-  - [🐳 Running services with Docker](#-running-services-with-docker)
+  - [🐳 Running services with Container](#-running-services-with-container)
 - [API development](#api-development)
 - [Open API](#open-api)
 - [Dependency Graph](#dependency-graph)
@@ -57,10 +54,12 @@
   - [📝 Logging](#-logging)
   - [📦 Database Management](#-database-management)
   - [🔒 Identity Server](#-identity-server)
+- [Our Presentation](#our-presentation)
 - [Contributing](#contributing)
 - [Contributors](#contributors)
 - [Support and Organization](#support-and-organization)
 - [License](#license)
+- [Project Reference](#project-reference)
 
 # Overview
 
@@ -356,9 +355,6 @@
 	<li align="justify">
 		<b><a href="https://www.twilio.com/" target="_blank">Twilio</a></b> - Twilio is a cloud communications platform as a service company based in San Francisco, California.
 	</li>
-	<li align="justify">
-		<b><a href="https://www.netlify.com/" target="_blank">Netlify</a></b> - Netlify is a San Francisco-based cloud computing company that offers hosting and serverless backend services for web applications and static websites.
-	</li>
 </ul>
 
 ## 🛠️ Setup
@@ -438,21 +434,28 @@ tye run --dashboard
 > **Warning**
 > All connections strings will be unavailable when this repository is public.
 
-## 🐳 Running services with Docker
+## 🐳 Running services with Container
 
 For running all external services, navigate to the root directory of the project and run the following command:
 
 ```bash
-docker-compose up -d
+podman-compose|docker-compose up -d
 ```
 
 For running `api` & `proxy`, navigate to the root directory of the project and run the following command:
 
 ```bash
+# Pull the latest images
 docker pull ghcr.io/hutechcj/profio-api:latest
 docker pull ghcr.io/hutechcj/profio-proxy:latest
+docker pull ghcr.io/hutechcj/profio-cms:latest
+docker pull ghcr.io/hutechcj/profio-webiste:latest
+
+# Run the containers
 docker run -d -p 5023:80 ghcr.io/hutechcj/profio-api:latest
 docker run -d -p 7221:80 ghcr.io/hutechcj/profio-proxy:latest
+docker run -d -p 4200:80 ghcr.io/hutechcj/profio-cms:latest
+docker run -d -p 5272:80 ghcr.io/hutechcj/profio-webiste:latest
 ```
 
 # API development
@@ -570,6 +573,12 @@ For the identity server, We have used the <b>Keycloak</b> service to manage the 
 
 <img loading="lazy" src="./assets/img/keycloak.png" width="100%" alt="keycloak">
 
+# Our Presentation
+
+- [The school-level finals of the Code Your Future competition](./assets/slides/school-presentation.pdf)
+- [The city-level finals of the Code Your Future competition](./assets/slides/city-presentation.pdf)
+- [Project Proposal](./assets/slides/project-proposal.pdf)
+
 # Contributing
 
 Wanna be here? [Contribute](./.github/CONTRIBUTING.md).
@@ -660,3 +669,11 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 # License
 
 This project is made available under the MIT license. See the [LICENSE](LICENSE) file for details
+
+# Project Reference
+
+- https://github.com/lukin/keywind
+- https://github.com/helm/charts
+- https://github.com/thangchung/clean-architecture-dotnet
+- https://github.com/jasontaylordev/CleanArchitecture
+- https://github.com/zkavtaskin/Domain-Driven-Design-Example
