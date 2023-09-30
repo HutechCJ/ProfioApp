@@ -1,6 +1,6 @@
-<mxfile host="app.diagrams.net" modified="2023-09-20T06:54:32.280Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.31" etag="kcejvlDiBMqysWyTrSAB" version="21.7.5" type="device">
+<mxfile host="app.diagrams.net" modified="2023-09-30T15:15:10.153Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36 Edg/117.0.2045.43" etag="MzGZtB3e9-4v-Tcyf6oy" version="22.0.0" type="device">
   <diagram name="Page-1" id="upoOHrW2UucQuBE2hp9n">
-    <mxGraphModel dx="1044" dy="688" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4681" pageHeight="3300" math="0" shadow="0">
+    <mxGraphModel dx="1042" dy="713" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="4681" pageHeight="3300" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -43,7 +43,7 @@
         <mxCell id="RQ8LQTlV_PO3ozZtlbeF-10" value="&lt;font size=&quot;1&quot; style=&quot;&quot;&gt;&lt;b style=&quot;font-size: 12px;&quot;&gt;Analysts Code&lt;/b&gt;&lt;/font&gt;" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;rotation=45;" parent="1" vertex="1">
           <mxGeometry x="740" y="750" width="100" height="30" as="geometry" />
         </mxCell>
-        <mxCell id="RQ8LQTlV_PO3ozZtlbeF-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="KGqpZuDAtsh8JOuF7m7c-1" target="QeiGGVGkleGwpnrtwk2C-1" edge="1">
+        <mxCell id="RQ8LQTlV_PO3ozZtlbeF-33" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" parent="1" source="KGqpZuDAtsh8JOuF7m7c-1" target="e354jCpDt6CWw38jMvKR-1" edge="1">
           <mxGeometry relative="1" as="geometry">
             <mxPoint x="1160" y="795" as="sourcePoint" />
             <mxPoint x="1160" y="700" as="targetPoint" />
@@ -96,8 +96,8 @@
         <mxCell id="KGqpZuDAtsh8JOuF7m7c-1" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://seeklogo.com/images/G/github-actions-logo-031704BDC6-seeklogo.com.png;" parent="1" vertex="1">
           <mxGeometry x="1120" y="796.5" width="80" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="QeiGGVGkleGwpnrtwk2C-1" value="" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=default;verticalAlign=top;aspect=fixed;imageAspect=0;image=https://images.g2crowd.com/uploads/product/image/small_square/small_square_477db83f729d63210139ec7cd29c1351/render-render.png;" vertex="1" parent="1">
-          <mxGeometry x="1100" y="580" width="120" height="120" as="geometry" />
+        <mxCell id="e354jCpDt6CWw38jMvKR-1" value="" style="shape=image;html=1;verticalAlign=top;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;imageAspect=0;aspect=fixed;image=https://cdn2.iconfinder.com/data/icons/boxicons-logos/24/bxl-netlify-128.png" vertex="1" parent="1">
+          <mxGeometry x="1096" y="570" width="128" height="128" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
