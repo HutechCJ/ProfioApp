@@ -133,9 +133,9 @@ const OrderForm: React.FC<OrderFormProps> = ({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const data = new FormData(event.currentTarget);
     Swal.fire(confirmSwalOption).then((result) => {
       if (result.isConfirmed) {
-        const data = new FormData(event.currentTarget);
         onSubmit(data);
         setOrder({
           startedDate: initialValue.startedDate || '',

@@ -78,9 +78,9 @@ const StaffForm: React.FC<StaffFormProps> = ({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    const data = new FormData(event.currentTarget);
     Swal.fire(confirmSwalOption).then((result) => {
       if (result.isConfirmed) {
-        const data = new FormData(event.currentTarget);
         onSubmit(data);
         setStaff({
           name: initialValue.name || '',
