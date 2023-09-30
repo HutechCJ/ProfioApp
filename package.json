@@ -36,7 +36,7 @@
     "prism-react-renderer": "^1.3.5",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "react-router-dom": "6.11.2",
+    "react-router-dom": "6.16.0",
     "reactstrap": "^9.2.0",
     "remarkable-plantuml": "^1.0.0",
     "styled-jsx": "5.1.2",
