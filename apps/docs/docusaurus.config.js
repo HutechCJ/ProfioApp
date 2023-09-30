@@ -9,11 +9,12 @@ const simplePlantUML = require('@akebifiky/remark-simple-plantuml');
 const config = {
   title: 'Profio Application',
   tagline: '🚛 A Modern Logistics Management System ✈️',
-  url: 'https://profio-document.onrender.com',
+  url: 'https://HutechCJ.github.io',
   baseUrl: '/',
   projectName: 'ProfioApp',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
+  trailingSlash: false,
   favicon: 'img/favicon.ico',
   organizationName: 'HutechCJ',
   themeConfig:
@@ -198,12 +199,6 @@ const config = {
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
-        },
-        sitemap: {
-          changefreq: 'weekly',
-          priority: 0.5,
-          ignorePatterns: ['/tags/**'],
-          filename: 'sitemap.xml',
         },
       }),
     ],
