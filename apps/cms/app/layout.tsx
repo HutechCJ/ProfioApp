@@ -1,6 +1,7 @@
 import Providers from '@/components/providers/Providers';
 import ThemeRegistry from '../components/ThemeRegistry/ThemeRegistry';
 import { Metadata } from 'next';
+import "./global.css"
 
 export const metadata: Metadata = {
   title: 'Profio CMS',

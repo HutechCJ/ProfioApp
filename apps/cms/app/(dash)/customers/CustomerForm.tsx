@@ -2,17 +2,21 @@
 
 import React, { useEffect, useState } from 'react';
 
+import useSwal from '@/common/hooks/useSwal';
+import { Gender } from '@/features/customer/customer.types';
 import {
-  TextField,
-  MenuItem,
-  Box,
   Alert,
   AlertTitle,
-  Stack,
+  Box,
   Button,
+  MenuItem,
+  Stack,
+  TextField,
 } from '@mui/material';
-import { useSnackbar } from 'notistack';
-import { Gender } from '@/features/customer/customer.types';
+import {
+  confirmSwalOption,
+  successSwalOption,
+} from '@/common/constants/sweetAlertOptions';
 
 const genders = [
   {
@@ -60,6 +64,7 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
   onSuccess,
   labelButton,
 }) => {
+  const Swal = useSwal();
   const [customer, setCustomer] = useState({
     name: initialValue.name || '',
     phone: initialValue.phone || '',
@@ -79,8 +84,6 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
       zipCode: '',
     },
   });
-
-  const { enqueueSnackbar } = useSnackbar();
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name.includes('address.')) {
@@ -103,34 +106,36 @@ const CustomerForm: React.FC<CustomerFormProps> = ({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    onSubmit(data);
-    setCustomer({
-      name: initialValue.name || '',
-      phone: initialValue.phone || '',
-      email: initialValue.email || '',
-      gender: initialValue.gender || Gender.Other,
-      address: {
-        street: initialValue.address?.street || '',
-        ward: initialValue.address?.ward || '',
-        city: initialValue.address?.city || '',
-        province: initialValue.address?.province || '',
-        zipCode: initialValue.address?.zipCode || '',
-      } || {
-        street: '',
-        ward: '',
-        city: '',
-        province: '',
-        zipCode: '',
-      },
+    Swal.fire(confirmSwalOption).then((result) => {
+      if (result.isConfirmed) {
+        const data = new FormData(event.currentTarget);
+        onSubmit(data);
+        setCustomer({
+          name: initialValue.name || '',
+          phone: initialValue.phone || '',
+          email: initialValue.email || '',
+          gender: initialValue.gender || Gender.Other,
+          address: {
+            street: initialValue.address?.street || '',
+            ward: initialValue.address?.ward || '',
+            city: initialValue.address?.city || '',
+            province: initialValue.address?.province || '',
+            zipCode: initialValue.address?.zipCode || '',
+          } || {
+            street: '',
+            ward: '',
+            city: '',
+            province: '',
+            zipCode: '',
+          },
+        });
+      }
     });
   };
 
   useEffect(() => {
     if (isSuccess) {
-      enqueueSnackbar('Successfully!', {
-        variant: 'success',
-      });
+      Swal.fire(successSwalOption);
       onSuccess();
     }
   }, [

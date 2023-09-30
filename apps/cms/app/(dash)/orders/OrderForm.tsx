@@ -18,6 +18,11 @@ import { useSnackbar } from 'notistack';
 import useCountByOrderStatus from '@/features/order/useCountByOrderStatus';
 import CustomerList from '../customers/CustomerList';
 import useSenderEmailOrder from '@/features/order/useSenderEmailOrder';
+import useSwal from '@/common/hooks/useSwal';
+import {
+  confirmSwalOption,
+  successSwalOption,
+} from '@/common/constants/sweetAlertOptions';
 
 const statuses = [
   {
@@ -80,6 +85,7 @@ const OrderForm: React.FC<OrderFormProps> = ({
   isSuccessAddOrder,
   dataResponseFromAddOrder,
 }) => {
+  const Swal = useSwal();
   const [order, setOrder] = useState({
     startedDate: initialValue.startedDate || '',
     expectedDeliveryTime: initialValue.expectedDeliveryTime || '',
@@ -102,8 +108,6 @@ const OrderForm: React.FC<OrderFormProps> = ({
     distance: initialValue.distance || 0,
     customerId: initialValue.customerId || '',
   });
-
-  const { enqueueSnackbar } = useSnackbar();
   const { refetch: refetchCount } = useCountByOrderStatus();
 
   const { mutate: sendEmailOrder } = useSenderEmailOrder();
@@ -129,37 +133,39 @@ const OrderForm: React.FC<OrderFormProps> = ({
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    onSubmit(data);
-    setOrder({
-      startedDate: initialValue.startedDate || '',
-      expectedDeliveryTime: initialValue.expectedDeliveryTime || '',
-      status: initialValue.status || OrderStatus.Pending,
-      destinationAddress: {
-        street: initialValue.destinationAddress?.street || '',
-        ward: initialValue.destinationAddress?.ward || '',
-        city: initialValue.destinationAddress?.city || '',
-        province: initialValue.destinationAddress?.province || '',
-        zipCode: initialValue.destinationAddress?.zipCode || '',
-      } || {
-        street: '',
-        ward: '',
-        city: '',
-        province: '',
-        zipCode: '',
-      },
-      destinationZipCode: initialValue.destinationZipCode || '',
-      note: initialValue.note || '',
-      distance: initialValue.distance || 0,
-      customerId: initialValue.customerId || '',
+    Swal.fire(confirmSwalOption).then((result) => {
+      if (result.isConfirmed) {
+        const data = new FormData(event.currentTarget);
+        onSubmit(data);
+        setOrder({
+          startedDate: initialValue.startedDate || '',
+          expectedDeliveryTime: initialValue.expectedDeliveryTime || '',
+          status: initialValue.status || OrderStatus.Pending,
+          destinationAddress: {
+            street: initialValue.destinationAddress?.street || '',
+            ward: initialValue.destinationAddress?.ward || '',
+            city: initialValue.destinationAddress?.city || '',
+            province: initialValue.destinationAddress?.province || '',
+            zipCode: initialValue.destinationAddress?.zipCode || '',
+          } || {
+            street: '',
+            ward: '',
+            city: '',
+            province: '',
+            zipCode: '',
+          },
+          destinationZipCode: initialValue.destinationZipCode || '',
+          note: initialValue.note || '',
+          distance: initialValue.distance || 0,
+          customerId: initialValue.customerId || '',
+        });
+      }
     });
   };
 
   useEffect(() => {
     if (isSuccess) {
-      enqueueSnackbar('Successfully!', {
-        variant: 'success',
-      });
+      Swal.fire(successSwalOption);
       refetchCount();
       onSuccess();
     }
