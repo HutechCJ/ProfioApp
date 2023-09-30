@@ -10,6 +10,7 @@ import GoogleMapComponent from './GoogleMap';
 import OrderStepper from './OrderStepper';
 import Link from '@/components/Link';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import { OrderStatus } from '@/features/order/order.types';
 
 function OrderOnMap({ params }: { params: { orderId: string } }) {
   const {
@@ -53,7 +54,9 @@ function OrderOnMap({ params }: { params: { orderId: string } }) {
         </Link>
       </Stack>
       <OrderStepper order={orderApiRes.data} />
-      <GoogleMapComponent orderId={params.orderId} />
+      {orderApiRes.data.status === OrderStatus.InProgress && (
+        <GoogleMapComponent orderId={params.orderId} />
+      )}
     </>
   );
 }
