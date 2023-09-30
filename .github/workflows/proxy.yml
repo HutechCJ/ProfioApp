@@ -8,7 +8,7 @@ on:
     paths:
       - 'apps/Profio.Proxy/**'
       - 'libs/**'
-      - '.github/workflows/profio-api.yml'
+      - '.github/workflows/proxy.yml'
   pull_request:
     branches: [ stg ]
 
@@ -27,7 +27,7 @@ jobs:
         registry: ghcr.io
         username: ${{ github.repository_owner }}
         password: ${{ secrets.TOKEN }}
-    - name: Build the profio-api image
+    - name: Build the proxy image
       run: |
        docker build -f apps/Profio.Proxy/Dockerfile . --tag ghcr.io/hutechcj/profio-proxy:latest
        docker push ghcr.io/hutechcj/profio-proxy:latest
