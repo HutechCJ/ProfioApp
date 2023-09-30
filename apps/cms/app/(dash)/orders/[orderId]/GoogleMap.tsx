@@ -179,6 +179,7 @@ function GoogleMapComponent({ orderId }: { orderId: string }) {
           zoom={5}
           onLoad={onLoad}
           onUnmount={onUnmount}
+          key={`${process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}`}
         >
           <>
             {/* {directionsServiceOptions &&
