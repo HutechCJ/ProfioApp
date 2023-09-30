@@ -2,22 +2,26 @@
 
 import React, { useEffect, useState } from 'react';
 
-import { VehicleType, VehicleStatus } from '@/features/vehicle/vehicle.types';
+import useSwal from '@/common/hooks/useSwal';
+import useCountByVehicleStatus from '@/features/vehicle/useCountByVehicleStatus';
+import useCountByVehicleType from '@/features/vehicle/useCountByVehicleType';
+import { VehicleStatus, VehicleType } from '@/features/vehicle/vehicle.types';
 import {
-  TextField,
-  MenuItem,
-  Box,
   Alert,
   AlertTitle,
-  Stack,
+  Box,
   Button,
   Divider,
+  MenuItem,
+  Stack,
+  TextField,
   Typography,
 } from '@mui/material';
-import { useSnackbar } from 'notistack';
-import useCountByVehicleType from '@/features/vehicle/useCountByVehicleType';
 import StaffList from '../staffs/StaffList';
-import useCountByVehicleStatus from '@/features/vehicle/useCountByVehicleStatus';
+import {
+  confirmSwalOption,
+  successSwalOption,
+} from '@/common/constants/sweetAlertOptions';
 
 const vehicleTypes = [
   {
@@ -78,6 +82,7 @@ const VehicleForm: React.FC<VehicleFormProps> = ({
   onSuccess,
   labelButton,
 }) => {
+  const Swal = useSwal();
   const [vehicle, setVehicle] = useState({
     zipCodeCurrent: initialValue.zipCodeCurrent || '',
     licensePlate: initialValue.licensePlate || '',
@@ -85,8 +90,6 @@ const VehicleForm: React.FC<VehicleFormProps> = ({
     status: initialValue.status || VehicleStatus.Idle,
     staffId: initialValue.staffId || '',
   });
-
-  const { enqueueSnackbar } = useSnackbar();
   const { refetch: refetchCountType } = useCountByVehicleType();
   const { refetch: refetchCountStatus } = useCountByVehicleStatus();
 
@@ -100,21 +103,23 @@ const VehicleForm: React.FC<VehicleFormProps> = ({
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    onSubmit(data);
-    setVehicle({
-      zipCodeCurrent: initialValue.zipCodeCurrent || '',
-      licensePlate: initialValue.licensePlate || '',
-      type: initialValue.type || VehicleType.Truck,
-      status: initialValue.status || VehicleStatus.Idle,
-      staffId: initialValue.staffId || '',
+    Swal.fire(confirmSwalOption).then((result) => {
+      if (result.isConfirmed) {
+        onSubmit(data);
+        setVehicle({
+          zipCodeCurrent: initialValue.zipCodeCurrent || '',
+          licensePlate: initialValue.licensePlate || '',
+          type: initialValue.type || VehicleType.Truck,
+          status: initialValue.status || VehicleStatus.Idle,
+          staffId: initialValue.staffId || '',
+        });
+      }
     });
   };
 
   useEffect(() => {
     if (isSuccess) {
-      enqueueSnackbar('Successfully!', {
-        variant: 'success',
-      });
+      Swal.fire(successSwalOption);
       refetchCountType();
       refetchCountStatus();
       onSuccess();

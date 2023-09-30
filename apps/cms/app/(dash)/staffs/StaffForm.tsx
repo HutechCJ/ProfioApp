@@ -2,18 +2,22 @@
 
 import React, { useEffect, useState } from 'react';
 
+import useSwal from '@/common/hooks/useSwal';
 import { StaffPosition } from '@/features/staff/staff.types';
+import useCountByPosition from '@/features/staff/useCountByPosition';
 import {
-  TextField,
-  MenuItem,
-  Box,
   Alert,
   AlertTitle,
-  Stack,
+  Box,
   Button,
+  MenuItem,
+  Stack,
+  TextField,
 } from '@mui/material';
-import { useSnackbar } from 'notistack';
-import useCountByPosition from '@/features/staff/useCountByPosition';
+import {
+  confirmSwalOption,
+  successSwalOption,
+} from '@/common/constants/sweetAlertOptions';
 
 const positions = [
   {
@@ -57,13 +61,12 @@ const StaffForm: React.FC<StaffFormProps> = ({
   onSuccess,
   labelButton,
 }) => {
+  const Swal = useSwal();
   const [staff, setStaff] = useState({
     name: initialValue.name || '',
     phone: initialValue.phone || '',
     position: initialValue.position || StaffPosition.Driver,
   });
-
-  const { enqueueSnackbar } = useSnackbar();
   const { refetch: refetchCount } = useCountByPosition();
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -76,19 +79,21 @@ const StaffForm: React.FC<StaffFormProps> = ({
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    onSubmit(data);
-    setStaff({
-      name: initialValue.name || '',
-      phone: initialValue.phone || '',
-      position: initialValue.position || StaffPosition.Driver,
+    Swal.fire(confirmSwalOption).then((result) => {
+      if (result.isConfirmed) {
+        onSubmit(data);
+        setStaff({
+          name: initialValue.name || '',
+          phone: initialValue.phone || '',
+          position: initialValue.position || StaffPosition.Driver,
+        });
+      }
     });
   };
 
   useEffect(() => {
     if (isSuccess) {
-      enqueueSnackbar('Successfully!', {
-        variant: 'success',
-      });
+      Swal.fire(successSwalOption);
       refetchCount();
       onSuccess();
     }
