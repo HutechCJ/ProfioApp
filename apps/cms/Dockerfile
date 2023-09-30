@@ -15,7 +15,7 @@ ENV NEXT_TELEMETRY_DISABLED 1
 WORKDIR /usr/src/app
 COPY --from=deps /usr/src/app/node_modules ./node_modules
 COPY --from=deps /usr/src/app/package.json ./package.json
-RUN ls -la
+RUN ls -la | echo "ls -la"
 COPY dist/apps/cms/public ./public
 COPY dist/apps/cms/.next ./.next
 RUN chown -R node:node .
