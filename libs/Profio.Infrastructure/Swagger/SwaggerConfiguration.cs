@@ -43,7 +43,6 @@ public static class SwaggerConfiguration
                  .ApiVersionDescriptions)
         c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
           description.GroupName.ToUpperInvariant());
-      c.DisplayOperationId();
       c.DisplayRequestDuration();
       c.EnableFilter();
       c.EnableValidator();
