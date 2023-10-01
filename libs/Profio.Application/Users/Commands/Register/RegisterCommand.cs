@@ -6,6 +6,7 @@ using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Profio.Application.Vehicles.Validators;
+using Profio.Domain.Constants;
 using Profio.Domain.Exceptions;
 using Profio.Domain.Identity;
 using Profio.Infrastructure.Auth;
@@ -62,6 +63,8 @@ public sealed class RegisterCommandHandler : IRequestHandler<RegisterCommand, Ac
       .AsNoTracking()
       .Include(x => x.Staff)
       .SingleOrDefaultAsync(x => x.Id == user.Id, cancellationToken) ?? throw new NotFoundException(nameof(ApplicationUser), user.Id);
+
+    await _userManager.AddToRoleAsync(newUser, UserRole.Officer);
 
     var dto = _mapper.Map<AccountDto>(newUser);
     dto.Token = _tokenService.CreateToken(user);

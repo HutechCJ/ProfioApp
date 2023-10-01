@@ -2,12 +2,11 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Profio.Domain.Entities;
 using Profio.Domain.Identity;
-using Profio.Infrastructure.Auth;
 using Profio.Infrastructure.Persistence;
 
 namespace Profio.Application.Counters.Queries;
 
-public sealed record GetEntityCountQuery(IList<string> EntityTypes) : IRequest<Dictionary<string, int>>, IAuthRequest;
+public sealed record GetEntityCountQuery(IList<string> EntityTypes) : IRequest<Dictionary<string, int>>;
 
 public sealed class GetEntityCountQueryHandler : IRequestHandler<GetEntityCountQuery, Dictionary<string, int>>
 {
