@@ -14,14 +14,13 @@ public static class Extension
   private const string UnsupportedOs = "This OS is not supported";
 
   public static JObject GetPlatform(this IConfiguration config, IWebHostEnvironment env)
-      => JObject.Parse(JsonConvert.SerializeObject(config.PlatformModel(env)));
+    => JObject.Parse(JsonConvert.SerializeObject(config.PlatformModel(env)));
 
   public static JObject GetPlatformStatus(IWebHostEnvironment env)
-      => JObject.Parse(JsonConvert.SerializeObject(ServerModel(env)));
+    => JObject.Parse(JsonConvert.SerializeObject(ServerModel(env)));
 
   private static Platform PlatformModel(this IConfiguration config, IHostEnvironment env)
-  {
-    return new()
+    => new()
     {
       AppName = env.ApplicationName,
 
@@ -32,13 +31,13 @@ public static class Extension
       FrameworkDescription = RuntimeInformation.FrameworkDescription,
 
       EnvironmentVariables = config.AsEnumerable()
-            .ToDictionary(x => x.Key, x => x.Value),
+        .ToDictionary(x => x.Key, x => x.Value),
 
       OsArchitecture = !RuntimeInformation.IsOSPlatform(OSPlatform.Windows)
-            ? RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX)
-                ? $"{nameof(OSPlatform.Linux)} or {nameof(OSPlatform.OSX)}"
-                : "Other OS"
-            : nameof(OSPlatform.Windows),
+        ? RuntimeInformation.IsOSPlatform(OSPlatform.Linux) || RuntimeInformation.IsOSPlatform(OSPlatform.OSX)
+          ? $"{nameof(OSPlatform.Linux)} or {nameof(OSPlatform.OSX)}"
+          : "Other OS"
+        : nameof(OSPlatform.Windows),
 
       OsDescription = RuntimeInformation.OSDescription,
 
@@ -54,21 +53,20 @@ public static class Extension
       HostName = Dns.GetHostName(),
 
       IpAddress = Dns.GetHostAddresses(Dns.GetHostName())
-            .Where(ip => ip.AddressFamily == AddressFamily.InterNetwork)
-            .Aggregate(" ", (a, b) => $"{a} {b}")
+        .Where(ip => ip.AddressFamily == AddressFamily.InterNetwork)
+        .Aggregate(" ", (a, b) => $"{a} {b}")
     };
-  }
 
   private static Server ServerModel(IHostEnvironment env)
-      => new()
-      {
-        Name = env.EnvironmentName,
-        Time = DateTime.UtcNow,
-        UpTime = DateTime.UtcNow - Process.GetCurrentProcess().StartTime,
-        CpuUsage = GetCpuUsage(),
-        MemoryUsage = GetMemoryUsage(),
-        DiskUsage = GetDiskUsage()
-      };
+    => new()
+    {
+      Name = env.EnvironmentName,
+      Time = DateTime.UtcNow,
+      UpTime = DateTime.UtcNow - Process.GetCurrentProcess().StartTime,
+      CpuUsage = GetCpuUsage(),
+      MemoryUsage = GetMemoryUsage(),
+      DiskUsage = GetDiskUsage()
+    };
 
   private static object GetCpuUsage()
   {
@@ -114,7 +112,7 @@ public static class Extension
       return UnsupportedOs;
     var memoryUsage = new Process
     {
-      StartInfo = new ProcessStartInfo
+      StartInfo = new()
       {
         FileName = "/bin/bash",
         Arguments = "-c \"free -m | awk 'NR==2{printf \"%.2f\", $3*100/$2 }'\"",
