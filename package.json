@@ -38,7 +38,7 @@
     "react-dom": "18.2.0",
     "react-router-dom": "6.11.2",
     "reactstrap": "^9.2.0",
-    "remarkable-plantuml": "^1.0.0",
+    "remarkable-plantuml": "^1.1.0",
     "styled-jsx": "5.1.2",
     "sweetalert2": "^11.7.28",
     "sweetalert2-react-content": "^5.0.7",
