@@ -9,7 +9,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.Users.Commands.Login;
 
 [SwaggerSchema(
-  Title = "Account Request",
+  Title = "Login",
   Description = "A Representation of Account")]
 public sealed record LoginCommand(string UserName, string Password) : IRequest<AccountDto>;
 

@@ -15,7 +15,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.Users.Commands.Register;
 
 [SwaggerSchema(
-  Title = "Register Request",
+  Title = "Create Account",
   Description = "A Representation of Register Account")]
 public sealed record RegisterCommand
   (string Email, string FullName, string Password, string ConfirmPassword, string? StaffId) : IRequest<AccountDto>;

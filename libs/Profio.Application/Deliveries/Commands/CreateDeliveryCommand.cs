@@ -11,7 +11,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.Deliveries.Commands;
 
 [SwaggerSchema(
-  Title = "Delivery Create Request",
+  Title = "Create Delivery",
   Description = "A Representation of list of Delivery")]
 public sealed record CreateDeliveryCommand : CreateCommandBase
 {

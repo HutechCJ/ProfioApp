@@ -11,7 +11,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.OrderHistories.Commands;
 
 [SwaggerSchema(
-  Title = "Order History Request",
+  Title = "Create Order History",
   Description = "A Representation of list of Order History")]
 public sealed record CreateOrderHistoryCommand : CreateCommandBase
 {

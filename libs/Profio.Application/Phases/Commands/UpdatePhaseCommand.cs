@@ -6,20 +6,26 @@ using Profio.Domain.Entities;
 using Profio.Infrastructure.Abstractions.CQRS.Events.Commands;
 using Profio.Infrastructure.Abstractions.CQRS.Handlers.Command;
 using Profio.Infrastructure.Abstractions.CQRS.Validators;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Phases.Commands;
 
+[SwaggerSchema(
+   Title = "Update Phase",
+   Description = "A Representation of Phase")]
 public sealed record UpdatePhaseCommand(object Id) : UpdateCommandBase(Id)
 {
   public int? Order { get; set; }
   public string? RouteId { get; set; }
 }
+
 public sealed class UpdatePhaseCommandHandler : UpdateCommandHandlerBase<UpdatePhaseCommand, Phase>
 {
   public UpdatePhaseCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
+
 public sealed class UpdatePhaseCommandValidator : UpdateCommandValidatorBase<UpdatePhaseCommand>
 {
   public UpdatePhaseCommandValidator(RouteExistenceByIdValidator routeValidator)

@@ -6,8 +6,13 @@ using Profio.Application.Hubs.Validators;
 using Profio.Domain.Entities;
 using Profio.Infrastructure.Abstractions.CQRS.Events.Commands;
 using Profio.Infrastructure.Abstractions.CQRS.Handlers.Command;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.OrderHistories.Commands;
+
+[SwaggerSchema(
+  Title = "Update Order History",
+  Description = "A Representation of list of Order History")]
 public sealed record UpdateOrderHistoryCommand(object Id) : UpdateCommandBase(Id)
 {
   public DateTime? Timestamp { get; set; }

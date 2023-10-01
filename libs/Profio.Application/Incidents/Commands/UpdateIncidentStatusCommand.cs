@@ -1,9 +1,13 @@
 using FluentValidation;
 using MediatR;
 using Profio.Domain.Constants;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Incidents.Commands;
 
+[SwaggerSchema(
+  Title = "Update Incident Status",
+  Description = "A Representation of UpdateIncidentStatusCommand")]
 public sealed record UpdateIncidentStatusCommand(object Id) : IRequest<Unit>
 {
   public required IncidentStatus Status { get; set; }

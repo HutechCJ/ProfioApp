@@ -12,7 +12,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.Hubs.Commands;
 
 [SwaggerSchema(
-  Title = "Hub Request",
+  Title = "Create Hub",
   Description = "A Representation of list of Hub")]
 public sealed record CreateHubCommand : CreateCommandBase
 {

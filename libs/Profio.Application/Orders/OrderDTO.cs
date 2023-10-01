@@ -3,9 +3,13 @@ using Profio.Application.Phases;
 using Profio.Domain.Constants;
 using Profio.Domain.Models;
 using Profio.Domain.ValueObjects;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Orders;
 
+[SwaggerSchema(
+    Title = "Order",
+    Description = "A Representation of list of Order")]
 public sealed record OrderDto : BaseModel
 {
   public required string Id { get; init; }

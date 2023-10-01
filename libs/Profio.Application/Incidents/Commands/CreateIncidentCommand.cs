@@ -11,7 +11,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.Incidents.Commands;
 
 [SwaggerSchema(
-  Title = "Incident Create Request",
+  Title = "Create Incident",
   Description = "A Representation of list of Incident")]
 public sealed record CreateIncidentCommand : CreateCommandBase
 {

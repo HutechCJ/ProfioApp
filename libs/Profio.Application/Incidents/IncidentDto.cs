@@ -1,9 +1,13 @@
 using Profio.Application.Deliveries;
 using Profio.Domain.Constants;
 using Profio.Domain.Models;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Incidents;
 
+[SwaggerSchema(
+    Title = "Incident",
+    Description = "A Representation of list of Incident")]
 public sealed record IncidentDto : BaseModel
 {
   public required string Id { get; init; }

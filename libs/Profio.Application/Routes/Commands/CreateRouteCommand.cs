@@ -10,7 +10,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.Routes.Commands;
 
 [SwaggerSchema(
-  Title = "Route Create Request",
+  Title = "Create Route",
   Description = "A Representation of list of Route")]
 public sealed record CreateRouteCommand : CreateCommandBase
 {

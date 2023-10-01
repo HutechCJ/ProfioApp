@@ -10,7 +10,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.Staffs.Commands;
 
 [SwaggerSchema(
-  Title = "Staff Update Request",
+  Title = "Update Staff",
   Description = "A Representation of list of Staff")]
 public sealed record UpdateStaffCommand(object Id) : UpdateCommandBase(Id)
 {

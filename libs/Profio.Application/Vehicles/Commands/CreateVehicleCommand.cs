@@ -11,7 +11,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.Vehicles.Commands;
 
 [SwaggerSchema(
-  Title = "Vehicle Request",
+  Title = "Create Vehicle",
   Description = "A Representation of list of Vehicle")]
 public sealed record CreateVehicleCommand : CreateCommandBase
 {

@@ -1,8 +1,12 @@
 using Profio.Application.Staffs;
 using Profio.Domain.Models;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Users;
 
+[SwaggerSchema(
+  Title = "Account",
+  Description = "A Representation of Account")]
 public sealed record AccountDto : BaseModel
 {
   public required string Id { get; set; }

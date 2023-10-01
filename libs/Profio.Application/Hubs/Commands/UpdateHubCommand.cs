@@ -6,9 +6,13 @@ using Profio.Domain.ValueObjects;
 using Profio.Infrastructure.Abstractions.CQRS.Events.Commands;
 using Profio.Infrastructure.Abstractions.CQRS.Handlers.Command;
 using Profio.Infrastructure.Abstractions.CQRS.Validators;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Hubs.Commands;
 
+[SwaggerSchema(
+   Title = "Update Hub",
+   Description = "A Representation of Hub")]
 public sealed record UpdateHubCommand(object Id) : UpdateCommandBase(Id)
 {
   public string? Name { get; set; }

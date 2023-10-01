@@ -7,10 +7,15 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Profio.Domain.Identity;
 using Profio.Infrastructure.Auth;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Users.Commands.ChangePassword;
 
+[SwaggerSchema(
+  Title = "Change Password",
+  Description = "A Representation of Change Password")]
 public sealed record ChangePasswordCommand(string OldPassword, string NewPassword, string ConfirmPassword) : IRequest<AccountDto>;
+
 public sealed class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand, AccountDto>
 {
   private readonly UserManager<ApplicationUser> _userManager;

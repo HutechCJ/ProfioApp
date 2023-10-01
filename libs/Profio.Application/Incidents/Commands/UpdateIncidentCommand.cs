@@ -11,7 +11,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.Incidents.Commands;
 
 [SwaggerSchema(
-  Title = "Incident Update Request",
+  Title = "Update Incident",
   Description = "A Representation of list of Incident")]
 public sealed record UpdateIncidentCommand(object Id) : UpdateCommandBase(Id)
 {

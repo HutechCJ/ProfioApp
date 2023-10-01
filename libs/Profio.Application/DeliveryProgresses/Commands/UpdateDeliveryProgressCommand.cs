@@ -11,13 +11,13 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.DeliveryProgresses.Commands;
 
 [SwaggerSchema(
-  Title = "Delivery Progress Update Request",
+  Title = "Update Delivery Progress",
   Description = "A Representation of list of Delivery Progress")]
 public sealed record UpdateDeliveryProgressCommand(object Id) : UpdateCommandBase(Id)
 {
   public Location? CurrentLocation { get; set; }
   public byte PercentComplete { get; set; } = 0;
-  //public TimeSpan? EstimatedTimeRemaining { get; set; }
+  public TimeSpan? EstimatedTimeRemaining { get; set; }
   public DateTime? LastUpdated { get; set; }
   public string? OrderId { get; set; }
 }

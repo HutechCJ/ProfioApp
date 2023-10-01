@@ -14,7 +14,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.Orders.Commands;
 
 [SwaggerSchema(
-  Title = "Order Update Request",
+  Title = "Update Order",
   Description = "A Representation of list of Order")]
 public sealed record UpdateOrderCommand(object Id) : UpdateCommandBase(Id)
 {

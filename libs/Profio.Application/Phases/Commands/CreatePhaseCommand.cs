@@ -5,14 +5,18 @@ using Profio.Application.Routes.Validators;
 using Profio.Domain.Entities;
 using Profio.Infrastructure.Abstractions.CQRS.Events.Commands;
 using Profio.Infrastructure.Abstractions.CQRS.Handlers.Command;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Profio.Application.Phases.Commands;
 
+[SwaggerSchema(
+  Title = "Create Phase",
+  Description = "A Representation of list of Phase")]
 public sealed record CreatePhaseCommand : CreateCommandBase
 {
   public int Order { get; set; } = 1;
   public string? RouteId { get; set; }
-};
+}
 
 public sealed class CreatePhaseCommandHandler : CreateCommandHandlerBase<CreatePhaseCommand, Phase>
 {

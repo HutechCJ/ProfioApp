@@ -12,7 +12,7 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.Customers.Commands;
 
 [SwaggerSchema(
-  Title = "Customer Update Request",
+  Title = "Update Customer",
   Description = "A Representation of list of Customer")]
 public sealed record UpdateCustomerCommand(object Id) : UpdateCommandBase(Id)
 {
