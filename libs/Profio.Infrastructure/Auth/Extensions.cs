@@ -10,8 +10,10 @@ using Microsoft.Net.Http.Headers;
 using Profio.Domain.Identity;
 using Profio.Infrastructure.Persistence;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using Profio.Domain.Constants;
 using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
 
 namespace Profio.Infrastructure.Auth;
@@ -111,6 +113,15 @@ public static class Extensions
       options.MinimumSameSitePolicy = SameSiteMode.None;
       options.HttpOnly = HttpOnlyPolicy.Always;
       options.Secure = CookieSecurePolicy.SameAsRequest;
+    });
+
+    services.AddAuthorization(options =>
+    {
+      options.AddPolicy(UserRole.Admin, policy => policy.RequireRole(UserRole.Admin));
+      options.AddPolicy(UserRole.Customer, policy => policy.RequireRole(UserRole.Customer));
+      options.AddPolicy(UserRole.Driver, policy => policy.RequireRole(UserRole.Driver));
+      options.AddPolicy(UserRole.Officer, policy => policy.RequireRole(UserRole.Officer));
+      options.AddPolicy(UserRole.Stoker, policy => policy.RequireRole(UserRole.Stoker));
     });
 
     services.AddScoped<IUserAccessor, UserAccessor>();

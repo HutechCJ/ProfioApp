@@ -1,5 +1,7 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Profio.Application.Counters.Queries;
+using Profio.Domain.Constants;
 using Profio.Domain.Entities;
 using Profio.Domain.Models;
 using Swashbuckle.AspNetCore.Annotations;
@@ -12,6 +14,7 @@ namespace Profio.Api.UseCases.v1;
 public sealed class CountersController : BaseController
 {
   [HttpGet("entities")]
+  [Authorize(Policy = UserRole.Admin)]
   [SwaggerOperation(summary: "Retrieve the count of items in each table of the entity")]
   public async Task<ActionResult<ResultModel<Dictionary<string, int>>>> GetEntityCount(
     [FromQuery]

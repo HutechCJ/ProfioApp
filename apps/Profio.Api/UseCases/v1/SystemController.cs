@@ -12,7 +12,7 @@ using Extension = Profio.Infrastructure.System.Extension;
 namespace Profio.Api.UseCases.v1;
 
 [ApiVersion("1.0")]
-[Authorize(Roles = UserRole.Administrator)]
+[Authorize(Roles = UserRole.Admin)]
 [SwaggerTag("The System Monitor and Status")]
 public sealed class SystemController : BaseController
 {

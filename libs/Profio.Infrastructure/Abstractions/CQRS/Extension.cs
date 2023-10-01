@@ -5,6 +5,7 @@ using Profio.Infrastructure.Logging;
 using Profio.Infrastructure.Persistence;
 using Profio.Infrastructure.Validator;
 using System.Diagnostics;
+using Profio.Infrastructure.Auth;
 
 namespace Profio.Infrastructure.Abstractions.CQRS;
 
@@ -24,6 +25,8 @@ public static class Extension
         cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>),
           ServiceLifetime.Scoped);
         cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(TxBehavior<,>),
+          ServiceLifetime.Scoped);
+        cfg.AddBehavior(typeof(IPipelineBehavior<,>), typeof(AuthBehavior<,>),
           ServiceLifetime.Scoped);
         cfg.AddOpenBehavior(typeof(IdempotentCommandBehavior<,>));
       });

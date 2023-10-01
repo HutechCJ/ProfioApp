@@ -61,7 +61,7 @@ public sealed class UsersController : BaseEntityController<ApplicationUser, User
 
   [HttpGet("get-users")]
   [SwaggerOperation(summary: "Get User list")]
-  [Authorize(Roles = UserRole.Administrator)]
+  [Authorize(Roles = UserRole.Admin)]
   public Task<ActionResult<ResultModel<IPagedList<UserDto>>>> GetUsers([FromQuery] Criteria criteria)
     => HandlePaginationQuery(new GetUserWithPagingQuery(criteria));
 

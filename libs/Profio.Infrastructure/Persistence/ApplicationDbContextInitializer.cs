@@ -47,9 +47,17 @@ public class ApplicationDbContextInitializer
     if (_userManager.Users.Any() || _roleManager.Roles.Any())
       return;
 
-    var adminRole = new IdentityRole(UserRole.Administrator);
+    var adminRole = new IdentityRole(UserRole.Admin);
+    var driverRole = new IdentityRole(UserRole.Driver);
+    var customerRole = new IdentityRole(UserRole.Customer);
+    var officerRole = new IdentityRole(UserRole.Officer);
+    var stokerRole = new IdentityRole(UserRole.Stoker);
 
     await _roleManager.CreateAsync(adminRole);
+    await _roleManager.CreateAsync(driverRole);
+    await _roleManager.CreateAsync(customerRole);
+    await _roleManager.CreateAsync(officerRole);
+    await _roleManager.CreateAsync(stokerRole);
 
     var thai = new ApplicationUser
     {
@@ -94,10 +102,10 @@ public class ApplicationDbContextInitializer
     await _userManager.CreateAsync(dat, password);
     await _userManager.CreateAsync(van, password);
 
-    await _userManager.AddToRoleAsync(thai, UserRole.Administrator);
-    await _userManager.AddToRoleAsync(nhon, UserRole.Administrator);
-    await _userManager.AddToRoleAsync(nhan, UserRole.Administrator);
-    await _userManager.AddToRoleAsync(dat, UserRole.Administrator);
-    await _userManager.AddToRoleAsync(van, UserRole.Administrator);
+    await _userManager.AddToRoleAsync(thai, UserRole.Admin);
+    await _userManager.AddToRoleAsync(nhon, UserRole.Admin);
+    await _userManager.AddToRoleAsync(nhan, UserRole.Admin);
+    await _userManager.AddToRoleAsync(dat, UserRole.Admin);
+    await _userManager.AddToRoleAsync(van, UserRole.Admin);
   }
 }
