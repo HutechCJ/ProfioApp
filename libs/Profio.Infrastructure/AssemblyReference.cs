@@ -1,4 +1,3 @@
-using Profio.Infrastructure.Persistence;
 using System.Reflection;
 
 namespace Profio.Infrastructure;

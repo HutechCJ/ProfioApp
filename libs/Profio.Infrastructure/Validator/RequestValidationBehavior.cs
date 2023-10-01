@@ -1,7 +1,5 @@
 using FluentValidation;
 using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using System.Text.Json;
 
 namespace Profio.Infrastructure.Validator;

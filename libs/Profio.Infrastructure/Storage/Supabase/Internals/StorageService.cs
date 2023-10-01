@@ -1,5 +1,4 @@
 using FluentValidation;
-using Microsoft.AspNetCore.Http;
 using Client = Supabase.Client;
 
 namespace Profio.Infrastructure.Storage.Supabase.Internals;

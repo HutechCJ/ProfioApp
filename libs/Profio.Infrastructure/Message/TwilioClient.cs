@@ -1,7 +1,5 @@
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 using Polly;
-using Twilio.Clients;
 using Twilio.Http;
 using HttpClient = System.Net.Http.HttpClient;
 

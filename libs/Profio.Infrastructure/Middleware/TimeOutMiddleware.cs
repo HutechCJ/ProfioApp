@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 using Polly;
 
 namespace Profio.Infrastructure.Middleware;

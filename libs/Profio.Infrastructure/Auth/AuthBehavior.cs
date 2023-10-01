@@ -1,7 +1,5 @@
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Logging;
 using Profio.Domain.Exceptions;
 
 namespace Profio.Infrastructure.Auth;

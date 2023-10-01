@@ -1,9 +1,7 @@
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Profio.Domain.Contracts;
 using Profio.Domain.Entities;
 using Profio.Infrastructure.Cache.Redis;
-using Profio.Infrastructure.Persistence;
 using Quartz;
 
 namespace Profio.Infrastructure.Jobs;

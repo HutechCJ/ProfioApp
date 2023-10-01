@@ -1,5 +1,4 @@
 using FluentEmail.Core;
-using Microsoft.Extensions.Logging;
 using Polly;
 
 namespace Profio.Infrastructure.Email.FluentEmail.Internal;

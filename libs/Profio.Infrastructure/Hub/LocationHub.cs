@@ -1,10 +1,8 @@
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
 using Profio.Domain.Contracts;
 using Profio.Infrastructure.Cache.Redis;
-using Profio.Infrastructure.Persistence;
 
 namespace Profio.Infrastructure.Hub;
 

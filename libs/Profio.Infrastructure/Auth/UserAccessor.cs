@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
 
 namespace Profio.Infrastructure.Auth;

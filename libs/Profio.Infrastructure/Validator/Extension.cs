@@ -1,5 +1,4 @@
 using FluentValidation;
-using Microsoft.Extensions.DependencyInjection;
 using System.Diagnostics;
 
 namespace Profio.Infrastructure.Validator;

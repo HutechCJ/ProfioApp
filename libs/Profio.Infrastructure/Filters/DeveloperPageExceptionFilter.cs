@@ -1,9 +1,7 @@
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Net.Http.Headers;
-using System.Net.Mime;
+using ErrorContext = Microsoft.AspNetCore.Diagnostics.ErrorContext;
 
 namespace Profio.Infrastructure.Filters;
 

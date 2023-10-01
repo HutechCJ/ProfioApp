@@ -1,5 +1,4 @@
 using MediatR;
-using Profio.Infrastructure.Persistence.Idempotency;
 
 namespace Profio.Infrastructure.Abstractions.Idempotency;
 

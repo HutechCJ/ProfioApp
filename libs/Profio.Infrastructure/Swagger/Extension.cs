@@ -1,9 +1,7 @@
 using MicroElements.Swashbuckle.FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
-using Profio.Infrastructure.Filters;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Profio.Infrastructure.Swagger;

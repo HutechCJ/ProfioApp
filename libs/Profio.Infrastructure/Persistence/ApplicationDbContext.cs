@@ -2,7 +2,6 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Profio.Domain.Entities;
 using Profio.Domain.Identity;
-using Profio.Infrastructure.Persistence.Idempotency;
 
 namespace Profio.Infrastructure.Persistence;
 

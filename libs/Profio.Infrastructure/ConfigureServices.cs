@@ -1,37 +1,3 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Diagnostics;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Http.Features;
-using Microsoft.AspNetCore.ResponseCompression;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json.Serialization;
-using Profio.Infrastructure.Auth;
-using Profio.Infrastructure.Bus;
-using Profio.Infrastructure.Cache;
-using Profio.Infrastructure.Email;
-using Profio.Infrastructure.Filters;
-using Profio.Infrastructure.HealthCheck;
-using Profio.Infrastructure.Http;
-using Profio.Infrastructure.Hub;
-using Profio.Infrastructure.Key;
-using Profio.Infrastructure.Logging;
-using Profio.Infrastructure.Message;
-using Profio.Infrastructure.Middleware;
-using Profio.Infrastructure.OpenTelemetry;
-using Profio.Infrastructure.Persistence;
-using Profio.Infrastructure.Persistence.Idempotency;
-using Profio.Infrastructure.Searching;
-using Profio.Infrastructure.Storage;
-using Profio.Infrastructure.Swagger;
-using Profio.Infrastructure.Versioning;
-using System.IO.Compression;
-using System.Net.Mime;
-using System.Text.Json.Serialization;
-using Microsoft.Extensions.Logging;
-using Profio.Infrastructure.Jobs;
-using Twilio.Clients;
-
 namespace Profio.Infrastructure;
 
 public static class ConfigureServices

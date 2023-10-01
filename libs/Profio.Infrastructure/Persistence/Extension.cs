@@ -1,11 +1,8 @@
 using EntityFramework.Exceptions.PostgreSQL;
 using EntityFrameworkCore.UnitOfWork.Extensions;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
 using Profio.Domain.Exceptions;

@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Builder;
 using Quartz;
 
 namespace Profio.Infrastructure.Jobs;

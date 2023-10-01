@@ -1,10 +1,8 @@
 using Microsoft.AspNetCore.SignalR;
-using Microsoft.Extensions.Logging;
 using MQTTnet;
 using MQTTnet.Client;
 using Profio.Domain.Contracts;
 using Profio.Infrastructure.Cache.Redis;
-using Profio.Infrastructure.Hub;
 using System.Text.Json;
 using System.Timers;
 using Timer = System.Timers.Timer;

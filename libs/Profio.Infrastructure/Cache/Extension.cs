@@ -1,5 +1,4 @@
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using Profio.Infrastructure.Cache.Redis;
 using Profio.Infrastructure.Cache.Redis.Internal;
 using StackExchange.Redis;

@@ -1,7 +1,6 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Profio.Domain.Interfaces;
-using Profio.Infrastructure.Persistence;
 
 namespace Profio.Infrastructure.Abstractions.CQRS.Events.Queries;
 
