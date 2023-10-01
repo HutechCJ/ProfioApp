@@ -10,7 +10,9 @@ using Microsoft.Net.Http.Headers;
 using Profio.Domain.Identity;
 using Profio.Infrastructure.Persistence;
 using System.Text;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
+using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
 
 namespace Profio.Infrastructure.Auth;
 
@@ -96,12 +98,20 @@ public static class Extensions
         options.MetadataAddress = configuration.GetSection("OAuth2")["Metadata"];
         options.RequireHttpsMetadata = true;
         options.GetClaimsFromUserInfoEndpoint = true;
-        options.Scope.Add("openid");
-        options.Scope.Add("profile");
+        options.Scope.Add("readAccess");
+        options.Scope.Add("writeAccess");
         options.SaveTokens = true;
         options.ResponseType = OpenIdConnectResponseType.Code;
       });
     }
+
+    services.Configure<CookiePolicyOptions>(options =>
+    {
+      options.CheckConsentNeeded = _ => true;
+      options.MinimumSameSitePolicy = SameSiteMode.None;
+      options.HttpOnly = HttpOnlyPolicy.Always;
+      options.Secure = CookieSecurePolicy.SameAsRequest;
+    });
 
     services.AddScoped<IUserAccessor, UserAccessor>();
   }

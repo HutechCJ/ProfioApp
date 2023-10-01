@@ -143,6 +143,7 @@ public static class ConfigureServices
       .UseCors()
       .UseExceptionHandler()
       .UseHttpsRedirection()
+      .UseCookiePolicy()
       .UseRateLimiter()
       .UseResponseCaching()
       .UseResponseCompression()

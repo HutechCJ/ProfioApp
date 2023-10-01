@@ -97,7 +97,7 @@ public sealed class LuceneService<T> : ILuceneService<T> where T : class
       default:
         throw new ArgumentOutOfRangeException(nameof(options), options, "Invalid option!");
     }
-    //_indexWriter.Commit();
+
     _indexWriter.Flush(true, true);
   }
 }

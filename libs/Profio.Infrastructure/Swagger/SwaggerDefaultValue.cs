@@ -28,7 +28,6 @@ public sealed class SwaggerDefaultValues : IOperationFilter
           response.Content.Remove(contentType);
     }
 
-
     if (operation.Parameters is null) return;
 
     foreach (var parameter in operation.Parameters)

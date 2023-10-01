@@ -21,14 +21,14 @@ public static class SwaggerConfiguration
           new()
           {
             Url = $"{httpReq.Scheme}://{httpReq.Host.Value}",
-            Description = "Staging Environment"
+            Description = string.Join(" ", Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), "Environment")
           }
         };
 
         swagger.ExternalDocs = new()
         {
           Description = "Application Documentation",
-          Url = new("https://profio-document.onrender.com/")
+          Url = new("https://hutechcj.github.io/ProfioApp/")
         };
       });
     });
@@ -43,7 +43,9 @@ public static class SwaggerConfiguration
                  .ApiVersionDescriptions)
         c.SwaggerEndpoint($"/swagger/{description.GroupName}/swagger.json",
           description.GroupName.ToUpperInvariant());
+      c.DisplayOperationId();
       c.DisplayRequestDuration();
+      c.EnableFilter();
       c.EnableValidator();
       c.EnableTryItOutByDefault();
     });
