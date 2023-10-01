@@ -6,4 +6,5 @@ public interface IUserAccessor
   IList<string> Roles { get; }
   string UserName { get; }
   string JwtToken { get; }
+  bool IsAuthenticated { get; }
 }
