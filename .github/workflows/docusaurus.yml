@@ -28,11 +28,14 @@ jobs:
       run: |
         git config --global user.email "github-actions@github.com"
         git config --global user.name "GitHub Actions"
-        git checkout --orphan gh-pages
-        git rm -rf .
         git add dist/apps/docs -f
         git commit -m "Deployed docs to gh-pages"
-        git push -f origin gh-pages
+
+    - name: Push to gh-pages
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: gh-pages
 
     - name: Cleanup
       run: rm -rf dist
