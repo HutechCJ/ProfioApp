@@ -22,7 +22,8 @@ public sealed record UpdateDeliveryProgressCommand(object Id) : UpdateCommandBas
   public string? OrderId { get; set; }
 }
 
-public sealed class UpdateDeliveryProgressCommandHandler : UpdateCommandHandlerBase<UpdateDeliveryProgressCommand, DeliveryProgress>
+public sealed class
+  UpdateDeliveryProgressCommandHandler : UpdateCommandHandlerBase<UpdateDeliveryProgressCommand, DeliveryProgress>
 {
   public UpdateDeliveryProgressCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {

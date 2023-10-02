@@ -15,9 +15,7 @@ public sealed class RetryDelegate : DelegatingHandler
     var result = await _retryPolicy.ExecuteAndCaptureAsync(async () => await base.SendAsync(request, token));
 
     if (result.Outcome == OutcomeType.Failure)
-    {
       throw new HttpRequestException("Failed to send request", result.FinalException);
-    }
 
     return result.Result;
   }

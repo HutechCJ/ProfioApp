@@ -13,10 +13,8 @@ public sealed class RedisCache
   public string Prefix { get; set; } = string.Empty;
   public string Url { get; set; } = string.Empty;
 
-  public string GetConnectionString()
-  {
-    return string.IsNullOrEmpty(Password)
+  public string GetConnectionString() =>
+    string.IsNullOrEmpty(Password)
       ? Url
       : $"{Url},password={Password},abortConnect=False";
-  }
 }

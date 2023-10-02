@@ -11,6 +11,7 @@ public sealed class AfterCreateDeliveryTrigger : IAfterSaveTrigger<Delivery>
 
   public AfterCreateDeliveryTrigger(ApplicationDbContext applicationDbContext)
     => _applicationDbContext = applicationDbContext;
+
   public async Task AfterSave(ITriggerContext<Delivery> context, CancellationToken cancellationToken)
   {
     if (context.ChangeType == ChangeType.Added)

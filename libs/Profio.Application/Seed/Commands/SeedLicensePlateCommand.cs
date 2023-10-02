@@ -20,14 +20,12 @@ public sealed class SeedLicensePlateCommandHandler : IRequestHandler<SeedLicense
     var vehiclesToUpdate = _context.Vehicles;
 
     foreach (var vehicle in vehiclesToUpdate)
-    {
       _context.Vehicles
         .Where(x => x.Id == vehicle.Id)
         .ExecuteUpdate(x => x.SetProperty(
-            v => v.LicensePlate,
-            p => GenerateLicensePlate()
-          ));
-    }
+          v => v.LicensePlate,
+          p => GenerateLicensePlate()
+        ));
 
     return Task.FromResult("Seed License Plate Success!");
   }

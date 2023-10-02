@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Profio.Infrastructure.Cache.Redis;
 using Profio.Infrastructure.Cache.Redis.Internal;
 using StackExchange.Redis;
@@ -8,9 +9,9 @@ namespace Profio.Infrastructure.Cache;
 public static class Extension
 {
   public static IServiceCollection AddRedisCache(
-      this IServiceCollection services,
-      IConfiguration config,
-      Action<RedisCache>? setupAction = null)
+    this IServiceCollection services,
+    IConfiguration config,
+    Action<RedisCache>? setupAction = null)
   {
     ArgumentNullException.ThrowIfNull(services, nameof(services));
 
@@ -35,8 +36,8 @@ public static class Extension
   }
 
   private static ConfigurationOptions GetRedisConfigurationOptions(
-      RedisCache redisCacheOption,
-      IConfiguration config)
+    RedisCache redisCacheOption,
+    IConfiguration config)
   {
     var configurationOptions = new ConfigurationOptions
     {
@@ -53,7 +54,7 @@ public static class Extension
       configurationOptions.Password = redisCacheOption.Password;
 
     redisCacheOption.Url = config
-        .GetConnectionString("Redis") ?? throw new InvalidOperationException();
+      .GetConnectionString("Redis") ?? throw new InvalidOperationException();
 
     var endpoints = redisCacheOption.Url.Split(':');
     foreach (var endpoint in endpoints)

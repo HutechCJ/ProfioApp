@@ -13,34 +13,33 @@ using Profio.Infrastructure.Persistence;
 namespace Profio.Application.Vehicles.Commands;
 
 public sealed record VisitHubCommand(string VehicleId, string HubId) : IRequest<Unit>;
+
 public sealed class VisitHubCommandHandler : IRequestHandler<VisitHubCommand, Unit>
 {
   private readonly ApplicationDbContext _applicationDbContext;
-  private readonly IUnitOfWork _unitOfWork;
-  private readonly IRepository<OrderHistory> _orderHistoryRepository;
   private readonly IRepository<Order> _orderRepository;
+  private readonly IUnitOfWork _unitOfWork;
 
   public VisitHubCommandHandler(ApplicationDbContext applicationDbContext, IUnitOfWork unitOfWork)
   {
     _applicationDbContext = applicationDbContext;
     _unitOfWork = unitOfWork;
-    _orderHistoryRepository = unitOfWork.Repository<OrderHistory>();
     _orderRepository = unitOfWork.Repository<Order>();
   }
 
   public async Task<Unit> Handle(VisitHubCommand request, CancellationToken cancellationToken)
   {
     var hub = await _applicationDbContext.Hubs
-        .Where(v => v.Id == request.HubId)
-        .FirstOrDefaultAsync(cancellationToken) ??
-      throw new NotFoundException(typeof(Hub).Name, request.HubId);
+                .Where(v => v.Id == request.HubId)
+                .FirstOrDefaultAsync(cancellationToken) ??
+              throw new NotFoundException(nameof(Hub), request.HubId);
 
     var vehicle = await _applicationDbContext.Vehicles
-        .Include(v => v.Deliveries)
-        .ThenInclude(d => d.Order)
-        .Where(v => v.Id == request.VehicleId)
-        .FirstOrDefaultAsync(cancellationToken) ??
-      throw new NotFoundException(nameof(Vehicle), request.VehicleId);
+                    .Include(v => v.Deliveries)
+                    .ThenInclude(d => d.Order)
+                    .Where(v => v.Id == request.VehicleId)
+                    .FirstOrDefaultAsync(cancellationToken) ??
+                  throw new NotFoundException(nameof(Vehicle), request.VehicleId);
 
     var nextDelivery = vehicle.Deliveries.MaxBy(d => d.DeliveryDate) ?? throw new NotFoundException(nameof(Delivery));
 
@@ -53,16 +52,18 @@ public sealed class VisitHubCommandHandler : IRequestHandler<VisitHubCommand, Un
     await _orderRepository
       .UpdateAsync(
         o => o.Id == nextDelivery.OrderId,
-        o => o.SetProperty(o => o.Status, OrderStatus.Completed), cancellationToken);
+        o => o.SetProperty(s => s.Status, OrderStatus.Completed), cancellationToken);
 
     await _unitOfWork.SaveChangesAsync(cancellationToken: cancellationToken).ConfigureAwait(false);
 
     return Unit.Value;
   }
 }
+
 public sealed class VisitHubCommandValidator : AbstractValidator<VisitHubCommand>
 {
-  public VisitHubCommandValidator(VehicleExistenceByIdValidator vehicleValidator, HubExistenceByIdValidator hubValidator)
+  public VisitHubCommandValidator(VehicleExistenceByIdValidator vehicleValidator,
+    HubExistenceByIdValidator hubValidator)
   {
     RuleFor(x => x.VehicleId)
       .SetValidator(vehicleValidator);

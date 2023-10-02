@@ -1,3 +1,5 @@
+using Microsoft.Extensions.DependencyInjection;
+
 namespace Profio.Infrastructure.Key;
 
 public static class Extension

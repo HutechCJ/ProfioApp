@@ -9,13 +9,15 @@ namespace Profio.Application.OrderHistories.Queries;
 
 public sealed record GetOrderHistoryByIdQuery(object Id) : GetByIdQueryBase<OrderHistoryDto>(Id);
 
-public sealed class GetOrderHistoryByIdQueryHandler : GetByIdQueryHandlerBase<GetOrderHistoryByIdQuery, OrderHistoryDto, OrderHistory>
+public sealed class
+  GetOrderHistoryByIdQueryHandler : GetByIdQueryHandlerBase<GetOrderHistoryByIdQuery, OrderHistoryDto, OrderHistory>
 {
   public GetOrderHistoryByIdQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public sealed class GetOrderHistoryByIdQueryValidator : GetByIdQueryValidatorBase<GetOrderHistoryByIdQuery, OrderHistoryDto>
+public sealed class
+  GetOrderHistoryByIdQueryValidator : GetByIdQueryValidatorBase<GetOrderHistoryByIdQuery, OrderHistoryDto>
 {
 }

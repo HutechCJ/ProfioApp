@@ -6,8 +6,8 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.Hubs;
 
 [SwaggerSchema(
-    Title = "Hub",
-    Description = "A Representation of list of Hub")]
+  Title = "Hub",
+  Description = "A Representation of list of Hub")]
 public sealed record HubDto : BaseModel
 {
   public required string Id { get; set; }

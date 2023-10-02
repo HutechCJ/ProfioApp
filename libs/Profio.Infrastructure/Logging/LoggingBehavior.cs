@@ -1,5 +1,6 @@
-using MediatR;
 using System.Diagnostics;
+using MediatR;
+using Microsoft.Extensions.Logging;
 
 namespace Profio.Infrastructure.Logging;
 

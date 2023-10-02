@@ -26,7 +26,7 @@ public sealed class SendSmsCommandHandler : IRequestHandler<SendSmsCommand, Unit
   {
     var validPhoneNumber = $"+84{request.Message.To?[1..]}";
     await MessageResource.CreateAsync(
-      to: new(validPhoneNumber),
+      new(validPhoneNumber),
       from: new(_configuration["Twilio:FromPhoneNumber"]),
       body: request.Type switch
       {
@@ -46,5 +46,5 @@ public sealed class SendSmsCommandValidator : AbstractValidator<SendSmsCommand>
 {
   public SendSmsCommandValidator(SmsMessageValidator smsMessageValidator)
     => RuleFor(x => x.Message)
-    .SetValidator(smsMessageValidator);
+      .SetValidator(smsMessageValidator);
 }

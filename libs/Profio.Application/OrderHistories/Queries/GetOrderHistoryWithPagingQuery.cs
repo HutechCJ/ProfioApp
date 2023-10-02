@@ -8,15 +8,20 @@ using Profio.Infrastructure.Abstractions.CQRS.Validators;
 
 namespace Profio.Application.OrderHistories.Queries;
 
-public sealed record GetOrderHistoryWithPagingQuery(Criteria Criteria) : GetWithPagingQueryBase<OrderHistoryDto>(Criteria);
+public sealed record GetOrderHistoryWithPagingQuery
+  (Criteria Criteria) : GetWithPagingQueryBase<OrderHistoryDto>(Criteria);
 
-public sealed class GetOrderHistoryWithPagingQueryHandler : GetWithPagingQueryHandler<GetOrderHistoryWithPagingQuery, OrderHistoryDto, OrderHistory>
+public sealed class
+  GetOrderHistoryWithPagingQueryHandler : GetWithPagingQueryHandler<GetOrderHistoryWithPagingQuery, OrderHistoryDto,
+    OrderHistory>
 {
   public GetOrderHistoryWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public sealed class GetOrderHistoryWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetOrderHistoryWithPagingQuery, OrderHistoryDto>
+public sealed class
+  GetOrderHistoryWithPagingQueryValidator : GetWithPagingQueryValidatorBase<GetOrderHistoryWithPagingQuery,
+    OrderHistoryDto>
 {
 }

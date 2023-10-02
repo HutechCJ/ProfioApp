@@ -4,4 +4,7 @@ using Profio.Infrastructure.Abstractions.CQRS;
 
 namespace Profio.Application.Incidents;
 
-public sealed class IncidentProfile : EntityProfileBase<Incident, IncidentDto, CreateIncidentCommand, UpdateIncidentCommand> { }
+public sealed class
+  IncidentProfile : EntityProfileBase<Incident, IncidentDto, CreateIncidentCommand, UpdateIncidentCommand>
+{
+}

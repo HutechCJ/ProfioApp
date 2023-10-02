@@ -12,10 +12,13 @@ public sealed record GetDeliveryProgressWithPagingQuery
   (Criteria Criteria) : GetWithPagingQueryBase<DeliveryProgressDto>(Criteria);
 
 public class
-  GetDeliveryProgressWithPagingQueryHandler : GetWithPagingQueryHandler<GetDeliveryProgressWithPagingQuery, DeliveryProgressDto, DeliveryProgress>
+  GetDeliveryProgressWithPagingQueryHandler : GetWithPagingQueryHandler<GetDeliveryProgressWithPagingQuery,
+    DeliveryProgressDto, DeliveryProgress>
 {
-
-  public GetDeliveryProgressWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
+  public GetDeliveryProgressWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork,
+    mapper)
+  {
+  }
 }
 
 public sealed class

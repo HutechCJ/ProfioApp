@@ -15,4 +15,7 @@ public sealed class GetStaffByIdQueryHandler : GetByIdQueryHandlerBase<GetStaffB
   {
   }
 }
-public sealed class GetStaffByIdQueryValidator : GetByIdQueryValidatorBase<GetStaffByIdQuery, StaffDto> { }
+
+public sealed class GetStaffByIdQueryValidator : GetByIdQueryValidatorBase<GetStaffByIdQuery, StaffDto>
+{
+}

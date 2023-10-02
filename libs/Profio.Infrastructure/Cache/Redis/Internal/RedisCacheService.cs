@@ -1,7 +1,7 @@
+using System.Text;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using StackExchange.Redis;
-using System.Text;
 
 namespace Profio.Infrastructure.Cache.Redis.Internal;
 
@@ -14,18 +14,17 @@ public sealed class RedisCacheService : IRedisCacheService
                                           """;
 
   private const string ClearCacheLuaScript = """
-                                             
-                                                         for _,k in ipairs(redis.call('KEYS', @pattern)) do
-                                                            redis.call('DEL', k)
-                                                         end
-                                                         
+                                                 local pattern = ARGV[1]
+                                                 for _,k in ipairs(redis.call('KEYS', @pattern)) do
+                                                     redis.call('DEL', k)
+                                                 end
                                              """;
 
-  private readonly RedisCache _redisCacheOption;
+  private readonly SemaphoreSlim _connectionLock = new(1, 1);
 
   private readonly Lazy<ConnectionMultiplexer> _connectionMultiplexer;
 
-  private readonly SemaphoreSlim _connectionLock = new(1, 1);
+  private readonly RedisCache _redisCacheOption;
 
   public RedisCacheService(IOptions<RedisCache> options)
   {
@@ -64,10 +63,9 @@ public sealed class RedisCacheService : IRedisCacheService
     ArgumentException.ThrowIfNullOrEmpty(key, nameof(key));
 
     var cachedValue = Database.StringGet(keyWithPrefix);
-    if (!string.IsNullOrEmpty(cachedValue))
-      return GetByteToObject<T>(cachedValue);
-
-    return default;
+    return !string.IsNullOrEmpty(cachedValue)
+      ? GetByteToObject<T>(cachedValue)
+      : default;
   }
 
   public T GetOrSet<T>(string key, Func<T> valueFactory, TimeSpan expiration)

@@ -24,7 +24,7 @@ public sealed class SystemController : BaseController
 
   [ApiKey]
   [HttpGet]
-  [SwaggerOperation(summary: "Get Platform's configuration",
+  [SwaggerOperation("Get Platform's configuration",
     Description = "Only `IP` in `SafeList` can access this endpoint")]
   [ServiceFilter(typeof(ClientIpCheckActionFilter))]
   [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
@@ -34,8 +34,9 @@ public sealed class SystemController : BaseController
   [ApiKey]
   [HttpGet("status")]
   [ServiceFilter(typeof(ClientIpCheckActionFilter))]
-  [SwaggerOperation(summary: "Get Platform's status",
-    Description = "**Warming:** Only `IP` in `SafeList` can access this endpoint. In production, Azure has been `BLOCKED` to access this endpoint")]
+  [SwaggerOperation("Get Platform's status",
+    Description =
+      "**Warming:** Only `IP` in `SafeList` can access this endpoint. In production, Azure has been `BLOCKED` to access this endpoint")]
   public ActionResult<ResultModel<JObject>> GetServerStatus()
     => Ok(ResultModel<JObject>.Create(Extension.GetPlatformStatus(_env)));
 }

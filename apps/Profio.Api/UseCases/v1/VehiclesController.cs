@@ -20,57 +20,59 @@ namespace Profio.Api.UseCases.v1;
 public sealed class VehiclesController : BaseEntityController<Vehicle, VehicleDto, GetVehicleByIdQuery>
 {
   [HttpGet]
-  [SwaggerOperation(summary: "Get Vehicle List with Paging")]
-  public Task<ActionResult<ResultModel<IPagedList<VehicleDto>>>> Get([FromQuery] Criteria criteria, [FromQuery] VehicleEnumFilter vehicleEnumFilter)
+  [SwaggerOperation("Get Vehicle List with Paging")]
+  public Task<ActionResult<ResultModel<IPagedList<VehicleDto>>>> Get([FromQuery] Criteria criteria,
+    [FromQuery] VehicleEnumFilter vehicleEnumFilter)
     => HandlePaginationQuery(new GetVehicleWithPagingQuery(criteria, vehicleEnumFilter));
 
   [HttpGet("{id:length(26)}")]
-  [SwaggerOperation(summary: "Get Vehicle by Id")]
+  [SwaggerOperation("Get Vehicle by Id")]
   public Task<ActionResult<ResultModel<VehicleDto>>> GetById(string id)
     => HandleGetByIdQuery(new(id));
 
   [HttpPost]
-  [SwaggerOperation(summary: "Create Vehicle")]
+  [SwaggerOperation("Create Vehicle")]
   public Task<ActionResult<ResultModel<VehicleDto>>> Post(CreateVehicleCommand command)
     => HandleCreateCommand(command);
 
   [HttpPut("{id:length(26)}")]
-  [SwaggerOperation(summary: "Update Vehicle")]
+  [SwaggerOperation("Update Vehicle")]
   public Task<IActionResult> Put([FromRoute] string id, [FromBody] UpdateVehicleCommand command)
     => HandleUpdateCommand(id, command);
 
   [HttpDelete("{id:length(26)}")]
-  [SwaggerOperation(summary: "Delete Vehicle")]
+  [SwaggerOperation("Delete Vehicle")]
   public Task<ActionResult<ResultModel<VehicleDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteVehicleCommand(id));
 
   [HttpGet("{id:length(26)}/deliveries")]
-  [SwaggerOperation(summary: "Get Delivery List by Vehicle Id")]
-  public async Task<ActionResult<ResultModel<IPagedList<DeliveryDto>>>> GetDeliveries(string id, [FromQuery] Criteria criteria)
+  [SwaggerOperation("Get Delivery List by Vehicle Id")]
+  public async Task<ActionResult<ResultModel<IPagedList<DeliveryDto>>>> GetDeliveries(string id,
+    [FromQuery] Criteria criteria)
     => Ok(await Mediator.Send(new GetDeliveryByVehicleIdWithPagingQuery(id, criteria)));
 
   [HttpGet("{id:length(26)}/hubs/next")]
-  [SwaggerOperation(summary: "Get next Hub by Vehicle Id")]
+  [SwaggerOperation("Get next Hub by Vehicle Id")]
   public async Task<ActionResult<ResultModel<HubDto>>> GetNextHub(string id)
     => ResultModel<HubDto>.Create(await Mediator.Send(new GetNextHubByVehicleIdQuery(id)));
 
   [HttpGet("{id:length(26)}/destination-address")]
-  [SwaggerOperation(summary: "Get Destination Address by Vehicle Id")]
+  [SwaggerOperation("Get Destination Address by Vehicle Id")]
   public async Task<ActionResult<ResultModel<Address>>> GetDestinationAddress(string id)
     => ResultModel<Address>.Create(await Mediator.Send(new GetDestinationAddressByVehicleIdQuery(id)));
 
   [HttpGet("count-by-type")]
-  [SwaggerOperation(summary: "Get Vehicle count by Type")]
+  [SwaggerOperation("Get Vehicle count by Type")]
   public async Task<ActionResult<ResultModel<IEnumerable<int>>>> GetCountByType()
     => Ok(ResultModel<IEnumerable<int>>.Create(await Mediator.Send(new GetVehicleCountByTypeQuery())));
 
   [HttpGet("count-by-status")]
-  [SwaggerOperation(summary: "Get Vehicle count by Status")]
+  [SwaggerOperation("Get Vehicle count by Status")]
   public async Task<ActionResult<ResultModel<IEnumerable<int>>>> GetCountByStatus()
     => Ok(ResultModel<IEnumerable<int>>.Create(await Mediator.Send(new GetVehicleCountByStatusQuery())));
 
   [HttpPost("{id:length(26)}/hubs/{hubId:length(26)}/visit")]
-  [SwaggerOperation(summary: "Visit the hub")]
+  [SwaggerOperation("Visit the hub")]
   public async Task<IActionResult> VisitHub([FromRoute] string id, [FromRoute] string hubId)
   {
     await Mediator.Send(new VisitHubCommand(id, hubId));
@@ -78,7 +80,7 @@ public sealed class VehiclesController : BaseEntityController<Vehicle, VehicleDt
   }
 
   [HttpPatch("{id:length(26)}/update-status")]
-  [SwaggerOperation(summary: "Update Vehicle status")]
+  [SwaggerOperation("Update Vehicle status")]
   public async Task<IActionResult> UpdateStatus([FromRoute] string id, [FromBody] UpdateVehicleStatusCommand command)
   {
     if (!id.Equals(command.Id))
@@ -86,23 +88,26 @@ public sealed class VehiclesController : BaseEntityController<Vehicle, VehicleDt
       ModelState.AddModelError("Id", "Ids are not the same");
       return ValidationProblem();
     }
+
     await Mediator.Send(command).ConfigureAwait(false);
     return NoContent();
   }
 
   [HttpGet("{id:length(26)}/orders")]
-  [SwaggerOperation(summary: "Get Order List by Vehicle Id")]
+  [SwaggerOperation("Get Order List by Vehicle Id")]
   public async Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> GetOrders(string id, [FromQuery] Criteria criteria)
-    => Ok(ResultModel<IPagedList<OrderDto>>.Create(await Mediator.Send(new GetOrderByVehicleIdWithPagingQuery(id, criteria))));
+    => Ok(ResultModel<IPagedList<OrderDto>>.Create(
+      await Mediator.Send(new GetOrderByVehicleIdWithPagingQuery(id, criteria))));
 
   [HttpGet("{id:length(26)}/orders/current")]
-  [SwaggerOperation(summary: "Get Current Order List by Vehicle Id")]
-  public async Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> GetCurrentOrders(string id, [FromQuery] Criteria criteria)
-    => Ok(ResultModel<IPagedList<OrderDto>>.Create(await Mediator.Send(new GetCurrentOrderByVehicleIdWithPagingQuery(id, criteria))));
+  [SwaggerOperation("Get Current Order List by Vehicle Id")]
+  public async Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> GetCurrentOrders(string id,
+    [FromQuery] Criteria criteria)
+    => Ok(ResultModel<IPagedList<OrderDto>>.Create(
+      await Mediator.Send(new GetCurrentOrderByVehicleIdWithPagingQuery(id, criteria))));
 
   [HttpGet("{id:length(26)}/hubs/path")]
-  [SwaggerOperation(summary: "Get Hub path by Vehicle Id")]
+  [SwaggerOperation("Get Hub path by Vehicle Id")]
   public async Task<ActionResult<ResultModel<IPagedList<HubDto>>>> GetHubPath(string id, [FromQuery] Criteria criteria)
     => Ok(ResultModel<IPagedList<HubDto>>.Create(await Mediator.Send(new GetHubPathByVehicleIdQuery(id, criteria))));
-
 }

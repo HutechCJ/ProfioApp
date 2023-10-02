@@ -24,6 +24,7 @@ public sealed class CreatePhaseCommandHandler : CreateCommandHandlerBase<CreateP
   {
   }
 }
+
 public sealed class CreatePhaseCommandValidator : AbstractValidator<CreatePhaseCommand>
 {
   public CreatePhaseCommandValidator(RouteExistenceByIdValidator routeValidator)

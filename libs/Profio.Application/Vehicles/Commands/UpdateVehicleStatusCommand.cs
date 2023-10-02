@@ -19,6 +19,7 @@ public sealed class UpdateVehicleStatusCommandHandler : IRequestHandler<UpdateVe
 
   public UpdateVehicleStatusCommandHandler(ISender sender)
     => _sender = sender;
+
   public async Task<Unit> Handle(UpdateVehicleStatusCommand request, CancellationToken cancellationToken)
     => await _sender.Send(new UpdateVehicleCommand(request.Id) { Status = request.Status }, cancellationToken);
 }

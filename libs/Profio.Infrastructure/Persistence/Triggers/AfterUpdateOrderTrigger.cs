@@ -1,17 +1,19 @@
+using System.Net.Http.Json;
 using EntityFrameworkCore.Triggered;
 using Microsoft.EntityFrameworkCore;
 using Profio.Domain.Constants;
 using Profio.Domain.Contracts;
 using Profio.Domain.Entities;
-using System.Net.Http.Json;
 
 namespace Profio.Infrastructure.Persistence.Triggers;
+
 public sealed class AfterUpdateOrderTrigger : IAfterSaveTrigger<Order>
 {
   private readonly ApplicationDbContext _applicationDbContext;
   private readonly IHttpClientFactory _httpClientFactory;
 
-  public AfterUpdateOrderTrigger(ApplicationDbContext applicationDbContext, IHttpClientFactory httpClientFactory) => (_applicationDbContext, _httpClientFactory) = (applicationDbContext, httpClientFactory);
+  public AfterUpdateOrderTrigger(ApplicationDbContext applicationDbContext, IHttpClientFactory httpClientFactory) =>
+    (_applicationDbContext, _httpClientFactory) = (applicationDbContext, httpClientFactory);
 
   public async Task AfterSave(ITriggerContext<Order> context, CancellationToken cancellationToken)
   {
@@ -38,13 +40,13 @@ public sealed class AfterUpdateOrderTrigger : IAfterSaveTrigger<Order>
       Email = modifiedOrder.Customer?.Email,
       From = modifiedOrder.Customer?.Address?.Province,
       To = modifiedOrder.DestinationAddress?.Province,
-      Phone = modifiedOrder.Customer?.Phone,
+      Phone = modifiedOrder.Customer?.Phone
     };
 
     await client.PostAsJsonAsync(
       $"sender/email/order?type={GetEmailType(context.Entity.Status)}",
       orderInfo,
-      cancellationToken: cancellationToken);
+      cancellationToken);
   }
 
   private static bool IsValid(ITriggerContext<Order> context, Order unmodified, Order modified)
@@ -68,6 +70,6 @@ public sealed class AfterUpdateOrderTrigger : IAfterSaveTrigger<Order>
       OrderStatus.Completed => EmailType.OrderCompleted,
       OrderStatus.Received => EmailType.OrderArrived,
       OrderStatus.Cancelled => EmailType.CancelOrder,
-      _ => throw new ArgumentOutOfRangeException(nameof(status), status, "Invalid order status!"),
+      _ => throw new ArgumentOutOfRangeException(nameof(status), status, "Invalid order status!")
     };
 }

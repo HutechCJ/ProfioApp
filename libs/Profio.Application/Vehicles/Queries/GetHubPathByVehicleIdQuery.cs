@@ -16,7 +16,9 @@ using Profio.Infrastructure.Persistence;
 
 namespace Profio.Application.Vehicles.Queries;
 
-public sealed record GetHubPathByVehicleIdQuery(string VehicleId, Criteria Criteria) : GetWithPagingQueryBase<HubDto>(Criteria);
+public sealed record GetHubPathByVehicleIdQuery
+  (string VehicleId, Criteria Criteria) : GetWithPagingQueryBase<HubDto>(Criteria);
+
 public sealed class GetHubPathByVehicleIdQueryHandler : IRequestHandler<GetHubPathByVehicleIdQuery, IPagedList<HubDto>>
 {
   private readonly ApplicationDbContext _applicationDbContext;
@@ -30,18 +32,21 @@ public sealed class GetHubPathByVehicleIdQueryHandler : IRequestHandler<GetHubPa
     var order = await _applicationDbContext.Orders
       .Include(x => x.Customer)
       .OrderByDescending(x => x.StartedDate)
-      .Where(x => new OrderStatus[] { OrderStatus.InProgress, OrderStatus.Completed, OrderStatus.Pending }.Contains(x.Status))
-      .FirstOrDefaultAsync(x => x.Deliveries != null && x.Deliveries.Any(d => d.VehicleId == request.VehicleId), cancellationToken) ?? throw new NotFoundException(nameof(Order), "active newest");
+      .Where(x => new[] { OrderStatus.InProgress, OrderStatus.Completed, OrderStatus.Pending }.Contains(x.Status))
+      .FirstOrDefaultAsync(x => x.Deliveries != null && x.Deliveries.Any(d => d.VehicleId == request.VehicleId),
+        cancellationToken) ?? throw new NotFoundException(nameof(Order), "active newest");
 
     var customerZipCode = order.Customer?.Address?.ZipCode ?? throw new NotFoundException(nameof(Address));
 
     var destinationZipCode = order.DestinationZipCode;
 
     var startHub = await _applicationDbContext.Hubs
-      .FirstOrDefaultAsync(x => x.ZipCode == customerZipCode, cancellationToken) ?? throw new NotFoundException(nameof(Hub), customerZipCode);
+                     .FirstOrDefaultAsync(x => x.ZipCode == customerZipCode, cancellationToken) ??
+                   throw new NotFoundException(nameof(Hub), customerZipCode);
 
     var endHub = await _applicationDbContext.Hubs
-      .FirstOrDefaultAsync(x => x.ZipCode == destinationZipCode, cancellationToken) ?? throw new NotFoundException(nameof(Hub), destinationZipCode);
+                   .FirstOrDefaultAsync(x => x.ZipCode == destinationZipCode, cancellationToken) ??
+                 throw new NotFoundException(nameof(Hub), destinationZipCode);
 
     IList<HubDto> path = new List<HubDto>
     {
@@ -57,7 +62,9 @@ public sealed class GetHubPathByVehicleIdQueryHandler : IRequestHandler<GetHubPa
       .ToPagedList(pageIndex, pageSize, totalCount);
   }
 }
-public sealed class GetHubPathByVehicleIdQueryValidator : GetWithPagingQueryValidatorBase<GetHubPathByVehicleIdQuery, HubDto>
+
+public sealed class
+  GetHubPathByVehicleIdQueryValidator : GetWithPagingQueryValidatorBase<GetHubPathByVehicleIdQuery, HubDto>
 {
   public GetHubPathByVehicleIdQueryValidator(VehicleExistenceByIdValidator vehicleValidator)
     => RuleFor(x => x.VehicleId)

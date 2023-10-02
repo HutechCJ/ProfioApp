@@ -9,13 +9,15 @@ namespace Profio.Application.OrderHistories.Commands;
 
 public sealed record DeleteOrderHistoryCommand(object Id) : DeleteCommandBase<OrderHistoryDto>(Id);
 
-public sealed class DeleteOrderHistoryCommandHandler : DeleteCommandHandlerBase<DeleteOrderHistoryCommand, OrderHistoryDto, OrderHistory>
+public sealed class
+  DeleteOrderHistoryCommandHandler : DeleteCommandHandlerBase<DeleteOrderHistoryCommand, OrderHistoryDto, OrderHistory>
 {
   public DeleteOrderHistoryCommandHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public sealed class DeleteOrderHistoryCommandValidator : DeleteCommandValidatorBase<DeleteOrderHistoryCommand, OrderHistoryDto>
+public sealed class
+  DeleteOrderHistoryCommandValidator : DeleteCommandValidatorBase<DeleteOrderHistoryCommand, OrderHistoryDto>
 {
 }

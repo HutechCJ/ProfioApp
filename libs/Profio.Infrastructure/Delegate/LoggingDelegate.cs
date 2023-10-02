@@ -1,3 +1,5 @@
+using Microsoft.Extensions.Logging;
+
 namespace Profio.Infrastructure.Delegate;
 
 public sealed class LoggingDelegate : DelegatingHandler
@@ -12,15 +14,15 @@ public sealed class LoggingDelegate : DelegatingHandler
   {
     try
     {
-      _logger.LogInformation("Request: {0}", request);
+      _logger.LogInformation("Request: {request}", request);
       var response = await base.SendAsync(request, cancellationToken);
       response.EnsureSuccessStatusCode();
-      _logger.LogInformation("Response: {0}", response);
+      _logger.LogInformation("Response: {response}", response);
       return response;
     }
     catch (Exception e)
     {
-      _logger.LogError(e, "Error: {0}", e.Message);
+      _logger.LogError(e, "Error: {message}", e.Message);
       throw;
     }
   }

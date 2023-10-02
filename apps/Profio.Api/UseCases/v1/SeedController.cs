@@ -13,13 +13,13 @@ public sealed class SeedController : BaseController
 {
   [ApiKey]
   [HttpPost("data")]
-  [SwaggerOperation(summary: "Seed Data")]
+  [SwaggerOperation("Seed Data")]
   public async Task<ActionResult<ResultModel<string>>> SeedData()
     => Ok(ResultModel<string>.Create(await Mediator.Send(new SeedDataCommand())));
 
   [ApiKey]
   [HttpPost("plate")]
-  [SwaggerOperation(summary: "Seed License Plate")]
+  [SwaggerOperation("Seed License Plate")]
   public async Task<ActionResult<ResultModel<string>>> SeedLicensePlate()
     => Ok(ResultModel<string>.Create(await Mediator.Send(new SeedLicensePlateCommand())));
 }

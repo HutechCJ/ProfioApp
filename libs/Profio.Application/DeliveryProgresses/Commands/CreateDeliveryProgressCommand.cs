@@ -21,10 +21,10 @@ public sealed record CreateDeliveryProgressCommand : CreateCommandBase
   public TimeSpan? EstimatedTimeRemaining { get; set; }
   public DateTime? LastUpdated { get; set; }
   public required string OrderId { get; set; }
-
 }
 
-public sealed class CreateDeliveryProgressCommandHandler : CreateCommandHandlerBase<CreateDeliveryProgressCommand, DeliveryProgress>
+public sealed class
+  CreateDeliveryProgressCommandHandler : CreateCommandHandlerBase<CreateDeliveryProgressCommand, DeliveryProgress>
 {
   public CreateDeliveryProgressCommandHandler(IUnitOfWork unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {

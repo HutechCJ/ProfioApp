@@ -14,22 +14,25 @@ namespace Profio.Application.Users.Commands.ChangePassword;
 [SwaggerSchema(
   Title = "Change Password",
   Description = "A Representation of Change Password")]
-public sealed record ChangePasswordCommand(string OldPassword, string NewPassword, string ConfirmPassword) : IRequest<AccountDto>;
+public sealed record ChangePasswordCommand
+  (string OldPassword, string NewPassword, string ConfirmPassword) : IRequest<AccountDto>;
 
 public sealed class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand, AccountDto>
 {
-  private readonly UserManager<ApplicationUser> _userManager;
+  private readonly IHttpContextAccessor _httpContextAccessor;
   private readonly IMapper _mapper;
   private readonly ITokenService _tokenService;
-  private readonly IHttpContextAccessor _httpContextAccessor;
+  private readonly UserManager<ApplicationUser> _userManager;
 
-  public ChangePasswordCommandHandler(UserManager<ApplicationUser> userManager, IMapper mapper, ITokenService tokenService, IHttpContextAccessor httpContextAccessor)
+  public ChangePasswordCommandHandler(UserManager<ApplicationUser> userManager, IMapper mapper,
+    ITokenService tokenService, IHttpContextAccessor httpContextAccessor)
   {
     _userManager = userManager;
     _mapper = mapper;
     _tokenService = tokenService;
     _httpContextAccessor = httpContextAccessor;
   }
+
   public async Task<AccountDto> Handle(ChangePasswordCommand request, CancellationToken cancellationToken)
   {
     var failures = new List<ValidationFailure>();
@@ -39,7 +42,7 @@ public sealed class ChangePasswordCommandHandler : IRequestHandler<ChangePasswor
       throw new UnauthorizedAccessException(nameof(ApplicationUser));
 
     var user = await _userManager.FindByNameAsync(_httpContextAccessor.HttpContext.User.Identity.Name!)
-      ?? throw new UnauthorizedAccessException(nameof(ApplicationUser));
+               ?? throw new UnauthorizedAccessException(nameof(ApplicationUser));
 
     if (!request.NewPassword.Equals(request.ConfirmPassword))
       failures.Add(new("Password", "Confirm password must match the new password"));

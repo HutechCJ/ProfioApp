@@ -19,6 +19,7 @@ public sealed class UpdateHubStatusCommandHandler : IRequestHandler<UpdateHubSta
 
   public UpdateHubStatusCommandHandler(ISender sender)
     => _sender = sender;
+
   public async Task<Unit> Handle(UpdateHubStatusCommand request, CancellationToken cancellationToken)
     => await _sender.Send(new UpdateHubCommand(request.Id) { Status = request.Status }, cancellationToken);
 }

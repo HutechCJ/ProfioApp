@@ -29,7 +29,8 @@ public sealed class CreateDeliveryCommandHandler : CreateCommandHandlerBase<Crea
 
 public sealed class CreateDeliveryCommandValidator : AbstractValidator<CreateDeliveryCommand>
 {
-  public CreateDeliveryCommandValidator(OrderExistenceByIdValidator orderValidator, VehicleExistenceByIdValidator vehicleValidator)
+  public CreateDeliveryCommandValidator(OrderExistenceByIdValidator orderValidator,
+    VehicleExistenceByIdValidator vehicleValidator)
   {
     RuleFor(x => x.OrderId)
       .SetValidator(orderValidator);

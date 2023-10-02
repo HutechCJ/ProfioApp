@@ -1,6 +1,6 @@
 namespace Profio.Domain.Specifications;
 
-public class Criteria
+public sealed class Criteria
 {
   public string? Filter { get; set; }
   public string? OrderBy { get; set; }

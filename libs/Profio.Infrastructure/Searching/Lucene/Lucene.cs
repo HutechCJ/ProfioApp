@@ -4,5 +4,5 @@ public enum Lucene
 {
   Create,
   Update,
-  Delete,
+  Delete
 }

@@ -1,6 +1,9 @@
 using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Profio.Infrastructure.Persistence;
 
 namespace Profio.Infrastructure.HealthCheck;
 
@@ -20,9 +23,9 @@ public static class Extension
         name: "RabbitMq",
         tags: new[] { "message broker" })
       .AddSignalRHub(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
-        ? "https://localhost:9023/current-location"
-        : $"https://{Environment.ExpandEnvironmentVariables("%WEBSITE_SITE_NAME%")}.azurewebsites.net/current-location",
-        name: "SignalR",
+          ? "https://localhost:9023/current-location"
+          : $"https://{Environment.ExpandEnvironmentVariables("%WEBSITE_SITE_NAME%")}.azurewebsites.net/current-location",
+        "SignalR",
         tags: new[] { "hub" });
 
     builder.Services

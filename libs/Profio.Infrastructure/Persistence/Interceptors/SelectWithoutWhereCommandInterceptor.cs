@@ -1,6 +1,6 @@
 using System.Data;
-using Microsoft.EntityFrameworkCore.Diagnostics;
 using System.Data.Common;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Profio.Infrastructure.Persistence.Interceptors;
 
@@ -49,5 +49,6 @@ public sealed class SelectWithoutWhereCommandInterceptor : DbCommandInterceptor
   }
 
   private static void Log(string commandText, string stackTrace)
-    => Serilog.Log.Information("SelectWithoutWhereCommandInterceptor: {CommandText}\n{StackTrace}", commandText, stackTrace);
+    => Serilog.Log.Information("SelectWithoutWhereCommandInterceptor: {CommandText}\n{StackTrace}", commandText,
+      stackTrace);
 }

@@ -16,37 +16,38 @@ namespace Profio.Api.UseCases.v1;
 public sealed class HubsController : BaseEntityController<Hub, HubDto, GetHubByIdQuery>
 {
   [HttpGet]
-  [SwaggerOperation(summary: "Get Hub List with Paging")]
-  public Task<ActionResult<ResultModel<IPagedList<HubDto>>>> Get([FromQuery] Criteria criteria, [FromQuery] HubEnumFilter hubEnumFilter)
+  [SwaggerOperation("Get Hub List with Paging")]
+  public Task<ActionResult<ResultModel<IPagedList<HubDto>>>> Get([FromQuery] Criteria criteria,
+    [FromQuery] HubEnumFilter hubEnumFilter)
     => HandlePaginationQuery(new GetHubWithPagingQuery(criteria, hubEnumFilter));
 
   [HttpGet("{id:length(26)}")]
-  [SwaggerOperation(summary: "Get Hub by Id")]
+  [SwaggerOperation("Get Hub by Id")]
   public Task<ActionResult<ResultModel<HubDto>>> GetById(string id)
     => HandleGetByIdQuery(new(id));
 
   [HttpPost]
-  [SwaggerOperation(summary: "Create Hub")]
+  [SwaggerOperation("Create Hub")]
   public Task<ActionResult<ResultModel<HubDto>>> Post(CreateHubCommand command)
     => HandleCreateCommand(command);
 
   [HttpPut("{id:length(26)}")]
-  [SwaggerOperation(summary: "Update Hub")]
+  [SwaggerOperation("Update Hub")]
   public Task<IActionResult> Put([FromRoute] string id, [FromBody] UpdateHubCommand command)
     => HandleUpdateCommand(id, command);
 
   [HttpDelete("{id:length(26)}")]
-  [SwaggerOperation(summary: "Delete Hub")]
+  [SwaggerOperation("Delete Hub")]
   public Task<ActionResult<ResultModel<HubDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteHubCommand(id));
 
   [HttpGet("nearest-hub")]
-  [SwaggerOperation(summary: "Get nearest Hub")]
+  [SwaggerOperation("Get nearest Hub")]
   public async Task<ActionResult<ResultModel<HubDto>>> GetNearestHub([FromQuery] Location location)
     => Ok(ResultModel<HubDto>.Create(await Mediator.Send(new GetNearestHubByLocationQuery(location))));
 
   [HttpPatch("{id:length(26)}/update-status")]
-  [SwaggerOperation(summary: "Update Hub status")]
+  [SwaggerOperation("Update Hub status")]
   public async Task<IActionResult> UpdateStatus([FromRoute] string id, [FromBody] UpdateHubStatusCommand command)
   {
     if (!id.Equals(command.Id))
@@ -54,6 +55,7 @@ public sealed class HubsController : BaseEntityController<Hub, HubDto, GetHubByI
       ModelState.AddModelError("Id", "Ids are not the same");
       return ValidationProblem();
     }
+
     await Mediator.Send(command).ConfigureAwait(false);
     return NoContent();
   }

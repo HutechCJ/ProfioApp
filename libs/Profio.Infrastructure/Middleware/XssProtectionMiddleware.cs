@@ -1,6 +1,7 @@
-using Ganss.Xss;
 using System.Net;
 using System.Text;
+using Ganss.Xss;
+using Microsoft.AspNetCore.Http;
 
 namespace Profio.Infrastructure.Middleware;
 
@@ -28,5 +29,4 @@ public sealed class XssProtectionMiddleware
 
     await _next.Invoke(context);
   }
-
 }

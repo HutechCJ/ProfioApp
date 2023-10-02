@@ -11,8 +11,8 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.Phases.Commands;
 
 [SwaggerSchema(
-   Title = "Update Phase",
-   Description = "A Representation of Phase")]
+  Title = "Update Phase",
+  Description = "A Representation of Phase")]
 public sealed record UpdatePhaseCommand(object Id) : UpdateCommandBase(Id)
 {
   public int? Order { get; set; }
@@ -31,7 +31,7 @@ public sealed class UpdatePhaseCommandValidator : UpdateCommandValidatorBase<Upd
   public UpdatePhaseCommandValidator(RouteExistenceByIdValidator routeValidator)
   {
     RuleFor(x => x.Order)
-    .GreaterThanOrEqualTo(0);
+      .GreaterThanOrEqualTo(0);
 
     RuleFor(x => x.RouteId)
       .SetValidator(routeValidator!);

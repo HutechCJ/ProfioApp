@@ -10,7 +10,8 @@ namespace Profio.Application.Users.Queries;
 public sealed record GetUserWithPagingQuery
   (Criteria Criteria) : GetWithPagingQueryBase<UserDto>(Criteria);
 
-public sealed class GetUserWithPagingQueryHandler : GetWithPagingQueryHandler<GetUserWithPagingQuery, UserDto, ApplicationUser>
+public sealed class
+  GetUserWithPagingQueryHandler : GetWithPagingQueryHandler<GetUserWithPagingQuery, UserDto, ApplicationUser>
 {
   public GetUserWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {

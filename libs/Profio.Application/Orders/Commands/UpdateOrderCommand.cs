@@ -38,7 +38,8 @@ public sealed class UpdateOrderCommandHandler : UpdateCommandHandlerBase<UpdateO
 
 public sealed class UpdateOrderCommandValidator : AbstractValidator<UpdateOrderCommand>
 {
-  public UpdateOrderCommandValidator(CustomerExistenceByIdValidator customerIdValidator, PhaseExistenceByIdValidator phaseValidator)
+  public UpdateOrderCommandValidator(CustomerExistenceByIdValidator customerIdValidator,
+    PhaseExistenceByIdValidator phaseValidator)
   {
     RuleFor(c => c.ExpectedDeliveryTime)
       .GreaterThan(c => c.StartedDate);

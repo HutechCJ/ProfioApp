@@ -8,8 +8,7 @@ public partial class Footer
 {
   public string Email { get; set; } = default!;
 
-  [Inject]
-  private SweetAlertService Alert { get; set; } = default!;
+  [Inject] private SweetAlertService Alert { get; set; } = default!;
 
   public async Task SaveEmailAsync()
   {
@@ -37,4 +36,3 @@ public partial class Footer
     Email = string.Empty;
   }
 }
-

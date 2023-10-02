@@ -27,5 +27,4 @@ public static class RobotsTxtMiddlewareExtensions
 {
   public static IApplicationBuilder UseRobotsTxtMiddleware(this IApplicationBuilder builder)
     => builder.UseMiddleware<RobotsTxtMiddleware>();
-
 }

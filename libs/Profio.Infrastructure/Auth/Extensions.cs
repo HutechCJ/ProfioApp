@@ -1,14 +1,18 @@
+using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.CookiePolicy;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
-using Profio.Domain.Identity;
-using System.Text;
-using Microsoft.AspNetCore.CookiePolicy;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Profio.Domain.Constants;
+using Profio.Domain.Identity;
+using Profio.Infrastructure.Persistence;
 using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
 
 namespace Profio.Infrastructure.Auth;
@@ -21,25 +25,26 @@ public static class Extensions
     IConfiguration configuration)
   {
     services.AddIdentityCore<ApplicationUser>(options =>
-    {
-      options.Password.RequireDigit = true;
-      options.Password.RequireLowercase = true;
-      options.Password.RequireNonAlphanumeric = true;
-      options.Password.RequireUppercase = true;
-      options.Password.RequiredLength = 6;
-      options.Password.RequiredUniqueChars = 1;
+      {
+        options.Password.RequireDigit = true;
+        options.Password.RequireLowercase = true;
+        options.Password.RequireNonAlphanumeric = true;
+        options.Password.RequireUppercase = true;
+        options.Password.RequiredLength = 6;
+        options.Password.RequiredUniqueChars = 1;
 
-      options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
-      options.Lockout.MaxFailedAccessAttempts = 5;
-      options.Lockout.AllowedForNewUsers = true;
+        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+        options.Lockout.MaxFailedAccessAttempts = 5;
+        options.Lockout.AllowedForNewUsers = true;
 
-      options.User.RequireUniqueEmail = true;
-    })
+        options.User.RequireUniqueEmail = true;
+      })
       .AddRoles<IdentityRole>()
       .AddEntityFrameworkStores<ApplicationDbContext>()
       .AddDefaultTokenProviders();
 
-    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Authentication:TokenKey"] ?? string.Empty));
+    var key = new SymmetricSecurityKey(
+      Encoding.UTF8.GetBytes(builder.Configuration["Authentication:TokenKey"] ?? string.Empty));
 
     services.AddAuthentication(
         options =>
@@ -84,23 +89,21 @@ public static class Extensions
 
     if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
         && IsHostWorking(configuration.GetSection("OAuth2")["ServerRealm"]))
-    {
       services.AddAuthentication()
         .AddOpenIdConnect(options =>
-      {
-        options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-        options.Authority = configuration.GetSection("OAuth2")["ServerRealm"];
-        options.ClientId = configuration.GetSection("OAuth2")["ClientId"];
-        options.ClientSecret = configuration.GetSection("OAuth2")["ClientSecret"];
-        options.MetadataAddress = configuration.GetSection("OAuth2")["Metadata"];
-        options.RequireHttpsMetadata = true;
-        options.GetClaimsFromUserInfoEndpoint = true;
-        options.Scope.Add("readAccess");
-        options.Scope.Add("writeAccess");
-        options.SaveTokens = true;
-        options.ResponseType = OpenIdConnectResponseType.Code;
-      });
-    }
+        {
+          options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+          options.Authority = configuration.GetSection("OAuth2")["ServerRealm"];
+          options.ClientId = configuration.GetSection("OAuth2")["ClientId"];
+          options.ClientSecret = configuration.GetSection("OAuth2")["ClientSecret"];
+          options.MetadataAddress = configuration.GetSection("OAuth2")["Metadata"];
+          options.RequireHttpsMetadata = true;
+          options.GetClaimsFromUserInfoEndpoint = true;
+          options.Scope.Add("readAccess");
+          options.Scope.Add("writeAccess");
+          options.SaveTokens = true;
+          options.ResponseType = OpenIdConnectResponseType.Code;
+        });
 
     services.Configure<CookiePolicyOptions>(options =>
     {

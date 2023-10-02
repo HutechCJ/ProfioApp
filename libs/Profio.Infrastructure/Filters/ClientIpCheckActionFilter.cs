@@ -1,6 +1,8 @@
 using System.Net;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Logging;
 
 namespace Profio.Infrastructure.Filters;
 
@@ -19,10 +21,7 @@ public class ClientIpCheckActionFilter : ActionFilterAttribute
 
     var ip = _safeList?.Split(';');
 
-    if (remoteIp is { IsIPv4MappedToIPv6: true })
-    {
-      remoteIp.MapToIPv4();
-    }
+    if (remoteIp is { IsIPv4MappedToIPv6: true }) remoteIp.MapToIPv4();
 
     var badIp = ip is { } && !ip.Select(IPAddress.Parse).Contains(remoteIp);
 

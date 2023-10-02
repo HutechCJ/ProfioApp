@@ -1,12 +1,14 @@
+using System.Security.Authentication;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using MQTTnet.Client;
 using Profio.Infrastructure.Bus.MQTT;
 using Profio.Infrastructure.Bus.MQTT.Internal;
 using Profio.Infrastructure.Bus.RabbitMQ;
 using Profio.Infrastructure.Bus.RabbitMQ.Internal;
-using System.Security.Authentication;
 
 namespace Profio.Infrastructure.Bus;
 
@@ -68,7 +70,8 @@ public static class Extension
     services.AddSingleton(serviceProvider =>
     {
       var mqttClientService = serviceProvider.GetService<MqttClientService>();
-      var mqttClientServiceProvider = new MqttClientServiceProvider(mqttClientService ?? throw new InvalidOperationException());
+      var mqttClientServiceProvider =
+        new MqttClientServiceProvider(mqttClientService ?? throw new InvalidOperationException());
       return mqttClientServiceProvider;
     });
 

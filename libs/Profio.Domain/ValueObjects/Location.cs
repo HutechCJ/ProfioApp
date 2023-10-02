@@ -6,13 +6,15 @@ namespace Profio.Domain.ValueObjects;
 [Owned]
 public class Location : ValueObject
 {
-  public double Latitude { get; set; }
-  public double Longitude { get; set; }
-
-  public Location() { }
+  public Location()
+  {
+  }
 
   public Location(double latitude, double longitude)
     => (Latitude, Longitude) = (latitude, longitude);
+
+  public double Latitude { get; set; }
+  public double Longitude { get; set; }
 
   protected override IEnumerable<object?> GetEqualityComponents()
   {

@@ -11,6 +11,7 @@ using Profio.Infrastructure.Persistence;
 namespace Profio.Application.Hubs.Queries;
 
 public sealed record GetNextHubByVehicleIdQuery(string VehicleId) : IRequest<HubDto>;
+
 public sealed class GeNextHubByVehicleIdQueryHandler : IRequestHandler<GetNextHubByVehicleIdQuery, HubDto>
 {
   private readonly ApplicationDbContext _applicationDbContext;
@@ -21,29 +22,31 @@ public sealed class GeNextHubByVehicleIdQueryHandler : IRequestHandler<GetNextHu
     _applicationDbContext = applicationDbContext;
     _mapper = mapper;
   }
+
   public async Task<HubDto> Handle(GetNextHubByVehicleIdQuery request, CancellationToken cancellationToken)
   {
     var vehicle = await _applicationDbContext.Vehicles
-        .Include(v => v.Deliveries)
-        .ThenInclude(d => d.Order)
-        .Where(v => v.Id == request.VehicleId)
-        .FirstOrDefaultAsync(cancellationToken)
-        ?? throw new NotFoundException(nameof(Vehicle), request.VehicleId);
+                    .Include(v => v.Deliveries)
+                    .ThenInclude(d => d.Order)
+                    .Where(v => v.Id == request.VehicleId)
+                    .FirstOrDefaultAsync(cancellationToken)
+                  ?? throw new NotFoundException(nameof(Vehicle), request.VehicleId);
 
     var nextDelivery = vehicle.Deliveries.MaxBy(d => d.DeliveryDate)
-        ?? throw new NotFoundException(nameof(Delivery));
+                       ?? throw new NotFoundException(nameof(Delivery));
 
     var destinationZipCode = nextDelivery.Order?.DestinationZipCode
-      ?? throw new NotFoundException(nameof(Order));
+                             ?? throw new NotFoundException(nameof(Order));
 
     var hubDto = await _applicationDbContext.Hubs
-      .ProjectTo<HubDto>(_mapper.ConfigurationProvider)
-      .FirstOrDefaultAsync(x => x.ZipCode == destinationZipCode, cancellationToken)
-      ?? throw new NotFoundException(nameof(Hub), destinationZipCode);
+                   .ProjectTo<HubDto>(_mapper.ConfigurationProvider)
+                   .FirstOrDefaultAsync(x => x.ZipCode == destinationZipCode, cancellationToken)
+                 ?? throw new NotFoundException(nameof(Hub), destinationZipCode);
 
     return hubDto;
   }
 }
+
 public sealed class GetNextHubByVehicleIdQueryValidator : AbstractValidator<GetNextHubByVehicleIdQuery>
 {
   public GetNextHubByVehicleIdQueryValidator(VehicleExistenceByIdValidator vehicleValidator)

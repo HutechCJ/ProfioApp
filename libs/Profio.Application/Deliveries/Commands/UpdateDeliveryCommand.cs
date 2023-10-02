@@ -11,8 +11,8 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.Deliveries.Commands;
 
 [SwaggerSchema(
-   Title = "Update Delivery",
-   Description = "A Representation of list of Delivery")]
+  Title = "Update Delivery",
+  Description = "A Representation of list of Delivery")]
 public sealed record UpdateDeliveryCommand(object Id) : UpdateCommandBase(Id)
 {
   public DateTime? DeliveryDate { get; set; }
@@ -29,7 +29,8 @@ public sealed class UpdateDeliveryCommandHandler : UpdateCommandHandlerBase<Upda
 
 public sealed class UpdateDeliveryCommandValidator : UpdateCommandValidatorBase<UpdateDeliveryCommand>
 {
-  public UpdateDeliveryCommandValidator(OrderExistenceByIdValidator orderValidator, VehicleExistenceByIdValidator vehicleValidator)
+  public UpdateDeliveryCommandValidator(OrderExistenceByIdValidator orderValidator,
+    VehicleExistenceByIdValidator vehicleValidator)
   {
     RuleFor(x => x.OrderId)
       .SetValidator(orderValidator!);

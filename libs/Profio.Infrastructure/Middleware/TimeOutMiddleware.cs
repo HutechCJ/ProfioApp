@@ -1,11 +1,13 @@
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using Polly;
 
 namespace Profio.Infrastructure.Middleware;
 
 public sealed class TimeOutMiddleware
 {
-  private readonly RequestDelegate _next;
   private readonly ILogger<TimeOutMiddleware> _logger;
+  private readonly RequestDelegate _next;
 
   public TimeOutMiddleware(RequestDelegate next, ILogger<TimeOutMiddleware> logger)
     => (_next, _logger) = (next, logger);

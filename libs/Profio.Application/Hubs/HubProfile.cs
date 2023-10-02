@@ -4,4 +4,6 @@ using Profio.Infrastructure.Abstractions.CQRS;
 
 namespace Profio.Application.Hubs;
 
-public sealed class HubProfile : EntityProfileBase<Hub, HubDto, CreateHubCommand, UpdateHubCommand> { }
+public sealed class HubProfile : EntityProfileBase<Hub, HubDto, CreateHubCommand, UpdateHubCommand>
+{
+}

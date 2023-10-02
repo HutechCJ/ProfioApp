@@ -6,5 +6,5 @@ public enum MessageType
   OrderShipped,
   IncidentReported,
   IncidentResolved,
-  CancelOrder,
+  CancelOrder
 }

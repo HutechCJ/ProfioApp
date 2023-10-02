@@ -1,10 +1,10 @@
+using System.Text.Json;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Profio.Domain.Constants;
 using Profio.Domain.Entities;
 using Profio.Infrastructure.Persistence;
-using System.Text.Json;
 
 namespace Profio.Application.Seed.Queries;
 
@@ -66,11 +66,9 @@ public sealed class SeedDataHandler : IRequestHandler<SeedDataCommand, string>
       foreach (var customer in customers)
       {
         var zipCode = hubZipCodes[new Random().Next(0, hubZipCodes.Count)];
-        if (customer.Address is { })
-        {
-          customer.Address.ZipCode = zipCode;
-        }
+        if (customer.Address is { }) customer.Address.ZipCode = zipCode;
       }
+
       await _context.AddRangeAsync(customers);
       await _context.SaveChangesAsync();
       var customerList = await _context.Customers.ToListAsync();
@@ -93,6 +91,7 @@ public sealed class SeedDataHandler : IRequestHandler<SeedDataCommand, string>
         order.DestinationZipCode = zipCode;
         order.DestinationAddress!.ZipCode = zipCode;
       }
+
       await _context.AddRangeAsync(orders);
       await _context.SaveChangesAsync();
       var orderList = await _context.Orders.ToListAsync();
@@ -115,6 +114,7 @@ public sealed class SeedDataHandler : IRequestHandler<SeedDataCommand, string>
         vehicle.StaffId = staffIds[new Random().Next(0, staffIds.Count)];
         vehicle.ZipCodeCurrent = hubZipCodes[new Random().Next(0, hubZipCodes.Count)];
       }
+
       await _context.AddRangeAsync(vehicles);
       await _context.SaveChangesAsync();
       var vehicleList = await _context.Vehicles.ToListAsync();
@@ -143,19 +143,14 @@ public sealed class SeedDataHandler : IRequestHandler<SeedDataCommand, string>
       var vehicles = await _context.Vehicles
         .ToListAsync();
       var orderDictionary = await _context.Orders
-        .GroupBy(x => x.Customer != null ? x.Customer.Address != null ? x.Customer.Address.ZipCode ?? "None" : "None" : "None")
+        .GroupBy(x =>
+          x.Customer != null ? x.Customer.Address != null ? x.Customer.Address.ZipCode ?? "None" : "None" : "None")
         .ToDictionaryAsync(x => x.Key, x => x.First().Id);
       foreach (var vehicle in vehicles)
       {
-        if (vehicle.ZipCodeCurrent is null)
-        {
-          continue;
-        }
+        if (vehicle.ZipCodeCurrent is null) continue;
         var isGettable = orderDictionary.TryGetValue(vehicle.ZipCodeCurrent, out var orderId);
-        if (!isGettable)
-        {
-          continue;
-        }
+        if (!isGettable) continue;
         var delivery = new Delivery
         {
           OrderId = orderId,
@@ -163,6 +158,7 @@ public sealed class SeedDataHandler : IRequestHandler<SeedDataCommand, string>
         };
         deliveries.Add(delivery);
       }
+
       await _context.AddRangeAsync(deliveries);
       await _context.SaveChangesAsync();
       var deliveryList = await _context.Deliveries.ToListAsync();

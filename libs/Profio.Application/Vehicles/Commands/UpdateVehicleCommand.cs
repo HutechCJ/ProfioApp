@@ -12,8 +12,8 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.Vehicles.Commands;
 
 [SwaggerSchema(
-   Title = "Update Vehicle",
-   Description = "A Representation of list of Vehicle")]
+  Title = "Update Vehicle",
+  Description = "A Representation of list of Vehicle")]
 public sealed record UpdateVehicleCommand(object Id) : UpdateCommandBase(Id)
 {
   public string? ZipCodeCurrent { get; set; }

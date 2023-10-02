@@ -12,9 +12,9 @@ namespace Profio.Infrastructure.Abstractions.CQRS;
 public static class RepositoryExtensions
 {
   public static async Task<IPagedList<TModel>> GetDataWithQueryAsync<TEntity, TModel>(
-        this IRepository<TEntity> repository,
-        IMultipleResultQuery<TEntity> query,
-        IConfigurationProvider configurationProvider, CancellationToken cancellationToken)
+    this IRepository<TEntity> repository,
+    IMultipleResultQuery<TEntity> query,
+    IConfigurationProvider configurationProvider, CancellationToken cancellationToken)
     where TEntity : class
     where TModel : BaseModel
   {
@@ -22,7 +22,7 @@ public static class RepositoryExtensions
 
     var projectedPagedList = pagedListQueryable
       .ProjectTo<TModel>(configurationProvider)
-    .AsSplitQuery();
+      .AsSplitQuery();
 
     var asyncPagedList = projectedPagedList.ToListAsync(cancellationToken);
 

@@ -10,7 +10,6 @@ public sealed record GetEntityCountQuery(IList<string> EntityTypes) : IRequest<D
 
 public sealed class GetEntityCountQueryHandler : IRequestHandler<GetEntityCountQuery, Dictionary<string, int>>
 {
-  public ApplicationDbContext Context { get; }
   private readonly Dictionary<string, IQueryable<object>> _entitySets;
 
   public GetEntityCountQueryHandler(ApplicationDbContext applicationDbContext)
@@ -29,29 +28,29 @@ public sealed class GetEntityCountQueryHandler : IRequestHandler<GetEntityCountQ
       [nameof(Route)] = Context.Set<Route>(),
       [nameof(Staff)] = Context.Set<Staff>(),
       [nameof(Vehicle)] = Context.Set<Vehicle>(),
-      ["User"] = Context.Set<ApplicationUser>(),
+      ["User"] = Context.Set<ApplicationUser>()
     };
   }
+
+  public ApplicationDbContext Context { get; }
 
   public async Task<Dictionary<string, int>> Handle(GetEntityCountQuery request, CancellationToken cancellationToken)
   {
     var selectedEntityTypes = _entitySets
-        .Where(pair => request.EntityTypes.Contains(pair.Key, StringComparer.OrdinalIgnoreCase))
-        .ToDictionary(pair => pair.Key, pair => pair.Value);
+      .Where(pair => request.EntityTypes.Contains(pair.Key, StringComparer.OrdinalIgnoreCase))
+      .ToDictionary(pair => pair.Key, pair => pair.Value);
 
     var result = new Dictionary<string, int>();
 
     foreach (var pair in selectedEntityTypes)
-      result[ToCamelCase(pair.Key)] = await pair.Value.CountAsync(cancellationToken: cancellationToken);
+      result[ToCamelCase(pair.Key)] = await pair.Value.CountAsync(cancellationToken);
 
     return result;
   }
+
   private static string ToCamelCase(string input)
   {
-    if (string.IsNullOrEmpty(input))
-    {
-      return input;
-    }
+    if (string.IsNullOrEmpty(input)) return input;
     return char.ToLower(input[0]) + input[1..];
   }
 }

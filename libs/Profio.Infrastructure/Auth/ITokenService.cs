@@ -1,6 +1,7 @@
 using Profio.Domain.Identity;
 
 namespace Profio.Infrastructure.Auth;
+
 public interface ITokenService
 {
   string CreateToken(ApplicationUser user);

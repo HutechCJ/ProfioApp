@@ -1,15 +1,17 @@
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Primitives;
 using Profio.Domain.Contracts;
 using Profio.Infrastructure.Cache.Redis;
+using Profio.Infrastructure.Persistence;
 
 namespace Profio.Infrastructure.Hub;
 
 public sealed class LocationHub : Hub<ILocationClient>
 {
-  private readonly ILogger<LocationHub> _logger;
   private readonly ApplicationDbContext _context;
+  private readonly ILogger<LocationHub> _logger;
   private readonly IRedisCacheService _redisCacheService;
 
   public LocationHub(
@@ -34,8 +36,8 @@ public sealed class LocationHub : Hub<ILocationClient>
       if (!string.IsNullOrEmpty(vehicleId))
       {
         var latestLocation = _redisCacheService.GetOrSet<VehicleLocation>(
-          key: $"latest_location_{vehicleId}",
-          valueFactory: () => null!);
+          $"latest_location_{vehicleId}",
+          () => null!);
         await Clients.Group(orderId!).SendLocation(latestLocation);
       }
     }

@@ -4,4 +4,6 @@ using Profio.Infrastructure.Abstractions.CQRS;
 
 namespace Profio.Application.Vehicles;
 
-public sealed class VehicleProfile : EntityProfileBase<Vehicle, VehicleDto, CreateVehicleCommand, UpdateVehicleCommand> { }
+public sealed class VehicleProfile : EntityProfileBase<Vehicle, VehicleDto, CreateVehicleCommand, UpdateVehicleCommand>
+{
+}

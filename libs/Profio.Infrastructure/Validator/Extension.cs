@@ -1,5 +1,6 @@
-using FluentValidation;
 using System.Diagnostics;
+using FluentValidation;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Profio.Infrastructure.Validator;
 
@@ -10,7 +11,7 @@ public static class Extension
     var validationResult = await validator.ValidateAsync(request);
 
     var failures = validationResult
-          .Errors;
+      .Errors;
 
     if (failures.Any())
       throw new ValidationException(failures);
@@ -18,9 +19,9 @@ public static class Extension
 
   [DebuggerStepThrough]
   public static IServiceCollection AddValidators(this IServiceCollection services)
-      => services.Scan(scan => scan
-              .FromAssemblies(AssemblyReference.Assembly)
-              .AddClasses(c => c.AssignableTo(typeof(IValidator<>)))
-              .AsImplementedInterfaces()
-              .WithTransientLifetime());
+    => services.Scan(scan => scan
+      .FromAssemblies(AssemblyReference.Assembly)
+      .AddClasses(c => c.AssignableTo(typeof(IValidator<>)))
+      .AsImplementedInterfaces()
+      .WithTransientLifetime());
 }

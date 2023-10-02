@@ -15,27 +15,27 @@ namespace Profio.Api.UseCases.v1;
 public sealed class RoutesController : BaseEntityController<RouteEntity, RouteDto, GetRouteByIdQuery>
 {
   [HttpGet]
-  [SwaggerOperation(summary: "Get Route List with Paging")]
+  [SwaggerOperation("Get Route List with Paging")]
   public Task<ActionResult<ResultModel<IPagedList<RouteDto>>>> Get([FromQuery] Criteria criteria)
     => HandlePaginationQuery(new GetRouteWithPagingQuery(criteria));
 
   [HttpGet("{id:length(26)}")]
-  [SwaggerOperation(summary: "Get Route by Id")]
+  [SwaggerOperation("Get Route by Id")]
   public Task<ActionResult<ResultModel<RouteDto>>> GetById(string id)
     => HandleGetByIdQuery(new(id));
 
   [HttpPost]
-  [SwaggerOperation(summary: "Create Route")]
+  [SwaggerOperation("Create Route")]
   public Task<ActionResult<ResultModel<RouteDto>>> Post(CreateRouteCommand command)
     => HandleCreateCommand(command);
 
   [HttpPut("{id:length(26)}")]
-  [SwaggerOperation(summary: "Update Route")]
+  [SwaggerOperation("Update Route")]
   public Task<IActionResult> Put([FromRoute] string id, [FromBody] UpdateRouteCommand command)
     => HandleUpdateCommand(id, command);
 
   [HttpDelete("{id:length(26)}")]
-  [SwaggerOperation(summary: "Delete Route")]
+  [SwaggerOperation("Delete Route")]
   public Task<ActionResult<ResultModel<RouteDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteRouteCommand(id));
 }

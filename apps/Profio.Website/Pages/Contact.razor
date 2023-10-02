@@ -32,7 +32,7 @@
         <h1 class="mb-4">Contact For Any Queries</h1>
         <div class="contact-form bg-secondary" style="padding: 30px;">
           <div id="success"></div>
-          <EditForm Model="@this" OnSubmit="SendMessage">
+          <EditForm Model="@(this)" OnSubmit="SendMessage">
             <div class="control-group">
               <input type="text"
                      class="form-control border-0 p-4"
@@ -41,7 +41,7 @@
                      @bind="Name"
                      required="required"
                      data-validation-required-message="Please enter your name"/>
-              <ValidationMessage For="@(() => Name)" />
+              <ValidationMessage For="@(() => Name)"/>
               <p class="help-block text-danger"></p>
             </div>
             <div class="control-group">
@@ -52,7 +52,7 @@
                      required="required"
                      @bind="Email"
                      data-validation-required-message="Please enter your email"/>
-              <ValidationMessage For="@(() => Email)" />
+              <ValidationMessage For="@(() => Email)"/>
               <p class="help-block text-danger"></p>
             </div>
             <div class="control-group">
@@ -63,7 +63,7 @@
                      required="required"
                      @bind="Subject"
                      data-validation-required-message="Please enter a subject"/>
-              <ValidationMessage For="@(() => Subject)" />
+              <ValidationMessage For="@(() => Subject)"/>
               <p class="help-block text-danger"></p>
             </div>
             <div class="control-group">
@@ -73,7 +73,7 @@
                       placeholder="Message"
                       required="required"
                       @bind="Message"></textarea>
-              <ValidationMessage For="@(() => Message)" />
+              <ValidationMessage For="@(() => Message)"/>
               <p class="help-block text-danger"></p>
             </div>
             <div>
@@ -84,7 +84,7 @@
                 Message
               </button>
             </div>
-            </EditForm>
+          </EditForm>
         </div>
       </div>
     </div>

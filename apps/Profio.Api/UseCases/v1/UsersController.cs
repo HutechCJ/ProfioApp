@@ -23,9 +23,9 @@ public sealed class UsersController : BaseEntityController<ApplicationUser, User
   [HttpPost("login")]
   [AllowAnonymous]
   [SwaggerOperation(
-    summary: "Login",
-    description: "The API will return a token and cookie named `USER-TOKEN` to the user if the credentials are correct"
-    )]
+    "Login",
+    "The API will return a token and cookie named `USER-TOKEN` to the user if the credentials are correct"
+  )]
   public async Task<ActionResult<ResultModel<AccountDto>>> Login(LoginCommand loginCommand)
   {
     var result = await Mediator.Send(loginCommand);
@@ -45,28 +45,28 @@ public sealed class UsersController : BaseEntityController<ApplicationUser, User
     => Ok(ResultModel<AccountDto>.Create(await Mediator.Send(registerCommand)));
 
   [HttpPost("change-password")]
-  [SwaggerOperation(summary: "Change Password")]
+  [SwaggerOperation("Change Password")]
   public async Task<ActionResult<ResultModel<AccountDto>>> ChangePassword(ChangePasswordCommand changePasswordCommand)
     => Ok(ResultModel<AccountDto>.Create(await Mediator.Send(changePasswordCommand)));
 
   [HttpGet("{id:guid}")]
-  [SwaggerOperation(summary: "Get User by Id")]
+  [SwaggerOperation("Get User by Id")]
   public Task<ActionResult<ResultModel<UserDto>>> GetUserById(Guid id)
     => HandleGetByIdQuery(new(id.ToString()));
 
   [HttpGet("check-authorization")]
-  [SwaggerOperation(summary: "Check user's authorization status")]
+  [SwaggerOperation("Check user's authorization status")]
   public async Task<ActionResult<ResultModel<AccountDto>>> CheckAuthorization()
     => Ok(ResultModel<AccountDto>.Create(await Mediator.Send(new CheckAuthorizationQuery())));
 
   [HttpGet("get-users")]
-  [SwaggerOperation(summary: "Get User list")]
+  [SwaggerOperation("Get User list")]
   [Authorize(Roles = UserRole.Admin)]
   public Task<ActionResult<ResultModel<IPagedList<UserDto>>>> GetUsers([FromQuery] Criteria criteria)
     => HandlePaginationQuery(new GetUserWithPagingQuery(criteria));
 
   [HttpPut("upload-image")]
-  [SwaggerOperation(summary: "Upload Image")]
+  [SwaggerOperation("Upload Image")]
   [Obsolete("Deprecated")]
   public async Task<ActionResult<ResultModel<string>>> UploadImage([FromForm] UploadImageCommand uploadImageCommand)
     => Ok(ResultModel<string>.Create(await Mediator.Send(uploadImageCommand)));

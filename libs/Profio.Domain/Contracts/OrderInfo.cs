@@ -1,6 +1,6 @@
 namespace Profio.Domain.Contracts;
 
-public class OrderInfo
+public sealed class OrderInfo
 {
   public string? Id { get; set; }
   public string? CustomerName { get; set; }

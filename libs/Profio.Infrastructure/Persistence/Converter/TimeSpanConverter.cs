@@ -1,5 +1,5 @@
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using System.Globalization;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Profio.Infrastructure.Persistence.Converter;
 

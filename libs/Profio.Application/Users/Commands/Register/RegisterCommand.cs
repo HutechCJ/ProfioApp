@@ -49,7 +49,7 @@ public sealed class RegisterCommandHandler : IRequestHandler<RegisterCommand, Ac
       UserName = request.Email,
       Email = request.Email,
       FullName = request.FullName,
-      StaffId = request.StaffId,
+      StaffId = request.StaffId
     };
 
     var result = await _userManager.CreateAsync(user, request.Password);
@@ -60,9 +60,10 @@ public sealed class RegisterCommandHandler : IRequestHandler<RegisterCommand, Ac
     }
 
     var newUser = await _userManager.Users
-      .AsNoTracking()
-      .Include(x => x.Staff)
-      .SingleOrDefaultAsync(x => x.Id == user.Id, cancellationToken) ?? throw new NotFoundException(nameof(ApplicationUser), user.Id);
+                    .AsNoTracking()
+                    .Include(x => x.Staff)
+                    .SingleOrDefaultAsync(x => x.Id == user.Id, cancellationToken) ??
+                  throw new NotFoundException(nameof(ApplicationUser), user.Id);
 
     await _userManager.AddToRoleAsync(newUser, UserRole.Officer);
 

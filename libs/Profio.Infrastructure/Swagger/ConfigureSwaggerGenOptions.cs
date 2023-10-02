@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
@@ -17,7 +18,6 @@ public sealed class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOpt
   public void Configure(SwaggerGenOptions options)
   {
     foreach (var description in _provider.ApiVersionDescriptions)
-    {
       options.SwaggerDoc(description.GroupName,
         new()
         {
@@ -53,7 +53,6 @@ public sealed class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOpt
             }
           }
         });
-    }
 
     options.AddSecurityDefinition("Bearer", new()
     {

@@ -99,17 +99,17 @@ else
                     <RadzenText TextStyle="TextStyle.Body2">@(order.Distance)</RadzenText>
                   </RadzenColumn>
                   <RadzenColumn Size="12" SizeMD="6" SizeLG="3" Class="rz-text-align-start rz-text-align-lg-end">
-                    <RadzenBadge BadgeStyle="@(order.Status switch
+                    <RadzenBadge class="price-badge"
+                                 Shade="Shade.Lighter"
+                                 Text=@(order.Status.ToString())
+                                 BadgeStyle="@(order.Status switch
                                              {
                                                OrderStatus.Pending => BadgeStyle.Info,
                                                OrderStatus.InProgress => BadgeStyle.Light,
                                                OrderStatus.Completed => BadgeStyle.Primary,
                                                OrderStatus.Cancelled => BadgeStyle.Danger,
                                                _ => BadgeStyle.Success
-                                               })"
-                                 Shade="Shade.Lighter"
-                                 class="price-badge"
-                                 Text=@(order.Status.ToString())/>
+                                               })"/>
                   </RadzenColumn>
                 </RadzenRow>
               </RadzenColumn>
@@ -143,13 +143,13 @@ else
                       AllowSorting="true" AllowFiltering="false" AllowPaging="true" PageSize="5"
                       PagerHorizontalAlign="HorizontalAlign.Center" TItem="OrderDto" ColumnWidth="200px">
         <Columns>
-          <RadzenDataGridColumn TItem="OrderDto" Property="Id" Title="Id" Frozen="true" Width="50px" TextAlign="TextAlign.Center" />
-          <RadzenDataGridColumn TItem="OrderDto" Property="StartedDate" Title="Started Date" />
-          <RadzenDataGridColumn TItem="OrderDto" Property="ExpectedDeliveryTime" Title="Expected Time" Width="150px" />
-          <RadzenDataGridColumn TItem="OrderDto" Property="Status" Title="Status" />
-          <RadzenDataGridColumn TItem="OrderDto" Property="DestinationZipCode" Title="ZipCode" />
-          <RadzenDataGridColumn TItem="OrderDto" Property="Note" Title="Note" Width="150px" />
-          <RadzenDataGridColumn TItem="OrderDto" Property="Distance" Title="Distance"  />
+          <RadzenDataGridColumn TItem="OrderDto" Property="Id" Title="Id" Frozen="true" Width="50px" TextAlign="TextAlign.Center"/>
+          <RadzenDataGridColumn TItem="OrderDto" Property="StartedDate" Title="Started Date"/>
+          <RadzenDataGridColumn TItem="OrderDto" Property="ExpectedDeliveryTime" Title="Expected Time" Width="150px"/>
+          <RadzenDataGridColumn TItem="OrderDto" Property="Status" Title="Status"/>
+          <RadzenDataGridColumn TItem="OrderDto" Property="DestinationZipCode" Title="ZipCode"/>
+          <RadzenDataGridColumn TItem="OrderDto" Property="Note" Title="Note" Width="150px"/>
+          <RadzenDataGridColumn TItem="OrderDto" Property="Distance" Title="Distance"/>
         </Columns>
         <LoadingTemplate>
           <RadzenProgressBarCircular ProgressBarStyle="ProgressBarStyle.Primary" Value="100" ShowValue="false" Mode="ProgressBarMode.Indeterminate"/>

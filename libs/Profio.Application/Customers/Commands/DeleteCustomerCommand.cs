@@ -9,7 +9,8 @@ namespace Profio.Application.Customers.Commands;
 
 public sealed record DeleteCustomerCommand(object Id) : DeleteCommandBase<CustomerDto>(Id);
 
-public sealed class DeleteCustomerCommandHandler : DeleteCommandHandlerBase<DeleteCustomerCommand, CustomerDto, Customer>
+public sealed class
+  DeleteCustomerCommandHandler : DeleteCommandHandlerBase<DeleteCustomerCommand, CustomerDto, Customer>
 {
   public DeleteCustomerCommandHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {

@@ -1,8 +1,11 @@
 using EntityFramework.Exceptions.PostgreSQL;
 using EntityFrameworkCore.UnitOfWork.Extensions;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
 using Profio.Domain.Exceptions;
@@ -51,9 +54,9 @@ public static class Extension
       return;
 
     foreach (var file in files
-                 .Where(f => f.StartsWith(filePrefix) && f.EndsWith(".sql"))
-                 .Select(f => new { PhysicalFile = f, LogicalFile = f.Replace(filePrefix, string.Empty) })
-                 .OrderBy(f => f.LogicalFile))
+               .Where(f => f.StartsWith(filePrefix) && f.EndsWith(".sql"))
+               .Select(f => new { PhysicalFile = f, LogicalFile = f.Replace(filePrefix, string.Empty) })
+               .OrderBy(f => f.LogicalFile))
     {
       using var stream = assembly.GetManifestResourceStream(file.PhysicalFile);
       using var reader = new StreamReader(stream!);
@@ -77,7 +80,7 @@ public static class Extension
       if (!await dbFacadeResolver?.Database.CanConnectAsync()!)
       {
         logger.LogError("Connection String: {conn}",
-            dbFacadeResolver.Database.GetConnectionString());
+          dbFacadeResolver.Database.GetConnectionString());
         throw new ConnectDatabaseException();
       }
 
@@ -92,12 +95,12 @@ public static class Extension
 
     static AsyncRetryPolicy CreatePolicy(int retries, ILogger logger, string prefix)
       => Policy.Handle<Exception>().WaitAndRetryAsync(
-          retries,
-          _ => TimeSpan.FromSeconds(15),
-          (exception, _, retry, _) =>
-              logger.LogWarning(exception,
-                  "[{Prefix}] Exception {ExceptionType} with message {Message} detected on attempt {Retry} of {Retries}",
-                  prefix, exception.GetType().Name, exception.Message, retry, retries)
+        retries,
+        _ => TimeSpan.FromSeconds(15),
+        (exception, _, retry, _) =>
+          logger.LogWarning(exception,
+            "[{Prefix}] Exception {ExceptionType} with message {Message} detected on attempt {Retry} of {Retries}",
+            prefix, exception.GetType().Name, exception.Message, retry, retries)
       );
   }
 }

@@ -8,11 +8,9 @@ public partial class Service
   private string? Email { get; set; }
   private string? OptionService { get; set; }
 
-  [Inject]
-  private NavigationManager NavigationManager { get; set; } = default!;
+  [Inject] private NavigationManager NavigationManager { get; set; } = default!;
 
-  [Inject]
-  private IConfiguration Configuration { get; set; } = default!;
+  [Inject] private IConfiguration Configuration { get; set; } = default!;
 
   public void SendMessage()
   {
@@ -23,6 +21,6 @@ public partial class Service
 
     var mailtoUrl = $"mailto:{Configuration["ContactEmail"]}?subject={encodedSubject}&body={encodedMessage}";
 
-    NavigationManager.NavigateTo(mailtoUrl, forceLoad: true);
+    NavigationManager.NavigateTo(mailtoUrl, true);
   }
 }

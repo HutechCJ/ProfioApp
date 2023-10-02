@@ -1,6 +1,6 @@
+using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using System.Diagnostics;
 
 namespace Profio.Website.Pages;
 
@@ -14,5 +14,4 @@ public class ErrorModel : PageModel
 
   public void OnGet()
     => RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier;
-
 }

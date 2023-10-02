@@ -11,8 +11,8 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.Hubs.Commands;
 
 [SwaggerSchema(
-   Title = "Update Hub",
-   Description = "A Representation of Hub")]
+  Title = "Update Hub",
+  Description = "A Representation of Hub")]
 public sealed record UpdateHubCommand(object Id) : UpdateCommandBase(Id)
 {
   public string? Name { get; set; }

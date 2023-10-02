@@ -1,3 +1,4 @@
+using Microsoft.Extensions.DependencyInjection;
 using Profio.Infrastructure.Abstractions.Hateoas.Hypermedia;
 
 namespace Profio.Infrastructure.Abstractions.Hateoas;

@@ -1,4 +1,5 @@
 using FluentValidation;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Profio.Domain.Exceptions;
@@ -20,7 +21,7 @@ public sealed class ExceptionFilter : ExceptionFilterAttribute
 
     switch (context.Exception)
     {
-      case ValidationException { Errors: not null } validationException:
+      case ValidationException { Errors: { } } validationException:
         HandleValidationException(context, validationException);
         break;
       case NotFoundException notFoundException:
@@ -33,15 +34,16 @@ public sealed class ExceptionFilter : ExceptionFilterAttribute
         HandleDefaultException(context);
         break;
     }
+
     context.ExceptionHandled = true;
   }
 
   private static void HandleValidationException(ExceptionContext context, ValidationException validationException)
   {
     var validationErrorModel = ResultModel<Dictionary<string, string[]>>.CreateError(validationException
-              .Errors
-              .GroupBy(e => e.PropertyName, e => e.ErrorMessage)
-              .ToDictionary(failureGroup => failureGroup.Key, failureGroup => failureGroup.ToArray()));
+      .Errors
+      .GroupBy(e => e.PropertyName, e => e.ErrorMessage)
+      .ToDictionary(failureGroup => failureGroup.Key, failureGroup => failureGroup.ToArray()));
 
     context.Result = new BadRequestObjectResult(validationErrorModel);
   }
@@ -54,7 +56,8 @@ public sealed class ExceptionFilter : ExceptionFilterAttribute
 
   private static void HandleUnauthorizedAccessException(ExceptionContext context, Exception unauthorizedAccessException)
   {
-    var unauthorizedErrorModel = ResultModel<string>.CreateError(unauthorizedAccessException.Message, "Unauthorized Error.");
+    var unauthorizedErrorModel =
+      ResultModel<string>.CreateError(unauthorizedAccessException.Message, "Unauthorized Error.");
     context.Result = new UnauthorizedObjectResult(unauthorizedErrorModel);
   }
 

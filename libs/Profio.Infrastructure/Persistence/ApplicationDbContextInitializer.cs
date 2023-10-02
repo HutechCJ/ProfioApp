@@ -9,8 +9,8 @@ namespace Profio.Infrastructure.Persistence;
 public class ApplicationDbContextInitializer
 {
   private readonly ApplicationDbContext _context;
-  private readonly UserManager<ApplicationUser> _userManager;
   private readonly RoleManager<IdentityRole> _roleManager;
+  private readonly UserManager<ApplicationUser> _userManager;
 
   public ApplicationDbContextInitializer(
     ApplicationDbContext context,

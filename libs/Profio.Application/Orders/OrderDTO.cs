@@ -8,8 +8,8 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.Orders;
 
 [SwaggerSchema(
-    Title = "Order",
-    Description = "A Representation of list of Order")]
+  Title = "Order",
+  Description = "A Representation of list of Order")]
 public sealed record OrderDto : BaseModel
 {
   public required string Id { get; init; }

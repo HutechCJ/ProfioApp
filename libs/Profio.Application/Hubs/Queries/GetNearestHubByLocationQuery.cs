@@ -8,6 +8,7 @@ using Profio.Domain.ValueObjects;
 namespace Profio.Application.Hubs.Queries;
 
 public sealed record GetNearestHubByLocationQuery(Location Location) : IRequest<HubDto>;
+
 public sealed class GetNearestHubByLocationQueryHandler : IRequestHandler<GetNearestHubByLocationQuery, HubDto>
 {
   private readonly IRepository<Hub> _hubRepository;
@@ -34,8 +35,6 @@ public sealed class GetNearestHubByLocationQueryHandler : IRequestHandler<GetNea
     return _mapper.Map<HubDto>(nearestHubAndDistance!.Hub);
   }
 
-  public record HubAndDistance(Hub Hub, double Distance);
-
   private static double CalculateDistance(Location location1, Location location2)
   {
     const double earthRadius = 6371; // Radius of Earth in kilometers
@@ -53,8 +52,7 @@ public sealed class GetNearestHubByLocationQueryHandler : IRequestHandler<GetNea
     return earthRadius * c;
   }
 
-  private static double ToRadians(double degrees)
-  {
-    return degrees * (Math.PI / 180);
-  }
+  private static double ToRadians(double degrees) => degrees * (Math.PI / 180);
+
+  public record HubAndDistance(Hub Hub, double Distance);
 }

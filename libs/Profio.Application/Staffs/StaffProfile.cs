@@ -4,4 +4,6 @@ using Profio.Infrastructure.Abstractions.CQRS;
 
 namespace Profio.Application.Staffs;
 
-public sealed class StaffProfile : EntityProfileBase<Staff, StaffDto, CreateStaffCommand, UpdateStaffCommand> { }
+public sealed class StaffProfile : EntityProfileBase<Staff, StaffDto, CreateStaffCommand, UpdateStaffCommand>
+{
+}

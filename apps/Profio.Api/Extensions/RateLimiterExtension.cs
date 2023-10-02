@@ -14,8 +14,8 @@ public static class RateLimiterExtension
 
       options.AddPolicy(Policy, httpContext =>
         RateLimitPartition.GetFixedWindowLimiter(
-          partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? string.Empty,
-          factory: _ => new()
+          httpContext.Connection.RemoteIpAddress?.ToString() ?? string.Empty,
+          _ => new()
           {
             PermitLimit = 60,
             Window = TimeSpan.FromMinutes(1)

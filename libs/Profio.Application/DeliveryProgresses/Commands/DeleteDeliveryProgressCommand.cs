@@ -9,13 +9,16 @@ namespace Profio.Application.DeliveryProgresses.Commands;
 
 public sealed record DeleteDeliveryProgressCommand(object Id) : DeleteCommandBase<DeliveryProgressDto>(Id);
 
-public sealed class DeleteDeliveryProgressCommandHandler : DeleteCommandHandlerBase<DeleteDeliveryProgressCommand, DeliveryProgressDto, DeliveryProgress>
+public sealed class DeleteDeliveryProgressCommandHandler : DeleteCommandHandlerBase<DeleteDeliveryProgressCommand,
+  DeliveryProgressDto, DeliveryProgress>
 {
   public DeleteDeliveryProgressCommandHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {
   }
 }
 
-public sealed class DeleteDeliveryProgressCommandValidator : DeleteCommandValidatorBase<DeleteDeliveryProgressCommand, DeliveryProgressDto>
+public sealed class
+  DeleteDeliveryProgressCommandValidator : DeleteCommandValidatorBase<DeleteDeliveryProgressCommand,
+    DeliveryProgressDto>
 {
 }

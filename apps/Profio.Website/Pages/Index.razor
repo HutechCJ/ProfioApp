@@ -8,26 +8,26 @@
     <h1 class="text-primary mb-4">Profio</h1>
     <h1 class="text-white display-3 mb-5">Logistics Services</h1>
     <div class="mx-auto" style="width: 100%; max-width: 600px;">
-    @if (IsLoading)
-    {
-      <div class="input-group-append justify-content-center">
-        <div class="loader"></div>
-      </div>
-    }
-    else
-    {
-      <div class="input-group">
-        <input type="tel"
-               class="form-control border-light"
-               style="padding: 30px;"
-               placeholder="Enter your phone number..."
-               required
-               @bind-value="PhoneNumber">
-        <div class="input-group-append">
-          <button class="btn btn-primary px-3" @onclick="FindAsync">Track & Trace</button>
+      @if (IsLoading)
+      {
+        <div class="input-group-append justify-content-center">
+          <div class="loader"></div>
         </div>
-      </div>
-    }
+      }
+      else
+      {
+        <div class="input-group">
+          <input type="tel"
+                 class="form-control border-light"
+                 style="padding: 30px;"
+                 placeholder="Enter your phone number..."
+                 required
+                 @bind-value="PhoneNumber">
+          <div class="input-group-append">
+            <button class="btn btn-primary px-3" @onclick="FindAsync">Track & Trace</button>
+          </div>
+        </div>
+      }
     </div>
   </div>
 </div>

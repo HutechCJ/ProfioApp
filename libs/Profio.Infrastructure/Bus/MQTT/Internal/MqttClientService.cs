@@ -1,24 +1,26 @@
+using System.Text.Json;
+using System.Timers;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Logging;
 using MQTTnet;
 using MQTTnet.Client;
 using Profio.Domain.Contracts;
 using Profio.Infrastructure.Cache.Redis;
-using System.Text.Json;
-using System.Timers;
+using Profio.Infrastructure.Hub;
 using Timer = System.Timers.Timer;
 
 namespace Profio.Infrastructure.Bus.MQTT.Internal;
 
 public sealed class MqttClientService : IMqttClientService
 {
+  private readonly IHubContext<LocationHub, ILocationClient> _context;
+  private readonly Dictionary<string, VehicleLocation> _latestVehicleLocations = new();
+  private readonly Timer _locationSendTimer;
+  private readonly SemaphoreSlim _lockObject = new(1, 1);
+  private readonly ILogger<MqttClientService> _logger;
   private readonly IMqttClient _mqttClient;
   private readonly MqttClientOptions _options;
-  private readonly ILogger<MqttClientService> _logger;
-  private readonly IHubContext<LocationHub, ILocationClient> _context;
   private readonly IRedisCacheService _redisCacheService;
-  private readonly Timer _locationSendTimer;
-  private readonly Dictionary<string, VehicleLocation> _latestVehicleLocations = new();
-  private readonly SemaphoreSlim _lockObject = new(1, 1);
 
   public MqttClientService(
     MqttClientOptions options,
@@ -35,6 +37,48 @@ public sealed class MqttClientService : IMqttClientService
     _locationSendTimer.Elapsed += HandleLocationSendTimerElapsed;
     _locationSendTimer.Start();
     ConfigureMqttClient();
+  }
+
+  public async Task StartAsync(CancellationToken cancellationToken)
+  {
+    await _mqttClient.ConnectAsync(_options, cancellationToken);
+
+    _ = Task.Run(
+      async () =>
+      {
+        while (true)
+          try
+          {
+            if (await _mqttClient.TryPingAsync(cancellationToken))
+              continue;
+
+            await _mqttClient.ConnectAsync(_mqttClient.Options, CancellationToken.None);
+            _logger.LogInformation("The MQTT client is connected.");
+          }
+          catch (Exception ex)
+          {
+            _logger.LogError(ex, "The MQTT client is disconnected.");
+          }
+          finally
+          {
+            await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
+          }
+      }, cancellationToken);
+  }
+
+  public async Task StopAsync(CancellationToken cancellationToken)
+  {
+    if (cancellationToken.IsCancellationRequested)
+    {
+      var disconnectOption = new MqttClientDisconnectOptions
+      {
+        Reason = (MqttClientDisconnectOptionsReason)MqttClientDisconnectReason.NormalDisconnection,
+        ReasonString = "The client is disconnected by the user."
+      };
+      await _mqttClient.DisconnectAsync(disconnectOption, cancellationToken);
+    }
+
+    await _mqttClient.DisconnectAsync(cancellationToken: cancellationToken);
   }
 
   private void ConfigureMqttClient()
@@ -111,48 +155,5 @@ public sealed class MqttClientService : IMqttClientService
   {
     _logger.LogInformation("The MQTT client subscribed to topic: /location");
     await _mqttClient.SubscribeAsync("/location", cancellationToken: CancellationToken.None);
-  }
-
-  public async Task StartAsync(CancellationToken cancellationToken)
-  {
-    await _mqttClient.ConnectAsync(_options, cancellationToken);
-
-    _ = Task.Run(
-      async () =>
-      {
-        while (true)
-        {
-          try
-          {
-            if (await _mqttClient.TryPingAsync(cancellationToken: cancellationToken))
-              continue;
-
-            await _mqttClient.ConnectAsync(_mqttClient.Options, CancellationToken.None);
-            _logger.LogInformation("The MQTT client is connected.");
-          }
-          catch (Exception ex)
-          {
-            _logger.LogError(ex, "The MQTT client is disconnected.");
-          }
-          finally
-          {
-            await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
-          }
-        }
-      }, cancellationToken);
-  }
-
-  public async Task StopAsync(CancellationToken cancellationToken)
-  {
-    if (cancellationToken.IsCancellationRequested)
-    {
-      var disconnectOption = new MqttClientDisconnectOptions
-      {
-        Reason = (MqttClientDisconnectOptionsReason)MqttClientDisconnectReason.NormalDisconnection,
-        ReasonString = "The client is disconnected by the user."
-      };
-      await _mqttClient.DisconnectAsync(disconnectOption, cancellationToken);
-    }
-    await _mqttClient.DisconnectAsync(cancellationToken: cancellationToken);
   }
 }

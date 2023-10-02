@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 
 namespace Profio.Infrastructure.Abstractions.Hateoas.Hypermedia;

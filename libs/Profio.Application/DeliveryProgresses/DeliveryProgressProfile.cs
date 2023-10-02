@@ -4,4 +4,7 @@ using Profio.Infrastructure.Abstractions.CQRS;
 
 namespace Profio.Application.DeliveryProgresses;
 
-public sealed class DeliveryProgressProfile : EntityProfileBase<DeliveryProgress, DeliveryProgressDto, CreateDeliveryProgressCommand, UpdateDeliveryProgressCommand> { }
+public sealed class DeliveryProgressProfile : EntityProfileBase<DeliveryProgress, DeliveryProgressDto,
+  CreateDeliveryProgressCommand, UpdateDeliveryProgressCommand>
+{
+}

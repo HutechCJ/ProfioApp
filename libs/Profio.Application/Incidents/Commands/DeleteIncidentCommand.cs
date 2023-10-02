@@ -9,7 +9,8 @@ namespace Profio.Application.Incidents.Commands;
 
 public sealed record DeleteIncidentCommand(object Id) : DeleteCommandBase<IncidentDto>(Id);
 
-public sealed class DeleteIncidentCommandHandler : DeleteCommandHandlerBase<DeleteIncidentCommand, IncidentDto, Incident>
+public sealed class
+  DeleteIncidentCommandHandler : DeleteCommandHandlerBase<DeleteIncidentCommand, IncidentDto, Incident>
 {
   public DeleteIncidentCommandHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {

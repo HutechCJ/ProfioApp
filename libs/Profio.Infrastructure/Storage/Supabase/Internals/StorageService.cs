@@ -1,5 +1,6 @@
 using FluentValidation;
-using Client = Supabase.Client;
+using Microsoft.AspNetCore.Http;
+using Supabase;
 
 namespace Profio.Infrastructure.Storage.Supabase.Internals;
 
@@ -22,7 +23,7 @@ public sealed class StorageService : IStorageService
     return _client.Storage.From("avatar").GetPublicUrl(fileName, new()
     {
       Width = 512,
-      Height = 512,
+      Height = 512
     });
   }
 

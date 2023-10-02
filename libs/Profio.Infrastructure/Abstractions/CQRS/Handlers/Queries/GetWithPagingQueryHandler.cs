@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using AutoMapper;
 using EntityFrameworkCore.QueryBuilder.Interfaces;
 using EntityFrameworkCore.Repository.Collections;
@@ -7,7 +8,6 @@ using MediatR;
 using Profio.Domain.Interfaces;
 using Profio.Domain.Models;
 using Profio.Infrastructure.Abstractions.CQRS.Events.Queries;
-using System.Linq.Expressions;
 
 namespace Profio.Infrastructure.Abstractions.CQRS.Handlers.Queries;
 
@@ -39,6 +39,7 @@ public abstract class
 
     return pagedList;
   }
+
   protected virtual Expression<Func<TEntity, bool>> Filter(string filter) => x => x == null!;
   protected virtual Expression<Func<TEntity, bool>> RequestFilter(TQuery request) => x => true;
 }

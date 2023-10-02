@@ -25,8 +25,9 @@ public sealed record LoginCommandHandler : IRequestHandler<LoginCommand, Account
   public async Task<AccountDto> Handle(LoginCommand request, CancellationToken cancellationToken)
   {
     var user = await _userManager.Users
-      .Include(x => x.Staff)
-      .SingleOrDefaultAsync(x => x.UserName != null && x.UserName.Equals(request.UserName), cancellationToken)
+                 .Include(x => x.Staff)
+                 .SingleOrDefaultAsync(x => x.UserName != null && x.UserName.Equals(request.UserName),
+                   cancellationToken)
                ?? throw new UnauthorizedAccessException("Incorrect Email or Password!");
     var isPasswordCorrect = await _userManager.CheckPasswordAsync(user, request.Password);
 

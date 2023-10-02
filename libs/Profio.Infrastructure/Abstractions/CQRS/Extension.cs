@@ -1,7 +1,11 @@
-using MediatR;
-using Profio.Infrastructure.Abstractions.Idempotency;
-using Profio.Infrastructure.Validator;
 using System.Diagnostics;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
+using Profio.Infrastructure.Abstractions.Idempotency;
+using Profio.Infrastructure.Auth;
+using Profio.Infrastructure.Logging;
+using Profio.Infrastructure.Persistence;
+using Profio.Infrastructure.Validator;
 
 namespace Profio.Infrastructure.Abstractions.CQRS;
 

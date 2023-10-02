@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
 
 namespace Profio.Infrastructure.Swagger;
@@ -19,7 +21,8 @@ public static class SwaggerConfiguration
           new()
           {
             Url = $"{httpReq.Scheme}://{httpReq.Host.Value}",
-            Description = string.Join(" ", Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT"), "Environment")
+            Description = string.Join(" ", Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Production",
+              "Environment")
           }
         };
 

@@ -6,7 +6,6 @@ namespace Profio.Domain.Entities;
 
 public sealed class Hub : IEntity
 {
-  public string Id { get; set; } = Ulid.NewUlid().ToString()!;
   public required string Name { get; set; }
   public required string ZipCode { get; set; }
   public Location? Location { get; set; }
@@ -14,4 +13,5 @@ public sealed class Hub : IEntity
   public HubStatus Status { get; set; } = HubStatus.Active;
   public ICollection<Route>? StartRoutes { get; set; } = new List<Route>();
   public ICollection<Route>? EndRoutes { get; set; } = new List<Route>();
+  public string Id { get; set; } = Ulid.NewUlid().ToString()!;
 }

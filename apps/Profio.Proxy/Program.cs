@@ -1,7 +1,7 @@
-using Profio.Infrastructure.OpenTelemetry;
-using Spectre.Console;
 using Profio.Infrastructure.Logging;
+using Profio.Infrastructure.OpenTelemetry;
 using Serilog;
+using Spectre.Console;
 
 AnsiConsole.Write(new FigletText("Profio Proxy").Centered().Color(Color.BlueViolet));
 

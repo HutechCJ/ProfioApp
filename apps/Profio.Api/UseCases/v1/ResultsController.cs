@@ -11,50 +11,50 @@ namespace Profio.Api.UseCases.v1;
 public sealed class ResultsController : BaseController
 {
   [HttpGet("not-found")]
-  [SwaggerOperation(summary: "Get Not Found result")]
+  [SwaggerOperation("Get Not Found result")]
   [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
   public IActionResult GetNotFound()
-        => throw new NotFoundException("Not found Result");
+    => throw new NotFoundException("Not found Result");
 
   [HttpGet("ok")]
-  [SwaggerOperation(summary: "Get Ok result")]
+  [SwaggerOperation("Get Ok result")]
   [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
   public IActionResult GetOk()
-      => Ok();
+    => Ok();
 
   [HttpGet("bad-request")]
-  [SwaggerOperation(summary: "Get Bad Request result")]
+  [SwaggerOperation("Get Bad Request result")]
   [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
   public IActionResult GetBadRequest()
-      => BadRequest();
+    => BadRequest();
 
   [HttpGet("no-content")]
-  [SwaggerOperation(summary: "Get No Content result")]
+  [SwaggerOperation("Get No Content result")]
   [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
   public IActionResult GetNoContent()
-      => NoContent();
+    => NoContent();
 
   [HttpGet("unauthorized")]
-  [SwaggerOperation(summary: "Get Unauthorized result")]
+  [SwaggerOperation("Get Unauthorized result")]
   [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
   public IActionResult GetUnauthorized()
-      => Unauthorized();
+    => Unauthorized();
 
   [HttpGet("conflict")]
-  [SwaggerOperation(summary: "Get Conflict result")]
+  [SwaggerOperation("Get Conflict result")]
   [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
   public IActionResult GetConflict()
-      => Conflict();
+    => Conflict();
 
   [HttpGet("forbid")]
-  [SwaggerOperation(summary: "Get Forbid result")]
+  [SwaggerOperation("Get Forbid result")]
   [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
   public IActionResult GetForbid()
-      => Forbid();
+    => Forbid();
 
   [HttpGet("internal-server-error")]
-  [SwaggerOperation(summary: "Get Internal Server Error result")]
+  [SwaggerOperation("Get Internal Server Error result")]
   [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
   public IActionResult GetInternalServerError()
-      => StatusCode(StatusCodes.Status500InternalServerError);
+    => StatusCode(StatusCodes.Status500InternalServerError);
 }

@@ -14,8 +14,9 @@ public sealed record GetDeliveryWithPagingQuery
 public sealed class
   GetDeliveryWithPagingQueryHandler : GetWithPagingQueryHandler<GetDeliveryWithPagingQuery, DeliveryDto, Delivery>
 {
-
-  public GetDeliveryWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper) { }
+  public GetDeliveryWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
+  {
+  }
 }
 
 public sealed class

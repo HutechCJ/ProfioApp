@@ -29,7 +29,8 @@ public sealed class UpdateOrderHistoryCommandHandler : UpdateCommandHandlerBase<
 
 public sealed class UpdateOrderHistoryCommandValidator : AbstractValidator<UpdateOrderHistoryCommand>
 {
-  public UpdateOrderHistoryCommandValidator(DeliveryExistenceByIdValidator deliveryValidator, HubExistenceByIdValidator hubValidator)
+  public UpdateOrderHistoryCommandValidator(DeliveryExistenceByIdValidator deliveryValidator,
+    HubExistenceByIdValidator hubValidator)
   {
     RuleFor(x => x.DeliveryId)
       .SetValidator(deliveryValidator!);

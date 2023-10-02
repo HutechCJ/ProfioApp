@@ -1,6 +1,6 @@
+using System.Text.RegularExpressions;
 using CurrieTechnologies.Razor.SweetAlert2;
 using Microsoft.AspNetCore.Components;
-using System.Text.RegularExpressions;
 using Profio.Website.Cache;
 using Profio.Website.Services;
 
@@ -11,17 +11,13 @@ public partial class Index
   private string PhoneNumber { get; set; } = default!;
   private bool IsLoading { get; set; }
 
-  [Inject]
-  private SweetAlertService Alert { get; set; } = default!;
+  [Inject] private SweetAlertService Alert { get; set; } = default!;
 
-  [Inject]
-  private ICustomerService CustomerService { get; set; } = default!;
+  [Inject] private ICustomerService CustomerService { get; set; } = default!;
 
-  [Inject]
-  private NavigationManager NavigationManager { get; set; } = default!;
+  [Inject] private NavigationManager NavigationManager { get; set; } = default!;
 
-  [Inject]
-  private ICacheService CacheService { get; set; } = default!;
+  [Inject] private ICacheService CacheService { get; set; } = default!;
 
   public async Task FindAsync()
   {
@@ -50,7 +46,9 @@ public partial class Index
           () => CustomerService.GetOrdersByPhoneAsync(PhoneNumber)).ConfigureAwait(false);
         break;
       default:
-        await CacheService.GetOrSetAsync($"history-{PhoneNumber}", () => CustomerService.GetOrdersByPhoneAsync(PhoneNumber)).ConfigureAwait(false);
+        await CacheService
+          .GetOrSetAsync($"history-{PhoneNumber}", () => CustomerService.GetOrdersByPhoneAsync(PhoneNumber))
+          .ConfigureAwait(false);
         break;
     }
 

@@ -12,8 +12,8 @@ public sealed record UploadImageCommand(object UserId, IFormFile File) : IReques
 
 public sealed class UploadImageCommandHandler : IRequestHandler<UploadImageCommand, string>
 {
-  private readonly UserManager<ApplicationUser> _userManager;
   private readonly IStorageService _storageService;
+  private readonly UserManager<ApplicationUser> _userManager;
 
   public UploadImageCommandHandler(
     UserManager<ApplicationUser> userManager,

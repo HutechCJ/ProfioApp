@@ -6,13 +6,9 @@ namespace Profio.Domain.ValueObjects;
 [Owned]
 public sealed class Address : ValueObject
 {
-  public string? Street { get; set; }
-  public string? Ward { get; set; }
-  public string? City { get; set; }
-  public string? Province { get; set; }
-  public string? ZipCode { get; set; }
-
-  public Address() { }
+  public Address()
+  {
+  }
 
   public Address(
     string? street,
@@ -27,6 +23,12 @@ public sealed class Address : ValueObject
     Province = province;
     ZipCode = zipCode;
   }
+
+  public string? Street { get; set; }
+  public string? Ward { get; set; }
+  public string? City { get; set; }
+  public string? Province { get; set; }
+  public string? ZipCode { get; set; }
 
   public override string ToString()
   {

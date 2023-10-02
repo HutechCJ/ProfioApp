@@ -34,7 +34,7 @@ public sealed class SendOrderEmailCommandHandler : IRequestHandler<SendOrderEmai
           EmailType.CancelOrder => "Cancel",
           EmailType.OrderArrived => "Arrived the warehouse",
           EmailType.OrderCompleted => "Completed",
-          _ => throw new ArgumentOutOfRangeException(nameof(request.Type), request.Type, "Invalid email type!"),
+          _ => throw new ArgumentOutOfRangeException(nameof(request.Type), request.Type, "Invalid email type!")
         },
         OrderDate = DateTime.UtcNow.ToString("dd/MM/yyyy"),
         request.OrderInfo.Id,
@@ -48,6 +48,7 @@ public sealed class SendOrderEmailCommandHandler : IRequestHandler<SendOrderEmai
     return Unit.Value;
   }
 }
+
 public sealed class SendOrderEmailCommandValidator : AbstractValidator<SendOrderEmailCommand>
 {
   public SendOrderEmailCommandValidator(OrderInfoValidator orderInfoValidator)

@@ -15,36 +15,38 @@ namespace Profio.Api.UseCases.v1;
 public sealed class IncidentsController : BaseEntityController<Incident, IncidentDto, GetIncidentByIdQuery>
 {
   [HttpGet]
-  [SwaggerOperation(summary: "Get Incident List with Paging")]
-  public Task<ActionResult<ResultModel<IPagedList<IncidentDto>>>> Get([FromQuery] Criteria criteria, [FromQuery] IncidentEnumFilter incidentEnumFilter)
+  [SwaggerOperation("Get Incident List with Paging")]
+  public Task<ActionResult<ResultModel<IPagedList<IncidentDto>>>> Get([FromQuery] Criteria criteria,
+    [FromQuery] IncidentEnumFilter incidentEnumFilter)
     => HandlePaginationQuery(new GetIncidentWithPagingQuery(criteria, incidentEnumFilter));
 
   [HttpGet("{id:length(26)}")]
-  [SwaggerOperation(summary: "Get Incident")]
+  [SwaggerOperation("Get Incident")]
   public Task<ActionResult<ResultModel<IncidentDto>>> GetById(string id)
     => HandleGetByIdQuery(new(id));
 
   [HttpPost]
-  [SwaggerOperation(summary: "Create Incident")]
+  [SwaggerOperation("Create Incident")]
   public Task<ActionResult<ResultModel<IncidentDto>>> Post(CreateIncidentCommand command)
     => HandleCreateCommand(command);
 
   [HttpPut("{id:length(26)}")]
-  [SwaggerOperation(summary: "Update Incident")]
+  [SwaggerOperation("Update Incident")]
   public Task<IActionResult> Put([FromRoute] string id, [FromBody] UpdateIncidentCommand command)
     => HandleUpdateCommand(id, command);
 
   [HttpDelete("{id:length(26)}")]
-  [SwaggerOperation(summary: "Delete Incident")]
+  [SwaggerOperation("Delete Incident")]
   public Task<ActionResult<ResultModel<IncidentDto>>> Delete(string id)
     => HandleDeleteCommand(new DeleteIncidentCommand(id));
 
   [HttpGet("count")]
-  [SwaggerOperation(summary: "Get Incident count")]
+  [SwaggerOperation("Get Incident count")]
   public async Task<ActionResult<ResultModel<int>>> GetCount()
     => Ok(ResultModel<int>.Create(await Mediator.Send(new GetIncidentCountQuery())));
+
   [HttpPatch("{id:length(26)}/update-status")]
-  [SwaggerOperation(summary: "Update Incident status")]
+  [SwaggerOperation("Update Incident status")]
   public async Task<IActionResult> UpdateStatus([FromRoute] string id, [FromBody] UpdateIncidentStatusCommand command)
   {
     if (!id.Equals(command.Id))
@@ -52,6 +54,7 @@ public sealed class IncidentsController : BaseEntityController<Incident, Inciden
       ModelState.AddModelError("Id", "Ids are not the same");
       return ValidationProblem();
     }
+
     await Mediator.Send(command).ConfigureAwait(false);
     return NoContent();
   }

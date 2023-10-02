@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Profio.Infrastructure.Persistence.Idempotency;
 
 namespace Profio.Infrastructure.Persistence.Configurations;
 

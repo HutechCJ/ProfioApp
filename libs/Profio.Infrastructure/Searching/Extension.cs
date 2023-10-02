@@ -1,3 +1,5 @@
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.DependencyInjection;
 using Profio.Infrastructure.Searching.Lucene;
 using Profio.Infrastructure.Searching.Lucene.Internal;
 

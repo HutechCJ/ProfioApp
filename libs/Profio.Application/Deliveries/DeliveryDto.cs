@@ -6,8 +6,8 @@ using Swashbuckle.AspNetCore.Annotations;
 namespace Profio.Application.Deliveries;
 
 [SwaggerSchema(
-   Title = "Delivery",
-    Description = "A Representation of list of Delivery")]
+  Title = "Delivery",
+  Description = "A Representation of list of Delivery")]
 public sealed record DeliveryDto : BaseModel
 {
   public required string Id { get; set; }

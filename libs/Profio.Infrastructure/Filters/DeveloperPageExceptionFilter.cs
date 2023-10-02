@@ -1,7 +1,9 @@
+using System.Net.Mime;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Net.Http.Headers;
-using ErrorContext = Microsoft.AspNetCore.Diagnostics.ErrorContext;
 
 namespace Profio.Infrastructure.Filters;
 
@@ -68,7 +70,7 @@ public class ErrorProblemDetailsResult : IResult
 
     var endpoint = httpContext.GetEndpoint();
 
-    if (endpoint is not null)
+    if (endpoint is { })
     {
       var routeEndpoint = endpoint as RouteEndpoint;
       var httpMethods = endpoint.Metadata.GetMetadata<IHttpMethodMetadata>()?.HttpMethods;
@@ -77,7 +79,7 @@ public class ErrorProblemDetailsResult : IResult
         endpoint.DisplayName,
         routePattern = routeEndpoint?.RoutePattern.RawText,
         routeOrder = routeEndpoint?.Order,
-        httpMethods = httpMethods is not null ? string.Join(", ", httpMethods) : ""
+        httpMethods = httpMethods is { } ? string.Join(", ", httpMethods) : ""
       });
     }
 

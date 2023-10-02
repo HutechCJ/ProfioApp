@@ -14,7 +14,7 @@ namespace Profio.Api.UseCases.v1;
 public sealed class SenderController : BaseController
 {
   [HttpPost("email/order")]
-  [SwaggerOperation(summary: "Send Order Email")]
+  [SwaggerOperation("Send Order Email")]
   public async Task<ActionResult<ResultModel<string>>> SendEmail(OrderInfo order, [FromQuery] EmailType type)
   {
     await Mediator.Send(new SendOrderEmailCommand(order, type));
@@ -23,8 +23,8 @@ public sealed class SenderController : BaseController
 
   [HttpPost("sms")]
   [SwaggerOperation(
-    summary: "Send SMS",
-    description: "If you choose the type of sms, the message must be the `Order Id`. Otherwise, you can send any message you want")]
+    "Send SMS",
+    "If you choose the type of sms, the message must be the `Order Id`. Otherwise, you can send any message you want")]
   public async Task<ActionResult<ResultModel<string>>> SendSms(SmsMessage message, [FromQuery] SmsType type)
   {
     await Mediator.Send(new SendSmsCommand(message, type));

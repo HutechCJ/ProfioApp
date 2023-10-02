@@ -1,5 +1,7 @@
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Polly;
+using Twilio.Clients;
 using Twilio.Http;
 using HttpClient = System.Net.Http.HttpClient;
 
@@ -28,9 +30,9 @@ public sealed class TwilioClient : ITwilioRestClient
     => await Policy
       .Handle<Exception>()
       .WaitAndRetryAsync(
-        retryCount: 3,
-        sleepDurationProvider: _ => TimeSpan.FromMilliseconds(new Random().Next(1000, 3000)),
-        onRetry: (_, retryCount, _) =>
+        3,
+        _ => TimeSpan.FromMilliseconds(new Random().Next(1000, 3000)),
+        (_, retryCount, _) =>
           _logger.LogWarning("Failed to send SMS. Retrying... Attempt: {retryCount}", retryCount)
       ).ExecuteAsync(async () =>
         await _innerClient

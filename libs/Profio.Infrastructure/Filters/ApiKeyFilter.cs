@@ -1,4 +1,5 @@
 using Microsoft.OpenApi.Models;
+using Profio.Infrastructure.Key;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace Profio.Infrastructure.Filters;

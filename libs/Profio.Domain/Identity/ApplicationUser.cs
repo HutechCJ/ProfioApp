@@ -7,12 +7,11 @@ namespace Profio.Domain.Identity;
 
 public class ApplicationUser : IdentityUser, IEntity<string>
 {
-  [PersonalData]
-  public virtual string? FullName { get; set; }
-  [PersonalData]
-  public virtual string? ImageUrl { get; set; }
-  [PersonalData]
-  public virtual string? StaffId { get; set; }
-  [JsonIgnore]
-  public Staff? Staff { get; set; }
+  [PersonalData] public virtual string? FullName { get; set; }
+
+  [PersonalData] public virtual string? ImageUrl { get; set; }
+
+  [PersonalData] public virtual string? StaffId { get; set; }
+
+  [JsonIgnore] public Staff? Staff { get; set; }
 }

@@ -1,5 +1,5 @@
-using Microsoft.AspNetCore.Components;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Components;
 
 namespace Profio.Website.Pages;
 
@@ -18,11 +18,9 @@ public partial class Contact
   [MaxLength(100, ErrorMessage = "Subject must be less than 100 characters.")]
   private string? Subject { get; set; }
 
-  [Inject]
-  private NavigationManager NavigationManager { get; set; } = default!;
+  [Inject] private NavigationManager NavigationManager { get; set; } = default!;
 
-  [Inject]
-  private IConfiguration Configuration { get; set; } = default!;
+  [Inject] private IConfiguration Configuration { get; set; } = default!;
 
   public void SendMessage()
   {
@@ -33,6 +31,6 @@ public partial class Contact
 
     var mailtoUrl = $"mailto:{Configuration["ContactEmail"]}?subject={encodedSubject}&body={encodedMessage}";
 
-    NavigationManager.NavigateTo(mailtoUrl, forceLoad: true);
+    NavigationManager.NavigateTo(mailtoUrl, true);
   }
 }

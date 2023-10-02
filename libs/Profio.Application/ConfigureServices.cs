@@ -17,5 +17,4 @@ public static class ConfigureServices
     services.AddValidatorsFromAssemblies(AssemblyReference.AppDomainAssembly);
     services.AddHateoas();
   }
-
 }

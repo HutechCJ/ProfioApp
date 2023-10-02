@@ -7,8 +7,8 @@ namespace Profio.Infrastructure.Abstractions.CQRS;
 public static class QueryExtensions
 {
   public static IMultipleResultQuery<TEntity> ApplyCriteria<TEntity>(
-        this IMultipleResultQuery<TEntity> query,
-        Criteria criteria)
+    this IMultipleResultQuery<TEntity> query,
+    Criteria criteria)
     where TEntity : class, IEntity<object>
   {
     query = (IMultipleResultQuery<TEntity>)query

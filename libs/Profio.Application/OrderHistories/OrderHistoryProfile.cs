@@ -4,4 +4,7 @@ using Profio.Infrastructure.Abstractions.CQRS;
 
 namespace Profio.Application.OrderHistories;
 
-public sealed class OrderHistoryProfile : EntityProfileBase<OrderHistory, OrderHistoryDto, CreateOrderHistoryCommand, UpdateOrderHistoryCommand> { }
+public sealed class OrderHistoryProfile : EntityProfileBase<OrderHistory, OrderHistoryDto, CreateOrderHistoryCommand,
+  UpdateOrderHistoryCommand>
+{
+}
