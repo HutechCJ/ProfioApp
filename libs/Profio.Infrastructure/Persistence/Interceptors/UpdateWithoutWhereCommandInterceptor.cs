@@ -27,11 +27,13 @@ public class UpdateWithoutWhereCommandInterceptor : DbCommandInterceptor
 
   private static void CheckCommand(IDbCommand command)
   {
-    if (command.CommandText.StartsWith("UPDATE", StringComparison.OrdinalIgnoreCase)
-        && command.CommandText.Contains("WHERE", StringComparison.OrdinalIgnoreCase))
-    {
-      Log(command.CommandText, Environment.StackTrace);
-    }
+    if (!command.CommandText.StartsWith("UPDATE", StringComparison.OrdinalIgnoreCase)
+        || !command.CommandText.Contains("WHERE", StringComparison.OrdinalIgnoreCase))
+      return;
+
+    var stackTrace = string.Join("\n", Environment.StackTrace.Split('\n')
+      .Select(x => x));
+    Log(command.CommandText, stackTrace);
   }
 
   private static void Log(string commandText, string stackTrace)
