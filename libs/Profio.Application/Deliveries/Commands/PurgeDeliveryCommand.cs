@@ -6,11 +6,11 @@ namespace Profio.Application.Deliveries.Commands;
 
 public sealed record PurgeDeliveryCommand : IRequest<Unit>;
 
-public sealed class PurgeDeliveryCommandHanlder : IRequestHandler<PurgeDeliveryCommand, Unit>
+public sealed class PurgeDeliveryCommandHandler : IRequestHandler<PurgeDeliveryCommand, Unit>
 {
   private readonly ApplicationDbContext _applicationDbContext;
 
-  public PurgeDeliveryCommandHanlder(ApplicationDbContext applicationDbContext)
+  public PurgeDeliveryCommandHandler(ApplicationDbContext applicationDbContext)
     => _applicationDbContext = applicationDbContext;
 
   public async Task<Unit> Handle(PurgeDeliveryCommand request, CancellationToken cancellationToken)

@@ -17,10 +17,7 @@ public sealed class SendSmsCommandHandler : IRequestHandler<SendSmsCommand, Unit
   private readonly IConfiguration _configuration;
 
   public SendSmsCommandHandler(ITwilioRestClient client, IConfiguration configuration)
-  {
-    _client = client;
-    _configuration = configuration;
-  }
+    => (_client, _configuration) = (client, configuration);
 
   public async Task<Unit> Handle(SendSmsCommand request, CancellationToken cancellationToken)
   {

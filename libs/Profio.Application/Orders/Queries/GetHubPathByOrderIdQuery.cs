@@ -16,7 +16,7 @@ using Profio.Infrastructure.Persistence;
 namespace Profio.Application.Orders.Queries;
 
 public sealed record GetHubPathByOrderIdQuery
-  (string OrderId, Criteria Criteria) : GetWithPagingQueryBase<HubDto>(Criteria);
+  (string OrderId, Specification Specification) : GetWithPagingQueryBase<HubDto>(Specification);
 
 public sealed class GetHubPathByOrderIdQueryHandler : IRequestHandler<GetHubPathByOrderIdQuery, IPagedList<HubDto>>
 {
@@ -24,10 +24,7 @@ public sealed class GetHubPathByOrderIdQueryHandler : IRequestHandler<GetHubPath
   private readonly IMapper _mapper;
 
   public GetHubPathByOrderIdQueryHandler(ApplicationDbContext applicationDbContext, IMapper mapper)
-  {
-    _applicationDbContext = applicationDbContext;
-    _mapper = mapper;
-  }
+    => (_applicationDbContext, _mapper) = (applicationDbContext, mapper);
 
   public async Task<IPagedList<HubDto>> Handle(GetHubPathByOrderIdQuery request, CancellationToken cancellationToken)
   {
@@ -54,7 +51,7 @@ public sealed class GetHubPathByOrderIdQueryHandler : IRequestHandler<GetHubPath
       _mapper.Map<HubDto>(endHub)
     };
 
-    var pageIndex = 1;
+    const int pageIndex = 1;
     var pageSize = path.Count;
     var totalCount = path.Count;
 

@@ -10,7 +10,7 @@ using Profio.Infrastructure.Abstractions.CQRS.Validators;
 namespace Profio.Application.Staffs.Queries;
 
 public sealed record GetStaffWithPagingQuery
-  (Criteria Criteria, StaffEnumFilter StaffEnumFilter) : GetWithPagingQueryBase<StaffDto>(Criteria);
+  (Specification Specification, StaffEnumFilter StaffEnumFilter) : GetWithPagingQueryBase<StaffDto>(Specification);
 
 public sealed class GetStaffWithPagingQueryHandler : GetWithPagingQueryHandler<GetStaffWithPagingQuery, StaffDto, Staff>
 {
@@ -19,15 +19,11 @@ public sealed class GetStaffWithPagingQueryHandler : GetWithPagingQueryHandler<G
   }
 
   protected override Expression<Func<Staff, bool>> Filter(string filter)
-  {
-    return s => s.Name.ToLower().Contains(filter)
-                || (s.Phone != null && s.Phone.ToLower().Contains(filter));
-  }
+    => s => s.Name.ToLower().Contains(filter)
+            || (s.Phone != null && s.Phone.ToLower().Contains(filter));
 
   protected override Expression<Func<Staff, bool>> RequestFilter(GetStaffWithPagingQuery request)
-  {
-    return x => request.StaffEnumFilter.Position == null || x.Position == request.StaffEnumFilter.Position;
-  }
+    => x => request.StaffEnumFilter.Position == null || x.Position == request.StaffEnumFilter.Position;
 }
 
 public sealed class

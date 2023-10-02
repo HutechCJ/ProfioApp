@@ -14,13 +14,6 @@ public sealed class GetVehicleCountByTypeQueryHandler : IRequestHandler<GetVehic
     => _applicationDbContext = applicationDbContext;
 
   public Task<IEnumerable<int>> Handle(GetVehicleCountByTypeQuery request, CancellationToken cancellationToken)
-  {
-    var counts = Enum.GetValues(typeof(VehicleType)).Cast<VehicleType>()
-      .Select(position =>
-      {
-        var count = _applicationDbContext.Vehicles.Count(v => v.Type == position);
-        return count;
-      });
-    return Task.FromResult(counts);
-  }
+    => Task.FromResult(Enum.GetValues(typeof(VehicleType)).Cast<VehicleType>()
+      .Select(position => _applicationDbContext.Vehicles.Count(v => v.Type == position)));
 }

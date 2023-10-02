@@ -20,7 +20,7 @@ using Profio.Infrastructure.Persistence;
 namespace Profio.Application.Orders.Queries;
 
 public sealed record GetAvailableVehicleByOrderIdWithPagingQuery
-  (string OrderId, Criteria Criteria) : GetWithPagingQueryBase<VehicleDto>(Criteria);
+  (string OrderId, Specification Specification) : GetWithPagingQueryBase<VehicleDto>(Specification);
 
 public sealed class
   GetAvailableVehicleByOrderIdWithPagingQueryHandler : IRequestHandler<GetAvailableVehicleByOrderIdWithPagingQuery,
@@ -50,7 +50,7 @@ public sealed class
 
     var query = (IMultipleResultQuery<Vehicle>)_vehicleRepository
       .MultipleResultQuery()
-      .ApplyCriteria(request.Criteria)
+      .ApplyCriteria(request.Specification)
       .AndFilter(x => x.ZipCodeCurrent == customerZipCode)
       .AndFilter(x => x.Status == VehicleStatus.Idle);
 

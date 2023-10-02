@@ -14,13 +14,6 @@ public sealed class GetOrderCountByStatusQueryHandler : IRequestHandler<GetOrder
     => _applicationDbContext = applicationDbContext;
 
   public Task<IEnumerable<int>> Handle(GetOrderCountByStatusQuery request, CancellationToken cancellationToken)
-  {
-    var counts = Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>()
-      .Select(status =>
-      {
-        var count = _applicationDbContext.Orders.Count(v => v.Status == status);
-        return count;
-      });
-    return Task.FromResult(counts);
-  }
+    => Task.FromResult(Enum.GetValues(typeof(OrderStatus)).Cast<OrderStatus>()
+      .Select(status => _applicationDbContext.Orders.Count(v => v.Status == status)));
 }

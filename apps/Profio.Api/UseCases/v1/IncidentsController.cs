@@ -16,9 +16,9 @@ public sealed class IncidentsController : BaseEntityController<Incident, Inciden
 {
   [HttpGet]
   [SwaggerOperation("Get Incident List with Paging")]
-  public Task<ActionResult<ResultModel<IPagedList<IncidentDto>>>> Get([FromQuery] Criteria criteria,
+  public Task<ActionResult<ResultModel<IPagedList<IncidentDto>>>> Get([FromQuery] Specification specification,
     [FromQuery] IncidentEnumFilter incidentEnumFilter)
-    => HandlePaginationQuery(new GetIncidentWithPagingQuery(criteria, incidentEnumFilter));
+    => HandlePaginationQuery(new GetIncidentWithPagingQuery(specification, incidentEnumFilter));
 
   [HttpGet("{id:length(26)}")]
   [SwaggerOperation("Get Incident")]

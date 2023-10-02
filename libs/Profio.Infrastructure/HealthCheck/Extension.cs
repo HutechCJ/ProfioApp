@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Hosting;
 using Profio.Infrastructure.Persistence;
 
 namespace Profio.Infrastructure.HealthCheck;
@@ -22,7 +23,7 @@ public static class Extension
       .AddRabbitMQ("amqps://hfzbnoni:03X2irdDUlSBV7D4SoQ4NFNZZ2YglnEh@octopus.rmq3.cloudamqp.com/hfzbnoni",
         name: "RabbitMq",
         tags: new[] { "message broker" })
-      .AddSignalRHub(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
+      .AddSignalRHub(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == Environments.Development
           ? "https://localhost:9023/current-location"
           : $"https://{Environment.ExpandEnvironmentVariables("%WEBSITE_SITE_NAME%")}.azurewebsites.net/current-location",
         "SignalR",

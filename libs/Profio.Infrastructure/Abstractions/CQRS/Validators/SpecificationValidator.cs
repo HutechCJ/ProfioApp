@@ -3,9 +3,9 @@ using Profio.Domain.Specifications;
 
 namespace Profio.Infrastructure.Abstractions.CQRS.Validators;
 
-public class CriteriaValidator : AbstractValidator<Criteria>
+public class SpecificationValidator : AbstractValidator<Specification>
 {
-  public CriteriaValidator()
+  public SpecificationValidator()
   {
     RuleFor(x => x.PageIndex)
       .GreaterThanOrEqualTo(1).WithMessage("PageNumber at least greater than or equal to 1.");

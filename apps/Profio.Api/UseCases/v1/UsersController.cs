@@ -62,8 +62,8 @@ public sealed class UsersController : BaseEntityController<ApplicationUser, User
   [HttpGet("get-users")]
   [SwaggerOperation("Get User list")]
   [Authorize(Roles = UserRole.Admin)]
-  public Task<ActionResult<ResultModel<IPagedList<UserDto>>>> GetUsers([FromQuery] Criteria criteria)
-    => HandlePaginationQuery(new GetUserWithPagingQuery(criteria));
+  public Task<ActionResult<ResultModel<IPagedList<UserDto>>>> GetUsers([FromQuery] Specification specification)
+    => HandlePaginationQuery(new GetUserWithPagingQuery(specification));
 
   [HttpPut("upload-image")]
   [SwaggerOperation("Upload Image")]

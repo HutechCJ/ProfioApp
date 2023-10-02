@@ -9,7 +9,5 @@ public class GetWithPagingQueryValidatorBase<TQuery, TModel> : AbstractValidator
   where TModel : BaseModel
 {
   public GetWithPagingQueryValidatorBase()
-  {
-    RuleFor(q => q.Criteria).SetValidator(new CriteriaValidator());
-  }
+    => RuleFor(q => q.Specification).SetValidator(new SpecificationValidator());
 }

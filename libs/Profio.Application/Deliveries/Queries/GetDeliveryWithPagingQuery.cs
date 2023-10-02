@@ -9,7 +9,7 @@ using Profio.Infrastructure.Abstractions.CQRS.Validators;
 namespace Profio.Application.Deliveries.Queries;
 
 public sealed record GetDeliveryWithPagingQuery
-  (Criteria Criteria) : GetWithPagingQueryBase<DeliveryDto>(Criteria);
+  (Specification Specification) : GetWithPagingQueryBase<DeliveryDto>(Specification);
 
 public sealed class
   GetDeliveryWithPagingQueryHandler : GetWithPagingQueryHandler<GetDeliveryWithPagingQuery, DeliveryDto, Delivery>

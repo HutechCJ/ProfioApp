@@ -10,7 +10,7 @@ using Profio.Domain.Specifications;
 namespace Profio.Application.Customers.Queries;
 
 public sealed record GetCurrentOrderByCustomerPhoneNumberWithPagingQuery
-  (string Phone, Criteria Criteria) : GetOrderWithPagingQuery(Criteria, new(null));
+  (string Phone, Specification Specification) : GetOrderWithPagingQuery(Specification, new(null));
 
 public sealed class
   GetCurrentOrderByCustomerPhoneNumberWithPagingQueryHandler : GetOrderWithPagingQueryHandler<

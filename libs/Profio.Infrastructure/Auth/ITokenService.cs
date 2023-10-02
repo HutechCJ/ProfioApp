@@ -4,7 +4,7 @@ namespace Profio.Infrastructure.Auth;
 
 public interface ITokenService
 {
-  string CreateToken(ApplicationUser user);
-  DateTime GetExpireDate(string? token);
-  bool ValidateToken(string? token);
+  public string CreateToken(ApplicationUser user);
+  public DateTime GetExpireDate(string? token);
+  public bool ValidateToken(string? token);
 }

@@ -12,7 +12,7 @@ using Profio.Infrastructure.Abstractions.CQRS.Validators;
 namespace Profio.Application.Orders.Queries;
 
 public sealed record GetDeliveryByOrderIdWithPagingQuery
-  (string OrderId, Criteria Criteria) : GetWithPagingQueryBase<DeliveryDto>(Criteria);
+  (string OrderId, Specification Specification) : GetWithPagingQueryBase<DeliveryDto>(Specification);
 
 public sealed class
   GetDeliveryByOrderIdWithPagingQueryHandler : GetWithPagingQueryHandler<GetDeliveryByOrderIdWithPagingQuery,
@@ -24,9 +24,7 @@ public sealed class
   }
 
   protected override Expression<Func<Delivery, bool>> RequestFilter(GetDeliveryByOrderIdWithPagingQuery request)
-  {
-    return x => x.OrderId == request.OrderId;
-  }
+    => x => x.OrderId == request.OrderId;
 }
 
 public sealed class

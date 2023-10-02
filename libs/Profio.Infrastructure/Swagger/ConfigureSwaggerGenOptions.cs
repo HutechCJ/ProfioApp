@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
@@ -101,7 +102,7 @@ public sealed class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOpt
       }
     });
 
-    if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
+    if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == Environments.Development
         && IsHostWorking("http://localhost:8090"))
     {
       options.AddSecurityDefinition("OAuth2", new()

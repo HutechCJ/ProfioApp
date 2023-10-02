@@ -18,8 +18,8 @@ public sealed class DeliveriesController : BaseEntityController<Delivery, Delive
 {
   [HttpGet]
   [SwaggerOperation("Get Delivery List with Paging")]
-  public Task<ActionResult<ResultModel<IPagedList<DeliveryDto>>>> Get([FromQuery] Criteria criteria)
-    => HandlePaginationQuery(new GetDeliveryWithPagingQuery(criteria));
+  public Task<ActionResult<ResultModel<IPagedList<DeliveryDto>>>> Get([FromQuery] Specification specification)
+    => HandlePaginationQuery(new GetDeliveryWithPagingQuery(specification));
 
   [HttpGet("{id:length(26)}")]
   [SwaggerOperation("Get Delivery by Id")]
@@ -59,7 +59,7 @@ public sealed class DeliveriesController : BaseEntityController<Delivery, Delive
   [HttpGet("{id:length(26)}/orderhistories")]
   [SwaggerOperation("Get Order History List by Delivery Id")]
   public async Task<ActionResult<ResultModel<IPagedList<OrderHistoryDto>>>> GetOrderHistoriesByDeliveryId(string id,
-    [FromQuery] Criteria criteria)
+    [FromQuery] Specification specification)
     => Ok(ResultModel<IPagedList<OrderHistoryDto>>.Create(
-      await Mediator.Send(new GetOrderHistoryByDeliveryIdWithPagingQuery(id, criteria))));
+      await Mediator.Send(new GetOrderHistoryByDeliveryIdWithPagingQuery(id, specification))));
 }

@@ -15,13 +15,6 @@ public sealed class
     => _applicationDbContext = applicationDbContext;
 
   public Task<IEnumerable<int>> Handle(GetVehicleCountByStatusQuery request, CancellationToken cancellationToken)
-  {
-    var counts = Enum.GetValues(typeof(VehicleStatus)).Cast<VehicleStatus>()
-      .Select(status =>
-      {
-        var count = _applicationDbContext.Vehicles.Count(v => v.Status == status);
-        return count;
-      });
-    return Task.FromResult(counts);
-  }
+    => Task.FromResult(Enum.GetValues(typeof(VehicleStatus)).Cast<VehicleStatus>()
+      .Select(status => _applicationDbContext.Vehicles.Count(v => v.Status == status)));
 }

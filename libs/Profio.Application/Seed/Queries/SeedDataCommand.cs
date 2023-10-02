@@ -146,10 +146,10 @@ public sealed class SeedDataHandler : IRequestHandler<SeedDataCommand, string>
         .GroupBy(x =>
           x.Customer != null ? x.Customer.Address != null ? x.Customer.Address.ZipCode ?? "None" : "None" : "None")
         .ToDictionaryAsync(x => x.Key, x => x.First().Id);
-      foreach (var vehicle in vehicles)
+      foreach (var vehicle in vehicles.Where(vehicle => vehicle.ZipCodeCurrent is { }))
       {
-        if (vehicle.ZipCodeCurrent is null) continue;
-        var isGettable = orderDictionary.TryGetValue(vehicle.ZipCodeCurrent, out var orderId);
+        var isGettable = orderDictionary.TryGetValue(vehicle.ZipCodeCurrent
+                                                     ?? throw new InvalidOperationException(), out var orderId);
         if (!isGettable) continue;
         var delivery = new Delivery
         {

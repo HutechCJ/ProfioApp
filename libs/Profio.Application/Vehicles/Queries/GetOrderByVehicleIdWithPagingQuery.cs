@@ -11,7 +11,7 @@ using Profio.Infrastructure.Abstractions.CQRS.Validators;
 namespace Profio.Application.Vehicles.Queries;
 
 public sealed record GetOrderByVehicleIdWithPagingQuery
-  (string VehicleId, Criteria Criteria) : GetWithPagingQueryBase<OrderDto>(Criteria);
+  (string VehicleId, Specification Specification) : GetWithPagingQueryBase<OrderDto>(Specification);
 
 public sealed class
   GetOrderByVehicleIdWithPagingQueryHandler : GetWithPagingQueryHandler<GetOrderByVehicleIdWithPagingQuery, OrderDto,
@@ -34,9 +34,7 @@ public sealed class
                  || (c.DestinationAddress.ZipCode != null && c.DestinationAddress.ZipCode.ToLower().Contains(filter))));
 
   protected override Expression<Func<Order, bool>> RequestFilter(GetOrderByVehicleIdWithPagingQuery request)
-  {
-    return x => x.Deliveries != null && x.Deliveries.Any(d => d.VehicleId == request.VehicleId);
-  }
+    => x => x.Deliveries != null && x.Deliveries.Any(d => d.VehicleId == request.VehicleId);
 }
 
 public class

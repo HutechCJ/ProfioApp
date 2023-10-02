@@ -2,6 +2,6 @@ namespace Profio.Infrastructure.Persistence.Idempotency;
 
 public interface IIdempotencyService
 {
-  Task<bool> RequestExistsAsync(Guid id);
-  Task CreateRequestForCommandAsync(Guid id, string name);
+  public Task<bool> RequestExistsAsync(Guid id);
+  public Task CreateRequestForCommandAsync(Guid id, string name);
 }

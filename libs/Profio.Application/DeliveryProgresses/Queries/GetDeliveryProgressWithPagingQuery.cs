@@ -9,7 +9,7 @@ using Profio.Infrastructure.Abstractions.CQRS.Validators;
 namespace Profio.Application.DeliveryProgresses.Queries;
 
 public sealed record GetDeliveryProgressWithPagingQuery
-  (Criteria Criteria) : GetWithPagingQueryBase<DeliveryProgressDto>(Criteria);
+  (Specification Specification) : GetWithPagingQueryBase<DeliveryProgressDto>(Specification);
 
 public class
   GetDeliveryProgressWithPagingQueryHandler : GetWithPagingQueryHandler<GetDeliveryProgressWithPagingQuery,

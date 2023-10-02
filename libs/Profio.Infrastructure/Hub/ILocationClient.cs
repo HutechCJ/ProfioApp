@@ -4,5 +4,5 @@ namespace Profio.Infrastructure.Hub;
 
 public interface ILocationClient
 {
-  Task SendLocation(VehicleLocation location);
+  public Task SendLocation(VehicleLocation location);
 }

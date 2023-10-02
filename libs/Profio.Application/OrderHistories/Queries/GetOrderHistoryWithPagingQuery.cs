@@ -9,7 +9,7 @@ using Profio.Infrastructure.Abstractions.CQRS.Validators;
 namespace Profio.Application.OrderHistories.Queries;
 
 public sealed record GetOrderHistoryWithPagingQuery
-  (Criteria Criteria) : GetWithPagingQueryBase<OrderHistoryDto>(Criteria);
+  (Specification Specification) : GetWithPagingQueryBase<OrderHistoryDto>(Specification);
 
 public sealed class
   GetOrderHistoryWithPagingQueryHandler : GetWithPagingQueryHandler<GetOrderHistoryWithPagingQuery, OrderHistoryDto,

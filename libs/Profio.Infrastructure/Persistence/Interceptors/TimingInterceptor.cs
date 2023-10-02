@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Profio.Infrastructure.Persistence.Interceptors;
 
-public class TimingInterceptor : DbCommandInterceptor
+public sealed class TimingInterceptor : DbCommandInterceptor
 {
   private readonly Stopwatch _stopwatch = new();
   private const long MaxAllowedExecutionTime = 5000;

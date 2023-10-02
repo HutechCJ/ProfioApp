@@ -23,7 +23,7 @@ public abstract class GetQueryHandlerBase<TQuery, TModel, TEntity> : IRequestHan
 
   public async Task<ListResultModel<TModel>> Handle(TQuery request, CancellationToken cancellationToken)
   {
-    ArgumentNullException.ThrowIfNull(request);
+    ArgumentNullException.ThrowIfNull(request, nameof(request));
 
     var query = _repository
       .MultipleResultQuery();

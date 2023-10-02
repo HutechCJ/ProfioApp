@@ -5,6 +5,6 @@ namespace Profio.Website.Services;
 
 public interface ICustomerService
 {
-  Task<ResultModel<PagedListDto<OrderDto>>?> GetCurrentOrdersByPhoneAsync(string phone);
-  Task<ResultModel<PagedListDto<OrderDto>>?> GetOrdersByPhoneAsync(string phone);
+  public Task<ResultModel<PagedListDto<OrderDto>>?> GetCurrentOrdersByPhoneAsync(string phone);
+  public Task<ResultModel<PagedListDto<OrderDto>>?> GetOrdersByPhoneAsync(string phone);
 }

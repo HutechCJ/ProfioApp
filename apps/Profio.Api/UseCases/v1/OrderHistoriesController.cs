@@ -18,8 +18,8 @@ public sealed class
   [HttpGet]
   [Obsolete("Deprecated")]
   [SwaggerOperation("Get Order History List with Paging")]
-  public Task<ActionResult<ResultModel<IPagedList<OrderHistoryDto>>>> Get([FromQuery] Criteria criteria)
-    => HandlePaginationQuery(new GetOrderHistoryWithPagingQuery(criteria));
+  public Task<ActionResult<ResultModel<IPagedList<OrderHistoryDto>>>> Get([FromQuery] Specification specification)
+    => HandlePaginationQuery(new GetOrderHistoryWithPagingQuery(specification));
 
   [HttpGet("{id:length(26)}")]
   [Obsolete("Deprecated")]

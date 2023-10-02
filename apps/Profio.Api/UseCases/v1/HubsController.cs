@@ -17,9 +17,9 @@ public sealed class HubsController : BaseEntityController<Hub, HubDto, GetHubByI
 {
   [HttpGet]
   [SwaggerOperation("Get Hub List with Paging")]
-  public Task<ActionResult<ResultModel<IPagedList<HubDto>>>> Get([FromQuery] Criteria criteria,
+  public Task<ActionResult<ResultModel<IPagedList<HubDto>>>> Get([FromQuery] Specification specification,
     [FromQuery] HubEnumFilter hubEnumFilter)
-    => HandlePaginationQuery(new GetHubWithPagingQuery(criteria, hubEnumFilter));
+    => HandlePaginationQuery(new GetHubWithPagingQuery(specification, hubEnumFilter));
 
   [HttpGet("{id:length(26)}")]
   [SwaggerOperation("Get Hub by Id")]

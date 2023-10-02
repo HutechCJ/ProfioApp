@@ -1,6 +1,7 @@
 using AutoMapper;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
 using FluentValidation;
+using Profio.Application.Staffs.Validators;
 using Profio.Application.Vehicles.Validators;
 using Profio.Domain.Constants;
 using Profio.Domain.Entities;

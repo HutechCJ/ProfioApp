@@ -18,11 +18,7 @@ public sealed class LocationHub : Hub<ILocationClient>
     ILogger<LocationHub> logger,
     ApplicationDbContext context,
     IRedisCacheService redisCacheService)
-  {
-    _logger = logger;
-    _context = context;
-    _redisCacheService = redisCacheService;
-  }
+    => (_logger, _context, _redisCacheService) = (logger, context, redisCacheService);
 
   public override async Task OnConnectedAsync()
   {

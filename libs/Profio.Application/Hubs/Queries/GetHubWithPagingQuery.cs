@@ -10,7 +10,7 @@ using Profio.Infrastructure.Abstractions.CQRS.Validators;
 namespace Profio.Application.Hubs.Queries;
 
 public sealed record GetHubWithPagingQuery
-  (Criteria Criteria, HubEnumFilter HubEnumFilter) : GetWithPagingQueryBase<HubDto>(Criteria);
+  (Specification Specification, HubEnumFilter HubEnumFilter) : GetWithPagingQueryBase<HubDto>(Specification);
 
 public sealed class GetHubWithPagingQueryHandler : GetWithPagingQueryHandler<GetHubWithPagingQuery, HubDto, Hub>
 {

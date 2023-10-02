@@ -10,7 +10,7 @@ using Profio.Infrastructure.Abstractions.CQRS.Validators;
 namespace Profio.Application.Orders.Queries;
 
 public record GetOrderWithPagingQuery
-  (Criteria Criteria, OrderEnumFilter OrderEnumFilter) : GetWithPagingQueryBase<OrderDto>(Criteria);
+  (Specification Specification, OrderEnumFilter OrderEnumFilter) : GetWithPagingQueryBase<OrderDto>(Specification);
 
 public class GetOrderWithPagingQueryHandler<TQuery> : GetWithPagingQueryHandler<TQuery, OrderDto, Order>
   where TQuery : GetOrderWithPagingQuery
@@ -31,12 +31,10 @@ public class GetOrderWithPagingQueryHandler<TQuery> : GetWithPagingQueryHandler<
                  || (c.DestinationAddress.ZipCode != null && c.DestinationAddress.ZipCode.ToLower().Contains(filter))));
 
   protected override Expression<Func<Order, bool>> RequestFilter(TQuery request)
-  {
-    return x => request.OrderEnumFilter.Status == null || x.Status == request.OrderEnumFilter.Status;
-  }
+    => x => request.OrderEnumFilter.Status == null || x.Status == request.OrderEnumFilter.Status;
 }
 
-internal sealed class GetOrderWithPagingQueryHandler : GetOrderWithPagingQueryHandler<GetOrderWithPagingQuery>
+public sealed class GetOrderWithPagingQueryHandler : GetOrderWithPagingQueryHandler<GetOrderWithPagingQuery>
 {
   public GetOrderWithPagingQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper) : base(unitOfWork, mapper)
   {

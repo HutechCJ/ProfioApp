@@ -16,8 +16,8 @@ public sealed class RoutesController : BaseEntityController<RouteEntity, RouteDt
 {
   [HttpGet]
   [SwaggerOperation("Get Route List with Paging")]
-  public Task<ActionResult<ResultModel<IPagedList<RouteDto>>>> Get([FromQuery] Criteria criteria)
-    => HandlePaginationQuery(new GetRouteWithPagingQuery(criteria));
+  public Task<ActionResult<ResultModel<IPagedList<RouteDto>>>> Get([FromQuery] Specification specification)
+    => HandlePaginationQuery(new GetRouteWithPagingQuery(specification));
 
   [HttpGet("{id:length(26)}")]
   [SwaggerOperation("Get Route by Id")]

@@ -1,4 +1,5 @@
 using AutoMapper;
+using EntityFrameworkCore.Repository;
 using EntityFrameworkCore.Repository.Interfaces;
 using EntityFrameworkCore.UnitOfWork.Interfaces;
 using MediatR;
@@ -18,11 +19,7 @@ public class UpdateCommandHandlerBase<TCommand, TEntity> : IRequestHandler<TComm
   private readonly IUnitOfWork _unitOfWork;
 
   public UpdateCommandHandlerBase(IUnitOfWork unitOfWork, IMapper mapper)
-  {
-    _unitOfWork = unitOfWork;
-    _repository = _unitOfWork.Repository<TEntity>();
-    _mapper = mapper;
-  }
+    => (_unitOfWork, _repository, _mapper) = (unitOfWork, unitOfWork.Repository<TEntity>(), mapper);
 
   public async Task<Unit> Handle(TCommand request, CancellationToken cancellationToken)
   {

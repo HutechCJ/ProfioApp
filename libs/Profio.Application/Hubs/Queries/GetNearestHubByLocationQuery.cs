@@ -15,10 +15,7 @@ public sealed class GetNearestHubByLocationQueryHandler : IRequestHandler<GetNea
   private readonly IMapper _mapper;
 
   public GetNearestHubByLocationQueryHandler(IRepositoryFactory unitOfWork, IMapper mapper)
-  {
-    _hubRepository = unitOfWork.Repository<Hub>();
-    _mapper = mapper;
-  }
+    => (_hubRepository, _mapper) = (unitOfWork.Repository<Hub>(), mapper);
 
   public async Task<HubDto> Handle(GetNearestHubByLocationQuery request, CancellationToken cancellationToken)
   {
@@ -37,7 +34,7 @@ public sealed class GetNearestHubByLocationQueryHandler : IRequestHandler<GetNea
 
   private static double CalculateDistance(Location location1, Location location2)
   {
-    const double earthRadius = 6371; // Radius of Earth in kilometers
+    const double earthRadius = 6371;
     var lat1Rad = ToRadians(location1.Latitude);
     var lat2Rad = ToRadians(location2.Latitude);
     var deltaLat = ToRadians(location2.Latitude - location1.Latitude);

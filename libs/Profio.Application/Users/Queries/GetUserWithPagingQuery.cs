@@ -8,7 +8,7 @@ using Profio.Infrastructure.Abstractions.CQRS.Handlers.Queries;
 namespace Profio.Application.Users.Queries;
 
 public sealed record GetUserWithPagingQuery
-  (Criteria Criteria) : GetWithPagingQueryBase<UserDto>(Criteria);
+  (Specification Specification) : GetWithPagingQueryBase<UserDto>(Specification);
 
 public sealed class
   GetUserWithPagingQueryHandler : GetWithPagingQueryHandler<GetUserWithPagingQuery, UserDto, ApplicationUser>

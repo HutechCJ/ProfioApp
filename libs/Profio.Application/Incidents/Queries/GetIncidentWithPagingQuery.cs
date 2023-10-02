@@ -10,7 +10,7 @@ using Profio.Infrastructure.Abstractions.CQRS.Validators;
 namespace Profio.Application.Incidents.Queries;
 
 public sealed record GetIncidentWithPagingQuery
-  (Criteria Criteria, IncidentEnumFilter IncidentEnumFilter) : GetWithPagingQueryBase<IncidentDto>(Criteria);
+  (Specification Specification, IncidentEnumFilter IncidentEnumFilter) : GetWithPagingQueryBase<IncidentDto>(Specification);
 
 public sealed class
   GetIncidentWithPagingQueryHandler : GetWithPagingQueryHandler<GetIncidentWithPagingQuery, IncidentDto, Incident>

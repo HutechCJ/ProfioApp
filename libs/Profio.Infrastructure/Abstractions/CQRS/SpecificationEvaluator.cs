@@ -4,23 +4,24 @@ using Profio.Domain.Specifications;
 
 namespace Profio.Infrastructure.Abstractions.CQRS;
 
-public static class QueryExtensions
+public static class SpecificationEvaluator
 {
   public static IMultipleResultQuery<TEntity> ApplyCriteria<TEntity>(
     this IMultipleResultQuery<TEntity> query,
-    Criteria criteria)
+    Specification specification)
     where TEntity : class, IEntity<object>
   {
     query = (IMultipleResultQuery<TEntity>)query
-      .Page(criteria.PageIndex, criteria.PageSize)
+      .Page(specification.PageIndex, specification.PageSize)
       .OrderByDescending(x => x.Id);
-    if (criteria.OrderBy is { })
-      query = (IMultipleResultQuery<TEntity>)query
-        .OrderBy(criteria.OrderBy);
 
-    if (criteria.OrderByDescending is { })
+    if (specification.OrderBy is { })
       query = (IMultipleResultQuery<TEntity>)query
-        .OrderByDescending(criteria.OrderByDescending);
+        .OrderBy(specification.OrderBy);
+
+    if (specification.OrderByDescending is { })
+      query = (IMultipleResultQuery<TEntity>)query
+        .OrderByDescending(specification.OrderByDescending);
 
     return query;
   }

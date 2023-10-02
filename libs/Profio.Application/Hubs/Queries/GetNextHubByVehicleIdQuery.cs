@@ -18,10 +18,7 @@ public sealed class GeNextHubByVehicleIdQueryHandler : IRequestHandler<GetNextHu
   private readonly IMapper _mapper;
 
   public GeNextHubByVehicleIdQueryHandler(ApplicationDbContext applicationDbContext, IMapper mapper)
-  {
-    _applicationDbContext = applicationDbContext;
-    _mapper = mapper;
-  }
+    => (_applicationDbContext, _mapper) = (applicationDbContext, mapper);
 
   public async Task<HubDto> Handle(GetNextHubByVehicleIdQuery request, CancellationToken cancellationToken)
   {
@@ -50,8 +47,6 @@ public sealed class GeNextHubByVehicleIdQueryHandler : IRequestHandler<GetNextHu
 public sealed class GetNextHubByVehicleIdQueryValidator : AbstractValidator<GetNextHubByVehicleIdQuery>
 {
   public GetNextHubByVehicleIdQueryValidator(VehicleExistenceByIdValidator vehicleValidator)
-  {
-    RuleFor(x => x.VehicleId)
+    => RuleFor(x => x.VehicleId)
       .SetValidator(vehicleValidator);
-  }
 }

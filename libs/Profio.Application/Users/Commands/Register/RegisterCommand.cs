@@ -5,6 +5,7 @@ using LinqKit;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Profio.Application.Staffs.Validators;
 using Profio.Application.Vehicles.Validators;
 using Profio.Domain.Constants;
 using Profio.Domain.Exceptions;

@@ -13,7 +13,7 @@ using Profio.Infrastructure.Abstractions.CQRS.Validators;
 namespace Profio.Application.Vehicles.Queries;
 
 public sealed record GetCurrentOrderByVehicleIdWithPagingQuery
-  (string VehicleId, Criteria Criteria) : GetWithPagingQueryBase<OrderDto>(Criteria);
+  (string VehicleId, Specification Specification) : GetWithPagingQueryBase<OrderDto>(Specification);
 
 public sealed class
   GetCurrentOrderByVehicleIdWithPagingQueryHandler : GetWithPagingQueryHandler<GetCurrentOrderByVehicleIdWithPagingQuery

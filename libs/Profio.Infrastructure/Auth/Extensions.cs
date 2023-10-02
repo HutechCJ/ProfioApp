@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Net.Http.Headers;
@@ -87,7 +88,7 @@ public static class Extensions
           };
         });
 
-    if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Development"
+    if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == Environments.Development
         && IsHostWorking(configuration.GetSection("OAuth2")["ServerRealm"]))
       services.AddAuthentication()
         .AddOpenIdConnect(options =>

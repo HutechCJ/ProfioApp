@@ -2,7 +2,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Profio.Website.Cache;
 
-public class CacheService : ICacheService
+public sealed class CacheService : ICacheService
 {
   private readonly IMemoryCache _cache;
   private readonly MemoryCacheEntryOptions _cacheDuration;

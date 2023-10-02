@@ -16,9 +16,9 @@ public sealed class StaffsController : BaseEntityController<Staff, StaffDto, Get
 {
   [HttpGet]
   [SwaggerOperation("Get Staff List with Paging")]
-  public Task<ActionResult<ResultModel<IPagedList<StaffDto>>>> Get([FromQuery] Criteria criteria,
+  public Task<ActionResult<ResultModel<IPagedList<StaffDto>>>> Get([FromQuery] Specification specification,
     [FromQuery] StaffEnumFilter staffEnumFilter)
-    => HandlePaginationQuery(new GetStaffWithPagingQuery(criteria, staffEnumFilter));
+    => HandlePaginationQuery(new GetStaffWithPagingQuery(specification, staffEnumFilter));
 
   [HttpGet("{id:length(26)}")]
   [SwaggerOperation("Get Staff by Id")]

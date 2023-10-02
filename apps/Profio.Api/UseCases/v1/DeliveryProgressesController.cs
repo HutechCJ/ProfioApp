@@ -20,8 +20,8 @@ public sealed class
 {
   [HttpGet]
   [SwaggerOperation("Get Delivery Progress List with Paging")]
-  public Task<ActionResult<ResultModel<IPagedList<DeliveryProgressDto>>>> Get([FromQuery] Criteria criteria)
-    => HandlePaginationQuery(new GetDeliveryProgressWithPagingQuery(criteria));
+  public Task<ActionResult<ResultModel<IPagedList<DeliveryProgressDto>>>> Get([FromQuery] Specification specification)
+    => HandlePaginationQuery(new GetDeliveryProgressWithPagingQuery(specification));
 
   [HttpGet("{id:length(26)}")]
   [SwaggerOperation("Get Delivery Progress by Id")]

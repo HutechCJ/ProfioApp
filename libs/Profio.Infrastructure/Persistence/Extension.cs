@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Polly;
 using Polly.Retry;
@@ -19,24 +20,26 @@ public static class Extension
   public static IServiceCollection AddPostgres(this IServiceCollection services, IConfiguration configuration)
   {
     services.AddTriggeredDbContextPool<DbContext, ApplicationDbContext>(options =>
+    {
       options.UseNpgsql(configuration.GetConnectionString("Postgres"),
           sqlOptions =>
           {
             sqlOptions.MigrationsAssembly(AssemblyReference.AssemblyName);
             sqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(30), null);
           })
-        .EnableDetailedErrors()
-        .EnableSensitiveDataLogging()
         .UseExceptionProcessor()
         .UseModel(ApplicationDbContextModel.Instance)
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
         .UseTriggers(o => o.AddAssemblyTriggers())
         .AddInterceptors(new TimingInterceptor())
-        .AddInterceptors(new ExecuteWithoutWhereCommandInterceptor())
-    );
+        .AddInterceptors(new ExecuteWithoutWhereCommandInterceptor());
+
+      if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == Environments.Development)
+        options.EnableDetailedErrors()
+          .EnableSensitiveDataLogging();
+    });
 
     services.AddScoped<ApplicationDbContextInitializer>();
-
     services.AddScoped<IDatabaseFacade>(p => p.GetRequiredService<ApplicationDbContext>());
 
     services.AddUnitOfWork();

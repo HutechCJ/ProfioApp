@@ -17,9 +17,9 @@ public sealed class CustomersController : BaseEntityController<Customer, Custome
 {
   [HttpGet]
   [SwaggerOperation("Get Customer List with Paging")]
-  public Task<ActionResult<ResultModel<IPagedList<CustomerDto>>>> Get([FromQuery] Criteria criteria,
+  public Task<ActionResult<ResultModel<IPagedList<CustomerDto>>>> Get([FromQuery] Specification specification,
     [FromQuery] CustomerEnumFilter orderEnumFilter)
-    => HandlePaginationQuery(new GetCustomerWithPagingQuery(criteria, orderEnumFilter));
+    => HandlePaginationQuery(new GetCustomerWithPagingQuery(specification, orderEnumFilter));
 
   [HttpGet("{id:length(26)}")]
   [SwaggerOperation("Get Customer by Id")]
@@ -43,8 +43,8 @@ public sealed class CustomersController : BaseEntityController<Customer, Custome
 
   [HttpGet("{id:length(26)}/orders")]
   [SwaggerOperation("Get Order List by Customer Id with Paging")]
-  public async Task<ActionResult<ResultModel<IPagedList<CustomerDto>>>> Get(string id, [FromQuery] Criteria criteria,
+  public async Task<ActionResult<ResultModel<IPagedList<CustomerDto>>>> Get(string id, [FromQuery] Specification specification,
     [FromQuery] OrderEnumFilter orderEnumFilter)
     => Ok(ResultModel<IPagedList<OrderDto>>.Create(
-      await Mediator.Send(new GetOrderByCustomerIdWithPagingQuery(id, criteria, orderEnumFilter))));
+      await Mediator.Send(new GetOrderByCustomerIdWithPagingQuery(id, specification, orderEnumFilter))));
 }

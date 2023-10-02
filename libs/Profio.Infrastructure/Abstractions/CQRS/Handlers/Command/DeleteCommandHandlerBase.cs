@@ -24,6 +24,8 @@ public class DeleteCommandHandlerBase<TCommand, TModel, TEntity> : IRequestHandl
 
   public async Task<TModel> Handle(TCommand request, CancellationToken cancellationToken)
   {
+    ArgumentNullException.ThrowIfNull(request, nameof(request));
+
     var query = _repository.SingleResultQuery()
       .AndFilter(m => m.Id.Equals(request.Id));
 

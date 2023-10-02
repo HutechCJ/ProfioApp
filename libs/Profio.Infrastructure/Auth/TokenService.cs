@@ -50,12 +50,9 @@ public sealed class TokenService : ITokenService
   }
 
   public DateTime GetExpireDate(string? token)
-  {
-    JwtSecurityToken jwtToken = new(token);
-    return token is null
+    => token is null
       ? DateTime.UtcNow
-      : jwtToken.ValidTo.ToUniversalTime();
-  }
+      : new JwtSecurityToken(token).ValidTo.ToUniversalTime();
 
   public bool ValidateToken(string? token)
   {

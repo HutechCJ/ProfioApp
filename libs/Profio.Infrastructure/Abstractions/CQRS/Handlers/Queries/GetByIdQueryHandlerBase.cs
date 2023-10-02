@@ -24,7 +24,7 @@ public abstract class GetByIdQueryHandlerBase<TQuery, TModel, TEntity> : IReques
 
   public async Task<TModel> Handle(TQuery request, CancellationToken cancellationToken)
   {
-    ArgumentNullException.ThrowIfNull(request);
+    ArgumentNullException.ThrowIfNull(request, nameof(request));
 
     var query = _repository
       .SingleResultQuery()

@@ -10,7 +10,8 @@ using Profio.Infrastructure.Abstractions.CQRS.Validators;
 namespace Profio.Application.Customers.Queries;
 
 public sealed record GetCustomerWithPagingQuery
-  (Criteria Criteria, CustomerEnumFilter CustomerEnumFilter) : GetWithPagingQueryBase<CustomerDto>(Criteria);
+  (Specification Specification, CustomerEnumFilter CustomerEnumFilter) : GetWithPagingQueryBase<CustomerDto>(
+    Specification);
 
 public sealed class
   GetCustomerWithPagingQueryHandler : GetWithPagingQueryHandler<GetCustomerWithPagingQuery, CustomerDto, Customer>
@@ -36,9 +37,7 @@ public sealed class
            ));
 
   protected override Expression<Func<Customer, bool>> RequestFilter(GetCustomerWithPagingQuery request)
-  {
-    return x => request.CustomerEnumFilter.Gender == null || x.Gender == request.CustomerEnumFilter.Gender;
-  }
+    => x => request.CustomerEnumFilter.Gender == null || x.Gender == request.CustomerEnumFilter.Gender;
 }
 
 public sealed class

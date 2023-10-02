@@ -12,7 +12,7 @@ using Profio.Infrastructure.Abstractions.CQRS.Validators;
 namespace Profio.Application.Vehicles.Queries;
 
 public sealed record GetDeliveryByVehicleIdWithPagingQuery
-  (string VehicleId, Criteria Criteria) : GetWithPagingQueryBase<DeliveryDto>(Criteria);
+  (string VehicleId, Specification Specification) : GetWithPagingQueryBase<DeliveryDto>(Specification);
 
 public sealed class
   GetDeliveryByVehicleIdWithPagingQueryHandler : GetWithPagingQueryHandler<GetDeliveryByVehicleIdWithPagingQuery,

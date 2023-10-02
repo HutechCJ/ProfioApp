@@ -25,14 +25,16 @@ public abstract class
 
   public async Task<IPagedList<TModel>> Handle(TQuery request, CancellationToken cancellationToken)
   {
+    ArgumentNullException.ThrowIfNull(request, nameof(request));
+
     var query = (IMultipleResultQuery<TEntity>)_repository
       .MultipleResultQuery()
-      .ApplyCriteria(request.Criteria)
+      .ApplyCriteria(request.Specification)
       .AndFilter(RequestFilter(request));
 
-    if (request.Criteria.Filter is { })
+    if (request.Specification.Filter is { })
       query = (IMultipleResultQuery<TEntity>)query
-        .AndFilter(Filter(request.Criteria.Filter.ToLowerInvariant()));
+        .AndFilter(Filter(request.Specification.Filter.ToLowerInvariant()));
 
     var pagedList = await _repository
       .GetDataWithQueryAsync<TEntity, TModel>(query, _mapper.ConfigurationProvider, cancellationToken);

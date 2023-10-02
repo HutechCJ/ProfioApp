@@ -4,7 +4,7 @@ using Profio.Domain.Identity;
 
 namespace Profio.Infrastructure.Persistence.Configurations;
 
-public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
+public sealed class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
 {
   public void Configure(EntityTypeBuilder<ApplicationUser> builder)
   {

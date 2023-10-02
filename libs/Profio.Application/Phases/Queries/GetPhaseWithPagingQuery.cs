@@ -8,7 +8,7 @@ using Profio.Infrastructure.Abstractions.CQRS.Validators;
 
 namespace Profio.Application.Phases.Queries;
 
-public sealed record GetPhaseWithPagingQuery(Criteria Criteria) : GetWithPagingQueryBase<PhaseDto>(Criteria);
+public sealed record GetPhaseWithPagingQuery(Specification Specification) : GetWithPagingQueryBase<PhaseDto>(Specification);
 
 public sealed class GetPhaseWithPagingQueryHandler : GetWithPagingQueryHandler<GetPhaseWithPagingQuery, PhaseDto, Phase>
 {

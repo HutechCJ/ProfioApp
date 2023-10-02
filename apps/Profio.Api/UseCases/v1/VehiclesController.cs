@@ -21,9 +21,9 @@ public sealed class VehiclesController : BaseEntityController<Vehicle, VehicleDt
 {
   [HttpGet]
   [SwaggerOperation("Get Vehicle List with Paging")]
-  public Task<ActionResult<ResultModel<IPagedList<VehicleDto>>>> Get([FromQuery] Criteria criteria,
+  public Task<ActionResult<ResultModel<IPagedList<VehicleDto>>>> Get([FromQuery] Specification specification,
     [FromQuery] VehicleEnumFilter vehicleEnumFilter)
-    => HandlePaginationQuery(new GetVehicleWithPagingQuery(criteria, vehicleEnumFilter));
+    => HandlePaginationQuery(new GetVehicleWithPagingQuery(specification, vehicleEnumFilter));
 
   [HttpGet("{id:length(26)}")]
   [SwaggerOperation("Get Vehicle by Id")]
@@ -48,8 +48,8 @@ public sealed class VehiclesController : BaseEntityController<Vehicle, VehicleDt
   [HttpGet("{id:length(26)}/deliveries")]
   [SwaggerOperation("Get Delivery List by Vehicle Id")]
   public async Task<ActionResult<ResultModel<IPagedList<DeliveryDto>>>> GetDeliveries(string id,
-    [FromQuery] Criteria criteria)
-    => Ok(await Mediator.Send(new GetDeliveryByVehicleIdWithPagingQuery(id, criteria)));
+    [FromQuery] Specification specification)
+    => Ok(await Mediator.Send(new GetDeliveryByVehicleIdWithPagingQuery(id, specification)));
 
   [HttpGet("{id:length(26)}/hubs/next")]
   [SwaggerOperation("Get next Hub by Vehicle Id")]
@@ -95,19 +95,19 @@ public sealed class VehiclesController : BaseEntityController<Vehicle, VehicleDt
 
   [HttpGet("{id:length(26)}/orders")]
   [SwaggerOperation("Get Order List by Vehicle Id")]
-  public async Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> GetOrders(string id, [FromQuery] Criteria criteria)
+  public async Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> GetOrders(string id, [FromQuery] Specification specification)
     => Ok(ResultModel<IPagedList<OrderDto>>.Create(
-      await Mediator.Send(new GetOrderByVehicleIdWithPagingQuery(id, criteria))));
+      await Mediator.Send(new GetOrderByVehicleIdWithPagingQuery(id, specification))));
 
   [HttpGet("{id:length(26)}/orders/current")]
   [SwaggerOperation("Get Current Order List by Vehicle Id")]
   public async Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> GetCurrentOrders(string id,
-    [FromQuery] Criteria criteria)
+    [FromQuery] Specification specification)
     => Ok(ResultModel<IPagedList<OrderDto>>.Create(
-      await Mediator.Send(new GetCurrentOrderByVehicleIdWithPagingQuery(id, criteria))));
+      await Mediator.Send(new GetCurrentOrderByVehicleIdWithPagingQuery(id, specification))));
 
   [HttpGet("{id:length(26)}/hubs/path")]
   [SwaggerOperation("Get Hub path by Vehicle Id")]
-  public async Task<ActionResult<ResultModel<IPagedList<HubDto>>>> GetHubPath(string id, [FromQuery] Criteria criteria)
-    => Ok(ResultModel<IPagedList<HubDto>>.Create(await Mediator.Send(new GetHubPathByVehicleIdQuery(id, criteria))));
+  public async Task<ActionResult<ResultModel<IPagedList<HubDto>>>> GetHubPath(string id, [FromQuery] Specification specification)
+    => Ok(ResultModel<IPagedList<HubDto>>.Create(await Mediator.Send(new GetHubPathByVehicleIdQuery(id, specification))));
 }

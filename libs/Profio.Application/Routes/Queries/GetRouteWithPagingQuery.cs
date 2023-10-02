@@ -8,7 +8,7 @@ using Profio.Infrastructure.Abstractions.CQRS.Validators;
 
 namespace Profio.Application.Routes.Queries;
 
-public sealed record GetRouteWithPagingQuery(Criteria Criteria) : GetWithPagingQueryBase<RouteDto>(Criteria);
+public sealed record GetRouteWithPagingQuery(Specification Specification) : GetWithPagingQueryBase<RouteDto>(Specification);
 
 public sealed class GetRouteWithPagingQueryHandler : GetWithPagingQueryHandler<GetRouteWithPagingQuery, RouteDto, Route>
 {

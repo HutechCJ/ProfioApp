@@ -6,7 +6,7 @@ using Serilog;
 
 namespace Profio.Infrastructure.Persistence;
 
-public class ApplicationDbContextInitializer
+public sealed class ApplicationDbContextInitializer
 {
   private readonly ApplicationDbContext _context;
   private readonly RoleManager<IdentityRole> _roleManager;

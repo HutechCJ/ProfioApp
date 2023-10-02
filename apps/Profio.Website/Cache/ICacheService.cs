@@ -2,6 +2,6 @@ namespace Profio.Website.Cache;
 
 public interface ICacheService
 {
-  Task<T?> GetOrSetAsync<T>(string cacheKey, Func<Task<T>> getItemCallback);
-  void Remove(string cacheKey);
+  public Task<T?> GetOrSetAsync<T>(string cacheKey, Func<Task<T>> getItemCallback);
+  public void Remove(string cacheKey);
 }

@@ -20,9 +20,9 @@ public sealed class OrdersController : BaseEntityController<Order, OrderDto, Get
 {
   [HttpGet]
   [SwaggerOperation("Get Order List with Paging")]
-  public Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> Get([FromQuery] Criteria criteria,
+  public Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> Get([FromQuery] Specification specification,
     [FromQuery] OrderEnumFilter orderEnumFilter)
-    => HandlePaginationQuery(new GetOrderWithPagingQuery(criteria, orderEnumFilter));
+    => HandlePaginationQuery(new GetOrderWithPagingQuery(specification, orderEnumFilter));
 
   [HttpGet("{id:length(26)}")]
   [SwaggerOperation("Get Order by Id")]
@@ -57,27 +57,27 @@ public sealed class OrdersController : BaseEntityController<Order, OrderDto, Get
   [HttpGet("{id:length(26)}/vehicles/available")]
   [SwaggerOperation("Get available Vehicle List by Order Id")]
   public async Task<ActionResult<ResultModel<IPagedList<VehicleDto>>>> GetAvailableVehicles(string id,
-    [FromQuery] Criteria criteria)
+    [FromQuery] Specification specification)
     => Ok(ResultModel<IPagedList<VehicleDto>>.Create(
-      await Mediator.Send(new GetAvailableVehicleByOrderIdWithPagingQuery(id, criteria))));
+      await Mediator.Send(new GetAvailableVehicleByOrderIdWithPagingQuery(id, specification))));
 
   [HttpGet("{id:length(26)}/deliveries")]
   [SwaggerOperation("Get Delivery List by Order Id")]
   public async Task<ActionResult<ResultModel<IPagedList<DeliveryDto>>>> GetDeliveriesByOrderId(string id,
-    [FromQuery] Criteria criteria)
+    [FromQuery] Specification specification)
     => Ok(ResultModel<IPagedList<DeliveryDto>>.Create(
-      await Mediator.Send(new GetDeliveryByOrderIdWithPagingQuery(id, criteria))));
+      await Mediator.Send(new GetDeliveryByOrderIdWithPagingQuery(id, specification))));
 
   [HttpGet("{id:length(26)}/hubs/path")]
   [SwaggerOperation("Get Hub path by Order Id")]
-  public async Task<ActionResult<ResultModel<IPagedList<HubDto>>>> GetHubPath(string id, [FromQuery] Criteria criteria)
-    => Ok(ResultModel<IPagedList<HubDto>>.Create(await Mediator.Send(new GetHubPathByOrderIdQuery(id, criteria))));
+  public async Task<ActionResult<ResultModel<IPagedList<HubDto>>>> GetHubPath(string id, [FromQuery] Specification specification)
+    => Ok(ResultModel<IPagedList<HubDto>>.Create(await Mediator.Send(new GetHubPathByOrderIdQuery(id, specification))));
 
   [HttpGet("lookup")]
   [SwaggerOperation("Get Order List By Phone number with Paging")]
   public async Task<ActionResult<ResultModel<IPagedList<OrderDto>>>> GetOrderByPhoneNumber([FromQuery] string phone,
-    [FromQuery] Criteria criteria, [FromQuery] OrderEnumFilter orderEnumFilter, [FromQuery] bool current)
+    [FromQuery] Specification specification, [FromQuery] OrderEnumFilter orderEnumFilter, [FromQuery] bool current)
     => Ok(ResultModel<IPagedList<OrderDto>>.Create(
       await Mediator.Send(
-        new GetOrderByCustomerPhoneNumberWithPagingQuery(phone, criteria, orderEnumFilter, current))));
+        new GetOrderByCustomerPhoneNumberWithPagingQuery(phone, specification, orderEnumFilter, current))));
 }

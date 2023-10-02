@@ -4,7 +4,7 @@ using Profio.Domain.Entities;
 
 namespace Profio.Infrastructure.Persistence.Configurations;
 
-public class PhaseConfiguration : IEntityTypeConfiguration<Phase>
+public sealed class PhaseConfiguration : IEntityTypeConfiguration<Phase>
 {
   public void Configure(EntityTypeBuilder<Phase> builder)
   {

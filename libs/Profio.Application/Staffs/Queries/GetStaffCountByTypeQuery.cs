@@ -15,13 +15,6 @@ public sealed class
     => _applicationDbContext = applicationDbContext;
 
   public Task<IEnumerable<int>> Handle(GetStaffCountByPositionQuery request, CancellationToken cancellationToken)
-  {
-    var counts = Enum.GetValues(typeof(Position)).Cast<Position>()
-      .Select(position =>
-      {
-        var count = _applicationDbContext.Staffs.Count(s => s.Position == position);
-        return count;
-      });
-    return Task.FromResult(counts);
-  }
+    => Task.FromResult(Enum.GetValues(typeof(Position)).Cast<Position>()
+      .Select(position => _applicationDbContext.Staffs.Count(s => s.Position == position)));
 }

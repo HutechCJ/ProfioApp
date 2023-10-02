@@ -6,7 +6,7 @@ using Profio.Infrastructure.Persistence.Idempotency;
 
 namespace Profio.Infrastructure.Persistence;
 
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IDatabaseFacade
+public sealed class ApplicationDbContext : IdentityDbContext<ApplicationUser>, IDatabaseFacade
 {
   public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
   {

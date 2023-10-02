@@ -9,8 +9,8 @@ using Profio.Domain.Specifications;
 
 namespace Profio.Application.Customers.Queries;
 
-public sealed record GetOrderByCustomerIdWithPagingQuery(string CustomerId, Criteria Criteria,
-  OrderEnumFilter OrderEnumFilter) : GetOrderWithPagingQuery(Criteria, OrderEnumFilter);
+public sealed record GetOrderByCustomerIdWithPagingQuery(string CustomerId, Specification Specification,
+  OrderEnumFilter OrderEnumFilter) : GetOrderWithPagingQuery(Specification, OrderEnumFilter);
 
 public sealed class
   GetOrderByCustomerIdWithPagingQueryHandler : GetOrderWithPagingQueryHandler<GetOrderByCustomerIdWithPagingQuery>

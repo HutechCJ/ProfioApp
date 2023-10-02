@@ -10,7 +10,7 @@ using Profio.Infrastructure.Abstractions.CQRS.Validators;
 namespace Profio.Application.Vehicles.Queries;
 
 public sealed record GetVehicleWithPagingQuery
-  (Criteria Criteria, VehicleEnumFilter VehicleEnumFilter) : GetWithPagingQueryBase<VehicleDto>(Criteria);
+  (Specification Specification, VehicleEnumFilter VehicleEnumFilter) : GetWithPagingQueryBase<VehicleDto>(Specification);
 
 public sealed class
   GetVehicleWithPagingQueryHandler : GetWithPagingQueryHandler<GetVehicleWithPagingQuery, VehicleDto, Vehicle>

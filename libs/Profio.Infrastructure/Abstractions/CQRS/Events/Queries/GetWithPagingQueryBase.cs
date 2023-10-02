@@ -6,5 +6,5 @@ using Profio.Domain.Specifications;
 namespace Profio.Infrastructure.Abstractions.CQRS.Events.Queries;
 
 public record GetWithPagingQueryBase<TModel>
-  (Criteria Criteria) : IRequest<IPagedList<TModel>>
+  (Specification Specification) : IRequest<IPagedList<TModel>>
   where TModel : BaseModel;

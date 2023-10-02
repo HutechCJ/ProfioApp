@@ -16,8 +16,8 @@ public sealed class PhasesController : BaseEntityController<Phase, PhaseDto, Get
 {
   [HttpGet]
   [SwaggerOperation("Get Phase List with Paging")]
-  public Task<ActionResult<ResultModel<IPagedList<PhaseDto>>>> Get([FromQuery] Criteria criteria)
-    => HandlePaginationQuery(new GetPhaseWithPagingQuery(criteria));
+  public Task<ActionResult<ResultModel<IPagedList<PhaseDto>>>> Get([FromQuery] Specification specification)
+    => HandlePaginationQuery(new GetPhaseWithPagingQuery(specification));
 
   [HttpGet("{id:length(26)}")]
   [SwaggerOperation("Get Phase by Id")]

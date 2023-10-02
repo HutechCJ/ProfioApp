@@ -10,8 +10,8 @@ using Profio.Domain.Specifications;
 
 namespace Profio.Application.Customers.Queries;
 
-public sealed record GetOrderByCustomerPhoneNumberWithPagingQuery(string Phone, Criteria Criteria,
-  OrderEnumFilter OrderEnumFilter, bool Current) : GetOrderWithPagingQuery(Criteria, OrderEnumFilter);
+public sealed record GetOrderByCustomerPhoneNumberWithPagingQuery(string Phone, Specification Specification,
+  OrderEnumFilter OrderEnumFilter, bool Current) : GetOrderWithPagingQuery(Specification, OrderEnumFilter);
 
 public sealed class
   GetOrderByCustomerPhoneNumberWithPagingQueryHandler : GetOrderWithPagingQueryHandler<

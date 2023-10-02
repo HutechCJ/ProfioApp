@@ -17,7 +17,7 @@ using Profio.Infrastructure.Persistence;
 namespace Profio.Application.Vehicles.Queries;
 
 public sealed record GetHubPathByVehicleIdQuery
-  (string VehicleId, Criteria Criteria) : GetWithPagingQueryBase<HubDto>(Criteria);
+  (string VehicleId, Specification Specification) : GetWithPagingQueryBase<HubDto>(Specification);
 
 public sealed class GetHubPathByVehicleIdQueryHandler : IRequestHandler<GetHubPathByVehicleIdQuery, IPagedList<HubDto>>
 {

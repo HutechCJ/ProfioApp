@@ -12,7 +12,7 @@ using Profio.Infrastructure.Abstractions.CQRS.Validators;
 namespace Profio.Application.Deliveries.Queries;
 
 public sealed record GetOrderHistoryByDeliveryIdWithPagingQuery
-  (string DeliveryId, Criteria Criteria) : GetWithPagingQueryBase<OrderHistoryDto>(Criteria);
+  (string DeliveryId, Specification Specification) : GetWithPagingQueryBase<OrderHistoryDto>(Specification);
 
 public sealed class GetOrderHistoryByDeliveryIdWithPagingQueryHandler : GetWithPagingQueryHandler<
   GetOrderHistoryByDeliveryIdWithPagingQuery, OrderHistoryDto, OrderHistory>
@@ -24,9 +24,7 @@ public sealed class GetOrderHistoryByDeliveryIdWithPagingQueryHandler : GetWithP
 
   protected override Expression<Func<OrderHistory, bool>> RequestFilter(
     GetOrderHistoryByDeliveryIdWithPagingQuery request)
-  {
-    return x => x.DeliveryId == request.DeliveryId;
-  }
+    => x => x.DeliveryId == request.DeliveryId;
 }
 
 public sealed class GetOrderHistoryByDeliveryIdWithPagingQueryValidator : GetWithPagingQueryValidatorBase<

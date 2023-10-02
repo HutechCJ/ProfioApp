@@ -16,11 +16,13 @@ public class CreateCommandHandlerBase<TCommand, TEntity> : IRequestHandler<TComm
   private readonly IRepository<TEntity> _repository;
   private readonly IUnitOfWork _unitOfWork;
 
-  public CreateCommandHandlerBase(IUnitOfWork unitOfWork, IMapper mapper) => (_unitOfWork, _mapper, _repository) =
-    (unitOfWork, mapper, unitOfWork.Repository<TEntity>());
+  public CreateCommandHandlerBase(IUnitOfWork unitOfWork, IMapper mapper)
+    => (_unitOfWork, _mapper, _repository) = (unitOfWork, mapper, unitOfWork.Repository<TEntity>());
 
   public async Task<object> Handle(TCommand request, CancellationToken cancellationToken)
   {
+    ArgumentNullException.ThrowIfNull(request, nameof(request));
+
     var entity = _mapper.Map<TEntity>(request);
 
     await _repository.AddAsync(entity, cancellationToken);
