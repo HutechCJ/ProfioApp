@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Polly;
 using Polly.Retry;
 using Profio.Domain.Exceptions;
+using Profio.Infrastructure.Persistence.Interceptors;
 using Profio.Infrastructure.Persistence.Optimization;
 
 namespace Profio.Infrastructure.Persistence;
@@ -15,20 +16,20 @@ public static class Extension
   public static IServiceCollection AddPostgres(this IServiceCollection services, IConfiguration configuration)
   {
     services.AddTriggeredDbContextPool<DbContext, ApplicationDbContext>(options =>
-    {
       options.UseNpgsql(configuration.GetConnectionString("Postgres"),
           sqlOptions =>
           {
             sqlOptions.MigrationsAssembly(AssemblyReference.AssemblyName);
             sqlOptions.EnableRetryOnFailure(5, TimeSpan.FromSeconds(30), null);
           })
-        .EnableSensitiveDataLogging()
         .EnableDetailedErrors()
+        .EnableSensitiveDataLogging()
         .UseExceptionProcessor()
-        .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-      options.UseModel(ApplicationDbContextModel.Instance);
-      options.UseTriggers(o => o.AddAssemblyTriggers());
-    });
+        .UseModel(ApplicationDbContextModel.Instance)
+        .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
+        .UseTriggers(o => o.AddAssemblyTriggers())
+        .AddInterceptors(new SelectWithoutWhereCommandInterceptor())
+    );
 
     services.AddScoped<ApplicationDbContextInitializer>();
 
