@@ -12,6 +12,9 @@
 		<a href="https://profioapp.azurewebsites.net/ " target="_blank">
 			<img loading="lazy" src="https://img.shields.io/badge/azure-%230072C6.svg?logo=microsoftazure&logoColor=white" alt="Azure">
 		</a>
+		<a href="https://profio-cms.onrender.com/" target="_blank">
+			<img loading="lazy" src="https://img.shields.io/badge/render-%2346E3B7?logo=render&logoColor=white" alt="Render">
+		</a>
     <a href="https://gitpod.io/new/#https://github.com/HutechCJ/ProfioApp" target="_blank">
 			<img loading="lazy" src="https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod" alt="Gitpod">
 		</a>
@@ -20,7 +23,7 @@
 
 <hr>
 
-<h1 align="justify"> Profio Application - 🚛 A Modern Logistics Management System ✈️ </h1>
+<h1 align="justify"> Profio Application - 🚛 A Modern Logistics Management System ✈️</h1>
 
 <p align="center">
 	Profio Application is a monorepo project built with <a href="https://nx.dev/">Nx</a> technology. It is a set of extensible dev tools for monorepos, which helps you develop like Google, Facebook, and Microsoft.
@@ -32,28 +35,28 @@
 - [Tentative technologies](#tentative-technologies)
 - [Building blocks](#building-blocks)
 - [Screenshots](#screenshots)
-  - [Home page](#home-page)
-  - [Lookup page](#lookup-page)
-  - [Contact page](#contact-page)
-  - [Login page](#login-page)
+	- [Home page](#home-page)
+	- [Lookup page](#lookup-page)
+	- [Contact page](#contact-page)
+	- [Login page](#login-page)
 - [Getting Started](#getting-started)
-  - [💻 Infrastructure](#-infrastructure)
-  - [📦 Services](#-services)
-  - [🛠️ Setup](#️-setup)
-  - [🚀 Running the application](#-running-the-application)
-  - [🐳 Running services with Container](#-running-services-with-container)
+	- [💻 Infrastructure](#-infrastructure)
+	- [📦 Services](#-services)
+	- [🛠️ Setup](#️-setup)
+	- [🚀 Running the application](#-running-the-application)
+	- [🐳 Running services with Container](#-running-services-with-container)
 - [API development](#api-development)
 - [Open API](#open-api)
 - [Dependency Graph](#dependency-graph)
 - [CI/CD](#cicd)
 - [External services](#external-services)
-  - [📦 Container Management](#-container-management)
-  - [🧑‍⚕️ Health Check](#️-health-check)
-  - [📊 Monitoring](#-monitoring)
-  - [📈 Tracing](#-tracing)
-  - [📝 Logging](#-logging)
-  - [📦 Database Management](#-database-management)
-  - [🔒 Identity Server](#-identity-server)
+	- [📦 Container Management](#-container-management)
+	- [🧑‍⚕️ Health Check](#️-health-check)
+	- [📊 Monitoring](#-monitoring)
+	- [📈 Tracing](#-tracing)
+	- [📝 Logging](#-logging)
+	- [📦 Database Management](#-database-management)
+	- [🔒 Identity Server](#-identity-server)
 - [Our Presentation](#our-presentation)
 - [Contributing](#contributing)
 - [Contributors](#contributors)
@@ -69,11 +72,12 @@
 
 <blockquote>
 	<p align="justify">
-		This is a product of the CJ Code your Future 2023 contest. The purpose of this project is to help CJ Logistics improve the quality of transportation management. This project is not for commercial purposes 👍
+		This is a product of the CJ Code your Future 2023 contest. The purpose of this project is to help CJ Logistics improve the quality of transportation management. All components in the project are free. This project is not for commercial purposes 👍
 	</p>
 	<p align="justify">
-		We are a group of students from Hutech University. We are very happy to be able to participate in this contest. We hope that our project will be useful to CJ Logistics.
+		We are a group of students from Hutech University. We are very happy to be able to participate in this contest. We hope that our project will be useful to CJ Logistics and CJ Olive Networks Vina in the future 🤝
 	</p>
+
 </blockquote>
 
 <p align="justify">
@@ -93,13 +97,15 @@
 - [RabbitMQ](https://www.rabbitmq.com/)
 - [Redis](https://redis.io/)
 - [PostgreSQL](https://www.postgresql.org/)
-- [MQTT Broker](https://www.emqx.io/)
+- [EMQX](https://www.emqx.io/)
 - [DeepSource](https://deepsource.io/)
 - [Github Action](https://github.com/features/actions)
 - [Keycloak](https://www.keycloak.org/)
 - [K8s](https://kubernetes.io/), [Helm](https://helm.sh/)
+- [Teraform](https://www.terraform.io/)
+- [Bicep](https://docs.microsoft.com/en-us/azure/azure-resource-manager/bicep/overview)
 - [OpenTelemetry](https://opentelemetry.io/)
-- [Grafana](https://grafana.com/), [Prometheus](https://prometheus.io/), [Jaeger](https://www.jaegertracing.io/), [Seq](https://datalust.co/seq)
+- [Grafana](https://grafana.com/), [Prometheus](https://prometheus.io/), [Jaeger](https://www.jaegertracing.io/), [Seq](https://datalust.co/seq), [Zipkin](https://zipkin.io/)
 
 # Building blocks
 
@@ -347,7 +353,7 @@
 		<b><a href="https://www.emqx.io/" target="_blank">EMQX</a></b> - EMQ X Broker is an open-source, scalable MQTT messaging broker for IoT, M2M, and mobile apps, handling millions of concurrent clients.
 	</li>
 	<li align="justify">
-		<b><a href="https://cloud.google.com/" target="_blank">Google Cloud 	Platform</a></b> - Google Cloud Platform (GCP) is a suite of cloud services running on the same infrastructure as Google's user products like Search, Gmail, and YouTube.
+		<b><a href="https://cloud.google.com/" target="_blank">Google Cloud Platform</a></b> - Google Cloud Platform (GCP) is a suite of cloud services running on the same infrastructure as Google's user products like Search, Gmail, and YouTube.
 	</li>
 	<li align="justify">
 		<b><a href="https://supabase.io/" target="_blank">Supabase</a></b> - Supabase is an open-source alternative to Firebase that adds real-time and RESTful APIs to your PostgreSQL database without any coding.
@@ -370,6 +376,8 @@ Next, navigate to the root directory of the project and install the dependencies
 ```bash
 npm install --force
 ```
+
+To learn more about the project, please visit the [**Wiki**](https://github.com/foxminchan/SaoVietPortal/wiki)
 
 ## 🚀 Running the application
 
@@ -461,7 +469,7 @@ docker run -d -p 5272:80 ghcr.io/hutechcj/profio-webiste:latest
 # API development
 
 <p align="justify">
-	We use Clean Architecture for the API development. You can read more about Clean Architecture <a href="https://docs.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures#clean-architecture" target="_blank">here</a>. The CQRS and Mediator patterns are also used in the API development. We also implement the Options Pattern to read the configuration settings.You can read more about CQRS <a href="https://docs.microsoft.com/en-us/azure/architecture/patterns/cqrs" target="_blank">here</a>, Mediator <a href="https://refactoring.guru/design-patterns/mediator" target="_blank">here</a> and Options Pattern <a href="https://learn.microsoft.com/en-us/aspnet/core/fundamentals/configuration/options?view=aspnetcore-8.0" target="_blank">here</a>.
+	We use Clean Architecture for the API development. You can read more about Clean Architecture <a href="https://docs.microsoft.com/en-us/dotnet/architecture/modern-web-apps-azure/common-web-application-architectures#clean-architecture" target="_blank">here</a>. The CQRS and Mediator patterns are also used in the API development. Besides, we also use some design patterns such as: Repository Pattern, Unit of Work, Specification Pattern, Inversion of Control / Dependency injection, Options Pattern.
 </p>
 
 <figure>
@@ -574,6 +582,10 @@ For the identity server, We have used the <b>Keycloak</b> service to manage the 
 <img loading="lazy" src="./assets/img/keycloak.png" width="100%" alt="keycloak">
 
 # Our Presentation
+
+<p align="justify">
+We have presented our project at the school-level finals and the city-level finals of the Code Your Future competition. We also presented our project at the final round of the Code Your Future competition.
+</p>
 
 - [The school-level finals of the Code Your Future competition](./assets/slides/school-presentation.pdf)
 - [The city-level finals of the Code Your Future competition](./assets/slides/city-presentation.pdf)
