@@ -32,6 +32,8 @@ public static class Extension
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
         .UseTriggers(o => o.AddAssemblyTriggers())
         .AddInterceptors(new SelectWithoutWhereCommandInterceptor())
+        .AddInterceptors(new UpdateWithoutWhereCommandInterceptor())
+        .AddInterceptors(new DeleteWithoutWhereCommandInterceptor())
     );
 
     services.AddScoped<ApplicationDbContextInitializer>();
