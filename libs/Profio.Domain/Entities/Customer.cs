@@ -11,6 +11,6 @@ public sealed class Customer : IEntity
   public string? Email { get; set; }
   public Gender? Gender { get; set; } = Constants.Gender.Male;
   public required Address? Address { get; set; }
-  public ICollection<Order> Orders { get; set; } = new List<Order>();
-  public string Id { get; set; } = Ulid.NewUlid().ToString()!;
+public ICollection<Order> Orders { get; set; } = new List<Order>();
+public string Id { get; set; } = Ulid.NewUlid().ToString()!;
 }
