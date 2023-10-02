@@ -32,7 +32,7 @@ public static class Extension
         .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking)
         .UseTriggers(o => o.AddAssemblyTriggers())
         .AddInterceptors(new TimingInterceptor())
-        .AddInterceptors(new ExcuteWithoutWhereCommandInterceptor())
+        .AddInterceptors(new ExecuteWithoutWhereCommandInterceptor())
     );
 
     services.AddScoped<ApplicationDbContextInitializer>();

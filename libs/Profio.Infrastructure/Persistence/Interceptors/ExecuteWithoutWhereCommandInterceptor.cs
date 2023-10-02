@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Profio.Infrastructure.Persistence.Interceptors;
 
-public class ExcuteWithoutWhereCommandInterceptor : DbCommandInterceptor
+public class ExecuteWithoutWhereCommandInterceptor : DbCommandInterceptor
 {
   public override InterceptionResult<DbDataReader> ReaderExecuting(
     DbCommand command,
