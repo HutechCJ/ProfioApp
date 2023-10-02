@@ -35,21 +35,21 @@ public sealed class LuceneService<T> : ILuceneService<T> where T : class
   {
     var propertyIndex = new Dictionary<string, List<Document>>();
     foreach (var data in list)
-    foreach (var dummy in data.GetType().GetProperties())
-    foreach (var property in data.GetType().GetProperties())
-    {
-      if (!propertyIndex.ContainsKey(property.Name))
-        propertyIndex.Add(property.Name, new());
+      foreach (var dummy in data.GetType().GetProperties())
+        foreach (var property in data.GetType().GetProperties())
+        {
+          if (!propertyIndex.ContainsKey(property.Name))
+            propertyIndex.Add(property.Name, new());
 
-      var value = property.GetValue(data, null);
+          var value = property.GetValue(data, null);
 
-      if (value is null) continue;
+          if (value is null) continue;
 
-      var document = new Document
+          var document = new Document
         { new StringField(property.Name, value.ToString(), Field.Store.YES) };
 
-      propertyIndex[property.Name].Add(document);
-    }
+          propertyIndex[property.Name].Add(document);
+        }
 
     return propertyIndex;
   }
