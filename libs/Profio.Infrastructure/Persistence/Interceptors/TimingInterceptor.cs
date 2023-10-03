@@ -41,7 +41,7 @@ public sealed class TimingInterceptor : DbCommandInterceptor
     message.AppendLine("This query should be optimized or split into smaller queries. ");
     message.AppendLine($"Stack Trace: {stackTrace}");
 
-    await using (var writer = File.AppendText("../../../logs.txt"))
+    await using (var writer = File.AppendText("interceptors.txt"))
     {
       await writer.WriteLineAsync(message.ToString());
     }

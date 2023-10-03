@@ -55,6 +55,6 @@ public sealed class ExecuteWithoutWhereCommandInterceptor : DbCommandInterceptor
   private static void Log(string logMessage)
   {
     var stackTrace = string.Join("\n", Environment.StackTrace.Split('\n').Select(x => x));
-    File.AppendAllText("../../../logs.txt", $"{logMessage}{Environment.NewLine}{stackTrace}{Environment.NewLine}");
+    File.AppendAllText("interceptors.log", $"{logMessage}{Environment.NewLine}{stackTrace}{Environment.NewLine}");
   }
 }

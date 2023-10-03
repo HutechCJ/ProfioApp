@@ -25,7 +25,7 @@ public sealed class ConfigureSwaggerGenOptions : IConfigureOptions<SwaggerGenOpt
           Title = "Profio API",
           Version = description.ApiVersion.ToString(),
           Description =
-            "Profio - the symbol of professionalism in transportation management. Whether you need a solution for managing a fleet of vehicles or ships, Profio provides a powerful tool, optimizing and simplifying the process, ensuring every movement is quick, safe, and efficient. The system is designed to be flexible and scalable, allowing you to manage your fleet of any size, from a few vehicles to thousands of ships. Profio is a product of CJ Logistics, a global leader in transportation and logistics services.",
+            "<p align='justify'>Profio - the symbol of professionalism in transportation management. Whether you need a solution for managing a fleet of vehicles or ships, Profio provides a powerful tool, optimizing and simplifying the process, ensuring every movement is quick, safe, and efficient. The system is designed to be flexible and scalable, allowing you to manage your fleet of any size, from a few vehicles to thousands of ships. Profio is a product of CJ Logistics, a global leader in transportation and logistics services. The Redoc documentation can be found <a href='/api-docs' target='_blank'>here</a> and Swagger documentation can be found <a href='/swagger' target='_blank'>here</a>.</p>",
 
           Contact = new()
           {
