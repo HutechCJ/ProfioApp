@@ -4,7 +4,7 @@ using Profio.Domain.Entities;
 using Profio.Domain.Identity;
 using Profio.Infrastructure.Persistence;
 
-namespace Profio.Application.Counters.Queries;
+namespace Profio.Application.Statistical.Queries;
 
 public sealed record GetEntityCountQuery(IList<string> EntityTypes) : IRequest<Dictionary<string, int>>;
 

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Profio.Application.Counters.Queries;
+using Profio.Application.Statistical.Queries;
 using Profio.Domain.Entities;
 using Profio.Domain.Models;
 using Swashbuckle.AspNetCore.Annotations;
