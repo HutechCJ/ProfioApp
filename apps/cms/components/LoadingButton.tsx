@@ -8,7 +8,7 @@ function LoadingButton({
   ...props
 }: ButtonProps & { loading?: boolean }) {
   const getProgressSize = () => {
-    return size === 'large' ? 30 : size === 'small' ? 10 : 20;
+    return size === 'large' ? 25 : size === 'small' ? 10 : 20;
   };
   return (
     <Button disabled={loading} {...props}>
