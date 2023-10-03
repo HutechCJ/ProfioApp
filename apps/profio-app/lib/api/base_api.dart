@@ -1,50 +1,51 @@
 import 'dart:io';
+import 'dart:developer' as developer;
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 
 /// ## Api Status
-/// * [SUCCEEDED] - The request was successful.
-/// * [FAILED] - The request failed.
-/// * [INTERNET_UNAVAILABLE] - The internet is unavailable.
-enum ApiStatus { SUCCEEDED, FAILED, INTERNET_UNAVAILABLE }
+/// * [succeeded] - The request was successful.
+/// * [failed] - The request failed.
+/// * [internetUnavailable] - The internet is unavailable.
+enum ApiStatus { succeeded, failed, internetUnavailable }
 
 /// ## Api Method
-/// * [GET] - Get method.
-/// * [POST] - Post method.
-/// * [PUT] - Put method.
-/// * [DELETE] - Delete method.
-enum ApiMethod { GET, POST, PUT, DELETE }
+/// * [get] - Get method.
+/// * [post] - Post method.
+/// * [put] - Put method.
+/// * [delete] - Delete method.
+enum ApiMethod { get, post, put, delete }
 
 /// ## api Method with Map of [ApiMethod, String]
-/// * ApiMethod.GET - Get method = 'get'
-/// * ApiMethod.POST - Post method = 'post'
-/// * ApiMethod.PUT - Put method = 'put'
-/// * ApiMethod.DELETE - Delete method = 'delete'
+/// * ApiMethod.get - Get method = 'get'
+/// * ApiMethod.post - Post method = 'post'
+/// * ApiMethod.put - Put method = 'put'
+/// * ApiMethod.delete - Delete method = 'delete'
 Map<ApiMethod, String> apiMethod = {
-  ApiMethod.GET: 'get',
-  ApiMethod.POST: 'post',
-  ApiMethod.PUT: 'put',
-  ApiMethod.DELETE: 'delete'
+  ApiMethod.get: 'get',
+  ApiMethod.post: 'post',
+  ApiMethod.put: 'put',
+  ApiMethod.delete: 'delete'
 };
 
 /// ## [BaseDataAPI] - Base Class for handling API
 class BaseDataAPI {
   dynamic object;
-  var apiStatus;
+  dynamic apiStatus;
   BaseDataAPI({this.object, this.apiStatus});
 }
 
 void printLogYellow(String message) {
-  print('\x1B[33m$message\x1B[0m');
+  developer.log('\x1B[33m$message\x1B[0m');
 }
 
 void printLogError(String message) {
-  print('\x1B[31m$message\x1B[0m');
+  developer.log('\x1B[31m$message\x1B[0m');
 }
 
 void printLogSusscess(String message) {
-  print('\x1B[32m$message\x1B[0m');
+  developer.log('\x1B[32m$message\x1B[0m');
 }
 
 class BaseAPI {
@@ -65,24 +66,24 @@ class BaseAPI {
   /// * Return [BaseDataAPI] is object of BaseDataAPI with object and apiStatus
   /// * Example:
   ///  ```dart
-  ///  return BaseDataAPI(object: response.data, apiStatus:ApiStatus.SUCCEEDED);
+  ///  return BaseDataAPI(object: response.data, apiStatus:ApiStatus.succeeded);
   /// ```
   Future<BaseDataAPI> fetchData(
     url, {
     dynamic body,
     Map<String, dynamic>? params,
     Map<String, dynamic>? headers,
-    ApiMethod method = ApiMethod.GET,
+    ApiMethod method = ApiMethod.get,
   }) async {
     /// Check internet connection is available
     /// * If internet connection is not available,
-    ///  return [ApiStatus.INTERNET_UNAVAILABLE]
+    ///  return [ApiStatus.internetUnavailable]
     /// * If internet connection is available,
     /// continue to fetch data
 
     if (!(await checkConnection())) {
       return BaseDataAPI(
-        apiStatus: ApiStatus.INTERNET_UNAVAILABLE,
+        apiStatus: ApiStatus.internetUnavailable,
       );
     }
 
@@ -90,10 +91,10 @@ class BaseAPI {
     /// response is response of API
     Response response;
     printLogYellow('API:${apiMethod[method]}|================--------------->');
-    print('url: $domain$url');
-    print('header: $headers');
-    print('params: $params');
-    print('body: $body');
+    developer.log('url: $domain$url');
+    developer.log('header: $headers');
+    developer.log('params: $params');
+    developer.log('body: $body');
     try {
       Options options = Options();
       options.method = apiMethod[method];
@@ -101,39 +102,39 @@ class BaseAPI {
       response = await _dio.request(domain + url,
           data: body, queryParameters: params, options: options);
     } on DioException catch (e) {
-      /// If error is DioException, return [ApiStatus.FAILED]
+      /// If error is DioException, return [ApiStatus.failed]
       printLogError('Error [${apiMethod[method]} API]: $e');
       printLogYellow(
           'END API ${apiMethod[method]}<---------------================|');
-      return BaseDataAPI(apiStatus: ApiStatus.FAILED);
+      return BaseDataAPI(apiStatus: ApiStatus.failed);
     }
-    // If response.data is DioException, return [ApiStatus.FAILED]
+    // If response.data is DioException, return [ApiStatus.failed]
     if (response.data is DioException) {
       printLogError('Error [${apiMethod[method]} API]: ${response.data}');
-      printLogYellow('END API GET<---------------================|');
-      return BaseDataAPI(apiStatus: ApiStatus.FAILED);
+      printLogYellow('END API get<---------------================|');
+      return BaseDataAPI(apiStatus: ApiStatus.failed);
     }
-    // If response.data is not null, return [response.data ,ApiStatus.SUCCEEDED]
+    // If response.data is not null, return [response.data ,ApiStatus.succeeded]
     printLogSusscess('Success [${apiMethod[method]} API]: ${response.data}');
     printLogYellow(
         'END API ${apiMethod[method]}<---------------================|');
-    return BaseDataAPI(object: response.data, apiStatus: ApiStatus.SUCCEEDED);
+    return BaseDataAPI(object: response.data, apiStatus: ApiStatus.succeeded);
   }
 
   Future<BaseDataAPI> fileUpload(url,
       {dynamic body,
       Map<String, dynamic>? headers,
-      ApiMethod method = ApiMethod.POST,
+      ApiMethod method = ApiMethod.post,
       required File file}) async {
     /// Check internet connection is available
     /// * If internet connection is not available,
-    ///  return [ApiStatus.INTERNET_UNAVAILABLE]
+    ///  return [ApiStatus.internetUnavailable]
     /// * If internet connection is available,
     /// continue to fetch data
 
     if (!(await checkConnection())) {
       return BaseDataAPI(
-        apiStatus: ApiStatus.INTERNET_UNAVAILABLE,
+        apiStatus: ApiStatus.internetUnavailable,
       );
     }
 
@@ -141,9 +142,9 @@ class BaseAPI {
     /// response is response of API
     Response response;
     printLogYellow('API:${apiMethod[method]}|================--------------->');
-    print('url: $domain$url');
-    print('header: $headers');
-    print('body: $body');
+    developer.log('url: $domain$url');
+    developer.log('header: $headers');
+    developer.log('body: $body');
     try {
       Options options = Options();
       options.method = apiMethod[method];
@@ -155,23 +156,23 @@ class BaseAPI {
       response =
           await _dio.request(domain + url, data: formData, options: options);
     } on DioException catch (e) {
-      /// If error is DioException, return [ApiStatus.FAILED]
+      /// If error is DioException, return [ApiStatus.failed]
       printLogError('Error [${apiMethod[method]} API]: $e');
       printLogYellow(
           'END API ${apiMethod[method]}<---------------================|');
-      return BaseDataAPI(apiStatus: ApiStatus.FAILED);
+      return BaseDataAPI(apiStatus: ApiStatus.failed);
     }
-    // If response.data is DioException, return [ApiStatus.FAILED]
+    // If response.data is DioException, return [ApiStatus.failed]
     if (response.data is DioException) {
       printLogError('Error [${apiMethod[method]} API]: ${response.data}');
-      printLogYellow('END API GET<---------------================|');
-      return BaseDataAPI(apiStatus: ApiStatus.FAILED);
+      printLogYellow('END API get<---------------================|');
+      return BaseDataAPI(apiStatus: ApiStatus.failed);
     }
-    // If response.data is not null, return [response.data ,ApiStatus.SUCCEEDED]
+    // If response.data is not null, return [response.data ,ApiStatus.succeeded]
     printLogSusscess('Success [${apiMethod[method]} API]: ${response.data}');
     printLogYellow(
         'END API ${apiMethod[method]}<---------------================|');
-    return BaseDataAPI(object: response.data, apiStatus: ApiStatus.SUCCEEDED);
+    return BaseDataAPI(object: response.data, apiStatus: ApiStatus.succeeded);
   }
 
   /// # [checkConnection] Check connection internet

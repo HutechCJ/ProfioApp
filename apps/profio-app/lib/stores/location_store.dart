@@ -42,17 +42,17 @@ abstract class LocationStoreBase with Store {
     if (!vehicleStore.hasSelectedVehicle) return;
     var vehicleSpeed = getVehicleSpeed(vehicleStore.selectedVehicle.type);
 
-    var hubPosition = Position(
-        latitude: hubStore.selectedHub.location.latitude,
-        longitude: hubStore.selectedHub.location.longitude,
-        accuracy: 0,
-        altitude: 0,
-        heading: 0,
-        speed: 0,
-        speedAccuracy: 0,
-        timestamp: null,
-        floor: 0,
-        isMocked: false);
+    // var hubPosition = Position(
+    //     latitude: hubStore.selectedHub.location.latitude,
+    //     longitude: hubStore.selectedHub.location.longitude,
+    //     accuracy: 0,
+    //     altitude: 0,
+    //     heading: 0,
+    //     speed: 0,
+    //     speedAccuracy: 0,
+    //     timestamp: null,
+    //     floor: 0,
+    //     isMocked: false);
 
     if (!hasSelectedPosition) return;
 

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
+import 'dart:developer' as developer;
 
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
@@ -24,8 +25,8 @@ class LocationManager {
     final SharedPreferences preferences = await SharedPreferences.getInstance();
     var jsonString = preferences.getString('direction_result');
 
-    print('Origin: ' + origin);
-    print('Destination: ' + destination);
+    developer.log('Origin: $origin');
+    developer.log('Destination: $destination');
     dynamic json;
 
     if (jsonString == null) {
@@ -36,7 +37,7 @@ class LocationManager {
         var response = await BaseAPI().fetchData(url);
 
         json = response.object;
-        print('Stored json: ' + json.toString());
+        developer.log('Stored json: $json');
         preferences.setString('direction_result', jsonEncode(json));
       } catch (e) {
         preferences.remove('direction_result');
@@ -45,7 +46,7 @@ class LocationManager {
     } else {
       json = jsonDecode(jsonString);
     }
-    print('Json: ' + json.toString());
+    developer.log('Json: $json');
     var results = {
       'bounds_ne': json['routes'][0]['bounds']['northeast'],
       'bounds_sw': json['routes'][0]['bounds']['southwest'],
@@ -112,15 +113,11 @@ class LocationManager {
       final location = VehicleLocation(
           id: vehicleId,
           latitude: position.latitude,
-          longitude: position.longitude,
-          orderIds: [
-            "01HB0Q3XZ5K80BR907M6R05K5A",
-            "01HAR5JFN6Y30YSXSDK2964S3D"
-          ]);
+          longitude: position.longitude);
       builder.addString(jsonEncode(location.toJson()));
     }
 
-    print('MqttProvider::Publishing our topic');
+    developer.log('MqttProvider::Publishing our topic');
     mqttProvider.publish(pubTopic, MqttQos.exactlyOnce, builder);
   }
 
@@ -146,7 +143,7 @@ class LocationManager {
     Timer.periodic(timerInterval, (timer) async {
       if (stopSimulation) {
         timer.cancel();
-        print('Simulation stopped.');
+        developer.log('Simulation stopped.');
         stopSimulation = false;
         return;
       }
@@ -158,7 +155,7 @@ class LocationManager {
           startLocation, endLocation, distanceToTravel);
 
       // Publish the intermediate position (simulating vehicle movement)
-      print(
+      developer.log(
           'Intermediate Position: ${intermediatePosition.latitude}, ${intermediatePosition.longitude}');
 
       onIntermediatePosition?.call(intermediatePosition);
@@ -173,7 +170,7 @@ class LocationManager {
       );
       if (distanceToEnd <= distanceToTravel) {
         timer.cancel();
-        print('Destination reached!');
+        developer.log('Destination reached!');
         // You may want to publish the final position here
         await publishLocation(mqttProvider, endLocation,
             vehicleId: vehicleId, vehicleLocation: vehicleLocation);
@@ -187,7 +184,7 @@ class LocationManager {
       // if (startLocation.latitude == endLocation.latitude &&
       //     startLocation.longitude == endLocation.longitude) {
       //   timer.cancel();
-      //   print('Destination reached!');
+      //   developer.log('Destination reached!');
       // } else {
       //   // Publish the intermediate position to MQTT
       //   await publishLocation(mqttProvider, intermediatePosition,
@@ -295,7 +292,7 @@ class LocationManager {
     Timer.periodic(timerInterval, (timer) async {
       if (stopSimulation) {
         timer.cancel();
-        print('Simulation stopped.');
+        developer.log('Simulation stopped.');
         stopSimulation = false;
         return;
       }
@@ -339,7 +336,7 @@ class LocationManager {
               isMocked: false);
 
           // Publish the intermediate position (simulating vehicle movement)
-          print(
+          developer.log(
               'Intermediate Position: ${intermediatePosition.latitude}, ${intermediatePosition.longitude}');
 
           onIntermediatePosition?.call(intermediatePosition);
@@ -350,7 +347,7 @@ class LocationManager {
           // Check if the vehicle has reached the end of the route
           if (currentRouteIndex == routePoints.length - 1) {
             timer.cancel();
-            print('Destination reached!');
+            developer.log('Destination reached!');
             // You may want to publish the final position here
             await publishLocation(mqttProvider, intermediatePosition,
                 vehicleId: vehicleId, vehicleLocation: vehicleLocation);

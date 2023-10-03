@@ -83,7 +83,7 @@ abstract class VehicleStoreBase with Store {
     var hubId = hubStore.selectedHub.id;
     await _baseAPI.fetchData(
         '${Profio.baseUrl}/v1/${Profio.vehicleEndpoints}/$vehicleId/${Profio.hubEndpoints}/$hubId/visit',
-        method: ApiMethod.POST);
+        method: ApiMethod.post);
   }
 
   Future<List<Order>> fetchOrders() async {

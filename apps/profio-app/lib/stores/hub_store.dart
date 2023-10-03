@@ -30,7 +30,7 @@ abstract class HubStoreBase with Store {
   Future<void> getNextHub(String vehicleId) async {
     var data = await _baseAPI.fetchData(
         '${Profio.baseUrl}/v1/${Profio.vehicleEndpoints}/$vehicleId/${Profio.hubEndpoints}/next');
-    if (data.apiStatus == ApiStatus.FAILED) {
+    if (data.apiStatus == ApiStatus.failed) {
       setNullHub();
     }
     var result = ResultModel.fromJson(data.object);
