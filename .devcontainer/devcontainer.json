@@ -1,11 +1,12 @@
 {
   "name": "Profio development container",
-  "image": "mcr.microsoft.com/devcontainers/dotnet:dev-7.0-jammy",
+  "image": "mcr.microsoft.com/devcontainers/base:dev-ubuntu",
   "features": {
     "ghcr.io/devcontainers/features/docker-in-docker:2": {},
     "ghcr.io/devcontainers/features/dotnet:2.0.1": {},
     "ghcr.io/devcontainers/features/node:1": {},
-    "ghcr.io/devcontainers-contrib/features/nx-npm:1": {}
+    "ghcr.io/devcontainers-contrib/features/nx-npm:1": {},
+    "ghcr.io/jarrodcolburn/features/flutter-sdk:0": {}
   },
   "customizations": {
     "vscode": {
