@@ -48,7 +48,10 @@ public sealed class CreateDeliveryStatisticalCommandHandler : IRequestHandler<Cr
           )).ToList()
         )
       )
-      .First();
+      .FirstOrDefault();
+
+    if (deliverySummary is null)
+      return await Task.FromResult<DeliverySummary>(null!).ConfigureAwait(false);
 
     await _repository.AddAsync(deliverySummary, cancellationToken);
 
