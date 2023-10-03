@@ -1,4 +1,3 @@
-using System.Text;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -14,6 +13,7 @@ using Microsoft.Net.Http.Headers;
 using Profio.Domain.Constants;
 using Profio.Domain.Identity;
 using Profio.Infrastructure.Persistence;
+using System.Text;
 using SameSiteMode = Microsoft.AspNetCore.Http.SameSiteMode;
 
 namespace Profio.Infrastructure.Auth;
@@ -108,7 +108,6 @@ public static class Extensions
 
     services.Configure<CookiePolicyOptions>(options =>
     {
-      options.CheckConsentNeeded = _ => true;
       options.MinimumSameSitePolicy = SameSiteMode.None;
       options.HttpOnly = HttpOnlyPolicy.Always;
       options.Secure = CookieSecurePolicy.SameAsRequest;
