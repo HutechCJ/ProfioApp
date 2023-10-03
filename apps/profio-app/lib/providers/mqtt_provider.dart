@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:mqtt_client/mqtt_client.dart';
 import 'package:mqtt_client/mqtt_server_client.dart';
@@ -40,16 +41,22 @@ class MqttProvider {
     try {
       await client.connect();
     } on Exception catch (e) {
-      print('MqttProvider::client exception - $e');
+      if (kDebugMode) {
+        print('MqttProvider::client exception - $e');
+      }
       client.disconnect();
       return;
     }
 
     if (client.connectionStatus!.state == MqttConnectionState.connected) {
-      print('MqttProvider::Mosquitto client connected');
+      if (kDebugMode) {
+        print('MqttProvider::Mosquitto client connected');
+      }
     } else {
-      print(
+      if (kDebugMode) {
+        print(
           'MqttProvider::ERROR Mosquitto client connection failed - disconnecting, status is ${client.connectionStatus}');
+      }
       client.disconnect();
     }
   }
@@ -71,25 +78,35 @@ class MqttProvider {
   }
 
   void onSubscribed(String topic) {
-    print('MqttProvider::Subscription confirmed for topic $topic');
+    if (kDebugMode) {
+      print('MqttProvider::Subscription confirmed for topic $topic');
+    }
   }
 
   void onDisconnected() {
-    print(
+    if (kDebugMode) {
+      print(
         'MqttProvider::OnDisconnected client callback - Client disconnection');
+    }
     if (client.connectionStatus!.disconnectionOrigin ==
         MqttDisconnectionOrigin.solicited) {
-      print(
+      if (kDebugMode) {
+        print(
           'MqttProvider::OnDisconnected callback is solicited, this is correct');
+      }
     }
   }
 
   void onConnected() {
-    print(
+    if (kDebugMode) {
+      print(
         'MqttProvider::OnConnected client callback - Client connection was successful');
+    }
   }
 
   void pong() {
-    print('MqttProvider::Ping response client callback invoked');
+    if (kDebugMode) {
+      print('MqttProvider::Ping response client callback invoked');
+    }
   }
 }

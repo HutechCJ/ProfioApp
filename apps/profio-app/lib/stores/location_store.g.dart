@@ -70,8 +70,8 @@ mixin _$LocationStore on LocationStoreBase, Store {
   @override
   String toString() {
     return '''
-selectedPosition: ${selectedPosition},
-hasSelectedPosition: ${hasSelectedPosition}
+    selectedPosition: ${selectedPosition},
+    hasSelectedPosition: ${hasSelectedPosition}
     ''';
   }
 }

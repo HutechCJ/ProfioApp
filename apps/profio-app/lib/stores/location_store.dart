@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_polyline_points/flutter_polyline_points.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:mobx/mobx.dart';
 import 'package:mqtt_client/mqtt_client.dart';
-import 'package:profio_staff_client/api/base_api.dart';
 import 'package:profio_staff_client/enums/vehicle_type.dart';
 import 'package:profio_staff_client/managers/location_manager.dart';
 import 'package:profio_staff_client/models/vehicle_location.dart';
@@ -20,7 +18,6 @@ abstract class LocationStoreBase with Store {
   late VehicleStore vehicleStore;
   late HubStore hubStore;
   late MqttProvider mqttProvider;
-  final _baseAPI = BaseAPI();
   final String key = 'AIzaSyDAW0v16XSZI3GdNte36gFHDynsed4-cz0';
   @observable
   Position? selectedPosition;

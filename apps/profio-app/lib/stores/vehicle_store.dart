@@ -70,7 +70,9 @@ abstract class VehicleStoreBase with Store {
           speedAccuracy: 0,
           timestamp: null,
           floor: 0,
-          isMocked: false));
+          isMocked: false,
+          altitudeAccuracy: 0,
+          headingAccuracy: 0));
       endHub = hubs[1];
     }
   }
