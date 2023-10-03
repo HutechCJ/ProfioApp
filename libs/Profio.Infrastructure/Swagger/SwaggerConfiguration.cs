@@ -49,6 +49,7 @@ public static class SwaggerConfiguration
       c.EnableFilter();
       c.EnableValidator();
       c.EnableTryItOutByDefault();
+      c.EnablePersistAuthorization();
     });
 
     return app;
