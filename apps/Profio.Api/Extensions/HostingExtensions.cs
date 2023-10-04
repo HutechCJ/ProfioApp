@@ -1,18 +1,19 @@
-using System.IO.Compression;
-using System.Net.Mime;
-using System.Text.Json.Serialization;
 using FirebaseAdmin;
 using Google.Apis.Auth.OAuth2;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using Profio.Application;
 using Profio.Infrastructure;
 using Profio.Infrastructure.Filters;
 using Profio.Infrastructure.Persistence;
 using Profio.Infrastructure.Swagger;
+using System.IO.Compression;
+using System.Net.Mime;
+using System.Text.Json.Serialization;
 
 namespace Profio.Api.Extensions;
 
@@ -33,16 +34,21 @@ public static class HostingExtensions
         options.Filters.Add<ExceptionFilter>();
       })
       .AddNewtonsoftJson(options =>
+      {
         options.SerializerSettings.ContractResolver = new DefaultContractResolver
         {
           NamingStrategy = new CamelCaseNamingStrategy
           {
             ProcessDictionaryKeys = true
-          }
-        })
+          },
+        };
+        options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+      })
       .AddJsonOptions(options =>
-        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter())
-      )
+      {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+        options.JsonSerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+      })
       .AddApplicationPart(AssemblyReference.Assembly);
 
     builder.Services.AddResponseCompression(options =>
