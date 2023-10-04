@@ -2,6 +2,8 @@
 title: CI/CD
 description: A CI/CD pipeline
 sidebar_position: 3
+last_update:
+  author: Nguyen Xuan Nhan
 ---
 
 # CI/CD

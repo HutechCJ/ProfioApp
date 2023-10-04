@@ -195,6 +195,7 @@ const config = {
           remarkPlugins: [simplePlantUML],
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
+          lastVersion: 'current',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),

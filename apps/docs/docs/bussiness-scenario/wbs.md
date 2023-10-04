@@ -2,6 +2,8 @@
 title: Work Breakdown Structure
 description: Project's task hierarchy for product delivery
 sidebar_position: 6
+last_update:
+  author: Nguyen Xuan Nhan
 ---
 
 # Work Breakdown Structure

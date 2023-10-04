@@ -2,6 +2,8 @@
 title: User Story
 description: A brief description of the user story
 sidebar_position: 5
+last_update:
+  author: Nguyen Xuan Nhan
 ---
 
 # User Story

@@ -2,6 +2,8 @@
 title: Event Storming
 description: A workshop for exploring business domains
 sidebar_position: 4
+last_update:
+  author: Nguyen Xuan Nhan
 ---
 
 # Event Storming

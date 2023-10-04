@@ -2,6 +2,8 @@
 title: Scenario
 description: A brief description of the business scenario
 sidebar_position: 2
+last_update:
+  author: Nguyen Xuan Nhan
 ---
 
 # Scenario

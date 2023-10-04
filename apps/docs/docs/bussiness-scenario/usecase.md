@@ -2,6 +2,8 @@
 title: Usecase View
 description: A system's interaction diagram
 sidebar_position: 3
+last_update:
+  author: Nguyen Xuan Nhan
 ---
 
 # Usecase View

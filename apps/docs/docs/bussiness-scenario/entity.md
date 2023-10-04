@@ -2,6 +2,8 @@
 title: ER Diagram
 description: A database entity relationship diagram
 sidebar_position: 2
+last_update:
+  author: Nguyen Xuan Nhan
 ---
 
 ```plantuml
