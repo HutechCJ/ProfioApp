@@ -1,0 +1,23 @@
+Copyright © 2023 Profio Logistics, Inc. All rights reserved.
+
+This application, including all text, graphics, software, and other content, is the property of Profio Logistics, Inc. and is protected by Vietnam and international copyright laws.
+
+The unauthorized reproduction or distribution of this copyrighted work, or any portion thereof, is strictly prohibited and may result in severe civil and criminal penalties. Any use of this application not expressly authorized by Profio Logistics, Inc. may also violate trademark, privacy, and other applicable laws.
+
+Profio Logistics, Inc. reserves all rights not expressly granted in this copyright notice, including the right to take legal action against any unauthorized use of this application.
+
+For inquiries about licensing, permissions, or other usage rights, please contact:
+
+Hutech University
+475A Dien Bien Phu Street,
+Ward 25, Binh Thanh District, Ho Chi Minh City, Vietnam
+028 5445 2222
+hutech@hutech.edu.vn
+
+Any use of this application implies acceptance of the terms and conditions outlined in this copyright notice.
+
+Profio Logistics, the Profio Logistics logo, and all related product and service names are trademarks, registered trademarks, or service marks of Profio Logistics, Inc. Any unauthorized use of these trademarks is strictly prohibited.
+
+Thank you for using Profio Logistic Application responsibly and respecting our intellectual property rights.
+
+2023 Profio Logistics, Inc. All rights reserved.
