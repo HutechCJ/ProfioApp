@@ -13,7 +13,7 @@ style={{ width: '100%', height: 'auto' }}
 
 ## Components
 
-### CMS (Content Management System):
+### CMS:
 
 <p align="justify">
 
@@ -21,7 +21,7 @@ This component serves as a central hub for managing information related to trans
 
 </p>
 
-## Customer Website (Blazor Server):
+### Customer Website:
 
 <p align="justify">
 
@@ -29,7 +29,7 @@ Customers can use this website to look up information about their orders, and th
 
 </p>
 
-## Load Balancer (YARP):
+### Load Balancer:
 
 <p align="justify">
 
@@ -37,7 +37,7 @@ YARP, or Yet Another Reverse Proxy, serves as a load balancer. It distributes in
 
 </p>
 
-## Driver App (Flutter):
+### Driver App:
 
 <p align="justify">
 
@@ -45,7 +45,7 @@ The Driver App is a mobile application developed using the Flutter framework. It
 
 </p>
 
-## MQTT Broker (EMQX):
+### MQTT Broker:
 
 <p align="justify">
 
@@ -53,7 +53,7 @@ EMQX serves as an MQTT broker, which is a messaging protocol often used for IoT 
 
 </p>
 
-## Identity Server (Keycloak):
+### Identity Server:
 
 <p align="justify">
 
@@ -61,7 +61,7 @@ Keycloak is an identity and access management system used for user authenticatio
 
 </p>
 
-## API Server (ASP.NET Core):
+### API Server:
 
 <p align="justify">
 
@@ -69,7 +69,7 @@ The API Server is the core of your system for handling data transmission. It rec
 
 </p>
 
-## Database (PostgreSQL, Redis):
+### Database:
 
 <p align="justify">
 
@@ -78,7 +78,7 @@ The API Server is the core of your system for handling data transmission. It rec
 
 </p>
 
-## OpenTelemetry Collector:
+### OpenTelemetry Collector:
 
 <p align="justify">
 
@@ -86,7 +86,7 @@ This component collects telemetry data from various parts of your system, includ
 
 </p>
 
-## Health Check (ASP.NET Core):
+### Health Check:
 
 <p align="justify">
 
@@ -94,7 +94,7 @@ The Health Check component continuously monitors the health of your servers and 
 
 </p>
 
-## Exporter:
+### Exporter:
 
 <p align="justify">
 

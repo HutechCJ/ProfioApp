@@ -1,8 +1,0 @@
-{
-  "label": "API Management",
-  "position": 4,
-  "link": {
-    "type": "generated-index",
-    "description": "A list of all the APIs available in the system",
-  }
-}
