@@ -255,14 +255,16 @@ class LocationManager {
     final newPosition = Position(
       latitude: newLatDegrees,
       longitude: newLonDegrees,
-      timestamp: null, // You can set a timestamp if needed
-      altitude: 0.0, // You can set altitude if needed
-      accuracy: 0.0, // You can set accuracy if needed
-      heading: 0.0, // You can set heading if needed
-      speed: 0.0, // You can set speed if needed
-      speedAccuracy: 0.0, // You can set speed accuracy if needed
-      floor: null, // You can set the floor if needed
-      isMocked: false, // You can set isMocked if needed
+      timestamp: null,
+      altitude: 0.0,
+      accuracy: 0.0,
+      heading: 0.0,
+      speed: 0.0,
+      speedAccuracy: 0.0,
+      floor: null,
+      isMocked: false,
+      // altitudeAccuracy: 0,
+      // headingAccuracy: 0,
     );
 
     return newPosition;
@@ -318,22 +320,25 @@ class LocationManager {
           final ratio =
               (distanceToTravel - currentDistance) / distanceToNextPoint;
           final intermediatePosition = Position(
-              latitude: routePoints[currentRouteIndex].latitude +
-                  (routePoints[currentRouteIndex + 1].latitude -
-                          routePoints[currentRouteIndex].latitude) *
-                      ratio,
-              longitude: routePoints[currentRouteIndex].longitude +
-                  (routePoints[currentRouteIndex + 1].longitude -
-                          routePoints[currentRouteIndex].longitude) *
-                      ratio,
-              accuracy: 0,
-              altitude: 0,
-              heading: 0,
-              speed: 0,
-              speedAccuracy: 0,
-              timestamp: null,
-              floor: 0,
-              isMocked: false);
+            latitude: routePoints[currentRouteIndex].latitude +
+                (routePoints[currentRouteIndex + 1].latitude -
+                        routePoints[currentRouteIndex].latitude) *
+                    ratio,
+            longitude: routePoints[currentRouteIndex].longitude +
+                (routePoints[currentRouteIndex + 1].longitude -
+                        routePoints[currentRouteIndex].longitude) *
+                    ratio,
+            accuracy: 0,
+            altitude: 0,
+            heading: 0,
+            speed: 0,
+            speedAccuracy: 0,
+            timestamp: null,
+            floor: 0,
+            isMocked: false,
+            // altitudeAccuracy: 0,
+            // headingAccuracy: 0
+          );
 
           // Publish the intermediate position (simulating vehicle movement)
           developer.log(

@@ -61,16 +61,19 @@ abstract class VehicleStoreBase with Store {
     if (hubs.length == 2) {
       startHub = hubs[0];
       locationStore.setCurrentLocation(Position(
-          latitude: startHub.location.latitude,
-          longitude: startHub.location.longitude,
-          accuracy: 0,
-          altitude: 0,
-          heading: 0,
-          speed: 0,
-          speedAccuracy: 0,
-          timestamp: null,
-          floor: 0,
-          isMocked: false));
+        latitude: startHub.location.latitude,
+        longitude: startHub.location.longitude,
+        accuracy: 0,
+        altitude: 0,
+        heading: 0,
+        speed: 0,
+        speedAccuracy: 0,
+        timestamp: null,
+        floor: 0,
+        isMocked: false,
+        // altitudeAccuracy: 0,
+        // headingAccuracy: 0
+      ));
       endHub = hubs[1];
     }
   }

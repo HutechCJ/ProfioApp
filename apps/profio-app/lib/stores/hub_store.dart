@@ -41,7 +41,7 @@ abstract class HubStoreBase with Store {
   @action
   Future<void> fetchHubs() async {
     var data = await _baseAPI
-        .fetchData('https://profio-sv1.azurewebsites.net/api/v1/hubs');
+        .fetchData('https://profioapp.azurewebsites.net/api/v1/hubs');
     var result = ResultModel.fromJson(data.object);
     var paging = Paging.fromJson(result.data);
     var hubs = paging.items.map((item) => Hub.fromJson(item)).toList();
