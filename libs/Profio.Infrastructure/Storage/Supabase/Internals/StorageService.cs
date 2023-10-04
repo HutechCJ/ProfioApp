@@ -1,9 +1,11 @@
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
+using NetCore.AutoRegisterDi;
 using Supabase;
 
 namespace Profio.Infrastructure.Storage.Supabase.Internals;
 
+[RegisterAsScoped]
 public sealed class StorageService : IStorageService
 {
   private readonly Client _client;

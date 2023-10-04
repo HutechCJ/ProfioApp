@@ -4,8 +4,10 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using NetCore.AutoRegisterDi;
 using Profio.Infrastructure.Auth;
 using Profio.Infrastructure.Bus;
+using Profio.Infrastructure.Bus.MQTT;
 using Profio.Infrastructure.Cache;
 using Profio.Infrastructure.Email;
 using Profio.Infrastructure.Filters;
@@ -45,6 +47,11 @@ public static class ConfigureServices
       .AddProblemDetails()
       .AddEndpointsApiExplorer()
       .AddOpenApi();
+
+    services.RegisterAssemblyPublicNonGenericClasses()
+      .Where(c => c.Name.EndsWith("Service"))  //optional
+      .IgnoreThisInterface<IMqttClientService>()
+      .AsPublicImplementedInterfaces();
 
     services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
     services.AddScoped<ITokenService, TokenService>();

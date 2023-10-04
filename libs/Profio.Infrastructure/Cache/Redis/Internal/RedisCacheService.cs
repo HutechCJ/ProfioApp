@@ -1,10 +1,12 @@
-using System.Text;
 using Microsoft.Extensions.Options;
+using NetCore.AutoRegisterDi;
 using Newtonsoft.Json;
 using StackExchange.Redis;
+using System.Text;
 
 namespace Profio.Infrastructure.Cache.Redis.Internal;
 
+[RegisterAsSingleton]
 public sealed class RedisCacheService : IRedisCacheService
 {
   private const string GetKeysLuaScript = """

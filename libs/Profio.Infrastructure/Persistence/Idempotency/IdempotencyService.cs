@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
+using NetCore.AutoRegisterDi;
 
 namespace Profio.Infrastructure.Persistence.Idempotency;
 
+[RegisterAsScoped]
 public sealed class IdempotencyService : IIdempotencyService
 {
   private readonly ApplicationDbContext _context;
