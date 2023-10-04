@@ -377,7 +377,7 @@ Next, navigate to the root directory of the project and install the dependencies
 npm install --force
 ```
 
-To learn more about the project, please visit the [**Wiki**](https://github.com/foxminchan/SaoVietPortal/wiki)
+To learn more about the project, please visit the [**Wiki**](https://github.com/HutechCJ/ProfioApp/wiki)
 
 ## 🚀 Running the application
 
