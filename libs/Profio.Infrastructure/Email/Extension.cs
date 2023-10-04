@@ -1,8 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Profio.Infrastructure.Email.FluentEmail;
-using Profio.Infrastructure.Email.FluentEmail.Internal;
 
 namespace Profio.Infrastructure.Email;
 
@@ -15,7 +13,6 @@ public static class Extension
     services.AddFluentEmail(cfg.From, "CJ Logistics")
       .AddSmtpSender(cfg.Host, cfg.Port, cfg.Username, cfg.Password)
       .AddLiquidRenderer();
-    services.AddScoped<IEmailService, EmailService>();
     return services;
   }
 }

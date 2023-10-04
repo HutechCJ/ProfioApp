@@ -17,7 +17,7 @@ public sealed class RedisCacheService : IRedisCacheService
 
   private const string ClearCacheLuaScript = """
                                                  local pattern = ARGV[1]
-                                                 for _,k in ipairs(redis.call('KEYS', @pattern)) do
+                                                 for _,k in ipairs(redis.call('KEYS', pattern)) do
                                                      redis.call('DEL', k)
                                                  end
                                              """;
