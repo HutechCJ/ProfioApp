@@ -35,8 +35,8 @@ class RandomLocationGenerator {
       speedAccuracy: 0.0,
       floor: null,
       isMocked: false,
-      altitudeAccuracy: 0,
-      headingAccuracy: 0,
+      // altitudeAccuracy: 0,
+      // headingAccuracy: 0,
     );
   }
 
@@ -61,8 +61,8 @@ class RandomLocationGenerator {
       speedAccuracy: 0.0,
       floor: null,
       isMocked: false,
-      altitudeAccuracy: 0,
-      headingAccuracy: 0,
+      // altitudeAccuracy: 0,
+      // headingAccuracy: 0,
     );
   }
 }

@@ -263,8 +263,8 @@ class LocationManager {
       speedAccuracy: 0.0,
       floor: null,
       isMocked: false,
-      altitudeAccuracy: 0,
-      headingAccuracy: 0,
+      // altitudeAccuracy: 0,
+      // headingAccuracy: 0,
     );
 
     return newPosition;
@@ -320,24 +320,25 @@ class LocationManager {
           final ratio =
               (distanceToTravel - currentDistance) / distanceToNextPoint;
           final intermediatePosition = Position(
-              latitude: routePoints[currentRouteIndex].latitude +
-                  (routePoints[currentRouteIndex + 1].latitude -
-                          routePoints[currentRouteIndex].latitude) *
-                      ratio,
-              longitude: routePoints[currentRouteIndex].longitude +
-                  (routePoints[currentRouteIndex + 1].longitude -
-                          routePoints[currentRouteIndex].longitude) *
-                      ratio,
-              accuracy: 0,
-              altitude: 0,
-              heading: 0,
-              speed: 0,
-              speedAccuracy: 0,
-              timestamp: null,
-              floor: 0,
-              isMocked: false,
-              altitudeAccuracy: 0,
-              headingAccuracy: 0);
+            latitude: routePoints[currentRouteIndex].latitude +
+                (routePoints[currentRouteIndex + 1].latitude -
+                        routePoints[currentRouteIndex].latitude) *
+                    ratio,
+            longitude: routePoints[currentRouteIndex].longitude +
+                (routePoints[currentRouteIndex + 1].longitude -
+                        routePoints[currentRouteIndex].longitude) *
+                    ratio,
+            accuracy: 0,
+            altitude: 0,
+            heading: 0,
+            speed: 0,
+            speedAccuracy: 0,
+            timestamp: null,
+            floor: 0,
+            isMocked: false,
+            // altitudeAccuracy: 0,
+            // headingAccuracy: 0
+          );
 
           // Publish the intermediate position (simulating vehicle movement)
           developer.log(
