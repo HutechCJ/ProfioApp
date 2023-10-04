@@ -9,8 +9,9 @@ const simplePlantUML = require('@akebifiky/remark-simple-plantuml');
 const config = {
   title: 'Profio Application',
   tagline: '🚛 A Modern Logistics Management System ✈️',
-  url: 'https://HutechCJ.github.io',
-  baseUrl: '/ProfioApp/',
+  url: 'https://profio-docs.onrender.com',
+  baseUrl: '/',
+  projectName: 'Profio Docs',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   trailingSlash: false,
