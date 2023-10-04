@@ -12,7 +12,7 @@ public sealed class Repository : IRepository
     => _httpClient = httpClientFactory.CreateClient("Api");
 
   public async Task<TResult?> GetAsync<TResult>(string route)
-    => await DeserializeContentAsync<TResult>(await _httpClient.GetAsync(route));
+    => await DeserializeContentAsync<TResult>(await _httpClient.GetAsync(route, HttpCompletionOption.ResponseHeadersRead));
 
   public async Task<TResult?> PostAsync<TResult>(string route, object? body)
   {

@@ -23,7 +23,7 @@ public sealed class UploadImageCommandHandler : IRequestHandler<UploadImageComma
   public async Task<string> Handle(UploadImageCommand request, CancellationToken cancellationToken)
   {
     var failures = new List<ValidationFailure>();
-    if (!_userManager.Users.Any(u => ReferenceEquals(u.Id, request.UserId)))
+    if (_userManager.Users.Any(u => !ReferenceEquals(u.Id, request.UserId)))
       failures.Add(new("UserName", "User is not exists"));
 
     if (failures.Any())

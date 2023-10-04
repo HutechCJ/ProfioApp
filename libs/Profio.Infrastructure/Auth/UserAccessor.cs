@@ -18,7 +18,7 @@ public sealed class UserAccessor : IUserAccessor
     .ToString()
     .Replace("Bearer ", string.Empty) ?? string.Empty;
 
-  public bool IsAuthenticated => _httpContextAccessor.HttpContext?.User.Identity?.IsAuthenticated ?? false;
+  public bool IsAuthenticated => _httpContextAccessor.HttpContext?.User.Identity?.IsAuthenticated == true;
 
   public IList<string> Roles => _httpContextAccessor.HttpContext!.User.Claims
     .Where(x => x.Type == ClaimTypes.Role)
