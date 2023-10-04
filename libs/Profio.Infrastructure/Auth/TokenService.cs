@@ -1,13 +1,15 @@
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
+using NetCore.AutoRegisterDi;
 using Profio.Domain.Identity;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace Profio.Infrastructure.Auth;
 
+[RegisterAsScoped]
 public sealed class TokenService : ITokenService
 {
   private readonly SigningCredentials _signingCredentials;

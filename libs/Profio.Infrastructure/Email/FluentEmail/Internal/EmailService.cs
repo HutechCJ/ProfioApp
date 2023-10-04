@@ -1,9 +1,11 @@
 using FluentEmail.Core;
 using Microsoft.Extensions.Logging;
+using NetCore.AutoRegisterDi;
 using Polly;
 
 namespace Profio.Infrastructure.Email.FluentEmail.Internal;
 
+[RegisterAsScoped]
 public sealed class EmailService : IEmailService
 {
   private readonly IFluentEmailFactory _fluentEmailFactory;

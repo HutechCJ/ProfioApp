@@ -31,9 +31,9 @@ public sealed class LocationHub : Hub<ILocationClient>
       var vehicleId = await GetVehicleIdForOrderAsync(orderId);
       if (!string.IsNullOrEmpty(vehicleId))
       {
-        var latestLocation = _redisCacheService.GetOrSet<VehicleLocation>(
-          $"latest_location_{vehicleId}",
-          () => null!);
+        var latestLocation = _redisCacheService.Get<VehicleLocation>(
+          $"latest_location_{vehicleId}");
+        if (latestLocation is null) return;
         await Clients.Group(orderId!).SendLocation(latestLocation);
       }
     }
@@ -58,6 +58,6 @@ public sealed class LocationHub : Hub<ILocationClient>
     => await _context.Deliveries
       .Where(x => x.OrderId == orderId.ToString())
       .OrderByDescending(x => x.DeliveryDate)
-      .Select(x => x.Id)
+      .Select(x => x.VehicleId)
       .FirstOrDefaultAsync();
 }
