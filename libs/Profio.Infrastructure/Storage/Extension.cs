@@ -1,8 +1,6 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Profio.Infrastructure.Storage.Supabase;
-using Profio.Infrastructure.Storage.Supabase.Internals;
 using Supabase;
 
 namespace Profio.Infrastructure.Storage;
@@ -22,6 +20,5 @@ public static class Extension
         AutoConnectRealtime = true
       }
     ));
-    services.AddScoped<IStorageService, StorageService>();
   }
 }

@@ -1,7 +1,6 @@
 using FluentValidation;
 using Microsoft.Extensions.DependencyInjection;
 using Profio.Infrastructure.Abstractions.CQRS;
-using Profio.Infrastructure.Abstractions.Hateoas;
 
 namespace Profio.Application;
 
@@ -15,6 +14,5 @@ public static class ConfigureServices
       ));
     services.AddAutoMapper(AssemblyReference.AppDomainAssembly);
     services.AddValidatorsFromAssemblies(AssemblyReference.AppDomainAssembly);
-    services.AddHateoas();
   }
 }

@@ -40,7 +40,7 @@ public static class HostingExtensions
           NamingStrategy = new CamelCaseNamingStrategy
           {
             ProcessDictionaryKeys = true
-          },
+          }
         };
         options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
       })

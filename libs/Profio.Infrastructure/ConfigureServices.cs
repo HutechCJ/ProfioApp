@@ -8,6 +8,7 @@ using NetCore.AutoRegisterDi;
 using Profio.Infrastructure.Auth;
 using Profio.Infrastructure.Bus;
 using Profio.Infrastructure.Bus.MQTT;
+using Profio.Infrastructure.Bus.MQTT.Internal;
 using Profio.Infrastructure.Cache;
 using Profio.Infrastructure.Email;
 using Profio.Infrastructure.Filters;
@@ -21,7 +22,6 @@ using Profio.Infrastructure.Message;
 using Profio.Infrastructure.Middleware;
 using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Persistence;
-using Profio.Infrastructure.Persistence.Idempotency;
 using Profio.Infrastructure.Searching;
 using Profio.Infrastructure.Storage;
 using Profio.Infrastructure.Swagger;
@@ -44,20 +44,18 @@ public static class ConfigureServices
     builder.AddBackgroundJob();
 
     services
+      .AddHttpContextAccessor()
       .AddProblemDetails()
       .AddEndpointsApiExplorer()
       .AddOpenApi();
 
     services.RegisterAssemblyPublicNonGenericClasses()
-      .Where(c => c.Name.EndsWith("Service"))  //optional
+      .Where(c => c.Name.EndsWith("Service") && c.Name != nameof(MqttClientService))
       .IgnoreThisInterface<IMqttClientService>()
       .AsPublicImplementedInterfaces();
 
-    services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
-    services.AddScoped<ITokenService, TokenService>();
-    services.AddScoped<IIdempotencyService, IdempotencyService>();
     services.AddHttpClient<ITwilioRestClient, TwilioClient>();
-
+    services.AddSingleton<IDeveloperPageExceptionFilter, DeveloperPageExceptionFilter>();
     services.AddScoped<ClientIpCheckActionFilter>(container => new(
       container.GetRequiredService<ILogger<ClientIpCheckActionFilter>>(), builder.Configuration["AdminSafeList"]));
 
@@ -69,7 +67,6 @@ public static class ConfigureServices
 
     services.AddMqttBus(builder.Configuration);
     services.AddStorage(builder.Configuration);
-
     services.AddApplicationIdentity(builder, builder.Configuration);
 
     services.AddApiKey();

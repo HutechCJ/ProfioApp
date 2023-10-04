@@ -1,4 +1,6 @@
-namespace Profio.Infrastructure.Abstractions.Hateoas.Hypermedia;
+using Profio.Infrastructure.Abstractions.Hypermedia;
+
+namespace Profio.Infrastructure.Abstractions.Hypermedia;
 
 public interface ILinkService
 {

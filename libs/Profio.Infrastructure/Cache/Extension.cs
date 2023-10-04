@@ -30,8 +30,6 @@ public static class Extension
       options.InstanceName = config[redisCacheOption.Prefix];
     });
 
-    services.AddSingleton<IRedisCacheService, RedisCacheService>();
-
     return services;
   }
 

@@ -1,7 +1,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
+using Profio.Infrastructure.Abstractions.Hypermedia;
 
-namespace Profio.Infrastructure.Abstractions.Hateoas.Hypermedia;
+namespace Profio.Infrastructure.Abstractions.Hypermedia;
 
 public sealed class LinkService : ILinkService
 {
