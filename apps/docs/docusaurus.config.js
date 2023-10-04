@@ -10,7 +10,7 @@ const config = {
   title: 'Profio Application',
   tagline: '🚛 A Modern Logistics Management System ✈️',
   url: 'https://HutechCJ.github.io',
-  baseUrl: '/ProfioApp',
+  baseUrl: '/ProfioApp/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   trailingSlash: false,
@@ -195,7 +195,6 @@ const config = {
           remarkPlugins: [simplePlantUML],
           showLastUpdateAuthor: true,
           showLastUpdateTime: true,
-          lastVersion: 'current',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
