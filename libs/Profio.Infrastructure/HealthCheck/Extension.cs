@@ -20,7 +20,8 @@ public static class Extension
                 ?? throw new InvalidOperationException(), tags: new[] { "redis" })
       .AddNpgSql(builder.Configuration.GetConnectionString("Postgres")
                  ?? throw new InvalidOperationException(), tags: new[] { "database" })
-      .AddRabbitMQ("amqps://hfzbnoni:03X2irdDUlSBV7D4SoQ4NFNZZ2YglnEh@octopus.rmq3.cloudamqp.com/hfzbnoni",
+      .AddRabbitMQ(builder.Configuration.GetSection("MessageBroker")["FullUrl"]
+                   ?? throw new InvalidOperationException(),
         name: "RabbitMq",
         tags: new[] { "message broker" })
       .AddSignalRHub(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == Environments.Development
