@@ -1,8 +1,0 @@
-blank_issues_enabled: false
-contact_links:
-  - name: HutechCJ Community Support
-    url: https://github.com/orgs/HutechCJ/discussions
-    about: Please ask and answer questions here.
-  - name: HutechCJ Security Bug Bounty
-    url: https://github.com/HutechCJ/ProfioApp/security/advisories
-    about: Please report security vulnerabilities here.
