@@ -13,90 +13,93 @@ style={{ width: '100%', height: 'auto' }}
 
 ## Components
 
-### Load Balancer
+### CMS (Content Management System):
 
 <p align="justify">
 
-- The Load Balancer serves as the entry point for incoming client requests, distributing them to the Profio API servers.
-- Ensures high availability and load distribution for improved system reliability and scalability.
+This component serves as a central hub for managing information related to transportation processes. It likely includes features such as order management, vehicle tracking, and driver information management. The CMS also provides a dashboard for managers to monitor and oversee the entire transportation process. This dashboard may display real-time data, analytics, and reports to help managers make informed decisions. Next.js is a web framework used to develop the CMS. It's a React-based framework that allows for the creation of dynamic web pages. It's also a popular choice for building server-side rendered applications.
 
 </p>
 
-### OpenTelemetry Collector
+## Customer Website (Blazor Server):
 
 <p align="justify">
 
-- The OpenTelemetry Collector is crucial for observability within the architecture.
-- Collects, processes, and transmits observability data, including traces, metrics, and logs.
-- This data is essential for monitoring system health, diagnosing performance issues, and optimizing system behavior.
+Customers can use this website to look up information about their orders, and there's also a feature to view the history of their previous orders. This website is built using Blazor Server, which is a web framework for building interactive web UIs using C# instead of JavaScript. It's a popular choice for building server-side rendered applications.
 
 </p>
 
-### MQTT Broker
-
-- The MQTT Broker facilitates real-time communication between the Profio API servers and the Driver App.
-- Utilizes the MQTT protocol for low-latency and efficient message exchange, enabling real-time updates.
-
-### Health Check
+## Load Balancer (YARP):
 
 <p align="justify">
 
-- The Health Check component continuously monitors the Profio API servers' health.
-- Conducts routine health assessments, ensuring server responsiveness and functionality.
-- Triggers automated responses in case of detected issues to maintain system reliability.
+YARP, or Yet Another Reverse Proxy, serves as a load balancer. It distributes incoming network traffic across multiple servers to ensure efficient utilization and prevent overloading. The Load Balancer also provides a dashboard for managers to monitor the load on the servers. This allows them to optimize resource allocation.
 
 </p>
 
-### Profio API Servers
+## Driver App (Flutter):
 
 <p align="justify">
 
-- The Profio API is divided into two server instances, "API Server 1" and "API Server 2.".
-- Core of the system, developed using ASP.NET Core, a versatile framework for web applications and APIs.
-- These servers are responsible for processing incoming client requests, executing business logic, and interacting with data sources.
+The Driver App is a mobile application developed using the Flutter framework. It's intended for drivers to monitor the transportation process. One of its primary functions is to send the real-time location of vehicles to the central server, likely using GPS or other location services.
 
 </p>
 
-### Database
+## MQTT Broker (EMQX):
 
 <p align="justify">
 
-- PostgreSQL serves as the database management system for storing and managing the system's data. PostgreSQL is a robust choice for relational database needs, offering data consistency and durability.
+EMQX serves as an MQTT broker, which is a messaging protocol often used for IoT and real-time data communication. In this context, it receives vehicle location data from the Driver App and forwards it to the server for further processing. We have integrated EMQX with the Redis database to store the location data for later retrieval.
 
 </p>
 
-### Cache
-
-- Redis acts as an in-memory cache, optimizing data retrieval and reducing the database load.
-- Improves response times and overall system performance.
-
-### Driver App
+## Identity Server (Keycloak):
 
 <p align="justify">
 
-- The mobile interface, built using Flutter, offers cross-platform capabilities.
-- Efficiently developed and maintained from a single codebase, ensuring consistent user experiences on iOS and Android platforms.
+Keycloak is an identity and access management system used for user authentication and authorization. It manages user accounts for your application and provides Single Sign-On (SSO) capabilities, making it convenient for users to access various parts of the system without repeated logins.
 
 </p>
 
-### External Services Cluster
+## API Server (ASP.NET Core):
 
 <p align="justify">
 
-- Enhances system observability and monitoring:
-  - **Prometheus**: Collects and stores essential metrics and statistics for real-time monitoring and automated alerting.
-  - **Grafana**: Customizable dashboarding platform for visualizing system metrics and data analysis.
-  - **Jaeger**: Enables detailed analysis of request flows, identifying latency bottlenecks and performance optimizations.
-  - **Seq**: Centralized log management and analysis for troubleshooting and debugging.
+The API Server is the core of your system for handling data transmission. It receives vehicle location data from the MQTT Broker and interacts with the database. It also serves as the interface for clients (such as the Next.js customer website) to access information about orders, vehicles, drivers, and other transportation-related data.
 
 </p>
 
-### Client Framework
+## Database (PostgreSQL, Redis):
 
 <p align="justify">
 
-- For the web interface, Next.js is chosen as the client-side framework.
-- Next.js excels in building server-rendered React applications, offering improved performance, SEO, and user experience.
+- PostgreSQL is used as the primary database to store structured data related to orders, vehicles, drivers, and transportation processes. It's also used for storing user accounts and other information related to the Identity Server. Database Replication is used to improve performance and reliability by distributing data across multiple servers.
+- Redis, on the other hand, is utilized for caching data, which can improve system performance by reducing the need to retrieve data from the database repeatedly. With High Availability, Redis can also be used as a backup database in case of a database failure.
+
+</p>
+
+## OpenTelemetry Collector:
+
+<p align="justify">
+
+This component collects telemetry data from various parts of your system, including applications and services. It's responsible for forwarding this telemetry data to processing and monitoring tools for analysis, diagnostics, and performance optimization.
+
+</p>
+
+## Health Check (ASP.NET Core):
+
+<p align="justify">
+
+The Health Check component continuously monitors the health of your servers and services. It reports the health status to the Load Balancer, allowing it to make informed decisions about routing traffic to healthy servers.
+
+</p>
+
+## Exporter:
+
+<p align="justify">
+
+These are various monitoring and analysis tools used to export and visualize telemetry data collected by the OpenTelemetry Collector.
+Grafana, Prometheus, Jaeger, Seq, and Zipkin are commonly used tools in the DevOps and observability space.
 
 </p>
 
@@ -115,7 +118,7 @@ style={{ width: '100%', height: 'auto' }}
 Clean Architecture is a software design principle that emphasizes organizing code in a way that separates concerns, making it easier to maintain and test. It divides an application into distinct layers: the Core (containing business logic and entities), Use Cases (defining application-specific rules), Interface Adapters (connecting to the outside world), and Frameworks/Drivers (external dependencies). This separation allows for flexibility, testability, and maintainability, reducing the risk of unintended side effects when making changes. Clean Architecture promotes robust and adaptable software systems.
 </p>
 
-### CQRS and Mediator Pattern
+### Design Patterns
 
 <img
 loading="lazy"
@@ -127,6 +130,14 @@ style={{ width: '100%', height: 'auto' }}
 <p align="justify">
 CQRS (Command Query Responsibility Segregation) is a software design pattern that separates the read and write operations of a system into two distinct models. The Command model handles write operations, while the Query model handles read operations. This separation allows for the optimization of each model for its specific purpose, improving performance and scalability. The Mediator Pattern is used to implement CQRS, decoupling the Command and Query models and enabling communication between them. The Mediator Pattern also allows for the addition of new handlers without modifying existing handlers, improving the system's flexibility and maintainability.
 </p>
+
+We have also implemented the following design patterns:
+
+- Repository Pattern
+- Unit of Work
+- Specification Pattern
+- Options Pattern
+- Inversion of Control / Dependency Injection
 
 ## Communication Protocols
 
