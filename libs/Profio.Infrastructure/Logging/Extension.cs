@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
 using Serilog;
 using Serilog.Exceptions;
 using Serilog.Settings.Configuration;
@@ -30,7 +31,7 @@ public static class Extension
         config.WriteTo.Async(writeTo =>
           writeTo.Console(outputTemplate: serilogOptions.LogTemplate, theme: AnsiConsoleTheme.Literate));
 
-      if (serilogOptions.SeqUrl is { })
+      if (serilogOptions.SeqUrl is { } && Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == Environments.Development)
         config.WriteTo.Async(writeTo => writeTo.Seq(serilogOptions.SeqUrl));
     });
   }

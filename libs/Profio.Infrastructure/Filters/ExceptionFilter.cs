@@ -1,3 +1,4 @@
+using System.Net.Mime;
 using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -17,7 +18,7 @@ public sealed class ExceptionFilter : ExceptionFilterAttribute
 
   private static void HandleException(ExceptionContext context)
   {
-    context.HttpContext.Response.ContentType = "application/json";
+    context.HttpContext.Response.ContentType = MediaTypeNames.Application.Json;
 
     switch (context.Exception)
     {

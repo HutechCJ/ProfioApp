@@ -19,9 +19,10 @@ try
   builder.Services.AddRazorPages();
   builder.Services.AddServerSideBlazor();
   builder.Services.AddSweetAlert2();
-  builder.AddOpenTelemetry();
   builder.Services.AddMemoryCache();
   builder.Services.AddRadzenComponents();
+
+  builder.AddOpenTelemetry();
   builder.AddSerilog("Profio.Website");
   builder.AddHttpRestClient();
 

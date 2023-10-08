@@ -1,3 +1,5 @@
+using System.Net.Mime;
+
 namespace Profio.Website.Middleware;
 
 public sealed class RobotsTxtMiddleware
@@ -13,7 +15,7 @@ public sealed class RobotsTxtMiddleware
     {
       const string robotsTxtContent = "User-agent: *\nDisallow: /";
 
-      context.Response.ContentType = "text/plain";
+      context.Response.ContentType = MediaTypeNames.Text.Plain;
       await context.Response.WriteAsync(robotsTxtContent);
     }
     else
