@@ -108,6 +108,7 @@ public static class ConfigureServices
 
     app.MapHealthCheck();
     app.Map("/", () => Results.Redirect("/swagger"));
+    app.Map("/profiler", () => Results.Redirect("/profiler/results"));
     app.Map("/error",
         () => Results.Problem("An unexpected error occurred.", statusCode: StatusCodes.Status500InternalServerError))
       .ExcludeFromDescription();
