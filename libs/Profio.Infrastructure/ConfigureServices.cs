@@ -22,6 +22,7 @@ using Profio.Infrastructure.Message;
 using Profio.Infrastructure.Middleware;
 using Profio.Infrastructure.OpenTelemetry;
 using Profio.Infrastructure.Persistence;
+using Profio.Infrastructure.Profiler;
 using Profio.Infrastructure.Searching;
 using Profio.Infrastructure.Storage;
 using Profio.Infrastructure.Swagger;
@@ -42,6 +43,7 @@ public static class ConfigureServices
     builder.AddLuceneSearch();
     builder.AddHttpRestClient();
     builder.AddBackgroundJob();
+    builder.AddProfiler();
 
     services
       .AddHttpContextAccessor()
@@ -101,7 +103,8 @@ public static class ConfigureServices
       .UseResponseCaching()
       .UseResponseCompression()
       .UseStatusCodePages()
-      .UseStaticFiles();
+      .UseStaticFiles()
+      .UseMiniProfiler();
 
     app.MapHealthCheck();
     app.Map("/", () => Results.Redirect("/swagger"));
