@@ -7,6 +7,18 @@
       "commands": [
         "swagger"
       ]
+    },
+    "minver-cli": {
+      "version": "4.3.0",
+      "commands": [
+        "minver"
+      ]
+    },
+    "microsoft.tye": {
+      "version": "0.11.0-alpha.22111.1",
+      "commands": [
+        "tye"
+      ]
     }
   }
 }
