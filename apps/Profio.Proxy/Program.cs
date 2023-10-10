@@ -22,6 +22,7 @@ try
 
   app.MapReverseProxy();
   app.MapHealthChecks("/health");
+  app.MapPrometheusScrapingEndpoint();
   app.Run();
 }
 catch (Exception ex)
@@ -29,6 +30,10 @@ catch (Exception ex)
         && ex.GetType().Name is not "HostAbortedException")
 {
   Log.Fatal(ex, "Unhandled exception");
+}
+catch (AggregateException ex)
+{
+  throw ex.Flatten();
 }
 finally
 {

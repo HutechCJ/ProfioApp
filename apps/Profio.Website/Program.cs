@@ -44,6 +44,7 @@ try
   app.UseRouting();
   app.MapBlazorHub();
   app.MapFallbackToPage("/_Host");
+  app.MapPrometheusScrapingEndpoint();
 
   app.Run();
 }
@@ -52,6 +53,10 @@ catch (Exception ex)
         && ex.GetType().Name is not "HostAbortedException")
 {
   Log.Fatal(ex, "Unhandled exception");
+}
+catch (AggregateException ex)
+{
+  throw ex.Flatten();
 }
 finally
 {
