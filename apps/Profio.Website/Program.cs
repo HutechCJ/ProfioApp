@@ -23,7 +23,7 @@ try
   builder.Services.AddRadzenComponents();
 
   builder.AddOpenTelemetry();
-  builder.AddSerilog("Profio.Website");
+  builder.AddSerilog(builder.Environment.ApplicationName);
   builder.AddHttpRestClient();
 
   builder.Services.AddSingleton<IRepository, Repository>();

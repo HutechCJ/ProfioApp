@@ -33,7 +33,7 @@ public class BaseEntityController<TEntity, TModel, TGetByIdQuery> : BaseControll
     var routeTemplate = ControllerContext.ActionDescriptor.AttributeRouteInfo!.Template;
     var apiVersion = HttpContext.GetRequestedApiVersion()!.ToString();
 
-    return Created($"{domain}/{routeTemplate!.Replace("{version:apiVersion}", apiVersion)}/{id}",
+    return Created($"{domain}/{routeTemplate?.Replace("{version:apiVersion}", apiVersion)}/{id}",
       ResultModel<TModel>.Create(model));
   }
 

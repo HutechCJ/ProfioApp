@@ -36,7 +36,7 @@ public static class ConfigureServices
   public static void AddInfrastructureServices(this IServiceCollection services, WebApplicationBuilder builder)
   {
     builder.AddApiVersioning();
-    builder.AddSerilog("Profio Api");
+    builder.AddSerilog(builder.Environment.ApplicationName);
     builder.AddOpenTelemetry();
     builder.AddHealthCheck();
     builder.AddSocketHub();

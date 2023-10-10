@@ -9,7 +9,7 @@ try
 {
   var builder = WebApplication.CreateBuilder(args);
 
-  builder.AddSerilog("Profio.Proxy");
+  builder.AddSerilog(builder.Environment.ApplicationName);
 
   builder.Services.AddHealthChecks();
 
