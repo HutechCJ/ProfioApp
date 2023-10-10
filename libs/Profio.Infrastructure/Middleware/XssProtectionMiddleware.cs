@@ -19,7 +19,7 @@ public sealed class XssProtectionMiddleware
     var body = await streamReader.ReadToEndAsync();
     var sanitizedBody = new HtmlSanitizer().Sanitize(body);
 
-    if(string.Compare(body, sanitizedBody, StringComparison.OrdinalIgnoreCase) != 0)
+    if (string.Compare(body, sanitizedBody, StringComparison.OrdinalIgnoreCase) != 0)
     {
       context.Request.Body = new MemoryStream(Encoding.UTF8.GetBytes(sanitizedBody));
       context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
