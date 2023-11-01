@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="EntityFrameworkCore.Data.Repository" Version="7.0.10" />
+    <PackageReference Include="EntityFrameworkCore.Data.Repository" Version="7.0.12" />
     <PackageReference Include="EntityFrameworkCore.Data.Repository.Abstractions" Version="7.0.10" />
     <PackageReference Include="EntityFrameworkCore.Data.UnitOfWork" Version="7.0.10" />
     <PackageReference Include="EntityFrameworkCore.Data.UnitOfWork.Abstractions" Version="7.0.10" />
