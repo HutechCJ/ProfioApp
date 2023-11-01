@@ -84,7 +84,7 @@
     <PackageReference Include="FirebaseAdmin" Version="2.4.0" />
     <PackageReference Include="HtmlSanitizer" Version="8.0.723" />
     <PackageReference Include="MediatR" Version="12.1.1" />
-    <PackageReference Include="Polly" Version="8.0.0" />
+    <PackageReference Include="Polly" Version="8.1.0" />
     <PackageReference Include="Spectre.Console" Version="0.47.0" />
     <PackageReference Include="supabase-csharp" Version="0.13.4" />
     <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="7.0.0" />
