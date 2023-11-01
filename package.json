@@ -71,7 +71,7 @@
     "axios": "^1.4.0",
     "babel-jest": "^29.4.1",
     "eslint": "~8.46.0",
-    "eslint-config-next": "13.4.1",
+    "eslint-config-next": "14.0.1",
     "eslint-config-prettier": "9.0.0",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-jsx-a11y": "6.7.1",
