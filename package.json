@@ -22,7 +22,7 @@
     "@mui/x-data-grid": "^6.12.1",
     "@nx-plus/docusaurus": "^15.0.0-rc.0",
     "@nx-tools/container-metadata": "^5.0.3",
-    "@nx-tools/nx-container": "^5.0.3",
+    "@nx-tools/nx-container": "^5.1.0",
     "@nx/next": "16.7.4",
     "@nxrocks/nx-flutter": "^7.0.3",
     "@react-google-maps/api": "^2.19.2",
